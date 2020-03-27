@@ -3777,11 +3777,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\DEV\\identityserver4\\quickstart2\\src\\IdentityServer\\IdentityServer.csproj",
+      "projectUniqueName": "C:\\DEV\\Projet-Gerber\\quickstart2\\src\\IdentityServer\\IdentityServer.csproj",
       "projectName": "IdentityServer",
-      "projectPath": "C:\\DEV\\identityserver4\\quickstart2\\src\\IdentityServer\\IdentityServer.csproj",
+      "projectPath": "C:\\DEV\\Projet-Gerber\\quickstart2\\src\\IdentityServer\\IdentityServer.csproj",
       "packagesPath": "C:\\Users\\migue\\.nuget\\packages\\",
-      "outputPath": "C:\\DEV\\identityserver4\\quickstart2\\src\\IdentityServer\\obj\\",
+      "outputPath": "C:\\DEV\\Projet-Gerber\\quickstart2\\src\\IdentityServer\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\migue\\AppData\\Roaming\\NuGet\\NuGet.Config",
