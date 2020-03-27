@@ -120,11 +120,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\DEV\\identityserver4\\quickstart2\\src\\Client\\Client.csproj",
+      "projectUniqueName": "C:\\DEV\\Projet-Gerber\\quickstart2\\src\\Client\\Client.csproj",
       "projectName": "Client",
-      "projectPath": "C:\\DEV\\identityserver4\\quickstart2\\src\\Client\\Client.csproj",
+      "projectPath": "C:\\DEV\\Projet-Gerber\\quickstart2\\src\\Client\\Client.csproj",
       "packagesPath": "C:\\Users\\migue\\.nuget\\packages\\",
-      "outputPath": "C:\\DEV\\identityserver4\\quickstart2\\src\\Client\\obj\\",
+      "outputPath": "C:\\DEV\\Projet-Gerber\\quickstart2\\src\\Client\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\migue\\AppData\\Roaming\\NuGet\\NuGet.Config",

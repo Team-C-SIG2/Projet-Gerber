@@ -3584,11 +3584,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\DEV\\identityserver4\\quickstart2\\src\\Api\\Api.csproj",
+      "projectUniqueName": "C:\\DEV\\Projet-Gerber\\quickstart2\\src\\Api\\Api.csproj",
       "projectName": "Api",
-      "projectPath": "C:\\DEV\\identityserver4\\quickstart2\\src\\Api\\Api.csproj",
+      "projectPath": "C:\\DEV\\Projet-Gerber\\quickstart2\\src\\Api\\Api.csproj",
       "packagesPath": "C:\\Users\\migue\\.nuget\\packages\\",
-      "outputPath": "C:\\DEV\\identityserver4\\quickstart2\\src\\Api\\obj\\",
+      "outputPath": "C:\\DEV\\Projet-Gerber\\quickstart2\\src\\Api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\migue\\AppData\\Roaming\\NuGet\\NuGet.Config",
