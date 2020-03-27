@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "la6n43FKW1hafmZD3p5OzzeAUqiZw54SOyPVdwYydOmxqcRVgg/sp7P5mJFUaRAt+ZbEAHxNuEVrDdofEzZZww==",
+  "success": true,
+  "projectFilePath": "C:\\DEV\\Projet-Gerber\\quickstart2\\src\\Client\\Client.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\migue\\.nuget\\packages\\identitymodel\\4.1.1\\identitymodel.4.1.1.nupkg.sha512",
+    "C:\\Users\\migue\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512",
+    "C:\\Users\\migue\\.nuget\\packages\\system.text.encodings.web\\4.6.0\\system.text.encodings.web.4.6.0.nupkg.sha512"
+  ],
+  "logs": []
+}
