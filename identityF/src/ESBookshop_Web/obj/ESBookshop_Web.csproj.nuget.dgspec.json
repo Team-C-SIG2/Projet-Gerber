@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\DEV\\projet\\Projet-Gerber\\identityF\\src\\ESBookshop_Web\\ESBookshop_Web.csproj": {}
+    "D:\\Cours ETML-ES\\Developpement C# et projet informatique\\Projet-Gerber\\identityF\\src\\ESBookshop_Web\\ESBookshop_Web.csproj": {}
   },
   "projects": {
-    "C:\\DEV\\projet\\Projet-Gerber\\identityF\\src\\ESBookshop_Web\\ESBookshop_Web.csproj": {
+    "D:\\Cours ETML-ES\\Developpement C# et projet informatique\\Projet-Gerber\\identityF\\src\\ESBookshop_Web\\ESBookshop_Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\DEV\\projet\\Projet-Gerber\\identityF\\src\\ESBookshop_Web\\ESBookshop_Web.csproj",
+        "projectUniqueName": "D:\\Cours ETML-ES\\Developpement C# et projet informatique\\Projet-Gerber\\identityF\\src\\ESBookshop_Web\\ESBookshop_Web.csproj",
         "projectName": "ESBookshop_Web",
-        "projectPath": "C:\\DEV\\projet\\Projet-Gerber\\identityF\\src\\ESBookshop_Web\\ESBookshop_Web.csproj",
-        "packagesPath": "C:\\Users\\migue\\.nuget\\packages\\",
-        "outputPath": "C:\\DEV\\projet\\Projet-Gerber\\identityF\\src\\ESBookshop_Web\\obj\\",
+        "projectPath": "D:\\Cours ETML-ES\\Developpement C# et projet informatique\\Projet-Gerber\\identityF\\src\\ESBookshop_Web\\ESBookshop_Web.csproj",
+        "packagesPath": "C:\\Users\\marcv\\.nuget\\packages\\",
+        "outputPath": "D:\\Cours ETML-ES\\Developpement C# et projet informatique\\Projet-Gerber\\identityF\\src\\ESBookshop_Web\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\migue\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\marcv\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -89,7 +92,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
