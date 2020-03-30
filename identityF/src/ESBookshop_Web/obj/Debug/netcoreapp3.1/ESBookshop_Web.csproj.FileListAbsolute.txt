@@ -143,3 +143,13 @@ C:\DEV\projet\Projet-Gerber\identityF\src\ESBookshop_Web\bin\Debug\netcoreapp3.1
 C:\DEV\projet\Projet-Gerber\identityF\src\ESBookshop_Web\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\DEV\projet\Projet-Gerber\identityF\src\ESBookshop_Web\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\DEV\projet\Projet-Gerber\identityF\src\ESBookshop_Web\obj\Debug\netcoreapp3.1\EFCorePluralizer.cs
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\identityF\src\ESBookshop_Web\obj\Debug\netcoreapp3.1\ESBookshop_Web.csprojAssemblyReference.cache
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\identityF\src\ESBookshop_Web\obj\Debug\netcoreapp3.1\staticwebassets\ESBookshop_Web.StaticWebAssets.Manifest.cache
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\identityF\src\ESBookshop_Web\obj\Debug\netcoreapp3.1\staticwebassets\ESBookshop_Web.StaticWebAssets.xml
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\identityF\src\ESBookshop_Web\obj\Debug\netcoreapp3.1\ESBookshop_Web.MvcApplicationPartsAssemblyInfo.cs
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\identityF\src\ESBookshop_Web\obj\Debug\netcoreapp3.1\ESBookshop_Web.MvcApplicationPartsAssemblyInfo.cache
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\identityF\src\ESBookshop_Web\obj\Debug\netcoreapp3.1\ESBookshop_Web.RazorAssemblyInfo.cache
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\identityF\src\ESBookshop_Web\obj\Debug\netcoreapp3.1\ESBookshop_Web.RazorAssemblyInfo.cs
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\identityF\src\ESBookshop_Web\obj\Debug\netcoreapp3.1\EFCorePluralizer.cs
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\identityF\src\ESBookshop_Web\obj\Debug\netcoreapp3.1\ESBookshop_Web.AssemblyInfoInputs.cache
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\identityF\src\ESBookshop_Web\obj\Debug\netcoreapp3.1\ESBookshop_Web.AssemblyInfo.cs
