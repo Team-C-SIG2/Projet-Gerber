@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "h3BJdQF5mlH+aO6so9tBRrsESvRrvvRI8K1HL6a25XzhprWO8sS6MvnlFev+mk9XKOZsykKBZkXu03DyYrOvvw==",
+  "dgSpecHash": "lVSCgvMsczHpTMrBX4Z66ZE+EgJKtGf0arDlw2fGzwAMmLs04zDKxeJdBl6W1gcP3p6HRvIk7A5BnOkTXyzdcw==",
   "success": true,
-  "projectFilePath": "C:\\DEV\\Projet-Gerber\\quickstart2\\src\\WebApplication1\\WebApplication1.csproj",
+  "projectFilePath": "C:\\DEV\\projet\\Projet-Gerber\\quickstart2\\src\\WebApplication1\\WebApplication1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\migue\\.nuget\\packages\\microsoft.aspnetcore.authentication.openidconnect\\3.1.3\\microsoft.aspnetcore.authentication.openidconnect.3.1.3.nupkg.sha512",
     "C:\\Users\\migue\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
