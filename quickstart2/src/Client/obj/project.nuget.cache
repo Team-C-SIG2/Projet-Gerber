@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zSEJ53izh3B1+SweDUJ4M2rZHLflCpaetJKDPfM25rG0oL8ooRF4XNW6pthWKdpZg0JE1sVZeGmIvbfi624m3Q==",
+  "dgSpecHash": "la6n43FKW1hafmZD3p5OzzeAUqiZw54SOyPVdwYydOmxqcRVgg/sp7P5mJFUaRAt+ZbEAHxNuEVrDdofEzZZww==",
   "success": true,
-  "projectFilePath": "C:\\DEV\\identityserver4\\quickstart2\\src\\Client\\Client.csproj",
+  "projectFilePath": "C:\\DEV\\Projet-Gerber\\quickstart2\\src\\Client\\Client.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\migue\\.nuget\\packages\\identitymodel\\4.1.1\\identitymodel.4.1.1.nupkg.sha512",
     "C:\\Users\\migue\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512",
