@@ -14,3 +14,17 @@ C:\DEV\identityserver4\quickstart2\src\Client\obj\Debug\netcoreapp3.1\Client.csp
 C:\DEV\identityserver4\quickstart2\src\Client\obj\Debug\netcoreapp3.1\Client.dll
 C:\DEV\identityserver4\quickstart2\src\Client\obj\Debug\netcoreapp3.1\Client.pdb
 C:\DEV\identityserver4\quickstart2\src\Client\obj\Debug\netcoreapp3.1\Client.genruntimeconfig.cache
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\Client\bin\Debug\netcoreapp3.1\Client.exe
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\Client\bin\Debug\netcoreapp3.1\Client.deps.json
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\Client\bin\Debug\netcoreapp3.1\Client.runtimeconfig.json
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\Client\bin\Debug\netcoreapp3.1\Client.runtimeconfig.dev.json
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\Client\bin\Debug\netcoreapp3.1\Client.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\Client\bin\Debug\netcoreapp3.1\Client.pdb
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\Client\bin\Debug\netcoreapp3.1\IdentityModel.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\Client\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\Client\obj\Debug\netcoreapp3.1\Client.csprojAssemblyReference.cache
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\Client\obj\Debug\netcoreapp3.1\Client.AssemblyInfoInputs.cache
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\Client\obj\Debug\netcoreapp3.1\Client.AssemblyInfo.cs
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\Client\obj\Debug\netcoreapp3.1\Client.csproj.CopyComplete
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\Client\obj\Debug\netcoreapp3.1\Client.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\Client\obj\Debug\netcoreapp3.1\Client.pdb
