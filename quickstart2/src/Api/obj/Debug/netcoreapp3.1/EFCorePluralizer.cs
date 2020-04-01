@@ -11,7 +11,8 @@
 using System;
 using System.Reflection;
 
-[assembly: Microsoft.AspNetCore.Mvc.ApplicationParts.RelatedAssemblyAttribute("WebApplication.Views")]
+[assembly: Microsoft.EntityFrameworkCore.Design.DesignTimeServicesReferenceAttribute("Bricelam.EntityFrameworkCore.Design.EFCorePluralizerServices, Bricelam.EntityFram" +
+    "eworkCore.Pluralizer")]
 
 // Généré par la classe MSBuild WriteCodeFragment.
 

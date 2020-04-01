@@ -24,6 +24,7 @@
     ".NETCoreApp,Version=v3.1": {
       "Api/1.0.0": {
         "dependencies": {
+          "Bricelam.EntityFrameworkCore.Pluralizer": "1.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "3.1.3",
           "Microsoft.EntityFrameworkCore": "3.1.3",
           "Microsoft.EntityFrameworkCore.InMemory": "3.1.3",
@@ -308,6 +309,17 @@
         },
         "compile": {
           "Api.dll": {}
+        }
+      },
+      "Bricelam.EntityFrameworkCore.Pluralizer/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Design": "3.1.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Bricelam.EntityFrameworkCore.Pluralizer.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "Microsoft.AspNetCore.Authentication.JwtBearer/3.1.3": {
@@ -4031,6 +4043,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Bricelam.EntityFrameworkCore.Pluralizer/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-akiz3hGnpDgZssTGTnTehy7cy8gJ3RME7jULOkxWHuoSUUmkyxHO8USA/DDTz9Zc+o3RvTdY888NrjDcmb3OJA==",
+      "path": "bricelam.entityframeworkcore.pluralizer/1.0.0",
+      "hashPath": "bricelam.entityframeworkcore.pluralizer.1.0.0.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Authentication.JwtBearer/3.1.3": {
       "type": "package",
