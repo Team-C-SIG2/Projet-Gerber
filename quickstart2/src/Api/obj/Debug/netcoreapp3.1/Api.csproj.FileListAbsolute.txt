@@ -206,7 +206,6 @@ D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstar
 D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\Api\bin\Debug\netcoreapp3.1\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\Api\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\Api\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\Api\obj\Debug\netcoreapp3.1\Api.MvcApplicationPartsAssemblyInfo.cache
 C:\DEV\projet\Projet-Gerber\quickstart2\src\Api\obj\Debug\netcoreapp3.1\Api.dll
 C:\DEV\projet\Projet-Gerber\quickstart2\src\Api\obj\Debug\netcoreapp3.1\Api.pdb
 C:\DEV\projet\Projet-Gerber\quickstart2\src\Api\bin\Debug\netcoreapp3.1\appsettings.Development.json
@@ -360,3 +359,6 @@ C:\DEV\projet\Projet-Gerber\quickstart2\src\Api\obj\Debug\netcoreapp3.1\Api.cspr
 C:\DEV\projet\Projet-Gerber\quickstart2\src\Api\obj\Debug\netcoreapp3.1\staticwebassets\Api.StaticWebAssets.Manifest.cache
 C:\DEV\projet\Projet-Gerber\quickstart2\src\Api\obj\Debug\netcoreapp3.1\staticwebassets\Api.StaticWebAssets.xml
 C:\DEV\projet\Projet-Gerber\quickstart2\src\Api\obj\Debug\netcoreapp3.1\Api.genruntimeconfig.cache
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\Api\bin\Debug\netcoreapp3.1\Bricelam.EntityFrameworkCore.Pluralizer.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\Api\obj\Debug\netcoreapp3.1\Api.MvcApplicationPartsAssemblyInfo.cache
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\Api\obj\Debug\netcoreapp3.1\EFCorePluralizer.cs
