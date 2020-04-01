@@ -2,6 +2,21 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
+      "Bricelam.EntityFrameworkCore.Pluralizer/1.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Design": "2.1.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Bricelam.EntityFrameworkCore.Pluralizer.dll": {}
+        },
+        "build": {
+          "build/netstandard2.0/Bricelam.EntityFrameworkCore.Pluralizer.targets": {}
+        }
+      },
       "Microsoft.AspNetCore.Authentication.JwtBearer/3.1.3": {
         "type": "package",
         "dependencies": {
@@ -2772,6 +2787,20 @@
     }
   },
   "libraries": {
+    "Bricelam.EntityFrameworkCore.Pluralizer/1.0.0": {
+      "sha512": "akiz3hGnpDgZssTGTnTehy7cy8gJ3RME7jULOkxWHuoSUUmkyxHO8USA/DDTz9Zc+o3RvTdY888NrjDcmb3OJA==",
+      "type": "package",
+      "path": "bricelam.entityframeworkcore.pluralizer/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "bricelam.entityframeworkcore.pluralizer.1.0.0.nupkg.sha512",
+        "bricelam.entityframeworkcore.pluralizer.nuspec",
+        "build/netstandard2.0/Bricelam.EntityFrameworkCore.Pluralizer.targets",
+        "lib/netstandard2.0/Bricelam.EntityFrameworkCore.Pluralizer.dll",
+        "lib/netstandard2.0/Bricelam.EntityFrameworkCore.Pluralizer.xml"
+      ]
+    },
     "Microsoft.AspNetCore.Authentication.JwtBearer/3.1.3": {
       "sha512": "F19wwKzyE1K/KF30XZq2STKNJNxBrTKa1wLxTy5qdgXh7akzgLreMdC3j7rPzIQVGHlPCMeI30fpmD1k5zHkCQ==",
       "type": "package",
@@ -8802,6 +8831,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "Bricelam.EntityFrameworkCore.Pluralizer >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 3.1.3",
       "Microsoft.EntityFrameworkCore >= 3.1.3",
       "Microsoft.EntityFrameworkCore.InMemory >= 3.1.3",
@@ -8812,19 +8842,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\migue\\.nuget\\packages\\": {}
+    "C:\\Users\\marcv\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\DEV\\projet\\Projet-Gerber\\quickstart2\\src\\Api\\Api.csproj",
+      "projectUniqueName": "D:\\Cours ETML-ES\\Developpement C# et projet informatique\\Projet-Gerber\\quickstart2\\src\\Api\\Api.csproj",
       "projectName": "Api",
-      "projectPath": "C:\\DEV\\projet\\Projet-Gerber\\quickstart2\\src\\Api\\Api.csproj",
-      "packagesPath": "C:\\Users\\migue\\.nuget\\packages\\",
-      "outputPath": "C:\\DEV\\projet\\Projet-Gerber\\quickstart2\\src\\Api\\obj\\",
+      "projectPath": "D:\\Cours ETML-ES\\Developpement C# et projet informatique\\Projet-Gerber\\quickstart2\\src\\Api\\Api.csproj",
+      "packagesPath": "C:\\Users\\marcv\\.nuget\\packages\\",
+      "outputPath": "D:\\Cours ETML-ES\\Developpement C# et projet informatique\\Projet-Gerber\\quickstart2\\src\\Api\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\migue\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\marcv\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8848,6 +8882,12 @@
     "frameworks": {
       "netcoreapp3.1": {
         "dependencies": {
+          "Bricelam.EntityFrameworkCore.Pluralizer": {
+            "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[1.0.0, )"
+          },
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",
             "version": "[3.1.3, )"
@@ -8897,7 +8937,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -20,7 +20,7 @@ namespace IdentityServerAspNetIdentity.Controllers
     public class ApplicationUserController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
-
+        
         public ApplicationUserController(UserManager<ApplicationUser> userManager) {
             _userManager = userManager;
         }
@@ -36,7 +36,7 @@ namespace IdentityServerAspNetIdentity.Controllers
             var services = new ServiceCollection();
             services.AddLogging();
             services.AddDbContext<ApplicationDbContext>(options =>
-               options.UseSqlServer("Server = (localDb)\\mssqllocaldb; Database = ESBookshop; Trusted_Connection = True; MultipleActiveResultSets = true"));
+               options.UseSqlServer(Startup.ConnectionString));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()

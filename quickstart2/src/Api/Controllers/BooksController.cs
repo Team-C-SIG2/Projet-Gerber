@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Api.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers
 {
@@ -14,9 +13,9 @@ namespace Api.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
-        private readonly ESBContext _context;
+        private readonly ESBookshopContext _context;
 
-        public BooksController(ESBContext context)
+        public BooksController(ESBookshopContext context)
         {
             _context = context;
         }
@@ -48,7 +47,7 @@ namespace Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBook(int id, Book book)
         {
-            if (id != book.ID)
+            if (id != book.Id)
             {
                 return BadRequest();
             }
@@ -83,7 +82,7 @@ namespace Api.Controllers
             _context.Books.Add(book);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetBook", new { id = book.ID }, book);
+            return CreatedAtAction("GetBook", new { id = book.Id }, book);
         }
 
         // DELETE: api/Books/5
@@ -104,7 +103,7 @@ namespace Api.Controllers
 
         private bool BookExists(int id)
         {
-            return _context.Books.Any(e => e.ID == id);
+            return _context.Books.Any(e => e.Id == id);
         }
     }
 }
