@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "ddz8SaGRtrPPI9A5X+ETqGMarq6QrWM6tg6K9DfmE51B2WiF4tHvVUptyQXrPHbTSbwofnuctnerNHN+JPuZXA==",
+  "dgSpecHash": "2f9A9kBqS9gdzPPeAUxyfeG7mkGac8QfQa7aLTcULgqDbvEiJ5QQvdlG6+KPHs76KJYsZXEQmb3DFO4oV8nSFg==",
   "success": true,
   "projectFilePath": "C:\\DEV\\projet\\Projet-Gerber\\identityF\\src\\Api\\Api.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\migue\\.nuget\\packages\\bricelam.entityframeworkcore.pluralizer\\1.0.0\\bricelam.entityframeworkcore.pluralizer.1.0.0.nupkg.sha512",
     "C:\\Users\\migue\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\migue\\.nuget\\packages\\microsoft.aspnetcore.razor\\2.2.0\\microsoft.aspnetcore.razor.2.2.0.nupkg.sha512",
     "C:\\Users\\migue\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\3.1.0\\microsoft.aspnetcore.razor.language.3.1.0.nupkg.sha512",
@@ -28,7 +29,7 @@
     "C:\\Users\\migue\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\3.1.3\\microsoft.entityframeworkcore.relational.3.1.3.nupkg.sha512",
     "C:\\Users\\migue\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite\\3.1.1\\microsoft.entityframeworkcore.sqlite.3.1.1.nupkg.sha512",
     "C:\\Users\\migue\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite.core\\3.1.1\\microsoft.entityframeworkcore.sqlite.core.3.1.1.nupkg.sha512",
-    "C:\\Users\\migue\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\3.1.1\\microsoft.entityframeworkcore.sqlserver.3.1.1.nupkg.sha512",
+    "C:\\Users\\migue\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\3.1.3\\microsoft.entityframeworkcore.sqlserver.3.1.3.nupkg.sha512",
     "C:\\Users\\migue\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\3.1.3\\microsoft.entityframeworkcore.tools.3.1.3.nupkg.sha512",
     "C:\\Users\\migue\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\3.1.3\\microsoft.extensions.caching.abstractions.3.1.3.nupkg.sha512",
     "C:\\Users\\migue\\.nuget\\packages\\microsoft.extensions.caching.memory\\3.1.3\\microsoft.extensions.caching.memory.3.1.3.nupkg.sha512",
