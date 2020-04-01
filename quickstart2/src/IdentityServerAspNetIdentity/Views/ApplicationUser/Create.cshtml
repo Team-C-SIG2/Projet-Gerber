@@ -1,0 +1,53 @@
+﻿@model IdentityServerAspNetIdentity.Models.ApplicationUser
+
+<div class="create-page">
+    <div class="page-header">
+        <h1>Incription</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Inscription</h3>
+                </div>
+                <div class="panel-body">
+
+                    <form asp-action="CreateDone">
+                        <fieldset>
+                            <div class="form-group">
+                                <label asp-for="UserName"></label>
+                                <input class="form-control" placeholder="Nom d'utilisateur" asp-for="UserName" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="PasswordHash"></label>
+                                <input type="password" class="form-control" placeholder="Mot de passe" asp-for="PasswordHash" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Email"></label>
+                                <input type="email" class="form-control" placeholder="Email" asp-for="Email" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="SecurityStamp"></label>
+                                <input class="form-control" placeholder="securityStamp" asp-for="SecurityStamp" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ConcurrencyStamp"></label>
+                                <input class="form-control" placeholder="ConcurrencyStamp" asp-for="ConcurrencyStamp" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="PhoneNumber"></label>
+                                <input class="form-control" placeholder="Téléphone" asp-for="PhoneNumber" autocomplete="off">
+                            </div>
+
+                            <div class="form-group">
+                                <button class="btn btn-primary" name="button" value="login">Envoyer</button>
+                                <button class="btn btn-default" name="button" value="cancel">Cancel</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
