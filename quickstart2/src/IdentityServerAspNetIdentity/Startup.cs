@@ -16,6 +16,8 @@ namespace IdentityServerAspNetIdentity
 {
     public class Startup
     {
+        public static string ConnectionString { get; set; }
+
         public IWebHostEnvironment Environment { get; }
         public IConfiguration Configuration { get; }
 
@@ -23,6 +25,7 @@ namespace IdentityServerAspNetIdentity
         {
             Environment = environment;
             Configuration = configuration;
+            ConnectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
         public void ConfigureServices(IServiceCollection services)

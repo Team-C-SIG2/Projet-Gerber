@@ -336,14 +336,6 @@ D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstar
 D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\WebApplication1\obj\Debug\netcoreapp3.1\WebApplication1.TagHelpers.input.cache
 D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\WebApplication1\obj\Debug\netcoreapp3.1\WebApplication1.TagHelpers.output.cache
 D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\WebApplication1\obj\Debug\netcoreapp3.1\WebApplication1.RazorCoreGenerate.cache
-D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\WebApplication1\obj\Debug\netcoreapp3.1\Razor\Pages\Default\Index.cshtml.g.cs
-D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\WebApplication1\obj\Debug\netcoreapp3.1\Razor\Pages\Error.cshtml.g.cs
-D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\WebApplication1\obj\Debug\netcoreapp3.1\Razor\Pages\Index.cshtml.g.cs
-D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\WebApplication1\obj\Debug\netcoreapp3.1\Razor\Pages\Privacy.cshtml.g.cs
-D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\WebApplication1\obj\Debug\netcoreapp3.1\Razor\Pages\Shared\_Layout.cshtml.g.cs
-D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\WebApplication1\obj\Debug\netcoreapp3.1\Razor\Pages\Shared\_ValidationScriptsPartial.cshtml.g.cs
-D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\WebApplication1\obj\Debug\netcoreapp3.1\Razor\Pages\_ViewImports.cshtml.g.cs
-D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\WebApplication1\obj\Debug\netcoreapp3.1\Razor\Pages\_ViewStart.cshtml.g.cs
 D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\WebApplication1\obj\Debug\netcoreapp3.1\WebApplication1.RazorTargetAssemblyInfo.cache
 D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\WebApplication1\obj\Debug\netcoreapp3.1\WebApplication1.RazorTargetAssemblyInfo.cs
 D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\WebApplication1\obj\Debug\netcoreapp3.1\WebApplication1.Views.pdb
@@ -469,3 +461,12 @@ C:\DEV\projet\Projet-Gerber\quickstart2\src\WebApplication1\obj\Debug\netcoreapp
 C:\DEV\projet\Projet-Gerber\quickstart2\src\WebApplication1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
 C:\DEV\projet\Projet-Gerber\quickstart2\src\WebApplication1\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
 C:\DEV\projet\Projet-Gerber\quickstart2\src\WebApplication1\obj\Debug\netcoreapp3.1\Razor\Views\_ViewStart.cshtml.g.cs
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\WebApplication1\obj\Debug\netcoreapp3.1\Razor\Views\Default\Index.cshtml.g.cs
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\WebApplication1\obj\Debug\netcoreapp3.1\Razor\Views\Default\json.cshtml.g.cs
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\WebApplication1\obj\Debug\netcoreapp3.1\Razor\Views\Error.cshtml.g.cs
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\WebApplication1\obj\Debug\netcoreapp3.1\Razor\Views\Index.cshtml.g.cs
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\WebApplication1\obj\Debug\netcoreapp3.1\Razor\Views\Privacy.cshtml.g.cs
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\WebApplication1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\WebApplication1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\WebApplication1\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\WebApplication1\obj\Debug\netcoreapp3.1\Razor\Views\_ViewStart.cshtml.g.cs

@@ -303,3 +303,38 @@ C:\DEV\projet\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3
 C:\DEV\projet\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\DEV\projet\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\DEV\projet\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\AutoMapper.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\IdentityServer4.EntityFramework.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\IdentityServer4.EntityFramework.Storage.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\Microsoft.Bcl.HashCode.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.InMemory.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Relational.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Abstractions.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Memory.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Binder.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Options.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\Microsoft.Identity.Client.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\System.Runtime.Caching.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServer\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
