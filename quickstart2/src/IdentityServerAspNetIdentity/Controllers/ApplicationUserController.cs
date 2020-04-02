@@ -31,7 +31,7 @@ namespace IdentityServerAspNetIdentity.Controllers
         }
 
 
-        public async Task<string> CreateDone(ApplicationUser user)
+        public async Task<IActionResult> CreateDone(ApplicationUser user)
         {
             var services = new ServiceCollection();
             services.AddLogging();
@@ -55,10 +55,11 @@ namespace IdentityServerAspNetIdentity.Controllers
                     {
                         
                         checkUser = user;
-                        var result = userMgr.CreateAsync(checkUser, user.PasswordHash).Result;
+                        var result = userMgr.CreateAsync(checkUser, user.PasswordHash).Result; 
                         if (!result.Succeeded)
                         {
-                            throw new Exception(result.Errors.First().Description);
+                            return View("Error");
+                            //throw new Exception(result.Errors.First().Description);
                         }
                         else
                         {
@@ -80,8 +81,8 @@ namespace IdentityServerAspNetIdentity.Controllers
                     }
                 }
             }
-
-            return "créé";
+            return View();
+            //return RedirectToAction("Index");
         }
     }
 }

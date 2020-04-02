@@ -400,3 +400,5 @@ D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstar
 D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServerAspNetIdentity\obj\Debug\netcoreapp3.1\IdentityServerAspNetIdentity.csproj.CopyComplete
 D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServerAspNetIdentity\obj\Debug\netcoreapp3.1\IdentityServerAspNetIdentity.dll
 D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServerAspNetIdentity\obj\Debug\netcoreapp3.1\IdentityServerAspNetIdentity.pdb
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServerAspNetIdentity\obj\Debug\netcoreapp3.1\Razor\Views\ApplicationUser\CreateDone.cshtml.g.cs
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\IdentityServerAspNetIdentity\obj\Debug\netcoreapp3.1\Razor\Views\ApplicationUser\Error.cshtml.g.cs
