@@ -90,6 +90,7 @@ namespace Api.Controllers
         public async Task<ActionResult<Book>> DeleteBook(int id)
         {
             var book = await _context.Books.FindAsync(id);
+
             if (book == null)
             {
                 return NotFound();
@@ -97,7 +98,7 @@ namespace Api.Controllers
 
             _context.Books.Remove(book);
             await _context.SaveChangesAsync();
-
+            
             return book;
         }
 
