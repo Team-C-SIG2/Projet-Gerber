@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using IdentityModel;
-using IdentityServerAspNetIdentity.Data;
+﻿using IdentityServerAspNetIdentity.Data;
 using IdentityServerAspNetIdentity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
-using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.WebUtilities;
-using System.Text;
 
 namespace IdentityServerAspNetIdentity.Controllers
 {
@@ -66,19 +57,6 @@ namespace IdentityServerAspNetIdentity.Controllers
                             if (!result.Succeeded)
                             {
                                 resView = "ErrorPassword";
-                                //throw new Exception(result.Errors.First().Description);
-                            }
-                            else
-                            {
-                                //_logger.LogInformation("User created a new account with password.");
-
-                                // var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                                // code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                                //var callbackUrl = Url.Action("Account", "ConfirmEmail", new { userId = user.Id, code = code }, Request.Scheme);
-
-                                //string message = "Salut mon pote comment ca va ? si tu veux confirmer ton inscription c'est par <a href='" + callbackUrl + "'>ici</a>";
-                                //await _emailSender.SendEmailAsync(user.Email, "Confirmer votre Email", message);
-
                             }
                             Log.Debug($"{checkUser.UserName} created");
                         }
