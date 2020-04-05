@@ -33,7 +33,7 @@ namespace IdentityServerAspNetIdentity.Controllers
         }
 
 
-        public async Task<IActionResult> CreateDone(ApplicationUser user)
+        public IActionResult CreateDone(ApplicationUser user)
         {
             var services = new ServiceCollection();
             services.AddLogging();

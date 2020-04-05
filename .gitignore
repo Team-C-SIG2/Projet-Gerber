@@ -9,3 +9,11 @@ quickstart2/src/Api/obj/
 quickstart2/src/IdentityServer/obj/
 
 quickstart2/src/IdentityServerAspNetIdentity/obj/
+
+quickstart2/src/Api/bin/Debug/
+
+quickstart2/src/IdentityServerAspNetIdentity/bin/Debug/
+
+quickstart2/src/IdentityServerAspNetIdentity/IdentityServerAspNetIdentity.csproj.user
+
+quickstart2/src/WebApplication1/obj/
