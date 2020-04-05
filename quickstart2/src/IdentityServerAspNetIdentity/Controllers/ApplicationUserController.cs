@@ -20,9 +20,11 @@ namespace IdentityServerAspNetIdentity.Controllers
     public class ApplicationUserController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private string resView;
         
         public ApplicationUserController(UserManager<ApplicationUser> userManager) {
             _userManager = userManager;
+            resView = "CreateDone";
         }
 
         public IActionResult Create()
@@ -31,7 +33,7 @@ namespace IdentityServerAspNetIdentity.Controllers
         }
 
 
-        public async Task<string> CreateDone(ApplicationUser user)
+        public async Task<IActionResult> CreateDone(ApplicationUser user)
         {
             var services = new ServiceCollection();
             services.AddLogging();
@@ -49,39 +51,45 @@ namespace IdentityServerAspNetIdentity.Controllers
                     var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
                     var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-
-                    var checkUser = userMgr.FindByNameAsync(user.UserName).Result;
-                    if (checkUser == null)
+                    
+                    if (user.UserName == null)
                     {
-                        
-                        checkUser = user;
-                        var result = userMgr.CreateAsync(checkUser, user.PasswordHash).Result;
-                        if (!result.Succeeded)
-                        {
-                            throw new Exception(result.Errors.First().Description);
-                        }
-                        else
-                        {
-                            //_logger.LogInformation("User created a new account with password.");
-
-                           // var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                           // code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                            //var callbackUrl = Url.Action("Account", "ConfirmEmail", new { userId = user.Id, code = code }, Request.Scheme);
-
-                            //string message = "Salut mon pote comment ca va ? si tu veux confirmer ton inscription c'est par <a href='" + callbackUrl + "'>ici</a>";
-                            //await _emailSender.SendEmailAsync(user.Email, "Confirmer votre Email", message);
-
-                        }
-                        Log.Debug($"{checkUser.UserName} created");
+                        resView = "ErrorUserName";
                     }
                     else
                     {
-                        Log.Debug($"{checkUser.UserName} already exists");
-                    }
+                        var checkUser = userMgr.FindByNameAsync(user.UserName).Result;
+                        if (checkUser == null)
+                        {
+                            checkUser = user;
+                            var result = userMgr.CreateAsync(checkUser, user.PasswordHash).Result;
+                            if (!result.Succeeded)
+                            {
+                                resView = "ErrorPassword";
+                                //throw new Exception(result.Errors.First().Description);
+                            }
+                            else
+                            {
+                                //_logger.LogInformation("User created a new account with password.");
+
+                                // var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                                // code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                                //var callbackUrl = Url.Action("Account", "ConfirmEmail", new { userId = user.Id, code = code }, Request.Scheme);
+
+                                //string message = "Salut mon pote comment ca va ? si tu veux confirmer ton inscription c'est par <a href='" + callbackUrl + "'>ici</a>";
+                                //await _emailSender.SendEmailAsync(user.Email, "Confirmer votre Email", message);
+
+                            }
+                            Log.Debug($"{checkUser.UserName} created");
+                        }
+                        else
+                        {
+                            Log.Debug($"{checkUser.UserName} already exists");
+                        }
+                    }                    
                 }
             }
-
-            return "créé";
+            return View(resView);
         }
     }
 }
