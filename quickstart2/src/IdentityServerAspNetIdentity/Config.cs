@@ -20,7 +20,7 @@ namespace IdentityServerAspNetIdentity
         public static IEnumerable<ApiResource> Apis =>
             new List<ApiResource>
             {
-                new ApiResource("api1", "My API")
+                new ApiResource("api1", "Api")
             };
 
         public static IEnumerable<Client> Clients =>
