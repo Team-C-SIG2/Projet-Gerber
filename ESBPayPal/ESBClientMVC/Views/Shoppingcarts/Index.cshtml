@@ -1,0 +1,73 @@
+﻿@model IEnumerable<ESBClientMVC.Models.SHOPPINGCART>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@*Titre de la page HTML affiché*@
+<h2>Index - Paniers d'achat actuels</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+
+    @*Noms des colonnes de la table*@
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ACCOUNT.CUSTOMER.LASTNAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ACCOUNT.CUSTOMER.FIRSTNAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(modelItem => modelItem.ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ACCOUNT.PASSWORD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CREATEDDATE)
+        </th>
+        <th></th>
+    </tr>
+
+    @*BOUCLE FOREACH : Affiche les Lignes de la table*@
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ACCOUNT.CUSTOMER.LASTNAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ACCOUNT.CUSTOMER.FIRSTNAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ACCOUNT.PASSWORD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CREATEDDATE)
+            </td>
+
+            <td>
+                @*Liens de navigation / Redirection Pour gérer les paniers d'achat*@
+
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID }) |
+                @Html.ActionLink("Details", "GetCartItems", new { Controller = "LineItems", action = "GetCartItems", id = item.ID })
+
+            </td>
+        </tr>
+    }
+
+</table>
+
+<br />
+
+@*Liens de navigation / Redirection Pour aller à la page principale du site *@
+
+@Html.ActionLink("Accueil", "Index", new { Controller = "Home", action = "Index" })

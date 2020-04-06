@@ -1,0 +1,7 @@
+C:\TEMP\ESBPayPal\ESBAppCoreMVC\obj\Debug\net461\ESBAppCoreMVC.exe.config
+C:\TEMP\ESBPayPal\ESBAppCoreMVC\obj\Debug\net461\ESBAppCoreMVC.csproj.CoreCompileInputs.cache
+C:\TEMP\ESBPayPal\ESBAppCoreMVC\obj\Debug\net461\ESBAppCoreMVC.RazorAssemblyInfo.cache
+C:\TEMP\ESBPayPal\ESBAppCoreMVC\obj\Debug\net461\ESBAppCoreMVC.RazorAssemblyInfo.cs
+C:\TEMP\ESBPayPal\ESBAppCoreMVC\obj\Debug\net461\ESBAppCoreMVC.AssemblyInfoInputs.cache
+C:\TEMP\ESBPayPal\ESBAppCoreMVC\obj\Debug\net461\ESBAppCoreMVC.AssemblyInfo.cs
+C:\TEMP\ESBPayPal\ESBAppCoreMVC\obj\Debug\net461\ESBAppCoreMVC.csprojAssemblyReference.cache
