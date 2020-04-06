@@ -5,10 +5,6 @@ VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESBClientMVC", "ESBClientMVC\ESBClientMVC.csproj", "{C5BE2C28-8F94-4065-9541-4636BDDF7E0C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESBCoreAPI", "ESBCoreAPI\ESBCoreAPI.csproj", "{B49CFDF9-F662-4D4B-9B8E-E2A1CCA7202D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESBAppCoreMVC", "ESBAppCoreMVC\ESBAppCoreMVC.csproj", "{4FAD3211-CA6B-4227-9E8F-68351175F4B0}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,14 +15,6 @@ Global
 		{C5BE2C28-8F94-4065-9541-4636BDDF7E0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5BE2C28-8F94-4065-9541-4636BDDF7E0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5BE2C28-8F94-4065-9541-4636BDDF7E0C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B49CFDF9-F662-4D4B-9B8E-E2A1CCA7202D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B49CFDF9-F662-4D4B-9B8E-E2A1CCA7202D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B49CFDF9-F662-4D4B-9B8E-E2A1CCA7202D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B49CFDF9-F662-4D4B-9B8E-E2A1CCA7202D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4FAD3211-CA6B-4227-9E8F-68351175F4B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4FAD3211-CA6B-4227-9E8F-68351175F4B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4FAD3211-CA6B-4227-9E8F-68351175F4B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4FAD3211-CA6B-4227-9E8F-68351175F4B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
