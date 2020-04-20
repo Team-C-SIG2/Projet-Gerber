@@ -25,7 +25,7 @@ namespace IdentityServerAspNetIdentity
         {
             Environment = environment;
             Configuration = configuration;
-            ConnectionString = configuration.GetConnectionString("DefaultConnection");
+            ConnectionString = configuration.GetConnectionString("ESBookshopContext");
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -47,7 +47,7 @@ namespace IdentityServerAspNetIdentity
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("ESBookshopContext")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
