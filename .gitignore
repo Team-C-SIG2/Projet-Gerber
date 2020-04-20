@@ -1,5 +1,6 @@
 /.vs/
-appsettings.json
+quickstart2/src/Api/appsettings.json
+quickstart2/src/IdentityServerAspNetIdentity/appsettings.json
 quickstart2/.vs/
 
 *.cache
