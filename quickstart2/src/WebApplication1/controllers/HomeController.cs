@@ -30,7 +30,7 @@ namespace WebApplication1.controllers
 
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            var content = await client.GetStringAsync("http://localhost:5001/identity");
+            var content = await client.GetStringAsync("http://localhost:5001/api/Books");
 
             ViewBag.Json = JArray.Parse(content).ToString();
             return View("json");
