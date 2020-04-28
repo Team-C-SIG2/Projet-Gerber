@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewData["Title"] = "MessageCrud";
+}
+
+<h1>Message de conformation</h1>
+
+<p>Vous venez d'effectuer une opération CRUD de type avec succès.</p>
+<br />
+<br />
+    <div>
+        @Html.ActionLink("Accueil", "Index", "Home")
+        @Html.ActionLink("Aide Stripe (service de paiement)", "About", "StripePay")
+    </div>
+<br />
+<br />
+
+@if (ViewBag.USER == "CLIENT")
+{
+    <div>
+        @Html.ActionLink("Panier d'achat (Utilisateur)", "Index", new { Controller = "UserShoppingCarts", action = "Index", id = @ViewBag.USERID })<br />
+        <br />
+        <hr />
+        @Html.ActionLink("Liste des ouvrages (Client)", "Index", "UserBooks")<br />
+        @Html.ActionLink("Commandes", "Index", "Orders")<br />
+        <hr />
+    </div>
+}
+
+@if (ViewBag.USER == "ADMIN")
+{
+    <div>
+        @Html.ActionLink("Liste des paniers d'achat (Administration) ", "Index", "AdminShoppingCarts")<br />
+        <br />
+        <hr />
+        @Html.ActionLink("Liste des ouvrages (Admin)", "Index", "AdminBooks")<br />
+        @Html.ActionLink("Gestion des commandes", "Index", "Orders")<br />
+        <hr />
+    </div>
+}
+

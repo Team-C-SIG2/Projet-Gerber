@@ -1,0 +1,93 @@
+﻿@model WebApplication1.Models.Book
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Book</h4>
+    <hr />
+    <dl class="row">
+
+        @* Titre *@
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+
+        @* Sous-Titre *@
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Subtitle)
+        </dt>
+        <dd class="col-sm-10">
+            @if (@Model.Subtitle != null)
+            {<text>@Model.Subtitle</text>}
+        else
+        {<text>/</text>}
+        </dd>
+
+
+        @* Prix Unitaire *@
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+
+        @* Date de publication *@
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DatePublication)
+        </dt>
+        <dd class="col-sm-10">
+            @if (@Model.DatePublication != null)
+            {@Html.DisplayFor(model => model.DatePublication)}
+        else
+        {<text>/</text>}
+        </dd>
+
+
+        @* Résumé *@
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Summary)
+        </dt>
+        <dd class="col-sm-10">
+            @if (@Model.Summary != null)
+            {<text>@Model.Summary</text>}
+        else
+        {<text>/</text>}
+        </dd>
+
+
+        @* ISBN *@
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Isbn)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Isbn)
+        </dd>
+
+
+        @* Editeur *@
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IdEditorNavigation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IdEditorNavigation.Name)
+        </dd>
+
+
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Editer</a> |
+    <a asp-action="Index">Retour à la liste</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Id">Ajouter au panier</a>
+
+</div>
