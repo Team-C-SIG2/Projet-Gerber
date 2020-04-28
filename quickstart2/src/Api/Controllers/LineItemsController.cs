@@ -12,9 +12,12 @@ namespace Api.Controllers
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using AppDbContext.Models;
+    using Microsoft.AspNetCore.Authorization;
 
     [Route("api/[controller]")]
     [ApiController]
+
+    [Authorize]
     public class LineItemsController : ControllerBase
     {
 

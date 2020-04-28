@@ -1,0 +1,45 @@
+﻿<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+@*  
+    VUE DU CONCTROLEUR "HOME"
+    MODE PAIEMENT - STRIPE
+*@
+
+
+<br />
+<br />
+
+<h1>Bienvenue sur ES-Bookshop</h1>
+<h4>Utilisateur : @ViewBag.USERID</h4>
+<br />
+<div>
+    @Html.ActionLink("Connexion", "Index", "Connexion")<br />
+    <br />
+    <hr />
+    @Html.ActionLink("About us", "About", "Home")<br />
+    @Html.ActionLink("Contact", "Contact", "Home")<br />
+    @Html.ActionLink("Aide Stripe (service de paiement)", "About", "StripePay")<br />
+    <br />
+    <hr />
+    @Html.ActionLink("Liste des Appreciations", "Index", "Appreciations")<br />
+    @Html.ActionLink("Liste des Categories", "Index", "Categories")<br />
+
+    <br />
+    <hr />
+
+    @Html.ActionLink("Panier d'achat (Utilisateur)", "Index", new { Controller = "UserShoppingCarts", action = "Index", id = @ViewBag.USERID })<br />
+    @Html.ActionLink("Liste des paniers d'achat (Administration) ", "Index", "AdminShoppingCarts")<br />
+    <br />
+    <hr />
+    @Html.ActionLink("Liste des ouvrages", "Index", "Books")<br />
+    <hr />
+</div>
+
+
+<br/>

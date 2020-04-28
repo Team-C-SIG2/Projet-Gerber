@@ -1,30 +1,34 @@
 ﻿using IdentityServerAspNetIdentity.Data;
+
+
+// HB 
 using IdentityServerAspNetIdentity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+using AppDbContext.Models;
+using System.Linq;
 
 namespace IdentityServerAspNetIdentity.Controllers
 {
     public class ApplicationUserController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly CoreDbContext _context;
         private string resView;
-        
-        public ApplicationUserController(UserManager<ApplicationUser> userManager) {
+
+        public ApplicationUserController(UserManager<ApplicationUser> userManager, CoreDbContext context) {
             _userManager = userManager;
+            _context = context;
             resView = "CreateDone";
         }
-
         public IActionResult Create()
         {
             return View();
         }
-
-
-        public IActionResult CreateDone(ApplicationUser user)
+        public async System.Threading.Tasks.Task<IActionResult> CreateDoneAsync(ApplicationUser user)
         {
             var services = new ServiceCollection();
             services.AddLogging();
@@ -49,6 +53,19 @@ namespace IdentityServerAspNetIdentity.Controllers
                     }
                     else
                     {
+                        Customer newCust = new Customer();
+                        newCust.Lastname = null;
+                        newCust.Firstname = null;
+                        newCust.Acronyme = null;
+                        newCust.Address = null;
+                        newCust.BillingAddress = null;
+                        newCust.City = null;
+                        newCust.Phone = null;
+                        newCust.Zip = null;
+                        _context.Customers.Add(newCust);
+                        await _context.SaveChangesAsync();
+                        user.IdCustomer = _context.Customers.Max(u => u.Id);
+
                         var checkUser = userMgr.FindByNameAsync(user.UserName).Result;
                         if (checkUser == null)
                         {
@@ -69,5 +86,7 @@ namespace IdentityServerAspNetIdentity.Controllers
             }
             return View(resView);
         }
-    }
+
+
+    }// End Class 
 }

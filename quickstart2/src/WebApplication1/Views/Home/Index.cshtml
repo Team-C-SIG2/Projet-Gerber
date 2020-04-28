@@ -1,45 +1,21 @@
-﻿<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+﻿@using Microsoft.AspNetCore.Authentication
 
+<h2>Claims</h2>
 
-@{
-    ViewBag.Title = "Home Page";
-}
+<dl>
+    @foreach (var claim in User.Claims)
+    {
+        <dt>@claim.Type</dt>
+        <dd>@claim.Value</dd>
+    }
+</dl>
 
+<h2>Properties</h2>
 
-@*  
-    VUE DU CONCTROLEUR "HOME"
-    MODE PAIEMENT - STRIPE
-*@
-
-
-<br />
-<br />
-
-<h1>Bienvenue sur ES-Bookshop</h1>
-<h4>Utilisateur : @ViewBag.USERID</h4>
-<br />
-<div>
-    @Html.ActionLink("Connexion", "Index", "Connexion")<br />
-    <br />
-    <hr />
-    @Html.ActionLink("About us", "About", "Home")<br />
-    @Html.ActionLink("Contact", "Contact", "Home")<br />
-    @Html.ActionLink("Aide Stripe (service de paiement)", "About", "StripePay")<br />
-    <br />
-    <hr />
-    @Html.ActionLink("Liste des Appreciations", "Index", "Appreciations")<br />
-    @Html.ActionLink("Liste des Categories", "Index", "Categories")<br />
-
-    <br />
-    <hr />
-
-    @Html.ActionLink("Panier d'achat (Utilisateur)", "Index", new { Controller = "UserShoppingCarts", action = "Index", id = @ViewBag.USERID })<br />
-    @Html.ActionLink("Liste des paniers d'achat (Administration) ", "Index", "AdminShoppingCarts")<br />
-    <br />
-    <hr />
-    @Html.ActionLink("Liste des ouvrages", "Index", "Books")<br />
-    <hr />
-</div>
-
-
-<br/>
+<dl>
+    @foreach (var prop in (await Context.AuthenticateAsync()).Properties.Items)
+    {
+        <dt>@prop.Key</dt>
+        <dd>@prop.Value</dd>
+    }
+</dl>

@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewData["Title"] = "Error";
+}
+
+<h1>Erreur</h1>
+<p>Le serveur de paiement Stripe n'a pas pu effectuer la transaction demandée.</p>
+
+<div>
+    <br />
+    <hr />
+    @Html.ActionLink("Accueil", "Index", "Home")<br />
+    @Html.ActionLink("Panier", "Index", new { Controller = "UserShoppingCarts", action = "Index", id = @ViewBag.USERID })<br />
+    <br />
+    <hr />
+</div>
+
+

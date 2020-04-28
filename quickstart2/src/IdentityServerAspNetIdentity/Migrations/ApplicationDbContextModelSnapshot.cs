@@ -38,6 +38,10 @@ namespace IdentityServerAspNetIdentity.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<int>("IdCustomer")
+                        .HasColumnName("Id_Customer")
+                        .HasColumnType("int");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 

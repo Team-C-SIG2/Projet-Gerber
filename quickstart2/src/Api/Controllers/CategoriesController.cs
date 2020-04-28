@@ -4,7 +4,7 @@ namespace Api.Controllers
 {
 
     using AppDbContext.Models;
-
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
@@ -15,6 +15,7 @@ namespace Api.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CategoriesController : ControllerBase
     {
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,96 @@
+﻿@model IEnumerable<AppWebClient.Models.LineItem>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@*   COMMENTCOMENTE
+    Pour vérifier les montants
+*@
+
+
+<h1>Contenu du panier</h1>
+<h4>Utilisateur : @ViewBag.USERID</h4>
+<br />
+<hr />
+<p>
+    <a asp-action="Index" asp-controller="Books">Ajouter </a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdBookNavigation.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdBookNavigation.Isbn)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdBookNavigation.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdBookNavigation.Isbn)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editer</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<hr />
+<p>
+    @*Récupération du montant total calculé par le controlleur de la vue *@
+    Montant total (CHF) : <b>@ViewBag.MONTANTAFFICHE </b>
+</p>
+
+<div>
+    <br />
+    <hr />
+    @Html.ActionLink("Accueil", "Index", "Home")<br />
+    @Html.ActionLink("Panier", "Index", new { Controller = "UserShoppingCarts", action = "Index", id = @ViewBag.USERID })<br />
+    <br />
+    <hr />
+</div>
+
+
+@*Bouton Stripe pour lancer le paiement PayPal *@
+<div class="text-center">
+
+    <form asp-action="Charge" asp-controller="StripePay" asp-route-amount="@ViewBag.MONTANTAFFICHE" methode="POST">
+        <article>
+            <lable>Montant : CHF @ViewBag.MONTANTAFFICHE</lable>
+        </article>
+        <script src="//checkout.stripe.com/v2/checkout.js"
+                class="stripe-button"
+                data-key="@ViewBag.PUBLICKEY"
+                data-locale="auto"
+                data-description="Achat"
+                data-amount="@ViewBag.MONTANT">
+        </script>
+    </form>
+
+</div>

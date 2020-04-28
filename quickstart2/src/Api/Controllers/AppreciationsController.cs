@@ -1,15 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using AppDbContext.Models;
+
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AppDbContext.Models;
+using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers
 {
 
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AppreciationsController : ControllerBase
     {
 

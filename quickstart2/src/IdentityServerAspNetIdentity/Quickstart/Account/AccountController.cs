@@ -39,6 +39,7 @@ namespace IdentityServer4.Quickstart.UI
             IAuthenticationSchemeProvider schemeProvider,
             IEventService events)
         {
+
             _userManager = userManager;
             _signInManager = signInManager;
             _interaction = interaction;
