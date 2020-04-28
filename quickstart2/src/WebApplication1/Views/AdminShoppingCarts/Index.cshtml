@@ -1,0 +1,53 @@
+﻿@model IEnumerable<WebApplication1.Models.ShoppingCart>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Nouveau panier</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Email)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Email)
+                </td>
+                <td>
+
+                    @Html.ActionLink("supprimer", "Delete", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Index", new { Controller = "LineItems", action = "Index", id = item.Id })
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+@Html.ActionLink("Accueil", "Index", "Home")
+<br />

@@ -1,0 +1,105 @@
+﻿@model WebApplication1.Models.Book
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+@{string datePublication = @Model.DatePublication.ToString();}
+
+
+<h1>Edition</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+
+        <form asp-action="PutRessource">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="@Model.IdEditor" />
+
+
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Isbn" class="control-label"></label>
+                <input asp-for="Isbn" class="form-control" />
+                <span asp-validation-for="Isbn" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="@Model.IdEditorNavigation.Name" class="control-label"></label>
+                <input asp-for="@Model.IdEditorNavigation.Name" class="form-control" />
+                <span asp-validation-for="@Model.IdEditorNavigation.Name" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="DatePublication" class="control-label"></label>
+                @if (@Model.DatePublication != null)
+                {
+                    @Html.TextBoxFor(model => model.DatePublication, "{0:dd.MM.yyyy}", new { @class = "form-control datepicker" })
+                }
+                else
+                { <input asp-for="DatePublication" class="form-control" value="/" />}
+                <span asp-validation-for="DatePublication" class="text-danger"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="Subtitle" class="control-label"></label>
+                @if (@Model.Subtitle != null)
+                {
+                    <input asp-for="Subtitle" class="form-control" />
+                }
+                else
+                { <input asp-for="Subtitle" class="form-control" value="/" />}
+
+                <span asp-validation-for="Subtitle" class="text-danger"></span>
+
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Summary" class="control-label"></label>
+                @if (@Model.Summary != null)
+                {
+                    <input asp-for="Summary" class="form-control" />
+                }
+                else
+                { <input asp-for="Summary" class="form-control" value="/" />}
+                <span asp-validation-for="Summary" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Mettre à jour" class="btn btn-primary" />
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Retour à la liste</a>
+</div>
+

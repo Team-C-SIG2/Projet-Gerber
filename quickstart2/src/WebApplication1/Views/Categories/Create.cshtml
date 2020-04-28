@@ -1,0 +1,41 @@
+﻿@model WebApplication1.Models.Categorie
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Créer</h1>
+
+<h4>Catégorie</h4>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+
+        @* FORMULAIRE : Action du Controleur*@
+        <form asp-action="PostCategorie">
+
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            @* Champ de saisie (INPUT)*@
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+
+            @* Bouton de validation *@
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Retour à la liste</a>
+</div>
