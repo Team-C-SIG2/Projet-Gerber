@@ -6,11 +6,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AppDbContext.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
+    [Authorize]
     public class ShoppingCartsController : ControllerBase
     {
 

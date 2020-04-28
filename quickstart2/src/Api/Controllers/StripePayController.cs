@@ -4,9 +4,12 @@ namespace Api.Controllers
     using Microsoft.AspNetCore.Mvc;
     using System.Collections.Generic;
     using Microsoft.Extensions.Configuration;
+    using Microsoft.AspNetCore.Authorization;
 
     [Route("api/[controller]")]
     [ApiController]
+
+    [Authorize]
     public class StripePayController : ControllerBase
     {
 

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\DEV\\projet\\Projet-Gerber\\quickstart2\\src\\AppBookshopContext\\AppBookshopContext.csproj": {}
+    "C:\\DEV\\hb\\ESB_SPRINT1_HB_V1\\quickstart2\\src\\AppBookshopContext\\AppBookshopContext.csproj": {}
   },
   "projects": {
-    "C:\\DEV\\projet\\Projet-Gerber\\quickstart2\\src\\AppBookshopContext\\AppBookshopContext.csproj": {
+    "C:\\DEV\\hb\\ESB_SPRINT1_HB_V1\\quickstart2\\src\\AppBookshopContext\\AppBookshopContext.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\DEV\\projet\\Projet-Gerber\\quickstart2\\src\\AppBookshopContext\\AppBookshopContext.csproj",
+        "projectUniqueName": "C:\\DEV\\hb\\ESB_SPRINT1_HB_V1\\quickstart2\\src\\AppBookshopContext\\AppBookshopContext.csproj",
         "projectName": "AppBookshopContext",
-        "projectPath": "C:\\DEV\\projet\\Projet-Gerber\\quickstart2\\src\\AppBookshopContext\\AppBookshopContext.csproj",
+        "projectPath": "C:\\DEV\\hb\\ESB_SPRINT1_HB_V1\\quickstart2\\src\\AppBookshopContext\\AppBookshopContext.csproj",
         "packagesPath": "C:\\Users\\migue\\.nuget\\packages\\",
-        "outputPath": "C:\\DEV\\projet\\Projet-Gerber\\quickstart2\\src\\AppBookshopContext\\obj\\",
+        "outputPath": "C:\\DEV\\hb\\ESB_SPRINT1_HB_V1\\quickstart2\\src\\AppBookshopContext\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\migue\\AppData\\Roaming\\NuGet\\NuGet.Config",
