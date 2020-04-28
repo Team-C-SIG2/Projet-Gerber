@@ -157,6 +157,12 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+<<<<<<< HEAD
+=======
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            var content = await client.GetStringAsync("http://localhost:5001/api/Books");
+>>>>>>> master
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
