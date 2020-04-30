@@ -1,40 +1,31 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+
+using Stripe;
+
+using AppWebClient.Models;
+using AppWebClient.Tools;
+using Microsoft.AspNetCore.Authorization;
+using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Authentication;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace AppWebClient.Controllers
 {
-
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Net.Http;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.Options;
-
-    using Stripe;
-
-    using AppWebClient.Models;
-    using AppWebClient.Tools;
-    using Microsoft.AspNetCore.Authorization;
-    using System.Net.Http.Headers;
-    using Microsoft.AspNetCore.Authentication;
-    using System.Threading.Tasks;
-    using Newtonsoft.Json.Linq;
-
     public class HomeController : Controller
     {
-
-
-
         private readonly IConfiguration _configuration;
 
         public HomeController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
-
-
-
 
         // Var USERID 
         private readonly string UserID = "002078C2AB";
@@ -45,15 +36,10 @@ namespace AppWebClient.Controllers
         // URL 
         private string _url = $"api/ShoppingCarts/";
 
-
-
         public IActionResult StripeInfos()
         {
             return View();
         }
-
-
-
 
         public IActionResult Charge(string stripeEmail, string StripeToken)
         {           
@@ -67,14 +53,10 @@ namespace AppWebClient.Controllers
 
             ViewBag.PUBLICKEY = publickey;
 
-
-
             // Tdodo  Récupérer dans lineItems
             decimal decimalAmount = 15.00M;
             var centsAmount = (decimalAmount * 100);
             long chargeAmount = Convert.ToInt64(centsAmount); 
-
-
 
             var customers = new CustomerService();
             var Charges = new ChargeService();
@@ -114,20 +96,15 @@ namespace AppWebClient.Controllers
             }
             
             return View();
-            // return View();
         }
-
-
 
         /*
             [Authorize]
              */
         public IActionResult Index()
         {
-/*
-
-
-            // ENVOYER PAR LE SERVEUR API -> STRING = PublishableKey vALUE
+            /*
+            // ENVOYER PAR LE SERVEUR API -> STRING = PublishableKey VALUE
 
             // string publickey = _configuration.GetValue<string>("Stripe:PublishableKey");
             string publickey = ""; 
@@ -142,26 +119,18 @@ namespace AppWebClient.Controllers
             ViewBag.MONTANT = centsAmount;
             ViewBag.MONTANTAFFICHE = decimalAmount;
             ViewBag.PUBLICKEY = publickey;
-*/
-
-
+            */
 
             ViewBag.USERID = UserID;
 
             return View();
-
         }
-
-
-
 
         public IActionResult About()
         {
             ViewBag.USERID = UserID;
             return View();
         }
-
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -181,6 +150,11 @@ namespace AppWebClient.Controllers
 
             ViewBag.Json = JArray.Parse(content).ToString();
             return View("json");
+        }
+
+        public IActionResult Logout()
+        {
+            return SignOut("Cookies", "oidc");
         }
     }
 }

@@ -1436,3 +1436,4 @@ D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstar
 D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\AppWebClient\obj\Debug\netcoreapp3.1\AppWebClient.pdb
 D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\AppWebClient\obj\Debug\netcoreapp3.1\AppWebClient.genruntimeconfig.cache
 D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\AppWebClient\obj\Debug\netcoreapp3.1\Razor\Views\Home\json.cshtml.g.cs
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\AppWebClient\obj\Debug\netcoreapp3.1\Razor\Views\UserProfile\Index.cshtml.g.cs
