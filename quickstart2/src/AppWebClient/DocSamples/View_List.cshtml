@@ -1,0 +1,89 @@
+﻿@model IEnumerable<AppWebClient.Models.LineItem>
+
+@{
+    ViewBag.Title = "GetCartItems";
+}
+
+<h2>
+    GetCartItems - Contenu du panier @ViewBag.PANIER
+</h2>
+
+
+<table class="table">
+    @*Noms des colonnes de la table*@
+
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdShoppingcart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdBookNavigation.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdBookNavigation.Isbn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitPrice)
+        </th>
+    </tr>
+
+    @*BOUCLE FOREACH : Affiche les Lignes de la table*@
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.IdShoppingcart)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.IdBookNavigation.Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.IdBookNavigation.Isbn)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Quantity)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.UnitPrice)
+    </td>
+    <td>
+
+        @*Liens de navigation / Redirection*@
+
+        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+
+    </td>
+</tr>
+    }
+
+</table>
+<hr />
+
+
+<p>
+    @*Récupération du montant total calculé par le controlleur de la vue *@
+    Montant total (CHF) : <b>@ViewBag.TOTAL</b>
+</p>
+
+<p>
+    @*Lien pour lancer le paiement PayPal *@
+    @* @Html.ActionLink("Paiement Paypal", "PaymentWithPaypal", "Home") *@
+
+    @Html.ActionLink("Paiement Paypal", "PaymentWithPaypal", "Home", new { id = @ViewBag.PANIER }, null)
+    <br />
+    @*TODO*@
+    @Html.ActionLink("Panier d'achat", "Index", new { Controller = "Shoppingcarts", action = "Index" })
+
+
+    <br />
+    @*Liens de navigation / Redirection Pour aller à la page principale du site *@
+    @Html.ActionLink("Accueil", "Index", new { Controller = "Home", action = "Index" })
+
+</p>
+
+
