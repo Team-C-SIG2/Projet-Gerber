@@ -170,6 +170,7 @@ namespace AppWebClient.Controllers
             return View(new ErrorViewModel {RequestId= Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
 
+        [Authorize]
         public async Task<IActionResult> CallApi()
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
@@ -181,7 +182,5 @@ namespace AppWebClient.Controllers
             ViewBag.Json = JArray.Parse(content).ToString();
             return View("json");
         }
-
-
     }
 }
