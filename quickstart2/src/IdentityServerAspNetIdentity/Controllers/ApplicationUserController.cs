@@ -10,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using AppDbContext.Models;
 using System.Linq;
+using IdentityServerAspNetIdentity.Services;
+using System.Threading.Tasks;
 
 namespace IdentityServerAspNetIdentity.Controllers
 {
@@ -24,6 +26,7 @@ namespace IdentityServerAspNetIdentity.Controllers
             _context = context;
             resView = "CreateDone";
         }
+
         public IActionResult Create()
         {
             return View();
@@ -87,6 +90,24 @@ namespace IdentityServerAspNetIdentity.Controllers
             return View(resView);
         }
 
+        public IActionResult ResetPwd()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> MailSendAsync(string mail)
+        {
+            AuthMessageSenderOptions msgOpt = new AuthMessageSenderOptions();
+            msgOpt.SendGridKey = "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";
+            msgOpt.SendGridUser = "ESBookshop";
+
+            EmailSender snd = new EmailSender(msgOpt);
+            var subject = "Sending with SendGrid is Fun";
+            var htmlContent = "<strong>and easy to do anywhere, even with C#</strong>";
+            await snd.SendEmailAsync(mail, subject, htmlContent);
+            return View();
+        }
 
     }// End Class 
 }

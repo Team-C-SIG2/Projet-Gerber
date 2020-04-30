@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Cours ETML-ES\\Developpement C# et projet informatique\\Projet-Gerber\\quickstart2\\src\\AppDbContext\\AppDbContext.csproj": {}
+    "C:\\DEV\\projet\\Projet-Gerber\\quickstart2\\src\\AppDbContext\\AppDbContext.csproj": {}
   },
   "projects": {
-    "D:\\Cours ETML-ES\\Developpement C# et projet informatique\\Projet-Gerber\\quickstart2\\src\\AppDbContext\\AppDbContext.csproj": {
+    "C:\\DEV\\projet\\Projet-Gerber\\quickstart2\\src\\AppDbContext\\AppDbContext.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Cours ETML-ES\\Developpement C# et projet informatique\\Projet-Gerber\\quickstart2\\src\\AppDbContext\\AppDbContext.csproj",
+        "projectUniqueName": "C:\\DEV\\projet\\Projet-Gerber\\quickstart2\\src\\AppDbContext\\AppDbContext.csproj",
         "projectName": "AppDbContext",
-        "projectPath": "D:\\Cours ETML-ES\\Developpement C# et projet informatique\\Projet-Gerber\\quickstart2\\src\\AppDbContext\\AppDbContext.csproj",
-        "packagesPath": "C:\\Users\\marcv\\.nuget\\packages\\",
-        "outputPath": "D:\\Cours ETML-ES\\Developpement C# et projet informatique\\Projet-Gerber\\quickstart2\\src\\AppDbContext\\obj\\",
+        "projectPath": "C:\\DEV\\projet\\Projet-Gerber\\quickstart2\\src\\AppDbContext\\AppDbContext.csproj",
+        "packagesPath": "C:\\Users\\migue\\.nuget\\packages\\",
+        "outputPath": "C:\\DEV\\projet\\Projet-Gerber\\quickstart2\\src\\AppDbContext\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\marcv\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\migue\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -75,7 +72,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
         }
       }
     }
