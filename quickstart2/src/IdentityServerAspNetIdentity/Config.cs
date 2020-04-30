@@ -26,16 +26,6 @@ namespace IdentityServerAspNetIdentity
         public static IEnumerable<Client> Clients =>
             new List<Client>
             {
-                // machine to machine client (from quickstart 1)
-                new Client
-                {
-                    ClientId = "client",
-                    ClientSecrets = { new Secret("secret".Sha256()) },
-
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    // scopes that client has access to
-                    AllowedScopes = { "api1" }
-                },
                 // interactive ASP.NET Core MVC client
                 new Client
                 {

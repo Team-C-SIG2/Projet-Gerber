@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\DEV\\hb\\ESB_SPRINT1_HB_V1\\quickstart2\\src\\AppWebClient\\AppWebClient.csproj": {}
+    "D:\\Cours ETML-ES\\Developpement C# et projet informatique\\Projet-Gerber\\quickstart2\\src\\AppWebClient\\AppWebClient.csproj": {}
   },
   "projects": {
-    "C:\\DEV\\hb\\ESB_SPRINT1_HB_V1\\quickstart2\\src\\AppWebClient\\AppWebClient.csproj": {
+    "D:\\Cours ETML-ES\\Developpement C# et projet informatique\\Projet-Gerber\\quickstart2\\src\\AppWebClient\\AppWebClient.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\DEV\\hb\\ESB_SPRINT1_HB_V1\\quickstart2\\src\\AppWebClient\\AppWebClient.csproj",
+        "projectUniqueName": "D:\\Cours ETML-ES\\Developpement C# et projet informatique\\Projet-Gerber\\quickstart2\\src\\AppWebClient\\AppWebClient.csproj",
         "projectName": "AppWebClient",
-        "projectPath": "C:\\DEV\\hb\\ESB_SPRINT1_HB_V1\\quickstart2\\src\\AppWebClient\\AppWebClient.csproj",
-        "packagesPath": "C:\\Users\\migue\\.nuget\\packages\\",
-        "outputPath": "C:\\DEV\\hb\\ESB_SPRINT1_HB_V1\\quickstart2\\src\\AppWebClient\\obj\\",
+        "projectPath": "D:\\Cours ETML-ES\\Developpement C# et projet informatique\\Projet-Gerber\\quickstart2\\src\\AppWebClient\\AppWebClient.csproj",
+        "packagesPath": "C:\\Users\\marcv\\.nuget\\packages\\",
+        "outputPath": "D:\\Cours ETML-ES\\Developpement C# et projet informatique\\Projet-Gerber\\quickstart2\\src\\AppWebClient\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\migue\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\marcv\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -107,7 +110,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
