@@ -5,20 +5,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Api.Models
 {
-    [Table("STOCKS")]
     public partial class Stock
     {
         [Key]
-        [Column("ID")]
         public int Id { get; set; }
-        [Column("ID_BOOK")]
+        [Column("Id_Book")]
         public int IdBook { get; set; }
-        [Column("INITIALSTOCK")]
-        public short Initialstock { get; set; }
-        [Column("CURRENTSTOCK")]
-        public short Currentstock { get; set; }
-        [Column("DELIVERYDATE", TypeName = "datetime")]
-        public DateTime Deliverydate { get; set; }
+        public short InitialStock { get; set; }
+        public short CurrentStock { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime DeliveryDate { get; set; }
 
         [ForeignKey(nameof(IdBook))]
         [InverseProperty(nameof(Book.Stocks))]

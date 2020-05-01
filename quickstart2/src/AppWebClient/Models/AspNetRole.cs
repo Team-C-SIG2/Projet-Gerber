@@ -14,18 +14,16 @@ namespace AppWebClient.Models
         }
 
         [Key]
-        [StringLength(450)]
         public string Id { get; set; }
-        [StringLength(255)]
         public string ConcurrencyStamp { get; set; }
         [StringLength(256)]
         public string Name { get; set; }
         [StringLength(256)]
         public string NormalizedName { get; set; }
 
-        [InverseProperty("Role")]
+        [InverseProperty(nameof(AspNetRoleClaim.Role))]
         public virtual ICollection<AspNetRoleClaim> AspNetRoleClaims { get; set; }
-        [InverseProperty("Role")]
+        [InverseProperty(nameof(AspNetUserRole.Role))]
         public virtual ICollection<AspNetUserRole> AspNetUserRoles { get; set; }
     }
 }

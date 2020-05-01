@@ -25,6 +25,7 @@
       "AppWebClient/1.0.0": {
         "dependencies": {
           "AspNet.Security.OAuth.Paypal": "3.0.0",
+          "Bricelam.EntityFrameworkCore.Pluralizer": "1.0.0",
           "Microsoft.AspNet.WebApi.Client": "5.2.7",
           "Microsoft.AspNetCore.Authentication.OpenIdConnect": "3.1.3",
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "3.1.3",
@@ -323,6 +324,17 @@
         },
         "compile": {
           "lib/netcoreapp3.0/AspNet.Security.OAuth.Paypal.dll": {}
+        }
+      },
+      "Bricelam.EntityFrameworkCore.Pluralizer/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Design": "3.1.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Bricelam.EntityFrameworkCore.Pluralizer.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "Microsoft.AspNet.WebApi.Client/5.2.7": {
@@ -4150,6 +4162,13 @@
       "sha512": "sha512-a2fOXc94L7iEtVpZhlZ82FAnG2p8zfOIW/AclXn/bQVwg7XXNn82unCpMrr2fiKD4MIm1Ntk6hIiemW7j8tYZg==",
       "path": "aspnet.security.oauth.paypal/3.0.0",
       "hashPath": "aspnet.security.oauth.paypal.3.0.0.nupkg.sha512"
+    },
+    "Bricelam.EntityFrameworkCore.Pluralizer/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-akiz3hGnpDgZssTGTnTehy7cy8gJ3RME7jULOkxWHuoSUUmkyxHO8USA/DDTz9Zc+o3RvTdY888NrjDcmb3OJA==",
+      "path": "bricelam.entityframeworkcore.pluralizer/1.0.0",
+      "hashPath": "bricelam.entityframeworkcore.pluralizer.1.0.0.nupkg.sha512"
     },
     "Microsoft.AspNet.WebApi.Client/5.2.7": {
       "type": "package",

@@ -139,14 +139,13 @@ namespace AppWebClient.Controllers
             return View(new ErrorViewModel {RequestId= Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
 
-        [Authorize]
         public async Task<IActionResult> CallApi()
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
 
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            var content = await client.GetStringAsync("http://localhost:5001/api/Books");
+            var content = await client.GetStringAsync(_configuration["URLApi"] + "api/Books");
 
             ViewBag.Json = JArray.Parse(content).ToString();
             return View("json");

@@ -8,9 +8,9 @@ namespace IdentityServerAspNetIdentity.Models
     public partial class AspNetUserRole
     {
         [Key]
-        public string UserId { get; set; }
-        [Key]
         public string RoleId { get; set; }
+        [Key]
+        public string UserId { get; set; }
 
         [ForeignKey(nameof(RoleId))]
         [InverseProperty(nameof(AspNetRole.AspNetUserRoles))]

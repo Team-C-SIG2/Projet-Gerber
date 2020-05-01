@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
-using AppDbContext.Models;
 using System.Linq;
 
 namespace IdentityServerAspNetIdentity.Controllers
@@ -16,10 +15,10 @@ namespace IdentityServerAspNetIdentity.Controllers
     public class ApplicationUserController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly CoreDbContext _context;
+        private readonly ESBookshopContext _context;
         private string resView;
 
-        public ApplicationUserController(UserManager<ApplicationUser> userManager, CoreDbContext context) {
+        public ApplicationUserController(UserManager<ApplicationUser> userManager, ESBookshopContext context) {
             _userManager = userManager;
             _context = context;
             resView = "CreateDone";

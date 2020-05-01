@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Api.Models
 {
-    [Table("AUTHORS")]
     public partial class Author
     {
         public Author()
@@ -14,14 +13,11 @@ namespace Api.Models
         }
 
         [Key]
-        [Column("ID")]
         public int Id { get; set; }
         [Required]
-        [Column("LASTNAME")]
         [StringLength(100)]
         public string Lastname { get; set; }
         [Required]
-        [Column("FIRSTNAME")]
         [StringLength(100)]
         public string Firstname { get; set; }
 

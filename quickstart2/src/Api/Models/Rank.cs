@@ -5,23 +5,22 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Api.Models
 {
-    [Table("RANKS")]
     public partial class Rank
     {
         [Key]
-        [Column("ID_BOOK")]
+        [Column("Id_Book")]
         public int IdBook { get; set; }
         [Key]
-        [Column("ID_CATEGORIE")]
+        [Column("Id_Categorie")]
         public int IdCategorie { get; set; }
         [Key]
-        [Column("ID_GENRE")]
+        [Column("Id_Genre")]
         public int IdGenre { get; set; }
         [Key]
-        [Column("ID_FORMAT")]
+        [Column("Id_Format")]
         public int IdFormat { get; set; }
         [Key]
-        [Column("ID_LANGUAGE")]
+        [Column("Id_Language")]
         public int IdLanguage { get; set; }
 
         [ForeignKey(nameof(IdBook))]

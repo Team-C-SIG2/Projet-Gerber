@@ -2,8 +2,7 @@
 
 namespace Api.Controllers
 {
-
-    using AppDbContext.Models;
+    using Api.Models;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
@@ -22,9 +21,9 @@ namespace Api.Controllers
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Initialize the Database Context 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        private readonly CoreDbContext _context;
+        private readonly ESBookshopContext _context;
 
-        public BooksController(CoreDbContext context)
+        public BooksController(ESBookshopContext context)
         {
             _context = context;
         }

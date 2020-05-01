@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using AppDbContext.Models;
 using IdentityServerAspNetIdentity.Data;
 
 using IdentityServerAspNetIdentity.Models;
@@ -51,7 +50,7 @@ namespace IdentityServerAspNetIdentity
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ESBookshopContext")));
 
-            services.AddDbContext<CoreDbContext>(options =>
+            services.AddDbContext<ESBookshopContext>(options =>
                options.UseSqlServer(Startup.ConnectionString));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()

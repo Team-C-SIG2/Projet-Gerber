@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Api.Models
 {
-    [Table("FORMATS")]
     public partial class Format
     {
         public Format()
@@ -14,9 +13,7 @@ namespace Api.Models
         }
 
         [Key]
-        [Column("ID")]
         public int Id { get; set; }
-        [Column("DESCRIPTION")]
         [StringLength(50)]
         public string Description { get; set; }
 
