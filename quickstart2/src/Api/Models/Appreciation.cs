@@ -5,26 +5,25 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Api.Models
 {
-    [Table("APPRECIATIONS")]
     public partial class Appreciation
     {
         [Key]
-        [Column("ID")]
         public int Id { get; set; }
-        [Column("ID_LINEITEM")]
-        public int IdLineitem { get; set; }
-        [Column("ID_ORDER")]
+        [Column("Id_LineItem")]
+        public int IdLineItem { get; set; }
+        [Column("Id_Order")]
         public int IdOrder { get; set; }
-        [Column("ID_PAYMENT")]
+        [Column("Id_Payment")]
         public int IdPayment { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime EvaluationDate { get; set; }
         [Required]
-        [Column("EVALUATION")]
         [StringLength(20)]
         public string Evaluation { get; set; }
 
-        [ForeignKey(nameof(IdLineitem))]
-        [InverseProperty(nameof(Lineitem.Appreciations))]
-        public virtual Lineitem IdLineitemNavigation { get; set; }
+        [ForeignKey(nameof(IdLineItem))]
+        [InverseProperty(nameof(LineItem.Appreciations))]
+        public virtual LineItem IdLineItemNavigation { get; set; }
         [ForeignKey(nameof(IdOrder))]
         [InverseProperty(nameof(Order.Appreciations))]
         public virtual Order IdOrderNavigation { get; set; }

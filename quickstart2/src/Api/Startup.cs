@@ -1,4 +1,5 @@
-using AppDbContext.Models;
+using Api.Models;
+using Api.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +21,7 @@ namespace Api
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<CoreDbContext>(op => op.UseSqlServer(Configuration.GetConnectionString("BookshopDb"))); //Add       
+            services.AddDbContext<ESBookshopContext>(op => op.UseSqlServer(Configuration.GetConnectionString("BookshopDb"))); //Add       
             services.AddControllers();
 
             services.AddAuthentication("Bearer")

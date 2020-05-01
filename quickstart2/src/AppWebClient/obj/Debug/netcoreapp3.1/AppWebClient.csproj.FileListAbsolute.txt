@@ -1373,9 +1373,6 @@ D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstar
 D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\AppWebClient\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\AppWebClient\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\AppWebClient\obj\Debug\netcoreapp3.1\AppWebClient.csprojAssemblyReference.cache
-D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\AppWebClient\obj\Debug\netcoreapp3.1\AppWebClient.csproj.CoreCompileInputs.cache
-D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\AppWebClient\obj\Debug\netcoreapp3.1\AppWebClient.MvcApplicationPartsAssemblyInfo.cs
-D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\AppWebClient\obj\Debug\netcoreapp3.1\AppWebClient.MvcApplicationPartsAssemblyInfo.cache
 D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\AppWebClient\obj\Debug\netcoreapp3.1\AppWebClient.RazorAssemblyInfo.cache
 D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\AppWebClient\obj\Debug\netcoreapp3.1\AppWebClient.RazorAssemblyInfo.cs
 D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\AppWebClient\obj\Debug\netcoreapp3.1\AppWebClient.AssemblyInfoInputs.cache
@@ -1437,3 +1434,9 @@ D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstar
 D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\AppWebClient\obj\Debug\netcoreapp3.1\AppWebClient.genruntimeconfig.cache
 D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\AppWebClient\obj\Debug\netcoreapp3.1\Razor\Views\Home\json.cshtml.g.cs
 D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\AppWebClient\obj\Debug\netcoreapp3.1\Razor\Views\UserProfile\Index.cshtml.g.cs
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\AppWebClient\bin\Debug\netcoreapp3.1\Bricelam.EntityFrameworkCore.Pluralizer.dll
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\AppWebClient\obj\Debug\netcoreapp3.1\AppWebClient.csproj.CoreCompileInputs.cache
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\AppWebClient\obj\Debug\netcoreapp3.1\AppWebClient.MvcApplicationPartsAssemblyInfo.cs
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\AppWebClient\obj\Debug\netcoreapp3.1\AppWebClient.MvcApplicationPartsAssemblyInfo.cache
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\AppWebClient\obj\Debug\netcoreapp3.1\EFCorePluralizer.cs
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\AppWebClient\obj\Debug\netcoreapp3.1\Razor\Views\UserProfile\json.cshtml.g.cs

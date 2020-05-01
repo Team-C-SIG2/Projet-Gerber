@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Api.Models
 {
-    [Table("CATEGORIES")]
     public partial class Category
     {
         public Category()
@@ -14,10 +13,8 @@ namespace Api.Models
         }
 
         [Key]
-        [Column("ID")]
         public int Id { get; set; }
         [Required]
-        [Column("DESCRIPTION")]
         [StringLength(100)]
         public string Description { get; set; }
 

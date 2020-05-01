@@ -16,7 +16,7 @@ namespace AppWebClient.Models
         [Required]
         [StringLength(450)]
         public string UserId { get; set; }
-        [StringLength(255)]
+        [Column(TypeName = "text")]
         public string ProviderDisplayName { get; set; }
 
         [ForeignKey(nameof(UserId))]

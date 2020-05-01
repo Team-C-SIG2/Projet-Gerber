@@ -2,8 +2,7 @@
 
 namespace Api.Controllers
 {
-
-    using AppDbContext.Models;
+    using Api.Models;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
@@ -22,9 +21,9 @@ namespace Api.Controllers
         // Initialize the Database Context 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        private readonly CoreDbContext _context;
+        private readonly ESBookshopContext _context;
 
-        public CategoriesController(CoreDbContext context)
+        public CategoriesController(ESBookshopContext context)
         {
             _context = context;
         }
@@ -36,7 +35,7 @@ namespace Api.Controllers
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Categorie>>> GetCategories()
+        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
             return await _context.Categories.ToListAsync();
         }
@@ -48,7 +47,7 @@ namespace Api.Controllers
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Categorie>> GetCategories(int? id)
+        public async Task<ActionResult<Category>> GetCategories(int? id)
         {
             var categories = await _context.Categories.FindAsync(id);
 
@@ -68,7 +67,7 @@ namespace Api.Controllers
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategories(int id, Categorie categories)
+        public async Task<IActionResult> PutCategories(int id, Category categories)
         {
             if (id != categories.Id)
             {
@@ -104,7 +103,7 @@ namespace Api.Controllers
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         [HttpPost]
-        public async Task<ActionResult<Categorie>> PostCategories(Categorie categorie)
+        public async Task<ActionResult<Category>> PostCategories(Category categorie)
         {
             _context.Categories.Add(categorie);
             await _context.SaveChangesAsync();
@@ -119,7 +118,7 @@ namespace Api.Controllers
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Categorie>> DeleteCategorie(int id)
+        public async Task<ActionResult<Category>> DeleteCategorie(int id)
         {
             var categorie = await _context.Categories.FindAsync(id);
             if (categorie == null)

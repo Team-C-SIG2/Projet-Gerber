@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Api.Models
 {
-    [Table("PAYMENTS")]
     public partial class Payment
     {
         public Payment()
@@ -14,22 +13,21 @@ namespace Api.Models
         }
 
         [Key]
-        [Column("ID")]
         public int Id { get; set; }
-        [Column("PAIDDATE", TypeName = "datetime")]
-        public DateTime Paiddate { get; set; }
-        [Column("PRICETOTAL", TypeName = "money")]
-        public decimal Pricetotal { get; set; }
         [Required]
-        [Column("DETAILS")]
+        [StringLength(450)]
+        public string UserId { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime PaidDate { get; set; }
+        [Column(TypeName = "money")]
+        public decimal PriceTotal { get; set; }
+        [Required]
         [StringLength(255)]
         public string Details { get; set; }
-        [Column("ID_ACCOUNT")]
-        public int IdAccount { get; set; }
 
-        [ForeignKey(nameof(IdAccount))]
-        [InverseProperty(nameof(Account.Payments))]
-        public virtual Account IdAccountNavigation { get; set; }
+        [ForeignKey(nameof(UserId))]
+        [InverseProperty(nameof(AspNetUser.Payments))]
+        public virtual AspNetUser User { get; set; }
         [InverseProperty(nameof(Appreciation.IdPaymentNavigation))]
         public virtual ICollection<Appreciation> Appreciations { get; set; }
     }

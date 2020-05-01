@@ -32,7 +32,7 @@ namespace Api.Models
         [StringLength(3)]
         public string Countrycode { get; set; }
 
-        [InverseProperty(nameof(Book.IdEditeurNavigation))]
+        [InverseProperty(nameof(Book.IdEditorNavigation))]
         public virtual ICollection<Book> Books { get; set; }
     }
 }
