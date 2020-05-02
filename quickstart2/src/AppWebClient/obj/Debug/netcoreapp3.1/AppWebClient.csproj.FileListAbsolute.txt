@@ -1439,4 +1439,4 @@ D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstar
 D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\AppWebClient\obj\Debug\netcoreapp3.1\AppWebClient.MvcApplicationPartsAssemblyInfo.cs
 D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\AppWebClient\obj\Debug\netcoreapp3.1\AppWebClient.MvcApplicationPartsAssemblyInfo.cache
 D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\AppWebClient\obj\Debug\netcoreapp3.1\EFCorePluralizer.cs
-D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\AppWebClient\obj\Debug\netcoreapp3.1\Razor\Views\UserProfile\json.cshtml.g.cs
+D:\Cours ETML-ES\Developpement C# et projet informatique\Projet-Gerber\quickstart2\src\AppWebClient\obj\Debug\netcoreapp3.1\Razor\Views\UserProfile\Edit.cshtml.g.cs
