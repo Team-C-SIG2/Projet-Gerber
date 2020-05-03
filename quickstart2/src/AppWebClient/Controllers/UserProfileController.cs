@@ -70,7 +70,8 @@ namespace AppWebClient.Controllers
             {
                 return NotFound();
             }
-            return View(customer);
+
+            return View(user);
         }
 
         // POST: Movies/Edit/5
@@ -78,15 +79,29 @@ namespace AppWebClient.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind("Id,Acronyme,Firstname,Lastname,Address,Zip,City,Phone,Email,BillingAddress")] Customer customer)
+        public async Task<IActionResult> Edit([Bind("Id,Acronyme,Firstname,Lastname,Address,Zip,City,Phone,Email,BillingAddress")] Customer customer)
         {
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Customers/" + 2);
+
+            Customer user = JsonConvert.DeserializeObject<Customer>(content);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
             if (ModelState.IsValid)
             {
                 dbContext.Entry(customer).State = EntityState.Modified;
                 dbContext.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(customer);
+
+            return View(user);
         }
     }
 }
