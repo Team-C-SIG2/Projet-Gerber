@@ -5,35 +5,34 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Api.Models
 {
-    [Table("LINEITEMS")]
-    public partial class Lineitem
+    public partial class LineItem
     {
-        public Lineitem()
+        public LineItem()
         {
             Appreciations = new HashSet<Appreciation>();
         }
 
         [Key]
-        [Column("ID")]
         public int Id { get; set; }
-        [Column("ID_SHOPPINGCART")]
+        [Column("Id_Shoppingcart")]
         public int IdShoppingcart { get; set; }
-        [Column("ID_BOOK")]
+        [Column("Id_Book")]
         public int IdBook { get; set; }
-        [Column("QUANTITY")]
         public int Quantity { get; set; }
-        [Column("UNITPRICE", TypeName = "money")]
-        public decimal Unitprice { get; set; }
-        [Column("ID_ORDER")]
-        public int IdOrder { get; set; }
+        [Column(TypeName = "money")]
+        public decimal UnitPrice { get; set; }
+        [Column("Id_Order")]
+        public int? IdOrder { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime InsertedDate { get; set; }
 
         [ForeignKey(nameof(IdBook))]
-        [InverseProperty(nameof(Book.Lineitems))]
+        [InverseProperty(nameof(Book.LineItems))]
         public virtual Book IdBookNavigation { get; set; }
         [ForeignKey(nameof(IdShoppingcart))]
-        [InverseProperty(nameof(Shoppingcart.Lineitems))]
-        public virtual Shoppingcart IdShoppingcartNavigation { get; set; }
-        [InverseProperty(nameof(Appreciation.IdLineitemNavigation))]
+        [InverseProperty(nameof(ShoppingCart.LineItems))]
+        public virtual ShoppingCart IdShoppingcartNavigation { get; set; }
+        [InverseProperty(nameof(Appreciation.IdLineItemNavigation))]
         public virtual ICollection<Appreciation> Appreciations { get; set; }
     }
 }

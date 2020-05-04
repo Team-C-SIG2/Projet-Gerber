@@ -1,0 +1,78 @@
+﻿@model AppWebClient.Models.Customer
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Vos informations personnelles</h1>
+
+<section style="border: 1px solid; border-radius: 10px">
+    <div>
+        <p><strong>Profil</strong></p>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Firstname)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Firstname)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Lastname)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Lastname)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Zip)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Zip)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.City)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.City)
+            </dd>
+        </dl>
+    </div>
+</section>
+    
+<section style="border: 1px solid; border-radius: 10px">
+    <div>
+        <p><strong>Coordonnées</strong></p>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Phone)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Phone)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.BillingAddress)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.BillingAddress)
+            </dd>
+        </dl>
+    </div>
+</section>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+</div>
+

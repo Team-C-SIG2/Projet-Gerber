@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
-using AppDbContext.Models;
 using System.Linq;
 using IdentityServerAspNetIdentity.Services;
 using System.Threading.Tasks;

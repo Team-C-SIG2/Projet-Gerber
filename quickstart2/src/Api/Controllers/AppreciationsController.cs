@@ -1,6 +1,4 @@
-﻿using AppDbContext.Models;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.AspNetCore.Authorization;
+using Api.Models;
 
 namespace Api.Controllers
 {
@@ -23,10 +22,10 @@ namespace Api.Controllers
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Initialize the Database Context 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        private readonly CoreDbContext _context;
+        private readonly ESBookshopContext _context;
 
 
-        public AppreciationsController(CoreDbContext context)
+        public AppreciationsController(ESBookshopContext context)
         {
             _context = context;
         }
@@ -147,7 +146,7 @@ namespace Api.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<Categorie>> PostAppreciations(Appreciation appreciation)
+        public async Task<ActionResult<Category>> PostAppreciations(Appreciation appreciation)
         {
             _context.Appreciations.Add(appreciation);
             await _context.SaveChangesAsync();

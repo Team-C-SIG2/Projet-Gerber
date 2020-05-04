@@ -1,4 +1,4 @@
-﻿using AppDbContext.Models;
+﻿using Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -11,9 +11,9 @@ namespace Api.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        private readonly CoreDbContext _context;
+        private readonly ESBookshopContext _context;
 
-        public OrdersController(CoreDbContext context)
+        public OrdersController(ESBookshopContext context)
         {
             _context = context;
         }

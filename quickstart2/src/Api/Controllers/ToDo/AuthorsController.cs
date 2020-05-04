@@ -1,4 +1,4 @@
-﻿using AppDbContext.Models;
+﻿using Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -11,9 +11,9 @@ namespace Api.Controllers
     [ApiController]
     public class AuthorsController : ControllerBase
     {
-        private readonly CoreDbContext _context;
+        private readonly ESBookshopContext _context;
 
-        public AuthorsController(CoreDbContext context)
+        public AuthorsController(ESBookshopContext context)
         {
             _context = context;
         }

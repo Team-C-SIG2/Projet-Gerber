@@ -18,7 +18,7 @@ namespace AppWebClient.Models
         [StringLength(100)]
         public string Description { get; set; }
 
-        [InverseProperty("IdGenreNavigation")]
+        [InverseProperty(nameof(Rank.IdGenreNavigation))]
         public virtual ICollection<Rank> Ranks { get; set; }
     }
 }
