@@ -12,6 +12,16 @@ using AppDbContext.Models;
 using System.Linq;
 using IdentityServerAspNetIdentity.Services;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using SendGrid.Helpers.Mail;
+using SendGrid;
+using System.Net.Mail;
+using System.Net;
+using System;
+using Microsoft.AspNetCore.Authentication;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using Newtonsoft.Json.Linq;
 
 namespace IdentityServerAspNetIdentity.Controllers
 {
@@ -19,11 +29,14 @@ namespace IdentityServerAspNetIdentity.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly CoreDbContext _context;
+        private readonly IEmailSender _emailSender;
         private string resView;
 
-        public ApplicationUserController(UserManager<ApplicationUser> userManager, CoreDbContext context) {
+        public ApplicationUserController(UserManager<ApplicationUser> userManager, CoreDbContext context, IEmailSender emailSender)
+        {
             _userManager = userManager;
             _context = context;
+            _emailSender = emailSender;
             resView = "CreateDone";
         }
 
@@ -49,7 +62,7 @@ namespace IdentityServerAspNetIdentity.Controllers
                     var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
                     var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-                    
+
                     if (user.UserName == null)
                     {
                         resView = "ErrorUserName";
@@ -69,7 +82,7 @@ namespace IdentityServerAspNetIdentity.Controllers
                         await _context.SaveChangesAsync();
                         user.IdCustomer = _context.Customers.Max(u => u.Id);
 
-                        var checkUser = userMgr.FindByNameAsync(user.UserName).Result;
+                        var checkUser = userMgr.FindByEmailAsync(user.Email).Result;
                         if (checkUser == null)
                         {
                             checkUser = user;
@@ -78,13 +91,17 @@ namespace IdentityServerAspNetIdentity.Controllers
                             {
                                 resView = "ErrorPassword";
                             }
-                            Log.Debug($"{checkUser.UserName} created");
+                            else {
+                                Log.Debug($"{checkUser.UserName} created");
+                                /*var token = await userMgr.GenerateEmailConfirmationTokenAsync(checkUser);
+                                await userMgr.ConfirmEmailAsync(checkUser, token);*/
+                            }
                         }
                         else
                         {
                             Log.Debug($"{checkUser.UserName} already exists");
                         }
-                    }                    
+                    }
                 }
             }
             return View(resView);
@@ -95,19 +112,83 @@ namespace IdentityServerAspNetIdentity.Controllers
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> MailSendAsync(string mail)
+        public IActionResult ResetPwdForm(ResetPwdViewModel pwdModel)
         {
-            AuthMessageSenderOptions msgOpt = new AuthMessageSenderOptions();
-            msgOpt.SendGridKey = "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";
-            msgOpt.SendGridUser = "ESBookshop";
-
-            EmailSender snd = new EmailSender(msgOpt);
-            var subject = "Sending with SendGrid is Fun";
-            var htmlContent = "<strong>and easy to do anywhere, even with C#</strong>";
-            await snd.SendEmailAsync(mail, subject, htmlContent);
+            ViewBag.id = pwdModel.UserId;
+            ViewBag.code = pwdModel.code;
             return View();
         }
 
-    }// End Class 
+        [HttpPost]
+        public async Task<IActionResult> ResetPwdMailAsync(string mail)
+        {
+            var services = new ServiceCollection();
+            services.AddLogging();
+            services.AddDbContext<ApplicationDbContext>(options =>
+               options.UseSqlServer(Startup.ConnectionString));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            using (var serviceProvider = services.BuildServiceProvider())
+            {
+                using (var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
+                {
+                    var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+
+                    var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                    var checkUser = userMgr.FindByEmailAsync(mail).Result;
+                    if (checkUser != null)
+                    {
+                        var code = await userMgr.GeneratePasswordResetTokenAsync(checkUser);
+                        var callbackUrl = Url.Action("ResetPwdForm", "ApplicationUser", new ResetPwdViewModel { UserId = checkUser.Id, code = code }, "http");
+                        var basicCredential = new NetworkCredential("apikey", "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");
+                        string to = mail;
+                        string from = "info.esbookshop@gmail.com";
+                        MailMessage message = new MailMessage(from, to);
+                        message.Subject = "Réinitialisation du mot de passe";
+                        message.Body = "Cliquez sur ce lien pour réinitialiser votre MDP: <a href='" + callbackUrl + "'>Reinit</a>";
+                        message.IsBodyHtml = true;
+                        SmtpClient smtpClient = new SmtpClient("smtp.sendgrid.net", 25);
+                        // Credentials are necessary if the server requires the client 
+                        // to authenticate before it will send email on the client's behalf.
+                        smtpClient.UseDefaultCredentials = false;
+                        smtpClient.Credentials = basicCredential;
+                        smtpClient.Send(message);
+
+                    }
+                }
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPwdConfirmAsync(ResetPwdViewModel pwdModel)
+        {
+            var services = new ServiceCollection();
+            services.AddLogging();
+            services.AddDbContext<ApplicationDbContext>(options =>
+               options.UseSqlServer(Startup.ConnectionString));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            using (var serviceProvider = services.BuildServiceProvider())
+            {
+                using (var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
+                {
+                    var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+
+                    var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                    var checkUser = userMgr.FindByIdAsync(pwdModel.UserId).Result;
+                    var result = await userMgr.ResetPasswordAsync(checkUser, pwdModel.code, pwdModel.newPwd);
+                    var rst = result;
+                }
+                return View();
+            }
+
+        }// End Class 
+    }
 }

@@ -1,5 +1,6 @@
 ﻿using IdentityServerAspNetIdentity.Services;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc.ViewFeatures.Buffers;
 using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
@@ -9,9 +10,14 @@ namespace IdentityServerAspNetIdentity.Services
 {
     public class EmailSender : IEmailSender
     {
-        public EmailSender(AuthMessageSenderOptions optionsAccessor)
+        public EmailSender(/*AuthMessageSenderOptions optionsAccessor*/)
         {
-            Options = optionsAccessor;
+            AuthMessageSenderOptions options = new AuthMessageSenderOptions
+            {
+                SendGridKey = "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",
+                SendGridUser = "ESBookshop"
+            };
+            Options = options;
         }
 
         public AuthMessageSenderOptions Options { get; } //set only via Secret Manager
@@ -21,23 +27,16 @@ namespace IdentityServerAspNetIdentity.Services
             return Execute(Options.SendGridKey, subject, message, email);
         }
 
-        public Task Execute(string apiKey, string subject, string message, string email)
+        public async Task<Response> Execute(string apiKey, string subject, string message, string email)
         {
             var client = new SendGridClient(apiKey);
-            var msg = new SendGridMessage()
-            {
-                From = new EmailAddress("info@esbookshop.ch", Options.SendGridUser),
-                Subject = subject,
-                PlainTextContent = message,
-                HtmlContent = message
-            };
-            msg.AddTo(new EmailAddress(email));
-
+            var from = new EmailAddress("info@esbookshop.ch", Options.SendGridUser);
+            var msg = MailHelper.CreateSingleEmail(from, new EmailAddress(email), subject, "", message);
             // Disable click tracking.
             // See https://sendgrid.com/docs/User_Guide/Settings/tracking.html
             msg.SetClickTracking(false, false);
-
-            return client.SendEmailAsync(msg);
+            var response = await client.SendEmailAsync(msg);
+            return response;
         }
     }
 }
