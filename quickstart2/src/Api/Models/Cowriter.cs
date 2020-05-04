@@ -5,14 +5,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Api.Models
 {
-    [Table("COWRITERS")]
     public partial class Cowriter
     {
         [Key]
-        [Column("ID_AUTHOR")]
+        [Column("Id_Author")]
         public int IdAuthor { get; set; }
         [Key]
-        [Column("ID_BOOK")]
+        [Column("Id_Book")]
         public int IdBook { get; set; }
 
         [ForeignKey(nameof(IdAuthor))]

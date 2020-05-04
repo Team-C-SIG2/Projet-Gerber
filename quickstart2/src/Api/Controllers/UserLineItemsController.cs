@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AppDbContext.Models;
+using Api.Models;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers
@@ -21,9 +21,9 @@ namespace Api.Controllers
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Initialize the Database Context 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        private readonly CoreDbContext _context;
+        private readonly ESBookshopContext _context;
 
-        public UserLineItemsController(CoreDbContext context)
+        public UserLineItemsController(ESBookshopContext context)
         {
             _context = context;
         }

@@ -12,7 +12,7 @@ namespace Api.Models
         {
             Orders = new HashSet<Order>();
             Payments = new HashSet<Payment>();
-            Shoppingcarts = new HashSet<Shoppingcart>();
+            Shoppingcarts = new HashSet<ShoppingCart>();
         }
 
         [Key]
@@ -46,13 +46,13 @@ namespace Api.Models
         public string Type { get; set; }
 
         [ForeignKey(nameof(IdCutomer))]
-        [InverseProperty(nameof(Customer.Accounts))]
+        [InverseProperty(nameof(Customer.AspNetUsers))]
         public virtual Customer IdCutomerNavigation { get; set; }
-        [InverseProperty(nameof(Order.IdAccountNavigation))]
+        [InverseProperty(nameof(Order.User))]
         public virtual ICollection<Order> Orders { get; set; }
-        [InverseProperty(nameof(Payment.IdAccountNavigation))]
+        [InverseProperty(nameof(Payment.User))]
         public virtual ICollection<Payment> Payments { get; set; }
-        [InverseProperty(nameof(Shoppingcart.IdAccountNavigation))]
-        public virtual ICollection<Shoppingcart> Shoppingcarts { get; set; }
+        [InverseProperty(nameof(ShoppingCart.User))]
+        public virtual ICollection<ShoppingCart> Shoppingcarts { get; set; }
     }
 }

@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AppDbContext.Models;
 using Microsoft.AspNetCore.Authorization;
+using Api.Models;
 
 namespace Api.Controllers
 {
@@ -20,9 +20,9 @@ namespace Api.Controllers
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Initialize the Database Context 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        private readonly CoreDbContext _context;
+        private readonly ESBookshopContext _context;
 
-        public ShoppingCartsController(CoreDbContext context)
+        public ShoppingCartsController(ESBookshopContext context)
         {
             _context = context;
         }

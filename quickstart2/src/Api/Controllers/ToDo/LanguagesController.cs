@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AppDbContext.Models;
+using Api.Models;
 
 namespace Api.Controllers
 {
@@ -13,9 +13,9 @@ namespace Api.Controllers
     [ApiController]
     public class LanguagesController : ControllerBase
     {
-        private readonly CoreDbContext _context;
+        private readonly ESBookshopContext _context;
 
-        public LanguagesController(CoreDbContext context)
+        public LanguagesController(ESBookshopContext context)
         {
             _context = context;
         }

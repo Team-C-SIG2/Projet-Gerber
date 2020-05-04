@@ -11,8 +11,8 @@ namespace Api.Controllers
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
-    using AppDbContext.Models;
     using Microsoft.AspNetCore.Authorization;
+    using Api.Models;
 
     [Route("api/[controller]")]
     [ApiController]
@@ -26,9 +26,9 @@ namespace Api.Controllers
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-        private readonly CoreDbContext _context;
+        private readonly ESBookshopContext _context;
 
-        public LineItemsController(CoreDbContext context)
+        public LineItemsController(ESBookshopContext context)
         {
             _context = context;
         }
