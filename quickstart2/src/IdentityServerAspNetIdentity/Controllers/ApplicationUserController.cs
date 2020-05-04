@@ -142,7 +142,7 @@ namespace IdentityServerAspNetIdentity.Controllers
                     {
                         var code = await userMgr.GeneratePasswordResetTokenAsync(checkUser);
                         var callbackUrl = Url.Action("ResetPwdForm", "ApplicationUser", new ResetPwdViewModel { UserId = checkUser.Id, code = code }, "http");
-                        var basicCredential = new NetworkCredential("apikey", "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");
+                        var basicCredential = new NetworkCredential("apikey", "[GETAPIKEY]");
                         string to = mail;
                         string from = "info.esbookshop@gmail.com";
                         MailMessage message = new MailMessage(from, to);
