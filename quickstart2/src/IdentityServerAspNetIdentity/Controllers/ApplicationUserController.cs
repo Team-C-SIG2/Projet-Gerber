@@ -21,21 +21,24 @@ using Microsoft.AspNetCore.Authentication;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
+using Microsoft.Extensions.Configuration;
 
 namespace IdentityServerAspNetIdentity.Controllers
 {
     public class ApplicationUserController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly CoreDbContext _context;
+        private readonly ESBookshopContext _context;
         private readonly IEmailSender _emailSender;
+        private readonly IConfiguration _configuration;
         private string resView;
 
-        public ApplicationUserController(UserManager<ApplicationUser> userManager, CoreDbContext context, IEmailSender emailSender)
+        public ApplicationUserController(IConfiguration configuration, UserManager<ApplicationUser> userManager, ESBookshopContext context, IEmailSender emailSender)
         {
             _userManager = userManager;
             _context = context;
             _emailSender = emailSender;
+            _configuration = configuration;
             resView = "CreateDone";
         }
 
@@ -142,7 +145,7 @@ namespace IdentityServerAspNetIdentity.Controllers
                     {
                         var code = await userMgr.GeneratePasswordResetTokenAsync(checkUser);
                         var callbackUrl = Url.Action("ResetPwdForm", "ApplicationUser", new ResetPwdViewModel { UserId = checkUser.Id, code = code }, "http");
-                        var basicCredential = new NetworkCredential("apikey", "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");
+                        var basicCredential = new NetworkCredential("apikey", _configuration["sendgridApi"]);
                         string to = mail;
                         string from = "info.esbookshop@gmail.com";
                         MailMessage message = new MailMessage(from, to);
