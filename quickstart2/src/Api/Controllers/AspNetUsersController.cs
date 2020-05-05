@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Api.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AppDbContext.Models;
 
 namespace Api.Controllers
 {
@@ -13,9 +13,9 @@ namespace Api.Controllers
     [ApiController]
     public class AspNetUsersController : ControllerBase
     {
-        private readonly CoreDbContext _context;
+        private readonly ESBookshopContext _context;
 
-        public AspNetUsersController(CoreDbContext context)
+        public AspNetUsersController(ESBookshopContext context)
         {
             _context = context;
         }
