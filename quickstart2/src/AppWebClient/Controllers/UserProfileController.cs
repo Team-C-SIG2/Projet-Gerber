@@ -8,10 +8,13 @@ using Microsoft.AspNetCore.Authentication;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json.Linq;
-using System.Net.Mime;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
+using System.Net;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 
 namespace AppWebClient.Controllers
 {
@@ -29,21 +32,21 @@ namespace AppWebClient.Controllers
         public async Task<IActionResult> Index()
         {
             string accessToken = await HttpContext.GetTokenAsync("access_token");
-
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Customers/" + 2);
 
-            Customer user = JsonConvert.DeserializeObject<Customer>(content);
+            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Customers/");
 
-            if (user == null)
+            Customer customer = JsonConvert.DeserializeObject<Customer>(content);
+            
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            return View(user);
+            return View(customer);
         }
-        
+
         // GET: Movies/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -56,7 +59,7 @@ namespace AppWebClient.Controllers
 
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Customers/" + 2);
+            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Customers/");
 
             Customer user = JsonConvert.DeserializeObject<Customer>(content);
 
@@ -85,7 +88,7 @@ namespace AppWebClient.Controllers
 
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Customers/" + 2);
+            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Customers/");
 
             Customer user = JsonConvert.DeserializeObject<Customer>(content);
 
@@ -96,9 +99,15 @@ namespace AppWebClient.Controllers
 
             if (ModelState.IsValid)
             {
-                dbContext.Entry(customer).State = EntityState.Modified;
-                dbContext.SaveChanges();
-                return RedirectToAction("Index");
+                string jsonString = System.Text.Json.JsonSerializer.Serialize<Customer>(customer);
+
+                StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PutAsync(_configuration["URLApi"] + "api/Customers/" + user.Id, httpContent);
+                if (response.StatusCode != HttpStatusCode.NoContent)
+                {
+                    return BadRequest();
+                }
+                return RedirectToAction(nameof(Index));
             }
 
             return View(user);
