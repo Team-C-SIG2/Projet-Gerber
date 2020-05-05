@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Api.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace Api.Controllers
 {
@@ -22,13 +23,29 @@ namespace Api.Controllers
             _context = context;
         }
 
-        // GET: api/Customers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<Customer>> GetCustomers()
         {
-            return await _context.Customers.ToListAsync();
+            Customer customer = null;
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            customer = await _context.Customers
+                                .Where(a => a.AspNetUsers.FirstOrDefault().Id == userId)
+                                .SingleOrDefaultAsync();
+
+            if (customer == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                return customer;
+            }
+
+            // return await _context.Customers.ToListAsync();
         }
 
+        /*
         // GET: api/Customers/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Customer>> GetCustomer(int id)
@@ -42,6 +59,7 @@ namespace Api.Controllers
 
             return customer;
         }
+        */
 
         // PUT: api/Customers/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
@@ -75,6 +93,7 @@ namespace Api.Controllers
             return NoContent();
         }
 
+        /*
         // POST: api/Customers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
@@ -86,6 +105,7 @@ namespace Api.Controllers
 
             return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer);
         }
+        */
 
         // DELETE: api/Customers/5
         [HttpDelete("{id}")]

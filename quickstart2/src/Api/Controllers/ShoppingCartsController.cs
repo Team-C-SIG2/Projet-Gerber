@@ -158,7 +158,7 @@ namespace Api.Controllers
                      Orders = (from o in _context.Orders where o.UserId == i.Id select o).ToList(),
                      Payments = (from p in _context.Payments where p.UserId == i.Id select p).ToList(),
                      ShoppingCarts = (from s in _context.ShoppingCarts where s.UserId == i.Id select s).ToList(),
-                     IdCustomerNavigation = (from c in _context.Customers where c.Id == i.IdCustomer select c).FirstOrDefault()
+                     //IdCustomerNavigation = (from c in _context.Customers where c.Id == i.IdCustomer select c).FirstOrDefault()
                  });
 
 
