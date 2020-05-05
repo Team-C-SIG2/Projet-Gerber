@@ -20,3 +20,9 @@ quickstart2/src/IdentityServerAspNetIdentity/IdentityServerAspNetIdentity.csproj
 quickstart2/src/WebApplication1/obj/
 
 quickstart2/src/WebApplication1/bin/Debug/
+
+quickstart2/src/AppWebClient/bin/
+
+quickstart2/src/AppWebClient/obj/
+
+quickstart2/src/AppWebClient/appsettings.json
