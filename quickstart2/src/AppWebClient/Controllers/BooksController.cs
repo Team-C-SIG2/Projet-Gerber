@@ -18,6 +18,7 @@ namespace AppWebClient.Controllers
     using System.Net.Http.Headers;
     using Microsoft.Extensions.Configuration;
     using AppWebClient.ViewModel;
+    using Stripe.Issuing;
 
     public class BooksController : Controller
     {
@@ -450,8 +451,15 @@ namespace AppWebClient.Controllers
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             var result = await client.GetStringAsync(uri);
             var editorList = JsonConvert.DeserializeObject<IEnumerable<Editor>>(result);
-            SelectList sl = new SelectList(editorList, "Id", "Name");
-            ViewBag.IdEditor = sl;
+            SelectList slEditor = new SelectList(editorList, "Id", "Name");
+            ViewBag.IdEditor = slEditor;
+
+            uri = _configuration["URLApi"] + "api/Categories/";
+            result = await client.GetStringAsync(uri);
+            var categoryList = JsonConvert.DeserializeObject<IEnumerable<Category>>(result);
+            SelectList slCategory = new SelectList(categoryList, "Id", "Description");
+            ViewBag.IdCategory = slCategory;
+
             return View();
         }
 
@@ -462,12 +470,15 @@ namespace AppWebClient.Controllers
             bool searched = false;
             IEnumerable<Book> books;
             IEnumerable<Book> q = null;
+            StringComparison sc = StringComparison.OrdinalIgnoreCase;
             string uri = _configuration["URLApi"]+"api/Books/";
             string accessToken = await HttpContext.GetTokenAsync("access_token");
 
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             var content = await client.GetStringAsync(uri);
+
+            
             if (content != null)
             {
                 var result = content;
@@ -478,6 +489,38 @@ namespace AppWebClient.Controllers
                 {
                     q = (from b in q
                          where b.Isbn == searchedBook.Isbn
+                         select b).ToList();
+                    searched = true;
+                }
+
+                if (searchedBook.authorName != null)
+                {
+                    uri = _configuration["URLApi"] + "api/Cowriters/";
+                    var contentCowriters = await client.GetStringAsync(uri);
+                    var cowriters = JsonConvert.DeserializeObject<IEnumerable<Cowriter>>(contentCowriters);
+                    uri = _configuration["URLApi"] + "api/Authors/";
+                    var contentAuthors = await client.GetStringAsync(uri);
+                    var authors = JsonConvert.DeserializeObject<IEnumerable<Author>>(contentAuthors);
+                    q = (from b in q
+                         join cowriter in cowriters on b.Id equals cowriter.IdBook
+                         join author in authors on cowriter.IdAuthor equals author.Id
+                         where  author.Firstname.Contains(searchedBook.authorName, sc)
+                         || author.Lastname.Contains(searchedBook.authorName, sc)
+                         || (author.Lastname + " " + author.Firstname).Contains(searchedBook.authorName, sc)
+                         || (author.Firstname + " " + author.Lastname).Contains(searchedBook.authorName, sc)
+                         select b).ToList();
+                    
+                    searched = true;
+                }
+
+                if (searchedBook.category != 0)
+                {
+                    uri = _configuration["URLApi"] + "api/Ranks/";
+                    var contentRank = await client.GetStringAsync(uri);
+                    var ranks = JsonConvert.DeserializeObject<IEnumerable<Rank>>(contentRank);
+                    q = (from b in q
+                         join rank in ranks on b.Id equals rank.IdBook
+                         where rank.IdCategorie == searchedBook.category
                          select b).ToList();
                     searched = true;
                 }
@@ -517,7 +560,7 @@ namespace AppWebClient.Controllers
                     searched = true;
                 }
 
-                if (searchedBook.PriceFrom != 0)
+                if (searchedBook.PriceFrom != null)
                 {
                     q = (from b in q
                          where b.Price > searchedBook.PriceFrom
@@ -526,7 +569,7 @@ namespace AppWebClient.Controllers
                     searched = true;
                 }
 
-                if (searchedBook.PriceTo != 0)
+                if (searchedBook.PriceTo != null)
                 {
                     q = (from b in q
                          where b.Price < searchedBook.PriceTo

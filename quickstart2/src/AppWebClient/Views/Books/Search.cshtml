@@ -24,6 +24,12 @@
                         <input asp-for="Isbn" class="form-control" />
                         <span asp-validation-for="Isbn" class="text-danger"></span>
                     </div>
+
+                    <div class="form-group">
+                        <label asp-for="authorName" class="control-label">Auteur</label>
+                        <input asp-for="authorName" class="form-control" />
+                        <span asp-validation-for="authorName" class="text-danger"></span>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
@@ -72,6 +78,12 @@
                         </select>
                     </div>
 
+                    <div class="form-group">
+                        <label asp-for="category" class="control-label">Categorie</label>
+                        <select asp-for="category" class="form-control" asp-items="ViewBag.IdCategory">
+                            <option value="0"></option>
+                        </select>
+                    </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">

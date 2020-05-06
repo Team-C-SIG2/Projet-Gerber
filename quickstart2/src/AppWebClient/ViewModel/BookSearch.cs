@@ -17,6 +17,6 @@ namespace AppWebClient.ViewModel
         public string Summary { get; set; }
         public string Isbn { get; set; }
         public string authorName { get; set; }
-        public string category { get; set; }
+        public int? category { get; set; }
     }
 }
