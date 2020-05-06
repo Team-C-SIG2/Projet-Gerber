@@ -1,60 +1,18 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using AppWebClient.Models;
-using System.Net.Http;
-using Newtonsoft.Json;
-using AppWebClient.Tools;
-using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Authentication;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Net;
+﻿
 
 namespace AppWebClient.Controllers
 {
-    public class BooksController : Controller
-    {
-        private readonly IConfiguration _configuration;
+    using System;
+    using System.Linq;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using Microsoft.EntityFrameworkCore;
+    using AppWebClient.Models;
+    using System.Net.Http;
+    using Newtonsoft.Json;
 
-        public BooksController(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
-        // Var USERID 
-        private readonly string UserID = "002078C2AB";
-
-        // HTTPCLIENT 
-        private HttpClient _client = ApiHttpClient.ConnectClient();
-
-        // URL   
-        private string _url = $"api/books/";
-
-
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // READ: Return the User ShoppingCart
-        // GET: .../api/ShoppingCarts/5
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        // ________________________________________________________
-        // Entry point of the Controller (View)
-        // Return Books list 
-        // ________________________________________________________  
-
-        // GET: Books
-        public async Task<IActionResult> Index()
-        {
-            
-            string accessToken = await HttpContext.GetTokenAsync("access_token");
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
-            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Books/");
     using AppWebClient.Tools;
     using Microsoft.AspNetCore.Authentication;
     using System.Net.Http.Headers;
@@ -62,9 +20,6 @@ namespace AppWebClient.Controllers
     using AppWebClient.ViewModel;
     using Stripe.Issuing;
 
-            List<Book> books = JsonConvert.DeserializeObject<List<Book>>(content);
-
-            if (books == null)
     public class BooksController : Controller
     {
 
@@ -79,7 +34,8 @@ namespace AppWebClient.Controllers
 
         private readonly IConfiguration _configuration;
 
-        public BooksController(IConfiguration configuration) {
+        public BooksController(IConfiguration configuration)
+        {
             _configuration = configuration;
         }
 
@@ -104,13 +60,22 @@ namespace AppWebClient.Controllers
 
             if (response.IsSuccessStatusCode)
             {
+                var result = response.Content.ReadAsStringAsync().Result;
+                books = JsonConvert.DeserializeObject<List<Book>>(result);
+            }
+            else
+            {
+                // View ERROR
                 return NotFound();
             }
 
+            ViewBag.USERID = UserID;
+
             return View(books);
+
         }
 
-        /*
+
         // ________________________________________________________
         // Return a Book by its Id 
         // GET: .../ api/Books/S
@@ -127,7 +92,7 @@ namespace AppWebClient.Controllers
             }
             return book;
         }
-        */
+
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Get the Details of a resource Book (by id)
@@ -136,20 +101,25 @@ namespace AppWebClient.Controllers
 
         public async Task<IActionResult> Details(int? id)
         {
-            string accessToken = await HttpContext.GetTokenAsync("access_token");
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            string uri = _url + id;
 
-            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Books/" + id);
+            Book book = new Book();
 
-            Book book = JsonConvert.DeserializeObject<Book>(content);
+            HttpResponseMessage response = await _client.GetAsync(uri);
 
-            if (book == null)
+            if (response.IsSuccessStatusCode)
             {
-                return NotFound();
+                var result = response.Content.ReadAsStringAsync().Result;
+                book = JsonConvert.DeserializeObject<Book>(result);
+            }
+            else
+            {
+                // View ERROR
+                return View();
             }
 
             return View(book);
+
         }// END 
 
 
@@ -219,32 +189,22 @@ namespace AppWebClient.Controllers
         // GET: api/Books/Edit/5
         // ________________________________________________________
 
-        public async Task<IActionResult> Edit(int? id, Book book)
+        public async Task<IActionResult> Edit(int? id)
         {
-            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            string uri = _url + id;
+            Book book = new Book();
 
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Books/" + id);
+            HttpResponseMessage response = await _client.GetAsync(uri);
 
-            Book _book = JsonConvert.DeserializeObject<Book>(content);
-
-            if (_book == null)
+            if (response.IsSuccessStatusCode)
             {
-                return NotFound();
+                var result = response.Content.ReadAsStringAsync().Result;
+                book = JsonConvert.DeserializeObject<Book>(result);
             }
-
-            if (ModelState.IsValid)
+            else
             {
-                string jsonString = System.Text.Json.JsonSerializer.Serialize<Book>(book);
-
-                StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PutAsync(_configuration["URLApi"] + "api/Books/" + _book.Id, httpContent);
-                if (response.StatusCode != HttpStatusCode.NoContent)
-                {
-                    return BadRequest();
-                }
-                return RedirectToAction(nameof(Index));
+                // View ERROR
+                return View();
             }
 
             string editor = book.IdEditorNavigation.Name;
@@ -388,8 +348,8 @@ namespace AppWebClient.Controllers
             // _________________________________________________________________
 
             // https://localhost:44318/api/Books/GetUserShoppingCart/002078C2AB
-            string idUser = UserID; 
-            string uriShoppingcart = _url+"GetUserShoppingCart/" +idUser; 
+            string idUser = UserID;
+            string uriShoppingcart = _url + "GetUserShoppingCart/" + idUser;
 
             ShoppingCart shoppingcart = new ShoppingCart();
 
@@ -420,21 +380,21 @@ namespace AppWebClient.Controllers
             // _________________________________________________________________
             // CREATE a LineItems  
             // _________________________________________________________________
-            
+
             LineItem line = new LineItem
             {
-                IdBook =   book.Id, 
-                UnitPrice = book.Price, 
-                IdOrder = null, 
-                InsertedDate = DateTime.Now, 
+                IdBook = book.Id,
+                UnitPrice = book.Price,
+                IdOrder = null,
+                InsertedDate = DateTime.Now,
                 Quantity = 1,
                 IdShoppingcart = shoppingcart.Id,
             };
 
 
-            ViewBag.USERID = UserID; 
+            ViewBag.USERID = UserID;
 
-            HttpResponseMessage response = await _client.PostAsJsonAsync($"api/Books/AddLine/", line); 
+            HttpResponseMessage response = await _client.PostAsJsonAsync($"api/Books/AddLine/", line);
             response.EnsureSuccessStatusCode();
             return RedirectToAction("Index", "Books");
 
@@ -512,14 +472,14 @@ namespace AppWebClient.Controllers
             IEnumerable<Book> books;
             IEnumerable<Book> q = null;
             StringComparison sc = StringComparison.OrdinalIgnoreCase;
-            string uri = _configuration["URLApi"]+"api/Books/";
+            string uri = _configuration["URLApi"] + "api/Books/";
             string accessToken = await HttpContext.GetTokenAsync("access_token");
 
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             var content = await client.GetStringAsync(uri);
 
-            
+
             if (content != null)
             {
                 var result = content;
@@ -545,12 +505,12 @@ namespace AppWebClient.Controllers
                     q = (from b in q
                          join cowriter in cowriters on b.Id equals cowriter.IdBook
                          join author in authors on cowriter.IdAuthor equals author.Id
-                         where  author.Firstname.Contains(searchedBook.authorName, sc)
+                         where author.Firstname.Contains(searchedBook.authorName, sc)
                          || author.Lastname.Contains(searchedBook.authorName, sc)
                          || (author.Lastname + " " + author.Firstname).Contains(searchedBook.authorName, sc)
                          || (author.Firstname + " " + author.Lastname).Contains(searchedBook.authorName, sc)
                          select b).ToList();
-                    
+
                     searched = true;
                 }
 
@@ -592,8 +552,9 @@ namespace AppWebClient.Controllers
 
                     searched = true;
                 }
-                
-                if (searchedBook.DatePublicationTo != null) {
+
+                if (searchedBook.DatePublicationTo != null)
+                {
                     q = (from b in q
                          where b.DatePublication < searchedBook.DatePublicationTo
                          select b).ToList();
@@ -626,7 +587,8 @@ namespace AppWebClient.Controllers
 
                     searched = true;
                 }
-                if (searchedBook.IdEditor != 0) {
+                if (searchedBook.IdEditor != 0)
+                {
                     q = (from b in q
                          where b.IdEditor == searchedBook.IdEditor
                          select b).ToList();
@@ -640,7 +602,7 @@ namespace AppWebClient.Controllers
             }
             else
             {
-                return RedirectToAction("Search","Books");
+                return RedirectToAction("Search", "Books");
             }
         }
 
