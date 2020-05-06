@@ -14,7 +14,11 @@ namespace AppWebClient.Controllers
     using Newtonsoft.Json;
 
     using AppWebClient.Tools;
-
+    using Microsoft.AspNetCore.Authentication;
+    using System.Net.Http.Headers;
+    using Microsoft.Extensions.Configuration;
+    using AppWebClient.ViewModel;
+    using Stripe.Issuing;
 
     public class BooksController : Controller
     {
@@ -28,6 +32,11 @@ namespace AppWebClient.Controllers
         // URL 
         private string _url = $"api/books/";
 
+        private readonly IConfiguration _configuration;
+
+        public BooksController(IConfiguration configuration) {
+            _configuration = configuration;
+        }
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         // READ: Return the User ShoppingCart
@@ -423,7 +432,7 @@ namespace AppWebClient.Controllers
 
 
         // GET: Books
-        public async Task<IActionResult> MessageCrud()
+        public IActionResult MessageCrud()
         {
             // TODO - TRY CATCH 
 
@@ -432,6 +441,167 @@ namespace AppWebClient.Controllers
 
         }
 
+        // GET: Books/search
+        public async Task<IActionResult> SearchAsync()
+        {
+            string uri = _configuration["URLApi"] + "api/Editors/";
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            var result = await client.GetStringAsync(uri);
+            var editorList = JsonConvert.DeserializeObject<IEnumerable<Editor>>(result);
+            SelectList slEditor = new SelectList(editorList, "Id", "Name");
+            ViewBag.IdEditor = slEditor;
+
+            uri = _configuration["URLApi"] + "api/Categories/";
+            result = await client.GetStringAsync(uri);
+            var categoryList = JsonConvert.DeserializeObject<IEnumerable<Category>>(result);
+            SelectList slCategory = new SelectList(categoryList, "Id", "Description");
+            ViewBag.IdCategory = slCategory;
+
+            return View();
+        }
+
+        [HttpPost]
+        // POST: Books/find
+        public async Task<IActionResult> FindAsync(BookSearch searchedBook)
+        {
+            bool searched = false;
+            IEnumerable<Book> books;
+            IEnumerable<Book> q = null;
+            StringComparison sc = StringComparison.OrdinalIgnoreCase;
+            string uri = _configuration["URLApi"]+"api/Books/";
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            var content = await client.GetStringAsync(uri);
+
+            
+            if (content != null)
+            {
+                var result = content;
+                books = JsonConvert.DeserializeObject<IEnumerable<Book>>(result);
+                q = books;
+
+                if (searchedBook.Isbn != null)
+                {
+                    q = (from b in q
+                         where b.Isbn == searchedBook.Isbn
+                         select b).ToList();
+                    searched = true;
+                }
+
+                if (searchedBook.authorName != null)
+                {
+                    uri = _configuration["URLApi"] + "api/Cowriters/";
+                    var contentCowriters = await client.GetStringAsync(uri);
+                    var cowriters = JsonConvert.DeserializeObject<IEnumerable<Cowriter>>(contentCowriters);
+                    uri = _configuration["URLApi"] + "api/Authors/";
+                    var contentAuthors = await client.GetStringAsync(uri);
+                    var authors = JsonConvert.DeserializeObject<IEnumerable<Author>>(contentAuthors);
+                    q = (from b in q
+                         join cowriter in cowriters on b.Id equals cowriter.IdBook
+                         join author in authors on cowriter.IdAuthor equals author.Id
+                         where  author.Firstname.Contains(searchedBook.authorName, sc)
+                         || author.Lastname.Contains(searchedBook.authorName, sc)
+                         || (author.Lastname + " " + author.Firstname).Contains(searchedBook.authorName, sc)
+                         || (author.Firstname + " " + author.Lastname).Contains(searchedBook.authorName, sc)
+                         select b).ToList();
+                    
+                    searched = true;
+                }
+
+                if (searchedBook.category != 0)
+                {
+                    uri = _configuration["URLApi"] + "api/Ranks/";
+                    var contentRank = await client.GetStringAsync(uri);
+                    var ranks = JsonConvert.DeserializeObject<IEnumerable<Rank>>(contentRank);
+                    q = (from b in q
+                         join rank in ranks on b.Id equals rank.IdBook
+                         where rank.IdCategorie == searchedBook.category
+                         select b).ToList();
+                    searched = true;
+                }
+
+                if (searchedBook.Title != null)
+                {
+                    q = (from b in q
+                         where b.Title.Contains(searchedBook.Title)
+                         select b).ToList();
+
+                    searched = true;
+                }
+
+                if (searchedBook.Subtitle != null)
+                {
+                    q = (from b in q
+                         where b.Subtitle.Contains(searchedBook.Subtitle)
+                         select b).ToList();
+
+                    searched = true;
+                }
+
+                if (searchedBook.DatePublicationFrom != null)
+                {
+                    q = (from b in q
+                         where b.DatePublication > searchedBook.DatePublicationFrom
+                         select b).ToList();
+
+                    searched = true;
+                }
+                
+                if (searchedBook.DatePublicationTo != null) {
+                    q = (from b in q
+                         where b.DatePublication < searchedBook.DatePublicationTo
+                         select b).ToList();
+
+                    searched = true;
+                }
+
+                if (searchedBook.PriceFrom != null)
+                {
+                    q = (from b in q
+                         where b.Price > searchedBook.PriceFrom
+                         select b).ToList();
+
+                    searched = true;
+                }
+
+                if (searchedBook.PriceTo != null)
+                {
+                    q = (from b in q
+                         where b.Price < searchedBook.PriceTo
+                         select b).ToList();
+
+                    searched = true;
+                }
+                if (searchedBook.Summary != null)
+                {
+                    q = (from b in q
+                         where b.Summary.Contains(searchedBook.Summary)
+                         select b).ToList();
+
+                    searched = true;
+                }
+                if (searchedBook.IdEditor != 0) {
+                    q = (from b in q
+                         where b.IdEditor == searchedBook.IdEditor
+                         select b).ToList();
+
+                    searched = true;
+                }
+            }
+            if (searched)
+            {
+                return View(q);
+            }
+            else
+            {
+                return RedirectToAction("Search","Books");
+            }
+        }
 
     }// End Class 
 }

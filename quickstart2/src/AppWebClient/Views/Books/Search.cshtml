@@ -1,0 +1,106 @@
+﻿@model AppWebClient.ViewModel.BookSearch
+<h1>Recherche</h1>
+
+<h4>Book</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Find">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Title" class="control-label">Titre</label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Subtitle" class="control-label">Sous-titre</label>
+                        <input asp-for="Subtitle" class="form-control" />
+                        <span asp-validation-for="Subtitle" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Isbn" class="control-label">Code ISBN</label>
+                        <input asp-for="Isbn" class="form-control" />
+                        <span asp-validation-for="Isbn" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="authorName" class="control-label">Auteur</label>
+                        <input asp-for="authorName" class="form-control" />
+                        <span asp-validation-for="authorName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">Prix</label>
+                        <div class="form-inline">
+                            <div class="input-group w-50">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">de</div>
+                                </div>
+                                <input asp-for="PriceFrom" type="number" class="form-control" />
+                                <span asp-validation-for="PriceFrom" class="text-danger"></span>
+                            </div>
+                            <div class="input-group w-50">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">a</div>
+                                </div>
+                                <input asp-for="PriceTo" type="number" class="form-control" />
+                                <span asp-validation-for="PriceTo" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Date de publication</label>
+                        <div class="form-inline">
+                            <div class="input-group w-50">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">de</div>
+                                </div>
+                                <input asp-for="DatePublicationFrom" id="inlineFormInputGroup" type="date" class="form-control" />
+                                <span asp-validation-for="DatePublicationFrom" class="text-danger"></span>
+                            </div>
+                            <div class="input-group w-50">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">a</div>
+                                </div>
+                                <input asp-for="DatePublicationTo" type="date" class="form-control" />
+                                <span asp-validation-for="DatePublicationTo" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="IdEditor" class="control-label">Editeur</label>
+                        <select asp-for="IdEditor" class="form-control" asp-items="ViewBag.IdEditor">
+                            <option value="0"></option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="category" class="control-label">Categorie</label>
+                        <select asp-for="category" class="form-control" asp-items="ViewBag.IdCategory">
+                            <option value="0"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="Summary" class="control-label"></label>
+                        <textarea asp-for="Summary" class="form-control"></textarea>
+                        <span asp-validation-for="Summary" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <input type="submit" value="Search" class="btn btn-primary" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
