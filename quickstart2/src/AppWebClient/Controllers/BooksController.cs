@@ -528,7 +528,7 @@ namespace AppWebClient.Controllers
                 if (searchedBook.Title != null)
                 {
                     q = (from b in q
-                         where b.Title.Contains(searchedBook.Title)
+                         where b.Title.Contains(searchedBook.Title, sc)
                          select b).ToList();
 
                     searched = true;
@@ -537,7 +537,7 @@ namespace AppWebClient.Controllers
                 if (searchedBook.Subtitle != null)
                 {
                     q = (from b in q
-                         where b.Subtitle.Contains(searchedBook.Subtitle)
+                         where b.Subtitle.Contains(searchedBook.Subtitle, sc)
                          select b).ToList();
 
                     searched = true;
