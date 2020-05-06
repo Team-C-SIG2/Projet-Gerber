@@ -11,7 +11,10 @@
     using AppWebClient.Tools;
     using System.Net.Http;
     using Newtonsoft.Json;
-
+    using System.Net.Http.Headers;
+    using Microsoft.AspNetCore.Authentication;
+    using Microsoft.Win32.SafeHandles;
+    using Microsoft.Extensions.Configuration;
 
     public class AdminShoppingCartsController : Controller
     {
@@ -21,7 +24,15 @@
         private HttpClient _client = ApiHttpClient.ConnectClient();
 
         // URL 
-        private string _url = $"api/ShoppingCarts/";
+        
+        private IConfiguration _configuration;
+
+        private string _url;
+
+        public AdminShoppingCartsController(IConfiguration configuration) {
+            _configuration = configuration;
+            _url = _configuration["URLApi"] + "api/ShoppingCarts/";
+        }
 
 
 
@@ -37,12 +48,16 @@
 
             List<ShoppingCart> shoppingCarts;
 
-            HttpResponseMessage response = await _client.GetAsync(_url);
+            string uri = _configuration["URLApi"] + "api/ShoppingCarts/";
 
-            if (response.IsSuccessStatusCode)
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            var response = await client.GetStringAsync(uri);
+
+            if (response != null)
             {
-                var result = response.Content.ReadAsStringAsync().Result;
-                shoppingCarts = JsonConvert.DeserializeObject<List<ShoppingCart>>(result);
+                shoppingCarts = JsonConvert.DeserializeObject<List<ShoppingCart>>(response);
             }
             else
             {
@@ -62,13 +77,17 @@
         public async Task<ShoppingCart> GetShoppingCartsSync()
         {
             ShoppingCart shoppingCart = null;
-            HttpResponseMessage response = await _client.GetAsync(_url);
+            string uri = _configuration["URLApi"] + "api/ShoppingCarts/";
+
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            var response = await client.GetAsync(uri);
 
             if (response.IsSuccessStatusCode)
             {
                 shoppingCart = await response.Content.ReadAsAsync<ShoppingCart>();
             }
-
             return shoppingCart;
         }
 
@@ -85,8 +104,11 @@
         public async Task<IActionResult> PutShoppingCart(int id, ShoppingCart shoppingCart)
         {
             string uri = _url + id;
-            HttpResponseMessage response = await _client.PutAsJsonAsync(uri, shoppingCart);
-            response.EnsureSuccessStatusCode();
+
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            var response = await client.PutAsJsonAsync(uri, shoppingCart);
 
             return RedirectToAction("Index", "ShoppingCarts");
         }
@@ -107,9 +129,13 @@
         public async Task<IActionResult> Create(ShoppingCart shoppingCart)
         {
             List<AspNetUser> users;
-            string uri = _url + "Users";
+            string uri = _configuration["URLApi"] + "api/AspNetUsers/";
 
-            HttpResponseMessage responseUsers = await _client.GetAsync(uri); // HTTP GET
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            HttpResponseMessage responseUsers = await client.GetAsync(uri); // HTTP GET
             if (responseUsers.IsSuccessStatusCode)
             {
                 users = await responseUsers.Content.ReadAsAsync<List<AspNetUser>>();
@@ -127,7 +153,11 @@
         // ________________________________________________________
         public async Task<IActionResult> PostShoppingCart(ShoppingCart shoppingCart)
         {
-            HttpResponseMessage response = await _client.PostAsJsonAsync("api/ShoppingCarts", shoppingCart);
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            HttpResponseMessage response = await client.PostAsJsonAsync("api/ShoppingCarts", shoppingCart);
             response.EnsureSuccessStatusCode();
             return RedirectToAction("Index", "ShoppingCarts");
         }
@@ -143,7 +173,12 @@
         {
             // HTTP DELETE
             string uri = _url + id;
-            HttpResponseMessage response = await _client.DeleteAsync(uri);
+
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            HttpResponseMessage response = await client.DeleteAsync(uri);
             response.EnsureSuccessStatusCode();
 
             // return RedirectToAction(nameof(Index));
