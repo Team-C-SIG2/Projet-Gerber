@@ -68,12 +68,6 @@ namespace AppWebClient.Controllers
                 return NotFound();
             }
 
-            Customer customer = dbContext.Customers.Find(id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-
             return View(user);
         }
 

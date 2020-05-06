@@ -38,8 +38,9 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
         {
-            // return await _context.Books.ToListAsync();
+            return await _context.Books.ToListAsync();
 
+            /*
             var books =
                 (from i in _context.Books
                  select new Book()
@@ -61,7 +62,7 @@ namespace Api.Controllers
             }
 
             return await books.ToListAsync();
-
+            */
         }
 
 
