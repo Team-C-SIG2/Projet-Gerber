@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 
@@ -199,19 +200,19 @@ namespace Api.Controllers
         // https://localhost:44318/api/Books/GetUserShoppingCart/002078C2AB
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
-        [Route("GetUserShoppingCart/{userId?}")]
-        public async Task<ShoppingCart> GetUserShoppingCart(string? userId)
+        //[Route("GetUserShoppingCart/{userId?}")]
+        public async Task<ShoppingCart> GetUserShoppingCart(/*string? userI*/)
         {
-            var shoppingCart = (from s in _context.ShoppingCarts
-                                where userId == s.UserId
-                                select new ShoppingCart()
-                                {
-                                    Id = s.Id,
-                                    CreatedDate = s.CreatedDate,
-                                    UserId = userId,
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-                                }).FirstOrDefault();
-
+            ShoppingCart shoppingCart = (from s in _context.ShoppingCarts
+                                         where userId == s.UserId
+                                         select new ShoppingCart()
+                                         {
+                                             Id = s.Id,
+                                             CreatedDate = s.CreatedDate,
+                                             UserId = userId
+                                         }).FirstOrDefault();
 
             return shoppingCart;
         }

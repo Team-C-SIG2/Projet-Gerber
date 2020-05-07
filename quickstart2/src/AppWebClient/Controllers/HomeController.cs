@@ -120,15 +120,17 @@ namespace AppWebClient.Controllers
             ViewBag.MONTANTAFFICHE = decimalAmount;
             ViewBag.PUBLICKEY = publickey;
             */
-
-            ViewBag.USERID = UserID;
-
             return View();
         }
 
         public IActionResult About()
         {
             ViewBag.USERID = UserID;
+            return View();
+        }
+
+        public IActionResult Contact()
+        {
             return View();
         }
 
