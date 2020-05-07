@@ -27,6 +27,7 @@ namespace AppWebClient.Models
         [Column(TypeName = "money")]
         public decimal Price { get; set; }
         [Column(TypeName = "datetime")]
+        [DataType(DataType.Date)]
         public DateTime? DatePublication { get; set; }
         [StringLength(255)]
         public string Summary { get; set; }
