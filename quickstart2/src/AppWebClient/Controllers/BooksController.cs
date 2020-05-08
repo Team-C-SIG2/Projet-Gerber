@@ -344,13 +344,21 @@ namespace AppWebClient.Controllers
             // GET The Book for adding to User Shoppingcart
             // _________________________________________________________________
 
-            // https://localhost:44318/api/Books/GetUserShoppingCart/002078C2AB
+
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Books/GetUserShoppingCart");
+
+            /*
             string idUser = UserID;
-            string uriShoppingcart = _url + "GetUserShoppingCart/" + idUser;
+            string uriShoppingcart = _url + "GetUserShoppingCart/";
+            */
 
             ShoppingCart shoppingcart = new ShoppingCart();
 
-            HttpResponseMessage responseShoppingCart = await _client.GetAsync(uriShoppingcart); // HTTP GET
+            HttpResponseMessage responseShoppingCart = await _client.GetAsync(content); // HTTP GET
             if (responseShoppingCart.IsSuccessStatusCode)
             {
                 shoppingcart = await responseShoppingCart.Content.ReadAsAsync<ShoppingCart>();

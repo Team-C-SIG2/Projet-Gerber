@@ -11,10 +11,10 @@
     using Newtonsoft.Json;
 
     using System.Text.Json;
+    using System.Security.Claims;
 
     public class UserShoppingCartsController : Controller
     {
-
 
         // Var USERID 
         private readonly string UserID = "002078C2AB";
@@ -57,6 +57,7 @@
 
             // To obtain the data of User (id)
 
+            
             List<AspNetUser> users;
             AspNetUser aspUser; 
             string uriUsers = _url + "User/" + id; 

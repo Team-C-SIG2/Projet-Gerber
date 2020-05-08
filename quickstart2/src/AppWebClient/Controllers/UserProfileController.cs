@@ -15,9 +15,11 @@ using System.Net;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AppWebClient.Controllers
 {
+    [Authorize]
     public class UserProfileController : Controller
     {
         private readonly IConfiguration _configuration;
