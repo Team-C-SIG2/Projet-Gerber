@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Api.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -42,6 +43,8 @@ namespace Api.Controllers
 
             return aspNetUser;
         }
+
+       
 
         // PUT: api/AspNetUsers/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
@@ -121,5 +124,13 @@ namespace Api.Controllers
         {
             return _context.AspNetUsers.Any(e => e.Id == id);
         }
+
+        [Route("UserId")]
+        public string GetUserId()
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return userId;
+        }
     }
+
 }

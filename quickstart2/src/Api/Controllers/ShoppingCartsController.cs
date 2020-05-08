@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Api.Models;
+using System.Security.Claims;
 
 namespace Api.Controllers
 {
@@ -41,6 +42,8 @@ namespace Api.Controllers
         [Route("Items/{id}")]
         public async Task<ActionResult<IEnumerable<LineItem>>> GetLineItems(int? id)
         {
+            //string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             var cartItems = (from c in _context.LineItems where c.IdShoppingcart == id select c).ToListAsync();
             return await cartItems;
         }
@@ -93,9 +96,10 @@ namespace Api.Controllers
         // Return an ShoppingCart (id)
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        [Route("ShoppingCart/{id}")]
+        //[Route("ShoppingCart/{id}")]
         public ShoppingCart GetOne(string id)
         {
+            //string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var item = (from i in _context.ShoppingCarts
                         where i.UserId == id
@@ -123,6 +127,22 @@ namespace Api.Controllers
         public ActionResult<ShoppingCart> GetShoppingCarts(string id) // string UserID
         {
             ShoppingCart shoppingCart = GetOne(id);
+
+            if (shoppingCart == null)
+            {
+                return NotFound();
+            }
+
+            return shoppingCart;
+        }
+
+
+        [HttpGet("{id}")]
+        public ActionResult<ShoppingCart> GetUserShoppingCarts() // string UserID
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            ShoppingCart shoppingCart = GetOne(userId);
 
             if (shoppingCart == null)
             {

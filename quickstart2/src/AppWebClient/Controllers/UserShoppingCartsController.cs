@@ -12,6 +12,9 @@
 
     using System.Text.Json;
     using System.Security.Claims;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.AspNetCore.Authentication;
+    using System.Net.Http.Headers;
 
     public class UserShoppingCartsController : Controller
     {
@@ -23,9 +26,16 @@
         private HttpClient _client = ApiHttpClient.ConnectClient();
 
         // URL 
-        private string _url = $"api/ShoppingCarts/";
+        private string _url;
 
 
+        private readonly IConfiguration _configuration;
+
+        public UserShoppingCartsController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+            _url = _configuration["URLApi"] + "api/ShoppingCarts/";
+        }
 
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -34,14 +44,22 @@
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // GET: ShoppingCarts
-        public async Task<IActionResult> Index(string id)
+        public async Task<IActionResult> Index()
         {
-            ViewBag.USERID = UserID;
+            
 
             // To obtain the shopping cart of User (id) 
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            string uri2 = _configuration["URLApi"] + "api/AspNetUsers/UserId/";
+            string id = await client.GetStringAsync(uri2);
+            ViewBag.USERID = id;
             string uri = _url + id;
             ShoppingCart shoppingCart;
-            HttpResponseMessage response = await _client.GetAsync(uri);
+            HttpResponseMessage response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
                 var result = response.Content.ReadAsStringAsync().Result;
@@ -61,7 +79,7 @@
             List<AspNetUser> users;
             AspNetUser aspUser; 
             string uriUsers = _url + "User/" + id; 
-            HttpResponseMessage responseUsers = await _client.GetAsync(uriUsers); // HTTP GET
+            HttpResponseMessage responseUsers = await client.GetAsync(uriUsers); // HTTP GET
             if (responseUsers.IsSuccessStatusCode)
             {
                 users = await responseUsers.Content.ReadAsAsync<List<AspNetUser>>();
