@@ -39,7 +39,7 @@ namespace IdentityServerAspNetIdentity.Controllers
             _context = context;
             _emailSender = emailSender;
             _configuration = configuration;
-            resView = "CreateDone";
+            resView = "Error";
         }
 
         public IActionResult Create()
@@ -71,22 +71,18 @@ namespace IdentityServerAspNetIdentity.Controllers
                     }
                     else
                     {
-                        Customer newCust = new Customer();
-                        newCust.Lastname = null;
-                        newCust.Firstname = null;
-                        newCust.Acronyme = null;
-                        newCust.Address = null;
-                        newCust.BillingAddress = null;
-                        newCust.City = null;
-                        newCust.Phone = null;
-                        newCust.Zip = null;
-                        _context.Customers.Add(newCust);
-                        await _context.SaveChangesAsync();
-                        user.IdCustomer = _context.Customers.Max(u => u.Id);
-
                         var checkUser = userMgr.FindByEmailAsync(user.Email).Result;
                         if (checkUser == null)
                         {
+                            Customer newCust = new Customer();
+                            
+                            /* Prod only
+                            newCust.Id = _context.Customers.Max(u => u.Id)+1;
+                            */
+                            _context.Customers.Add(newCust);
+                            await _context.SaveChangesAsync();
+                            user.IdCustomer = _context.Customers.Max(u => u.Id);
+
                             checkUser = user;
                             var result = userMgr.CreateAsync(checkUser, user.PasswordHash).Result;
                             if (!result.Succeeded)
@@ -95,6 +91,7 @@ namespace IdentityServerAspNetIdentity.Controllers
                             }
                             else {
                                 Log.Debug($"{checkUser.UserName} created");
+                                resView = "CreateDone";
                                 /*var token = await userMgr.GenerateEmailConfirmationTokenAsync(checkUser);
                                 await userMgr.ConfirmEmailAsync(checkUser, token);*/
                             }
