@@ -48,7 +48,7 @@
 
             List<ShoppingCart> shoppingCarts;
 
-            string uri = _configuration["URLApi"] + "api/ShoppingCarts/";
+            string uri = _url;
 
             var accessToken = await HttpContext.GetTokenAsync("access_token");
             HttpClient client = new HttpClient();

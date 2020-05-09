@@ -104,7 +104,7 @@ namespace Api.Controllers
         // Return a LineItem (id)
         // GET: api/LineItems/5
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        [HttpGet("{id}")]
+        [Route("LineItem/{id}")]
         public async Task<ActionResult<LineItem>> GetLineItem(int id)
         {
             var lineItem = await _context.LineItems.FindAsync(id);

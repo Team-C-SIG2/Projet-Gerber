@@ -31,7 +31,7 @@ namespace AppWebClient.Controllers
         private HttpClient _client = ApiHttpClient.ConnectClient();
 
         // URL 
-        private string _url = $"api/books/";
+        private string _url = "api/books/";
 
         private readonly IConfiguration _configuration;
 
@@ -349,7 +349,6 @@ namespace AppWebClient.Controllers
 
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Books/GetUserShoppingCart");
 
             /*
             string idUser = UserID;
@@ -358,10 +357,35 @@ namespace AppWebClient.Controllers
 
             ShoppingCart shoppingcart = new ShoppingCart();
 
-            HttpResponseMessage responseShoppingCart = await _client.GetAsync(content); // HTTP GET
-            if (responseShoppingCart.IsSuccessStatusCode)
+            string idUser = await client.GetStringAsync(_configuration["URLApi"] + "api/AspNetUsers/UserId/"); // HTTP GET
+
+            string responseSP = await client.GetStringAsync(_configuration["URLApi"] + "api/ShoppingCarts/");
+            var shopcarts = JsonConvert.DeserializeObject<IEnumerable<ShoppingCart>>(responseSP);
+
+            var q = (from sp in shopcarts
+                    where sp.User.Id == idUser
+                    select sp).FirstOrDefault();
+
+            HttpResponseMessage responseShoppingcart;
+
+            if (q == null)
             {
-                shoppingcart = await responseShoppingCart.Content.ReadAsAsync<ShoppingCart>();
+                ShoppingCart sp = new ShoppingCart
+                {
+                    UserId = idUser,
+                    CreatedDate = DateTime.Now
+                };
+
+                responseShoppingcart = await client.PostAsJsonAsync(_configuration["URLApi"] + "api/ShoppingCarts/CreateShoppingCart/", sp);
+            }
+            else
+            {
+                responseShoppingcart = await client.GetAsync(_configuration["URLApi"] + "api/ShoppingCarts/GetUserShoppingCarts/" + idUser);
+            }
+            
+            if (responseShoppingcart.IsSuccessStatusCode)
+            {
+                shoppingcart = await responseShoppingcart.Content.ReadAsAsync<ShoppingCart>();
                 // ViewData["ShoppingCart"] = shoppingcart ;// Add To ViewData
             }
 
@@ -370,10 +394,10 @@ namespace AppWebClient.Controllers
             // GET The Article (Book) of the LineItems  
             // _________________________________________________________________
 
-            string uriBook = _url + id;
+            string uriBook = _configuration["URLApi"] + "api/Books/" + id;
             Book book = new Book();
 
-            HttpResponseMessage responseBook = await _client.GetAsync(uriBook);
+            HttpResponseMessage responseBook = await client.GetAsync(uriBook);
 
             if (responseBook.IsSuccessStatusCode)
             {
@@ -398,9 +422,9 @@ namespace AppWebClient.Controllers
 
 
             ViewBag.USERID = UserID;
-
-            HttpResponseMessage response = await _client.PostAsJsonAsync($"api/Books/AddLine/", line);
-            response.EnsureSuccessStatusCode();
+            // string jsonLine = JsonConvert.SerializeObject(line);
+            HttpResponseMessage response = await client.PostAsJsonAsync(_configuration["URLApi"] + "api/Books/AddLine/", line);
+            //response.EnsureSuccessStatusCode();
             return RedirectToAction("Index", "Books");
 
 

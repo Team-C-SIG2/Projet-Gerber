@@ -5,11 +5,10 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>En construction</h1>
-
     @{
         @*   variable  *@
-    var USER = ViewData["UserID"] as AppWebClient.Models.AspNetUser;
+    var USER = ViewData["USER"] as AppWebClient.Models.AspNetUser;
+    var CUSTOMER = ViewData["CUSTOMER"] as AppWebClient.Models.Customer;
 
 
 
@@ -40,8 +39,8 @@
             @Html.DisplayNameFor(model => model.User.PhoneNumber)
         </dt>
         <dd class="col-sm-8">
-            @if (@Model.User.PhoneNumber != null)
-            {<text>@Model.User.PhoneNumber</text>}
+            @if (@USER.PhoneNumber != null)
+            {<text>@USER.PhoneNumber</text>}
         else
         {<text>Inconnu</text>}
         </dd>
@@ -64,8 +63,8 @@
             Nom
         </dt>
         <dd class="col-sm-8">
-            @if (@USER.IdCustomerNavigation.Lastname != null)
-            {<text>@USER.IdCustomerNavigation.Firstname @USER.IdCustomerNavigation.Lastname</text>}
+            @if (@CUSTOMER.Lastname != null)
+            {<text>@CUSTOMER.Firstname @CUSTOMER.Lastname</text>}
         else
         {<text>Indisponible</text>}
         </dd>
@@ -76,8 +75,8 @@
             Adresse
         </dt>
         <dd class="col-sm-8">
-            @if (@USER.IdCustomerNavigation.Address != null)
-            {<text>@USER.IdCustomerNavigation.Address , @USER.IdCustomerNavigation.Zip @USER.IdCustomerNavigation.City </text>}
+            @if (@CUSTOMER.Address != null)
+            {<text>@CUSTOMER.Address , @CUSTOMER.Zip @CUSTOMER.City </text>}
         else
         {<text>Indisponible</text>}
         </dd>
@@ -88,8 +87,8 @@
             Adresse de facturation
         </dt>
         <dd class="col-sm-8">
-            @if (@USER.IdCustomerNavigation.BillingAddress != null)
-            {<text>@USER.IdCustomerNavigation.BillingAddress </text>}
+            @if (@CUSTOMER.BillingAddress != null)
+            {<text>@CUSTOMER.BillingAddress </text>}
         else
         {<text>Indisponible</text>}
         </dd>
@@ -106,7 +105,7 @@
     <br />
     <hr />
     @Html.ActionLink("Retour à accueil", "Index", "Home")<br />
-    @Html.ActionLink("Contenu du panier", "Index", new { Controller = "Lineitems", action = "Index", id = Model.Id })<br />
+    @Html.ActionLink("Contenu du panier", "Index", new { Controller = "Lineitems", action = "Index", id = USER.Id })<br />
     <br />
     <hr />
 

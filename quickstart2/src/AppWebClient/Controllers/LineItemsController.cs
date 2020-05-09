@@ -15,7 +15,9 @@ namespace AppWebClient.Controllers
 
     using AppWebClient.Models;
     using AppWebClient.Tools;
-
+    using Microsoft.AspNetCore.Authentication;
+    using System.Net.Http.Headers;
+    using Microsoft.Extensions.Configuration;
 
     public class LineItemsController : Controller
     {
@@ -28,6 +30,12 @@ namespace AppWebClient.Controllers
         // URL   
         private string _url = $"api/LineItems/";
 
+        private readonly IConfiguration _configuration;
+
+        public LineItemsController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         // READ: Return the LineItems list
@@ -41,19 +49,25 @@ namespace AppWebClient.Controllers
             
             ViewBag.USERID = UserID;
 
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/Items/" + id);
 
             // ___________________________________________________
             // To get LineItems list 
             // ___________________________________________________
-            string uri = _url + "Items/" + id;
+            //string uri = _url + "Items/" + id;
 
-            List<LineItem> lineItems = new List<LineItem>();
+            List<LineItem> lineItems;
 
-            HttpResponseMessage response = await _client.GetAsync(uri);
+            HttpResponseMessage response = await client.GetAsync(content);
 
             if (response.IsSuccessStatusCode)
             {
-                var result = response.Content.ReadAsStringAsync().Result;
+                string result = response.Content.ReadAsStringAsync().Result;
                 lineItems = JsonConvert.DeserializeObject<List<LineItem>>(result);
             }
             else
@@ -104,9 +118,9 @@ namespace AppWebClient.Controllers
 
             string uriPkey = $"api/StripePay/PKey";
             string pKey = null;
-            List<string> stripePKeys = new List<string>();
+            List<string> stripePKeys;
 
-            HttpResponseMessage responsePKey = await _client.GetAsync(uriPkey);
+            HttpResponseMessage responsePKey = await client.GetAsync(uriPkey);
             if (responsePKey.IsSuccessStatusCode)
             {
                 var result = responsePKey.Content.ReadAsStringAsync().Result;
@@ -149,8 +163,13 @@ namespace AppWebClient.Controllers
         {
             ViewBag.USER = UserID;
 
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
             LineItem lineItem = null;
-            HttpResponseMessage response = await _client.GetAsync(_url + id);
+            HttpResponseMessage response = await _client.GetAsync(_configuration["URLApi"] + "api/LineItems/LineItem/" + id);
 
             if (response.IsSuccessStatusCode)
             {

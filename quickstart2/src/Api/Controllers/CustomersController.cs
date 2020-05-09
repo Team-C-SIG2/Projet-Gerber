@@ -45,7 +45,7 @@ namespace Api.Controllers
             // return await _context.Customers.ToListAsync();
         }
 
-        /*
+        
         // GET: api/Customers/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Customer>> GetCustomer(int id)
@@ -59,7 +59,7 @@ namespace Api.Controllers
 
             return customer;
         }
-        */
+        
 
         // PUT: api/Customers/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
