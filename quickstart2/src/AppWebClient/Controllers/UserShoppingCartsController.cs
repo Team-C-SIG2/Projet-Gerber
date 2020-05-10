@@ -12,6 +12,10 @@
 
     using System.Text.Json;
     using System.Security.Claims;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.AspNetCore.Authentication;
+    using System.Net.Http.Headers;
+    using System.Collections;
 
     public class UserShoppingCartsController : Controller
     {
@@ -23,9 +27,16 @@
         private HttpClient _client = ApiHttpClient.ConnectClient();
 
         // URL 
-        private string _url = $"api/ShoppingCarts/";
+        private string _url;
 
 
+        private readonly IConfiguration _configuration;
+
+        public UserShoppingCartsController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+            _url = _configuration["URLApi"] + "api/ShoppingCarts/ShoppingCart/";
+        }
 
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -34,17 +45,25 @@
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // GET: ShoppingCarts
-        public async Task<IActionResult> Index(string id)
+        public async Task<IActionResult> Index()
         {
-            ViewBag.USERID = UserID;
+            
 
             // To obtain the shopping cart of User (id) 
-            string uri = _url + id;
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            string uri = _configuration["URLApi"] + "api/AspNetUsers/UserId/";
+            string id = await client.GetStringAsync(uri);
+            ViewBag.USERID = id;
+            string uri2 = _url + id;
             ShoppingCart shoppingCart;
-            HttpResponseMessage response = await _client.GetAsync(uri);
+            HttpResponseMessage response = await client.GetAsync(uri2);
             if (response.IsSuccessStatusCode)
             {
-                var result = response.Content.ReadAsStringAsync().Result;
+                string result = response.Content.ReadAsStringAsync().Result;
                 shoppingCart = JsonConvert.DeserializeObject<ShoppingCart>(result);
                 @ViewBag.USERID = id; 
 
@@ -58,25 +77,25 @@
             // To obtain the data of User (id)
 
             
-            List<AspNetUser> users;
+            AspNetUser users;
             AspNetUser aspUser; 
-            string uriUsers = _url + "User/" + id; 
-            HttpResponseMessage responseUsers = await _client.GetAsync(uriUsers); // HTTP GET
-            if (responseUsers.IsSuccessStatusCode)
+            string uriUsers = _configuration["URLApi"] + "api/AspNetUsers/" + id;
+            string responseUsers = await client.GetStringAsync(uriUsers); // HTTP GET
+            if (responseUsers != null)
             {
-                users = await responseUsers.Content.ReadAsAsync<List<AspNetUser>>();
-
-                foreach (var user in users)
-                {
-                    if (user.Id == id)
+                users = JsonConvert.DeserializeObject<AspNetUser>(responseUsers);
+                //users = await responseUsers.Content.ReadAsAsync<List<AspNetUser>>();
+                    if (users.Id == id)
                     {
-                        aspUser = user; 
-
-                        ViewData["USER"] = aspUser; // Save to ViewData
+                    string uriCustomer = _configuration["URLApi"] + "api/Customers/" + users.IdCustomer;
+                    aspUser = users;
+                    string reponseCustomer = await client.GetStringAsync(uriCustomer);
+                    Customer customer = JsonConvert.DeserializeObject<Customer>(reponseCustomer);
+                    ViewData["USER"] = aspUser; // Save to ViewData
+                    ViewData["CUSTOMER"] = customer;
 
                     }
-                }
-
+                
             }
 
 

@@ -200,8 +200,8 @@ namespace Api.Controllers
         // https://localhost:44318/api/Books/GetUserShoppingCart/002078C2AB
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
-        //[Route("GetUserShoppingCart/{userId?}")]
-        public async Task<ShoppingCart> GetUserShoppingCart(/*string? userI*/)
+        [Route("GetUserShoppingCart/{userId?}")]
+        public async Task<ShoppingCart> GetUserShoppingCart(/*string? userId*/)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -226,6 +226,7 @@ namespace Api.Controllers
 
         [HttpPost]
         [Route("AddLine")]
+        [Authorize]
         public async Task<ActionResult<LineItem>> PostLineItem(LineItem lineItem)
         {
 
@@ -245,14 +246,11 @@ namespace Api.Controllers
             _context.LineItems.Add(line);
             await _context.SaveChangesAsync();
 
-            return StatusCode(201);
+            return line;
             // return CreatedAtAction("AddItem", new { id = lineItem.Id }, line);
 
 
         }
-
-
-
 
 
     }// End Class 

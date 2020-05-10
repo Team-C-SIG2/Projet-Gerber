@@ -35,7 +35,7 @@
         {
 
             // TODO - TRY CATCH 
-
+            /*
             List<Categorie> categories = new List<Categorie>();
             
             HttpResponseMessage response = await _client.GetAsync(_url);
@@ -52,7 +52,8 @@
             }
 
             return View(categories);
-
+            */
+            return View();
         }
 
         // ________________________________________________________

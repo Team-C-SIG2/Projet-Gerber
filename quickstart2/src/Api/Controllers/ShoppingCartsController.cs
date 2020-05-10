@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Api.Models;
+using System.Security.Claims;
 
 namespace Api.Controllers
 {
@@ -41,6 +42,8 @@ namespace Api.Controllers
         [Route("Items/{id}")]
         public async Task<ActionResult<IEnumerable<LineItem>>> GetLineItems(int? id)
         {
+            //string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             var cartItems = (from c in _context.LineItems where c.IdShoppingcart == id select c).ToListAsync();
             return await cartItems;
         }
@@ -96,6 +99,7 @@ namespace Api.Controllers
         [Route("ShoppingCart/{id}")]
         public ShoppingCart GetOne(string id)
         {
+            //string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var item = (from i in _context.ShoppingCarts
                         where i.UserId == id
@@ -119,7 +123,7 @@ namespace Api.Controllers
         // GET (HTTP VERB): api/ShoppingCarts/S 
         // _____________________________________________________
 
-        [HttpGet("{id}")]
+        [Route("GetShoppingCart/{id}")]
         public ActionResult<ShoppingCart> GetShoppingCarts(string id) // string UserID
         {
             ShoppingCart shoppingCart = GetOne(id);
@@ -131,6 +135,45 @@ namespace Api.Controllers
 
             return shoppingCart;
         }
+
+        
+        [Route("GetUserShoppingCarts/{userId}")]
+        public ActionResult<ShoppingCart> GetUserShoppingCarts(string userId) // string UserID
+        {
+            // string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            // ShoppingCart shoppingCart = GetOne(userId);
+
+            ShoppingCart q = (from sp in _context.ShoppingCarts
+                              where sp.UserId == userId
+                              select sp).FirstOrDefault();
+
+            if (q == null)
+            {
+                return NotFound();
+            }
+
+            return q;
+        }
+
+
+
+        [Route("GetShoppingCartUser/{id}")]
+        public async Task<ActionResult<ShoppingCart>> GetShoppingCartUser(int? id)
+        {
+            var categories = await _context.ShoppingCarts.FindAsync(id);
+
+            if (categories == null)
+            {
+                return NotFound();
+            }
+
+            return categories;
+        }
+
+
+
+
 
 
         // __________________________________________________________________________
@@ -204,6 +247,20 @@ namespace Api.Controllers
             return  users;
         }
 
-  
+        
+        // POST: api/ShoppingCarts
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [HttpPost]
+        [Route("CreateShoppingCart")]
+        public async Task<ActionResult<ShoppingCart>> PostShoppingCart(ShoppingCart shoppingCart)
+        {
+            _context.ShoppingCarts.Add(shoppingCart);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetShoppingCarts", new { id = shoppingCart.Id }, shoppingCart);
+        }
+        
+
     }
 }

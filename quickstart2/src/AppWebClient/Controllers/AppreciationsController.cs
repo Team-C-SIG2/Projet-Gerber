@@ -17,7 +17,7 @@ namespace AppWebClient.Controllers
 
     public class AppreciationsController : Controller
     {
-
+        
         // HTTPCLIENT 
         private HttpClient _client = ApiHttpClient.ConnectClient();
 
@@ -33,7 +33,7 @@ namespace AppWebClient.Controllers
         public async Task<IActionResult> Index()
         {
             // TODO - TRY CATCH 
-
+            /*
             List<Appreciation> appreciations;
 
             HttpResponseMessage response = await _client.GetAsync(_url);
@@ -50,7 +50,8 @@ namespace AppWebClient.Controllers
             }
 
             return View(appreciations);
-
+            */
+            return View();
         }
 
 
