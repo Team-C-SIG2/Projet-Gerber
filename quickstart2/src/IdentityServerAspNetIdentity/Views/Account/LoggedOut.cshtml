@@ -7,21 +7,21 @@
 
 <div class="page-header logged-out">
     <h1>
-        Logout
-        <small>You are now logged out</small>
+        @*Logout*@
+        <small>Vous êtes maintenant déconnecté</small>
     </h1>
 
     @if (Model.PostLogoutRedirectUri != null)
     {
-        <div>
-            Click <a class="PostLogoutRedirectUri" href="@Model.PostLogoutRedirectUri">here</a> to return to the
-            <span>@Model.ClientName</span> application.
-        </div>
+<div>
+    Cliquez <a class="PostLogoutRedirectUri" href="@Model.PostLogoutRedirectUri">ici</a> pour retourner sur la page
+    @*<span>@Model.ClientName</span>*@ de connexion.
+</div>
     }
 
     @if (Model.SignOutIframeUrl != null)
     {
-        <iframe width="0" height="0" class="signout" src="@Model.SignOutIframeUrl"></iframe>
+        <iframe width="0" height="0" hidden="hidden" class="signout" src="@Model.SignOutIframeUrl"></iframe>
     }
 </div>
 

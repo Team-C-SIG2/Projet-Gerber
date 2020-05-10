@@ -44,7 +44,7 @@ namespace Api.Controllers
             return aspNetUser;
         }
 
-       
+
 
         // PUT: api/AspNetUsers/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
