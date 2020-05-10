@@ -362,13 +362,13 @@ namespace AppWebClient.Controllers
             string responseSP = await client.GetStringAsync(_configuration["URLApi"] + "api/ShoppingCarts/");
             var shopcarts = JsonConvert.DeserializeObject<IEnumerable<ShoppingCart>>(responseSP);
 
-            var q = (from sp in shopcarts
-                    where sp.User.Id == idUser
-                    select sp).FirstOrDefault();
+            ShoppingCart shopcart = (from sp in shopcarts
+                                     where sp.User.Id == idUser
+                                     select sp).FirstOrDefault();
 
             HttpResponseMessage responseShoppingcart;
 
-            if (q == null)
+            if (shopcart == null)
             {
                 ShoppingCart sp = new ShoppingCart
                 {
@@ -410,21 +410,50 @@ namespace AppWebClient.Controllers
             // CREATE a LineItems  
             // _________________________________________________________________
 
-            LineItem line = new LineItem
+
+            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/Items/" + shoppingcart.Id);
+
+            IEnumerable<LineItem> lineItems;
+
+            // Pour incrémenter la quantité lorsque le livre est déjà choisi --> Pas encore fonctionnel, à creuser !
+            if (content != null)
             {
-                IdBook = book.Id,
-                UnitPrice = book.Price,
-                IdOrder = null,
-                InsertedDate = DateTime.Now,
-                Quantity = 1,
-                IdShoppingcart = shoppingcart.Id,
-            };
+                lineItems = JsonConvert.DeserializeObject<IEnumerable<LineItem>>(content);
 
+                var q = (from lineItem in lineItems
+                        where lineItem.IdBook == book.Id
+                        select lineItem).FirstOrDefault();
 
-            ViewBag.USERID = UserID;
-            // string jsonLine = JsonConvert.SerializeObject(line);
-            HttpResponseMessage response = await client.PostAsJsonAsync(_configuration["URLApi"] + "api/Books/AddLine/", line);
-            //response.EnsureSuccessStatusCode();
+                if (q == null)
+                {
+                    LineItem line = new LineItem
+                    {
+                        IdBook = book.Id,
+                        UnitPrice = book.Price,
+                        IdOrder = null,
+                        InsertedDate = DateTime.Now,
+                        Quantity = 1,
+                        IdShoppingcart = shoppingcart.Id,
+                    };
+
+                    ViewBag.USERID = UserID;
+                    // string jsonLine = JsonConvert.SerializeObject(line);
+                    HttpResponseMessage response = await client.PostAsJsonAsync(_configuration["URLApi"] + "api/Books/AddLine/", line);
+                    //response.EnsureSuccessStatusCode();
+                }
+                else
+                {
+                    q.Quantity++;
+                    string jsonString = System.Text.Json.JsonSerializer.Serialize<LineItem>(q);
+                    StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = await client.PutAsync(_configuration["URLApi"] + "api/LineItems/" + q.Id, httpContent);
+                }
+            }
+            else
+            {
+                return View("Error");
+            }
+
             return RedirectToAction("Index", "Books");
 
 

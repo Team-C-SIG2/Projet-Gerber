@@ -61,14 +61,12 @@ namespace AppWebClient.Controllers
             // ___________________________________________________
             //string uri = _url + "Items/" + id;
 
-            List<LineItem> lineItems;
+            IEnumerable<LineItem> lineItems;
 
-            HttpResponseMessage response = await client.GetAsync(content);
 
-            if (response.IsSuccessStatusCode)
+            if (content != null)
             {
-                string result = response.Content.ReadAsStringAsync().Result;
-                lineItems = JsonConvert.DeserializeObject<List<LineItem>>(result);
+                lineItems = JsonConvert.DeserializeObject<IEnumerable<LineItem>>(content);
             }
             else
             {
@@ -116,7 +114,7 @@ namespace AppWebClient.Controllers
 
             //  private string _url = $"api/StripePay/";
 
-            string uriPkey = $"api/StripePay/PKey";
+            string uriPkey = _configuration["URLApi"] + "api/StripePay/PKey/";
             string pKey = null;
             List<string> stripePKeys;
 

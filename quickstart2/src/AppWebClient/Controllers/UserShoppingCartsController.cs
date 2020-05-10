@@ -93,6 +93,7 @@
                     Customer customer = JsonConvert.DeserializeObject<Customer>(reponseCustomer);
                     ViewData["USER"] = aspUser; // Save to ViewData
                     ViewData["CUSTOMER"] = customer;
+                    ViewBag.ShoppingCartId = shoppingCart.Id;
 
                     }
                 
