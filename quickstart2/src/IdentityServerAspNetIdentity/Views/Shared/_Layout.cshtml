@@ -16,39 +16,80 @@
     <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
     <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
     <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    @*<link rel="stylesheet" href="~/css/site.css" />*@
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="~/">
-                    <span class="navbar-brand">
-                        <img src="~/icon.png" class="icon-banner">
-                        IdentityServer4
-                    </span>
-                </a>
-            </div>
 
-            @if (!string.IsNullOrWhiteSpace(name))
-            {
-                <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">@name <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a asp-action="Logout" asp-controller="Account">Logout</a></li>
-                        </ul>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="~/">Administration</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                @if (this.User.IsInRole("Admin"))
+                {
+                    <li class="nav-item active">
+                        <a class="nav-link" asp-action="ListRoles" asp-controller="Administration">Liste des rôles</a>
                     </li>
-                </ul>
-            }
+                    <li class="nav-item active">
+                        <a class="nav-link" asp-action="CreateRole" asp-controller="Administration">Créer rôle</a>
+                    </li>
+                }
+                @*<li class="nav-item active">
+                        <a class="nav-link" asp-action="ListRoles" asp-controller="Administration">Liste des rôles</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" asp-action="CreateRole" asp-controller="Administration">Créer rôle</a>
+                    </li>*@
+                @if (!string.IsNullOrWhiteSpace(name))
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @name
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a asp-action="Login" asp-controller="Account">Déconnecter</a>
+                        </div>
+                    </li>
+                }
+            </ul>
         </div>
-    </div>
+    </nav>
+
+
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="~/">
+                        <span class="navbar-brand">
+                            <img src="~/icon.png" class="icon-banner">
+                            IdentityServer4
+                        </span>
+                    </a>
+                </div>
+
+                @if (!string.IsNullOrWhiteSpace(name))
+                {
+            <ul class="nav navbar-nav">
+                <li><a asp-action="ListRoles" asp-controller="Administration">Liste des rôles</a></li>
+                <li><a asp-action="CreateRole" asp-controller="Administration">Créer rôles</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">@name <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a asp-action="Logout" asp-controller="Account">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+                }
+            </div>
+        </div>*@
 
     <div class="container body-content">
         @RenderBody()

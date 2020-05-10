@@ -134,6 +134,11 @@ namespace AppWebClient.Controllers
             return View();
         }
 
+        public void PageAdmin()
+        {
+            Response.Redirect(_configuration["URLIdentity"] + "administration/listroles");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

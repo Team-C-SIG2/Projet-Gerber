@@ -22,25 +22,50 @@ namespace Api.Controllers
             _context = context;
         }
 
-        // GET: api/AspNetUsers
+        //// GET: api/AspNetUsers
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<AspNetUser>>> GetAspNetUsers()
+        //{
+        //    return await _context.AspNetUsers.ToListAsync();
+        //}
+
+        //GET: api/AspNetUsers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AspNetUser>>> GetAspNetUsers()
+        public async Task<ActionResult<IEnumerable<UserRoles>>> GetAspNetUsers()
         {
-            return await _context.AspNetUsers.ToListAsync();
-        }
+            var utilisateurs =
+                (from i in _context.AspNetUsers
+                 join f in _context.AspNetUserRoles on i.Id equals f.UserId
+                 join n in _context.AspNetRoles on f.RoleId equals n.Id
+                 where (i.Id == f.UserId) && (n.Id == f.RoleId) || (f.RoleId != n.Id)
+                 select new UserRoles() { UserId = i.Id, Email = i.Email, Name = n.Name, RoleId = n.Id, Username = i.Username, PhoneNumber = i.PhoneNumber }
+                 );
 
-        // GET: api/AspNetUsers/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<AspNetUser>> GetAspNetUser(string id)
-        {
-            var aspNetUser = await _context.AspNetUsers.FindAsync(id);
-
-            if (aspNetUser == null)
+            if (utilisateurs == null)
             {
                 return NotFound();
             }
 
-            return aspNetUser;
+            return await utilisateurs.ToListAsync();
+        }
+
+        // GET: api/AspNetUsers/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<UserRoles>> GetAspNetUser(string id)
+        {
+            var utilisateur = (from i in _context.AspNetUsers
+                               join f in _context.AspNetUserRoles on i.Id equals f.UserId
+                               join n in _context.AspNetRoles on f.RoleId equals n.Id
+                               where (i.Id == f.UserId)
+                               select new UserRoles() { UserId = i.Id, Email = i.Email, Name = n.Name, RoleId = n.Id, Username = i.Username, PhoneNumber = i.PhoneNumber }
+                 ).FirstOrDefault();
+
+            if (utilisateur == null)
+            {
+                return NotFound();
+            }
+
+            return utilisateur;
         }
 
         // PUT: api/AspNetUsers/5
