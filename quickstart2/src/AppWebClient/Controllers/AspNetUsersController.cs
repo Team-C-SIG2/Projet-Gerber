@@ -43,7 +43,7 @@ namespace AppWebClient.Controllers
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             string content = await client.GetStringAsync(_configuration["URLApi"] + "api/AspNetUsers");
 
-            List<UserRoles> users = JsonConvert.DeserializeObject<List<UserRoles>>(content);
+            List<AspNetUser> users = JsonConvert.DeserializeObject<List<AspNetUser>>(content);
 
 
             if (users == null)
@@ -64,15 +64,15 @@ namespace AppWebClient.Controllers
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             string content = await client.GetStringAsync(_configuration["URLApi"] + "api/AspNetUsers/" + id);
 
-            AspNetUser users = JsonConvert.DeserializeObject<AspNetUser>(content);
+            AspNetUser user = JsonConvert.DeserializeObject<AspNetUser>(content);
 
 
-            if (users == null)
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return View(users);
+            return View(user);
         }
 
         //// GET: AspNetUsers/Details/5

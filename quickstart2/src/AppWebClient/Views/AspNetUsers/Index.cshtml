@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AppWebClient.Models.UserRoles>
+﻿@model IEnumerable<AppWebClient.Models.AspNetUser>
 
 @{
     ViewData["Title"] = "Index";
@@ -26,11 +26,11 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.UserId)
-            </th>*@
+            </th>
             <th>
                 Role
             </th>
-            @*<th>
+            <th>
             @Html.DisplayNameFor(model => model.NormalizedEmail)
         </th>
         <th>
@@ -86,11 +86,11 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.UserId)
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
             </td>
-            @*<td>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.NormalizedEmail)
             </td>
             <td>
@@ -128,7 +128,7 @@
             </td>*@
             <td>
                 @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |*@
-                <a asp-action="Details" asp-route-id="@item.UserId">Details</a>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
                 @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
             </td>
         </tr>

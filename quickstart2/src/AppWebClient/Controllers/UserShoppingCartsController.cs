@@ -61,7 +61,7 @@
             string uri2 = _url + id;
             ShoppingCart shoppingCart;
             HttpResponseMessage response = await client.GetAsync(uri2);
-            if (response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode && response.ReasonPhrase != "No Content")
             {
                 string result = response.Content.ReadAsStringAsync().Result;
                 shoppingCart = JsonConvert.DeserializeObject<ShoppingCart>(result);
@@ -69,8 +69,8 @@
 
             }
             else
-            {                
-                return View();// To do - Go To View ERROR
+            {
+                return View("emptyCart");// To do - Go To View ERROR
             }
 
 
