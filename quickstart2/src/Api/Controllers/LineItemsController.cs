@@ -107,7 +107,7 @@ namespace Api.Controllers
         [Route("LineItem/{id}")]
         public async Task<ActionResult<LineItem>> GetLineItem(int id)
         {
-            var lineItem = await _context.LineItems.FindAsync(id);
+            var lineItem = await _context.LineItems.Include(book => book.IdBookNavigation).Where(book => book.Id == id).SingleOrDefaultAsync();
 
             if (lineItem == null)
             {
@@ -125,7 +125,7 @@ namespace Api.Controllers
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLineItem(int id, LineItem lineItem)
+        public async Task<IActionResult> PutLineItem(int id, /*[FromBody]*/LineItem lineItem)
         {
             if (id != lineItem.Id)
             {
@@ -136,7 +136,7 @@ namespace Api.Controllers
 
             try
             {
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -218,12 +218,6 @@ namespace Api.Controllers
 
             return book;
         }
-
-
-
-
-
-
 
 
     }// End Class

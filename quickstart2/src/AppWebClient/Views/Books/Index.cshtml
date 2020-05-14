@@ -5,10 +5,9 @@
 }
 
 <h1>Index</h1>
-<p>
-    <a asp-action="Create">Inserer un nouveau livre</a> |
-    @Html.ActionLink("Panier d'achat (Utilisateur)", "Index", new { Controller = "UserShoppingCarts", action = "Index", id = @ViewBag.USERID })<br />
-</p>
+@Html.ActionLink("Mon panier d'achat", "Index", "UserShoppingCarts") <br />
+<br /> 
+
 <table id="table" class="compact hover stripe">
     <thead>
         <tr>
@@ -45,9 +44,7 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    <a class="btn btn-default" asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a>
                     <a class="btn btn-default" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info"></i></a>
-                    <a class="btn btn-default" asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-trash-alt"></i></a>
                 </td>
             </tr>
         }
