@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,76 +15,37 @@ namespace AppWebClient.Models
             Stocks = new HashSet<Stock>();
         }
 
-
         [Key]
         public int Id { get; set; }
-
-
-        [DisplayName("Editeur")]
         [Column("Id_Editor")]
         public int IdEditor { get; set; }
-
-
-        [DisplayName("Titre")]
         [Required]
         [StringLength(255)]
         public string Title { get; set; }
-
-
-
-        [DisplayName("Sous-titre ")]
         [StringLength(128)]
         public string Subtitle { get; set; }
-
-
-        [DisplayName("Prix (CHF)")]
         [Column(TypeName = "money")]
         public decimal Price { get; set; }
-
-
-        [DisplayName("Date de publication")]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [Column(TypeName = "datetime")]
+        [DataType(DataType.Date)]
         public DateTime? DatePublication { get; set; }
-
-
-        [DisplayName("Résumé")]
         [StringLength(255)]
         public string Summary { get; set; }
-
-
-        [DisplayName("ISBN")]
         [Required]
         [Column("ISBN")]
         [StringLength(13)]
         public string Isbn { get; set; }
 
-
-        [DisplayName("Editeur")]
         [ForeignKey(nameof(IdEditor))]
         [InverseProperty(nameof(Editor.Books))]
         public virtual Editor IdEditorNavigation { get; set; }
-
-
-
-        [DisplayName("Auteur(s)")]
-        [InverseProperty("IdBookNavigation")]
+        [InverseProperty(nameof(Cowriter.IdBookNavigation))]
         public virtual ICollection<Cowriter> Cowriters { get; set; }
-
-
-        [InverseProperty("IdBookNavigation")]
+        [InverseProperty(nameof(LineItem.IdBookNavigation))]
         public virtual ICollection<LineItem> LineItems { get; set; }
-
-
-        [DisplayName("Categorie(s)")]
-        [InverseProperty("IdBookNavigation")]
+        [InverseProperty(nameof(Rank.IdBookNavigation))]
         public virtual ICollection<Rank> Ranks { get; set; }
-
-
-        [DisplayName("Stock")]
-        [InverseProperty("IdBookNavigation")]
+        [InverseProperty(nameof(Stock.IdBookNavigation))]
         public virtual ICollection<Stock> Stocks { get; set; }
-
-
-    }// End Class 
+    }
 }

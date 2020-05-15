@@ -21,7 +21,7 @@ namespace AppWebClient.Models
         [StringLength(100)]
         public string Firstname { get; set; }
 
-        [InverseProperty("IdAuthorNavigation")]
+        [InverseProperty(nameof(Cowriter.IdAuthorNavigation))]
         public virtual ICollection<Cowriter> Cowriters { get; set; }
     }
 }

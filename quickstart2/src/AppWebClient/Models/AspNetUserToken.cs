@@ -8,15 +8,11 @@ namespace AppWebClient.Models
     public partial class AspNetUserToken
     {
         [Key]
-        [StringLength(450)]
         public string UserId { get; set; }
         [Key]
-        [StringLength(450)]
         public string LoginProvider { get; set; }
         [Key]
-        [StringLength(450)]
         public string Name { get; set; }
-        [StringLength(255)]
         public string Value { get; set; }
 
         [ForeignKey(nameof(UserId))]

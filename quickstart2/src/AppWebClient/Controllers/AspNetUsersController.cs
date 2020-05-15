@@ -1,0 +1,207 @@
+﻿using LibraryDbContext.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+
+
+
+namespace AppWebClient.Controllers
+{
+    public class AspNetUsersController : Controller
+    {
+        private readonly IConfiguration _configuration;
+        private CoreDbContext dbContext = new CoreDbContext();
+        //private readonly ESBookshopContext _context;
+
+        public AspNetUsersController(IConfiguration configuration)
+        {
+            //_context = context;
+            _configuration = configuration;
+        }
+
+        //// GET: AspNetUsers
+        //public async Task<IActionResult> Index()
+        //{
+        //    var eSBookshopContext = _context.AspNetUsers.Include(a => a.IdCustomerNavigation);
+        //    return View(await eSBookshopContext.ToListAsync());
+        //}
+
+        // GET: AspNetUsers
+        public async Task<IActionResult> Index()
+        {
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            ViewBag.json = accessToken;
+
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/AspNetUsers");
+
+            List<AspNetUser> users = JsonConvert.DeserializeObject<List<AspNetUser>>(content);
+
+
+            if (users == null)
+            {
+                return NotFound();
+            }
+
+            return View(users);
+        }
+
+        // GET: AspNetUsers/Details/5
+        public async Task<IActionResult> Details(string id)
+        {
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            ViewBag.json = accessToken;
+
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/AspNetUsers/" + id);
+
+            AspNetUser user = JsonConvert.DeserializeObject<AspNetUser>(content);
+
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
+
+        //// GET: AspNetUsers/Details/5
+        //public async Task<IActionResult> Details(string id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var aspNetUser = await _context.AspNetUsers
+        //        .Include(a => a.IdCustomerNavigation)
+        //        .FirstOrDefaultAsync(m => m.Id == id);
+        //    if (aspNetUser == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(aspNetUser);
+        //}
+
+        //// GET: AspNetUsers/Create
+        //public IActionResult Create()
+        //{
+        //    ViewData["IdCustomer"] = new SelectList(_context.Customers, "Id", "Id");
+        //    return View();
+        //}
+
+        //// POST: AspNetUsers/Create
+        //// To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        //// more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("Id,IdCustomer,Username,NormalizedUsername,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] AspNetUser aspNetUser)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Add(aspNetUser);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    ViewData["IdCustomer"] = new SelectList(_context.Customers, "Id", "Id", aspNetUser.IdCustomer);
+        //    return View(aspNetUser);
+        //}
+
+        //// GET: AspNetUsers/Edit/5
+        //public async Task<IActionResult> Edit(string id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var aspNetUser = await _context.AspNetUsers.FindAsync(id);
+        //    if (aspNetUser == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    ViewData["IdCustomer"] = new SelectList(_context.Customers, "Id", "Id", aspNetUser.IdCustomer);
+        //    return View(aspNetUser);
+        //}
+
+        //// POST: AspNetUsers/Edit/5
+        //// To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        //// more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(string id, [Bind("Id,IdCustomer,Username,NormalizedUsername,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] AspNetUser aspNetUser)
+        //{
+        //    if (id != aspNetUser.Id)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(aspNetUser);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!AspNetUserExists(aspNetUser.Id))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    ViewData["IdCustomer"] = new SelectList(_context.Customers, "Id", "Id", aspNetUser.IdCustomer);
+        //    return View(aspNetUser);
+        //}
+
+        //// GET: AspNetUsers/Delete/5
+        //public async Task<IActionResult> Delete(string id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var aspNetUser = await _context.AspNetUsers
+        //        .Include(a => a.IdCustomerNavigation)
+        //        .FirstOrDefaultAsync(m => m.Id == id);
+        //    if (aspNetUser == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(aspNetUser);
+        //}
+
+        //// POST: AspNetUsers/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(string id)
+        //{
+        //    var aspNetUser = await _context.AspNetUsers.FindAsync(id);
+        //    _context.AspNetUsers.Remove(aspNetUser);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
+
+        //private bool AspNetUserExists(string id)
+        //{
+        //    return _context.AspNetUsers.Any(e => e.Id == id);
+        //}
+    }
+}

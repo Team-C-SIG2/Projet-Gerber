@@ -1,17 +1,19 @@
-﻿
+﻿// using Api.Models;
+
+
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+
+using LibraryDbContext.Models; 
+
 
 namespace Api.Controllers
 {
-
-    using AppDbContext.Models;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-
-
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
@@ -39,8 +41,9 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
         {
-            // return await _context.Books.ToListAsync();
+            return await _context.Books.ToListAsync();
 
+            /*
             var books =
                 (from i in _context.Books
                  select new Book()
@@ -62,7 +65,7 @@ namespace Api.Controllers
             }
 
             return await books.ToListAsync();
-
+            */
         }
 
 
@@ -202,18 +205,18 @@ namespace Api.Controllers
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
         [Route("GetUserShoppingCart/{userId?}")]
-        public async Task<ShoppingCart> GetUserShoppingCart(string? userId)
+        public async Task<ShoppingCart> GetUserShoppingCart(/*string? userId*/)
         {
-            var shoppingCart = (from s in _context.ShoppingCarts
-                                where userId == s.UserId
-                                select new ShoppingCart()
-                                {
-                                    Id = s.Id,
-                                    CreatedDate = s.CreatedDate,
-                                    UserId = userId,
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-                                }).FirstOrDefault();
-
+            ShoppingCart shoppingCart = (from s in _context.ShoppingCarts
+                                         where userId == s.UserId
+                                         select new ShoppingCart()
+                                         {
+                                             Id = s.Id,
+                                             CreatedDate = s.CreatedDate,
+                                             UserId = userId
+                                         }).FirstOrDefault();
 
             return shoppingCart;
         }
@@ -227,6 +230,7 @@ namespace Api.Controllers
 
         [HttpPost]
         [Route("AddLine")]
+        [Authorize]
         public async Task<ActionResult<LineItem>> PostLineItem(LineItem lineItem)
         {
 
@@ -246,14 +250,11 @@ namespace Api.Controllers
             _context.LineItems.Add(line);
             await _context.SaveChangesAsync();
 
-            return StatusCode(201);
+            return line;
             // return CreatedAtAction("AddItem", new { id = lineItem.Id }, line);
 
 
         }
-
-
-
 
 
     }// End Class 

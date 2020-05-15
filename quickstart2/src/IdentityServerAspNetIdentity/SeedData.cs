@@ -5,13 +5,17 @@
 using System;
 using System.Linq;
 using System.Security.Claims;
-using IdentityModel;
-using IdentityServerAspNetIdentity.Data;
-using IdentityServerAspNetIdentity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+
+using IdentityModel;
+using IdentityServerAspNetIdentity.Data;
+using IdentityServerAspNetIdentity.ViewModels;
+
+
+
 
 namespace IdentityServerAspNetIdentity
 {

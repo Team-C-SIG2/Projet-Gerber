@@ -1,40 +1,25 @@
-﻿
+﻿using AppWebClient.Tools;
+using AppWebClient.ViewModel;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
+using System.Diagnostics;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+
 
 namespace AppWebClient.Controllers
 {
-
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Net.Http;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.Options;
-
-    using Stripe;
-
-    using AppWebClient.Models;
-    using AppWebClient.Tools;
-    using Microsoft.AspNetCore.Authorization;
-    using System.Net.Http.Headers;
-    using Microsoft.AspNetCore.Authentication;
-    using System.Threading.Tasks;
-    using Newtonsoft.Json.Linq;
-
     public class HomeController : Controller
     {
-
-
-
         private readonly IConfiguration _configuration;
 
         public HomeController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
-
-
-
 
         // Var USERID 
         private readonly string UserID = "002078C2AB";
@@ -45,89 +30,82 @@ namespace AppWebClient.Controllers
         // URL 
         private string _url = $"api/ShoppingCarts/";
 
-
-
         public IActionResult StripeInfos()
         {
             return View();
         }
 
 
+        /*
+
+                public IActionResult Charge(string stripeEmail, string StripeToken)
+                {           
+                    ViewBag.USERID = UserID;
+
+                    // Set your secret key. Remember to switch to your live secret key in production!
+                    StripeConfiguration.ApiKey = "sk_test_6b0nAo59ibXlQbxiOmaDbkgy005fFYaWNc";
 
 
-        public IActionResult Charge(string stripeEmail, string StripeToken)
-        {           
-            ViewBag.USERID = UserID;
+                    string publickey = _configuration.GetValue<string>("Stripe:PublishableKey");
 
-            // Set your secret key. Remember to switch to your live secret key in production!
-            StripeConfiguration.ApiKey = "sk_test_6b0nAo59ibXlQbxiOmaDbkgy005fFYaWNc";
+                    ViewBag.PUBLICKEY = publickey;
 
+                    // Tdodo  Récupérer dans lineItems
+                    decimal decimalAmount = 15.00M;
+                    var centsAmount = (decimalAmount * 100);
+                    long chargeAmount = Convert.ToInt64(centsAmount); 
 
-            string publickey = _configuration.GetValue<string>("Stripe:PublishableKey");
+                    var customers = new CustomerService();
+                    var Charges = new ChargeService();
 
-            ViewBag.PUBLICKEY = publickey;
+                    var customer = customers.Create(
+                        new CustomerCreateOptions
+                        {
+                            Email = stripeEmail,
+                            Source= StripeToken
+                        }); 
 
+                    var charge = Charges.Create(
+                        new ChargeCreateOptions
+                        {
+                            Amount = chargeAmount,
 
+                            Description = "Test Payment",
+                            Currency = "chf", 
+                            Customer = customer.Id, 
+                            ReceiptEmail = stripeEmail, 
+                            Metadata = new Dictionary<string, string>()
+                            { 
+                                {"integration_check", "accept_a_payment" },
+                                {"OrderId", "111"},
+                                {"Postcode", "3100"}
+                            }
 
-            // Tdodo  Récupérer dans lineItems
-            decimal decimalAmount = 15.00M;
-            var centsAmount = (decimalAmount * 100);
-            long chargeAmount = Convert.ToInt64(centsAmount); 
+                        });
 
-
-
-            var customers = new CustomerService();
-            var Charges = new ChargeService();
-
-            var customer = customers.Create(
-                new CustomerCreateOptions
-                {
-                    Email = stripeEmail,
-                    Source= StripeToken
-                }); 
-
-            var charge = Charges.Create(
-                new ChargeCreateOptions
-                {
-                    Amount = chargeAmount,
-
-                    Description = "Test Payment",
-                    Currency = "chf", 
-                    Customer = customer.Id, 
-                    ReceiptEmail = stripeEmail, 
-                    Metadata = new Dictionary<string, string>()
-                    { 
-                        {"integration_check", "accept_a_payment" },
-                        {"OrderId", "111"},
-                        {"Postcode", "3100"}
+                    if (charge.Status == "succeeded")
+                    {
+                        // string BalanceTransactionId = charge.BalanceTransaction.Id;
                     }
-                    
-                });
+                    else
+                    {
+                        return View("Error");
+                    }
 
-            if (charge.Status == "succeeded")
-            {
-                // string BalanceTransactionId = charge.BalanceTransaction.Id;
-            }
-            else
-            {
-                return View("Error");
-            }
-            
-            return View();
-            // return View();
-        }
+                    return View();
+                }
 
 
+
+        */
 
         /*
             [Authorize]
              */
         public IActionResult Index()
         {
-/*
-
-
-            // ENVOYER PAR LE SERVEUR API -> STRING = PublishableKey vALUE
+            /*
+            // ENVOYER PAR LE SERVEUR API -> STRING = PublishableKey VALUE
 
             // string publickey = _configuration.GetValue<string>("Stripe:PublishableKey");
             string publickey = ""; 
@@ -142,18 +120,9 @@ namespace AppWebClient.Controllers
             ViewBag.MONTANT = centsAmount;
             ViewBag.MONTANTAFFICHE = decimalAmount;
             ViewBag.PUBLICKEY = publickey;
-*/
-
-
-
-            ViewBag.USERID = UserID;
-
+            */
             return View();
-
         }
-
-
-
 
         public IActionResult About()
         {
@@ -161,26 +130,39 @@ namespace AppWebClient.Controllers
             return View();
         }
 
+        public IActionResult Contact()
+        {
+            return View();
+        }
 
+        public void PageAdmin()
+        {
+            Response.Redirect(_configuration["URLIdentity"] + "administration/listroles");
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             ViewBag.USERID = UserID;
-            return View(new ErrorViewModel {RequestId= Activity.Current?.Id ?? HttpContext.TraceIdentifier});
+
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        [Authorize]
         public async Task<IActionResult> CallApi()
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
 
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            var content = await client.GetStringAsync("http://localhost:5001/api/Books");
+            var content = await client.GetStringAsync(_configuration["URLApi"] + "api/Books");
 
             ViewBag.Json = JArray.Parse(content).ToString();
             return View("json");
+        }
+
+        public IActionResult Logout()
+        {
+            return SignOut("Cookies", "oidc");
         }
     }
 }

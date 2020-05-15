@@ -2,8 +2,6 @@
 
 namespace Api.Controllers
 {
-
-    using AppDbContext.Models;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
@@ -11,11 +9,12 @@ namespace Api.Controllers
     using System.Linq;
     using System.Threading.Tasks;
 
+    using LibraryDbContext.Models; 
 
 
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    // [Authorize]
     public class CategoriesController : ControllerBase
     {
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////

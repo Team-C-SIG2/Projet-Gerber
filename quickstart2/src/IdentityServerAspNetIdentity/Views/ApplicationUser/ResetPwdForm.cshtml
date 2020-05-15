@@ -1,0 +1,37 @@
+﻿
+<div class="create-page">
+    <div class="page-header">
+        <h1>Mot de passe oublié</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Mot de passe oublié</h3>
+                </div>
+                <div class="panel-body">
+
+                    <form asp-action="ResetPwdConfirm">
+                        <fieldset>
+                            <div class="form-group">
+                                <label for="newPwd"></label>
+                                <input id="newPwd" type="password" class="form-control" name="newPwd" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPwd"></label>
+                                <input id="confirmPwd" type="password" class="form-control" autocomplete="off">
+                            </div>
+                            <input type="hidden" class="form-control" name="UserId" autocomplete="off" value="@ViewBag.id">
+                            <input type="hidden" class="form-control" name="code" autocomplete="off" value="@ViewBag.code">
+                            <div class="form-group">
+                                <button class="btn btn-primary" name="button" value="login">Envoyer</button>
+                                <button class="btn btn-default" name="button" value="cancel">Cancel</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

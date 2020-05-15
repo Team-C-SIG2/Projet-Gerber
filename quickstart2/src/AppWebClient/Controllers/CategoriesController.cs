@@ -1,24 +1,49 @@
 ﻿namespace AppWebClient.Controllers
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Mvc;
-    using System.Net.Http;
-    using Newtonsoft.Json;
-
-    using AppWebClient.Models;
+{    
     using AppWebClient.Tools;
+    using LibraryDbContext.Models;
+    using AppWebClient.ViewModel;
+
+    using System;
+    using System.Linq;
+    using System.Net;
+    using System.Text;
+    using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
+    using System.Collections.Generic;
+    using System.Net.Http;
+    using System.Threading.Tasks;
+    using System.Net.Http.Headers;
+    using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using Microsoft.Extensions.Configuration;
+
 
 
     public class CategoriesController : Controller
     {
+        
+        // Var USERID 
+        private readonly string UserID = "002078C2AB";
 
         // HTTPCLIENT 
-        private readonly HttpClient _client = ApiHttpClient.ConnectClient();
+        private HttpClient _client = ApiHttpClient.ConnectClient();
 
-        // URL   
-        private string _url = $"api/categories/";
+        // URL 
+        private string _url = "api/categories/";
+
+
+        // TO GET CONFIGURATION VALUE FORM APPSETTINGS.JSON FILE 
+        private readonly IConfiguration _configuration;
+
+
+        // CLASS CONSTRUCTOR 
+        public CategoriesController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
+
 
 
 
@@ -26,7 +51,7 @@
         // READ: Return the Categories list
         // GET: .../ api/Categories/
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-       
+
         // ________________________________________________________
         // Entry point of the Controller (View)
         // Return all Categories 
@@ -34,25 +59,20 @@
         public async Task<IActionResult> Index()
         {
 
-            // TODO - TRY CATCH 
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            List<Categorie> categories = new List<Categorie>();
-            
-            HttpResponseMessage response = await _client.GetAsync(_url);
+            string content = await client.GetStringAsync(_configuration["URLApi"] + _url);
 
-            if (response.IsSuccessStatusCode)
+            List<Categorie> categories = JsonConvert.DeserializeObject<List<Categorie>>(content);
+
+            if (categories == null)
             {
-                var result = response.Content.ReadAsStringAsync().Result;
-                categories = JsonConvert.DeserializeObject<List<Categorie>>(result);
-            }
-            else
-            {
-                // View ERROR
                 return NotFound();
             }
 
             return View(categories);
-
         }
 
         // ________________________________________________________
@@ -142,7 +162,7 @@
 
         public async Task<IActionResult> Edit(int? id)
         {
-            string uri = _url + id; 
+            string uri = _url + id;
             Categorie categorie = new Categorie();
 
             HttpResponseMessage response = await _client.GetAsync(uri);
@@ -182,25 +202,25 @@
         // DELETE: Categories/Delete/5
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-       
-            // GET: Movies/Delete/5
-            public async Task<IActionResult> Delete(int? id)
+
+        // GET: Movies/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+
+            if (id == null)
             {
-
-                if (id == null)
-                {
-                    return NotFound();
-                }
-
-                // HTTP DELETE
-                string uri = _url + id;
-
-                 HttpResponseMessage response = await _client.DeleteAsync(uri);
-                 response.EnsureSuccessStatusCode(); 
-
-                 // return RedirectToAction(nameof(Index));
-                return RedirectToAction("Index", "Categories");
+                return NotFound();
             }
+
+            // HTTP DELETE
+            string uri = _url + id;
+
+            HttpResponseMessage response = await _client.DeleteAsync(uri);
+            response.EnsureSuccessStatusCode();
+
+            // return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Categories");
+        }
 
 
 

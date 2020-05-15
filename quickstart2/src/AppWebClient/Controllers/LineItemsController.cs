@@ -3,18 +3,17 @@
 
 namespace AppWebClient.Controllers
 {
-
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
-    using Microsoft.EntityFrameworkCore;
-    using System.Net.Http;
-    using Newtonsoft.Json;
-
-    using AppWebClient.Models;
+    // using AppWebClient.Models;
     using AppWebClient.Tools;
+    using LibraryDbContext.Models;
+    using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Configuration;
+    using Newtonsoft.Json;
+    using System.Collections.Generic;
+    using System.Net.Http;
+    using System.Net.Http.Headers;
+    using System.Threading.Tasks;
 
 
     public class LineItemsController : Controller
@@ -28,6 +27,12 @@ namespace AppWebClient.Controllers
         // URL   
         private string _url = $"api/LineItems/";
 
+        private readonly IConfiguration _configuration;
+
+        public LineItemsController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         // READ: Return the LineItems list
@@ -38,23 +43,27 @@ namespace AppWebClient.Controllers
         // GET: LineItems
         public async Task<IActionResult> Index(int? id)
         {
-            
+
             ViewBag.USERID = UserID;
 
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/Items/" + id);
 
             // ___________________________________________________
             // To get LineItems list 
             // ___________________________________________________
-            string uri = _url + "Items/" + id;
+            //string uri = _url + "Items/" + id;
 
-            List<LineItem> lineItems = new List<LineItem>();
+            IEnumerable<LineItem> lineItems;
 
-            HttpResponseMessage response = await _client.GetAsync(uri);
 
-            if (response.IsSuccessStatusCode)
+            if (content != null)
             {
-                var result = response.Content.ReadAsStringAsync().Result;
-                lineItems = JsonConvert.DeserializeObject<List<LineItem>>(result);
+                lineItems = JsonConvert.DeserializeObject<IEnumerable<LineItem>>(content);
             }
             else
             {
@@ -65,13 +74,13 @@ namespace AppWebClient.Controllers
             // ___________________________________________________
             // Calculate the total amount of the shoppingcart 
             // ___________________________________________________
-            
+
             decimal total = 0;
 
             foreach (var item in lineItems)
-                {
-                    total += (item.UnitPrice * item.Quantity);
-                }
+            {
+                total += (item.UnitPrice * item.Quantity);
+            }
 
 
 
@@ -87,8 +96,8 @@ namespace AppWebClient.Controllers
 
             ViewBag.MONTANT = centsAmount;
             ViewBag.MONTANTAFFICHE = total.ToString("F");
-            
-            
+
+
             // Récupère le numéro (ID) du panier 
             ViewBag.PANIER = id;
 
@@ -102,11 +111,11 @@ namespace AppWebClient.Controllers
 
             //  private string _url = $"api/StripePay/";
 
-            string uriPkey = $"api/StripePay/PKey";
+            string uriPkey = _configuration["URLApi"] + "api/StripePay/PKey/";
             string pKey = null;
-            List<string> stripePKeys = new List<string>();
+            List<string> stripePKeys;
 
-            HttpResponseMessage responsePKey = await _client.GetAsync(uriPkey);
+            HttpResponseMessage responsePKey = await client.GetAsync(uriPkey);
             if (responsePKey.IsSuccessStatusCode)
             {
                 var result = responsePKey.Content.ReadAsStringAsync().Result;
@@ -149,8 +158,13 @@ namespace AppWebClient.Controllers
         {
             ViewBag.USER = UserID;
 
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
             LineItem lineItem = null;
-            HttpResponseMessage response = await _client.GetAsync(_url + id);
+            HttpResponseMessage response = await _client.GetAsync(_configuration["URLApi"] + "api/LineItems/LineItem/" + id);
 
             if (response.IsSuccessStatusCode)
             {

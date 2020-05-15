@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Cours ETML-ES\\Developpement C# et projet informatique\\Projet-Gerber\\quickstart2\\src\\AppWebClient\\AppWebClient.csproj": {}
+    "C:\\TEMP\\Sprint2\\Halide1\\quickstart2\\src\\AppWebClient\\AppWebClient.csproj": {}
   },
   "projects": {
-    "D:\\Cours ETML-ES\\Developpement C# et projet informatique\\Projet-Gerber\\quickstart2\\src\\AppWebClient\\AppWebClient.csproj": {
+    "C:\\TEMP\\Sprint2\\Halide1\\quickstart2\\src\\AppWebClient\\AppWebClient.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Cours ETML-ES\\Developpement C# et projet informatique\\Projet-Gerber\\quickstart2\\src\\AppWebClient\\AppWebClient.csproj",
+        "projectUniqueName": "C:\\TEMP\\Sprint2\\Halide1\\quickstart2\\src\\AppWebClient\\AppWebClient.csproj",
         "projectName": "AppWebClient",
-        "projectPath": "D:\\Cours ETML-ES\\Developpement C# et projet informatique\\Projet-Gerber\\quickstart2\\src\\AppWebClient\\AppWebClient.csproj",
-        "packagesPath": "C:\\Users\\marcv\\.nuget\\packages\\",
-        "outputPath": "D:\\Cours ETML-ES\\Developpement C# et projet informatique\\Projet-Gerber\\quickstart2\\src\\AppWebClient\\obj\\",
+        "projectPath": "C:\\TEMP\\Sprint2\\Halide1\\quickstart2\\src\\AppWebClient\\AppWebClient.csproj",
+        "packagesPath": "C:\\Users\\halid\\.nuget\\packages\\",
+        "outputPath": "C:\\TEMP\\Sprint2\\Halide1\\quickstart2\\src\\AppWebClient\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\marcv\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\halid\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -43,7 +40,13 @@
           "dependencies": {
             "AspNet.Security.OAuth.Paypal": {
               "target": "Package",
-              "version": "[3.0.0, )"
+              "version": "[3.1.1, )"
+            },
+            "Bricelam.EntityFrameworkCore.Pluralizer": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.0.0, )"
             },
             "Microsoft.AspNet.WebApi.Client": {
               "target": "Package",
@@ -51,19 +54,19 @@
             },
             "Microsoft.AspNetCore.Authentication.OpenIdConnect": {
               "target": "Package",
-              "version": "[3.1.3, )"
+              "version": "[3.1.4, )"
             },
             "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
               "target": "Package",
-              "version": "[3.1.3, )"
+              "version": "[3.1.4, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[3.1.3, )"
+              "version": "[3.1.4, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[3.1.3, )"
+              "version": "[3.1.4, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer.Design": {
               "target": "Package",
@@ -71,25 +74,29 @@
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[3.1.1, )"
+              "version": "[3.1.4, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[3.1.3, )"
+              "version": "[3.1.4, )"
             },
             "Microsoft.IdentityModel.Logging": {
               "target": "Package",
-              "version": "[6.5.0, )"
+              "version": "[6.5.1, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[3.1.1, )"
+              "version": "[3.1.2, )"
             },
             "Stripe.net": {
               "target": "Package",
-              "version": "[36.2.0, )"
+              "version": "[36.12.2, )"
+            },
+            "System.ComponentModel.Annotations": {
+              "target": "Package",
+              "version": "[4.7.0, )"
             }
           },
           "imports": [
@@ -110,7 +117,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

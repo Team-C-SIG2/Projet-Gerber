@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AppWebClient.Models.Book>
+﻿@model IEnumerable<LibraryDbContext.Models.Book>
 
 @{
     ViewData["Title"] = "Index";
@@ -6,10 +6,10 @@
 
 <h1>Index</h1>
 <p>
-    <a asp-action="Create">Inserer un nouveau livre</a> | 
+    <a asp-action="Create">Inserer un nouveau livre</a> |
     @Html.ActionLink("Panier d'achat (Utilisateur)", "Index", new { Controller = "UserShoppingCarts", action = "Index", id = @ViewBag.USERID })<br />
 </p>
-<table class="table">
+<table id="table" class="compact hover stripe">
     <thead>
         <tr>
             <th> </th>
@@ -28,27 +28,38 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td> @* ADD TO SHOPPINGCART  *@
-                <a asp-action="AddItem" asp-route-id="@item.Id">Panier</a>
-            </td>
-           
+            <tr>
+                <td>
+                    @* ADD TO SHOPPINGCART  *@
+                    <a class="btn btn-default" asp-action="AddItem" asp-route-id="@item.Id"><i class="fas fa-shopping-cart"></i></a>
+                </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Isbn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Editer</a>|
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a>|
-                <a asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>
-            </td>
-        </tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Isbn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <a class="btn btn-default" asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a>
+                    <a class="btn btn-default" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info"></i></a>
+                    <a class="btn btn-default" asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-trash-alt"></i></a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('#table').DataTable({
+            "dom": '<"wrapper"lipt>'
+        });
+    });
+</script>

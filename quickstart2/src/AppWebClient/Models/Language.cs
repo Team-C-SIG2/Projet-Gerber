@@ -21,7 +21,7 @@ namespace AppWebClient.Models
         [StringLength(3)]
         public string Code { get; set; }
 
-        [InverseProperty("IdLanguageNavigation")]
+        [InverseProperty(nameof(Rank.IdLanguageNavigation))]
         public virtual ICollection<Rank> Ranks { get; set; }
     }
 }

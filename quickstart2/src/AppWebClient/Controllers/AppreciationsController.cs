@@ -2,17 +2,15 @@
 
 namespace AppWebClient.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Mvc;
-    using System.Net.Http;
-    using Newtonsoft.Json;
-
-    using AppWebClient.Models;
     using AppWebClient.Tools;
+    using LibraryDbContext.Models;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
-    using System.Linq;
+    using Newtonsoft.Json;
+    using System.Collections.Generic;
+    using System.Net.Http;
+    using System.Threading.Tasks;
+    // using AppWebClient.Models;
 
 
     public class AppreciationsController : Controller
@@ -33,7 +31,7 @@ namespace AppWebClient.Controllers
         public async Task<IActionResult> Index()
         {
             // TODO - TRY CATCH 
-
+            /*
             List<Appreciation> appreciations;
 
             HttpResponseMessage response = await _client.GetAsync(_url);
@@ -50,7 +48,8 @@ namespace AppWebClient.Controllers
             }
 
             return View(appreciations);
-
+            */
+            return View();
         }
 
 
@@ -119,7 +118,7 @@ namespace AppWebClient.Controllers
         // Update a Appreciation ->  <form asp-action="PutAppreciation">
         public async Task<IActionResult> PutAppreciation(int id, Appreciation appreciation)
         {
-            ViewData["IdAppreciation"] = appreciation.Id; 
+            ViewData["IdAppreciation"] = appreciation.Id;
 
             string uri = _url + id;
             HttpResponseMessage response = await _client.PutAsJsonAsync(uri, appreciation); // HTTP PUT
@@ -145,16 +144,16 @@ namespace AppWebClient.Controllers
             List<LineItem> lineItems;
             List<Order> orders;
 
-            string uriGetLineItems = _url+ "GetLineItems";
+            string uriGetLineItems = _url + "GetLineItems";
             string uriGetOrders = _url + "GetOrders";
 
 
             HttpResponseMessage responseLineItem = await _client.GetAsync(uriGetLineItems); // HTTP GET
-            HttpResponseMessage responseorders = await _client.GetAsync(uriGetOrders); 
+            HttpResponseMessage responseorders = await _client.GetAsync(uriGetOrders);
 
             if (responseLineItem.IsSuccessStatusCode)
             {
-                lineItems = await responseLineItem.Content.ReadAsAsync<List<LineItem>>();     
+                lineItems = await responseLineItem.Content.ReadAsAsync<List<LineItem>>();
                 ViewData["IdLineItem"] = new SelectList(lineItems, "Id", "Id", appreciation.IdLineItem);// Add To ViewData
             }
 
@@ -203,7 +202,7 @@ namespace AppWebClient.Controllers
         public async Task<IActionResult> Details(int? id)
         {
             string uri = _url + id;
-           
+
 
             Appreciation appreciation;
 
@@ -219,8 +218,8 @@ namespace AppWebClient.Controllers
                 // View ERROR
                 return View();
             }
- 
-            ViewData["IdAppreciation"] = appreciation.Id; 
+
+            ViewData["IdAppreciation"] = appreciation.Id;
 
             return View(appreciation);
 

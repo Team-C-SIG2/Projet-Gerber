@@ -1,21 +1,24 @@
-﻿
+﻿using AppWebClient.Tools;
+using AppWebClient.ViewModel;
+using LibraryDbContext.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
+
+
 
 namespace AppWebClient.Controllers
 {
-    using System;
-    using System.Linq;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
-    using Microsoft.EntityFrameworkCore;
-    using AppWebClient.Models;
-    using System.Net.Http;
-    using Newtonsoft.Json;
-
-    using AppWebClient.Tools;
-
-
     public class BooksController : Controller
     {
 
@@ -26,8 +29,18 @@ namespace AppWebClient.Controllers
         private HttpClient _client = ApiHttpClient.ConnectClient();
 
         // URL 
-        private string _url = $"api/books/";
+        private string _url = "api/books/";
 
+
+        // TO GET CONFIGURATION VALUE FORM APPSETTINGS.JSON FILE 
+        private readonly IConfiguration _configuration;
+
+
+        // CLASS CONSTRUCTOR 
+        public BooksController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         // READ: Return the User ShoppingCart
@@ -42,30 +55,24 @@ namespace AppWebClient.Controllers
         // GET: Books
         public async Task<IActionResult> Index()
         {
-            // TODO - TRY CATCH 
 
-            List<Book> books = new List<Book>();
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            HttpResponseMessage response = await _client.GetAsync(_url);
+            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Books/");
 
-            if (response.IsSuccessStatusCode)
+            List<Book> books = JsonConvert.DeserializeObject<List<Book>>(content);
+
+            if (books == null)
             {
-                var result = response.Content.ReadAsStringAsync().Result;
-                books = JsonConvert.DeserializeObject<List<Book>>(result);
-            }
-            else
-            {
-                // View ERROR
                 return NotFound();
             }
 
-            ViewBag.USERID = UserID;
-
             return View(books);
-
         }
 
-
+        /*
         // ________________________________________________________
         // Return a Book by its Id 
         // GET: .../ api/Books/S
@@ -82,7 +89,7 @@ namespace AppWebClient.Controllers
             }
             return book;
         }
-
+        */
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Get the Details of a resource Book (by id)
@@ -91,25 +98,20 @@ namespace AppWebClient.Controllers
 
         public async Task<IActionResult> Details(int? id)
         {
-            string uri = _url + id;
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            Book book = new Book();
+            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Books/" + id);
 
-            HttpResponseMessage response = await _client.GetAsync(uri);
+            Book book = JsonConvert.DeserializeObject<Book>(content);
 
-            if (response.IsSuccessStatusCode)
+            if (book == null)
             {
-                var result = response.Content.ReadAsStringAsync().Result;
-                book = JsonConvert.DeserializeObject<Book>(result);
-            }
-            else
-            {
-                // View ERROR
-                return View();
+                return NotFound();
             }
 
             return View(book);
-
         }// END 
 
 
@@ -179,28 +181,35 @@ namespace AppWebClient.Controllers
         // GET: api/Books/Edit/5
         // ________________________________________________________
 
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, Book book)
         {
-            string uri = _url + id;
-            Book book = new Book();
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            HttpResponseMessage response = await _client.GetAsync(uri);
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Books/" + id);
 
-            if (response.IsSuccessStatusCode)
+            Book _book = JsonConvert.DeserializeObject<Book>(content);
+
+            if (_book == null)
             {
-                var result = response.Content.ReadAsStringAsync().Result;
-                book = JsonConvert.DeserializeObject<Book>(result);
-            }
-            else
-            {
-                // View ERROR
-                return View();
+                return NotFound();
             }
 
-            string editor = book.IdEditorNavigation.Name;
-            ViewBag.EDITOR = editor;
+            if (ModelState.IsValid)
+            {
+                string jsonString = System.Text.Json.JsonSerializer.Serialize<Book>(book);
 
-            return View(book);
+                StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PutAsync(_configuration["URLApi"] + "api/Books/" + _book.Id, httpContent);
+                if (response.StatusCode != HttpStatusCode.NoContent)
+                {
+                    return BadRequest();
+                }
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(_book);
         }
 
 
@@ -337,16 +346,48 @@ namespace AppWebClient.Controllers
             // GET The Book for adding to User Shoppingcart
             // _________________________________________________________________
 
-            // https://localhost:44318/api/Books/GetUserShoppingCart/002078C2AB
-            string idUser = UserID; 
-            string uriShoppingcart = _url+"GetUserShoppingCart/" +idUser; 
+
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            /*
+            string idUser = UserID;
+            string uriShoppingcart = _url + "GetUserShoppingCart/";
+            */
 
             ShoppingCart shoppingcart = new ShoppingCart();
 
-            HttpResponseMessage responseShoppingCart = await _client.GetAsync(uriShoppingcart); // HTTP GET
-            if (responseShoppingCart.IsSuccessStatusCode)
+            string idUser = await client.GetStringAsync(_configuration["URLApi"] + "api/AspNetUsers/UserId/"); // HTTP GET
+
+            string responseSP = await client.GetStringAsync(_configuration["URLApi"] + "api/ShoppingCarts/");
+            var shopcarts = JsonConvert.DeserializeObject<IEnumerable<ShoppingCart>>(responseSP);
+
+            ShoppingCart shopcart = (from sp in shopcarts
+                                     where sp.User.Id == idUser
+                                     select sp).FirstOrDefault();
+
+            HttpResponseMessage responseShoppingcart;
+
+            if (shopcart == null)
             {
-                shoppingcart = await responseShoppingCart.Content.ReadAsAsync<ShoppingCart>();
+                ShoppingCart sp = new ShoppingCart
+                {
+                    UserId = idUser,
+                    CreatedDate = DateTime.Now
+                };
+
+                responseShoppingcart = await client.PostAsJsonAsync(_configuration["URLApi"] + "api/ShoppingCarts/CreateShoppingCart/", sp);
+            }
+            else
+            {
+                responseShoppingcart = await client.GetAsync(_configuration["URLApi"] + "api/ShoppingCarts/GetUserShoppingCarts/" + idUser);
+            }
+
+            if (responseShoppingcart.IsSuccessStatusCode)
+            {
+                shoppingcart = await responseShoppingcart.Content.ReadAsAsync<ShoppingCart>();
                 // ViewData["ShoppingCart"] = shoppingcart ;// Add To ViewData
             }
 
@@ -355,10 +396,10 @@ namespace AppWebClient.Controllers
             // GET The Article (Book) of the LineItems  
             // _________________________________________________________________
 
-            string uriBook = _url + id;
+            string uriBook = _configuration["URLApi"] + "api/Books/" + id;
             Book book = new Book();
 
-            HttpResponseMessage responseBook = await _client.GetAsync(uriBook);
+            HttpResponseMessage responseBook = await client.GetAsync(uriBook);
 
             if (responseBook.IsSuccessStatusCode)
             {
@@ -370,34 +411,55 @@ namespace AppWebClient.Controllers
             // _________________________________________________________________
             // CREATE a LineItems  
             // _________________________________________________________________
-            
-            LineItem line = new LineItem
+
+
+            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/Items/" + shoppingcart.Id);
+
+            IEnumerable<LineItem> lineItems;
+
+            // Pour incrémenter la quantité lorsque le livre est déjà choisi --> Pas encore fonctionnel, à creuser !
+            if (content != null)
             {
-                IdBook =   book.Id, 
-                UnitPrice = book.Price, 
-                IdOrder = null, 
-                InsertedDate = DateTime.Now, 
-                Quantity = 1,
-                IdShoppingcart = shoppingcart.Id,
-            };
+                lineItems = JsonConvert.DeserializeObject<IEnumerable<LineItem>>(content);
 
+                var q = (from lineItem in lineItems
+                         where lineItem.IdBook == book.Id
+                         select lineItem).FirstOrDefault();
 
-            ViewBag.USERID = UserID; 
+                if (q == null)
+                {
+                    LineItem line = new LineItem
+                    {
+                        IdBook = book.Id,
+                        UnitPrice = book.Price,
+                        IdOrder = null,
+                        InsertedDate = DateTime.Now,
+                        Quantity = 1,
+                        IdShoppingcart = shoppingcart.Id,
+                    };
 
-            HttpResponseMessage response = await _client.PostAsJsonAsync($"api/Books/AddLine/", line); 
-            response.EnsureSuccessStatusCode();
+                    ViewBag.USERID = UserID;
+                    // string jsonLine = JsonConvert.SerializeObject(line);
+                    HttpResponseMessage response = await client.PostAsJsonAsync(_configuration["URLApi"] + "api/Books/AddLine/", line);
+                    //response.EnsureSuccessStatusCode();
+                }
+                else
+                {
+                    q.Quantity++;
+                    string jsonString = System.Text.Json.JsonSerializer.Serialize<LineItem>(q);
+                    StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = await client.PutAsync(_configuration["URLApi"] + "api/LineItems/" + q.Id, httpContent);
+                }
+            }
+            else
+            {
+                return View("Error");
+            }
+
             return RedirectToAction("Index", "Books");
 
 
         }
-
-
-
-
-
-
-
-
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Verify if a categorie existe 
@@ -418,10 +480,6 @@ namespace AppWebClient.Controllers
             return exist;
         }
 
-
-
-
-
         // GET: Books
         public async Task<IActionResult> MessageCrud()
         {
@@ -432,6 +490,172 @@ namespace AppWebClient.Controllers
 
         }
 
+
+
+
+        // GET: Books/search
+        public async Task<IActionResult> SearchAsync()
+        {
+            string uri = _configuration["URLApi"] + "api/Editors/";
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            var result = await client.GetStringAsync(uri);
+            var editorList = JsonConvert.DeserializeObject<IEnumerable<Editor>>(result);
+            SelectList slEditor = new SelectList(editorList, "Id", "Name");
+            ViewBag.IdEditor = slEditor;
+
+            uri = _configuration["URLApi"] + "api/Categories/";
+            result = await client.GetStringAsync(uri);
+            var categoryList = JsonConvert.DeserializeObject<IEnumerable<Categorie>>(result);
+            SelectList slCategory = new SelectList(categoryList, "Id", "Description");
+            ViewBag.IdCategory = slCategory;
+
+            return View();
+        }
+
+        [HttpPost]
+        // POST: Books/find
+        public async Task<IActionResult> FindAsync(BookSearch searchedBook)
+        {
+            bool searched = false;
+            IEnumerable<Book> books;
+            IEnumerable<Book> q = null;
+            StringComparison sc = StringComparison.OrdinalIgnoreCase;
+            string uri = _configuration["URLApi"] + "api/Books/";
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            var content = await client.GetStringAsync(uri);
+
+
+            if (content != null)
+            {
+                var result = content;
+                books = JsonConvert.DeserializeObject<IEnumerable<Book>>(result);
+                q = books;
+
+                if (searchedBook.Isbn != null)
+                {
+                    q = (from b in q
+                         where b.Isbn == searchedBook.Isbn
+                         select b).ToList();
+                    searched = true;
+                }
+
+                if (searchedBook.authorName != null)
+                {
+                    uri = _configuration["URLApi"] + "api/Cowriters/";
+                    var contentCowriters = await client.GetStringAsync(uri);
+                    var cowriters = JsonConvert.DeserializeObject<IEnumerable<Cowriter>>(contentCowriters);
+                    uri = _configuration["URLApi"] + "api/Authors/";
+                    var contentAuthors = await client.GetStringAsync(uri);
+                    var authors = JsonConvert.DeserializeObject<IEnumerable<Author>>(contentAuthors);
+                    q = (from b in q
+                         join cowriter in cowriters on b.Id equals cowriter.IdBook
+                         join author in authors on cowriter.IdAuthor equals author.Id
+                         where author.Firstname.Contains(searchedBook.authorName, sc)
+                         || author.Lastname.Contains(searchedBook.authorName, sc)
+                         || (author.Lastname + " " + author.Firstname).Contains(searchedBook.authorName, sc)
+                         || (author.Firstname + " " + author.Lastname).Contains(searchedBook.authorName, sc)
+                         select b).ToList();
+
+                    searched = true;
+                }
+
+                if (searchedBook.category != 0)
+                {
+                    uri = _configuration["URLApi"] + "api/Ranks/";
+                    var contentRank = await client.GetStringAsync(uri);
+                    var ranks = JsonConvert.DeserializeObject<IEnumerable<Rank>>(contentRank);
+                    q = (from b in q
+                         join rank in ranks on b.Id equals rank.IdBook
+                         where rank.IdCategorie == searchedBook.category
+                         select b).ToList();
+                    searched = true;
+                }
+
+                if (searchedBook.Title != null)
+                {
+                    q = (from b in q
+                         where b.Title.Contains(searchedBook.Title, sc)
+                         select b).ToList();
+
+                    searched = true;
+                }
+
+                if (searchedBook.Subtitle != null)
+                {
+                    q = (from b in q
+                         where b.Subtitle.Contains(searchedBook.Subtitle, sc)
+                         select b).ToList();
+
+                    searched = true;
+                }
+
+                if (searchedBook.DatePublicationFrom != null)
+                {
+                    q = (from b in q
+                         where b.DatePublication > searchedBook.DatePublicationFrom
+                         select b).ToList();
+
+                    searched = true;
+                }
+
+                if (searchedBook.DatePublicationTo != null)
+                {
+                    q = (from b in q
+                         where b.DatePublication < searchedBook.DatePublicationTo
+                         select b).ToList();
+
+                    searched = true;
+                }
+
+                if (searchedBook.PriceFrom != null)
+                {
+                    q = (from b in q
+                         where b.Price > searchedBook.PriceFrom
+                         select b).ToList();
+
+                    searched = true;
+                }
+
+                if (searchedBook.PriceTo != null)
+                {
+                    q = (from b in q
+                         where b.Price < searchedBook.PriceTo
+                         select b).ToList();
+
+                    searched = true;
+                }
+                if (searchedBook.Summary != null)
+                {
+                    q = (from b in q
+                         where b.Summary.Contains(searchedBook.Summary)
+                         select b).ToList();
+
+                    searched = true;
+                }
+                if (searchedBook.IdEditor != 0)
+                {
+                    q = (from b in q
+                         where b.IdEditor == searchedBook.IdEditor
+                         select b).ToList();
+
+                    searched = true;
+                }
+            }
+            if (searched)
+            {
+                return View(q);
+            }
+            else
+            {
+                return RedirectToAction("Search", "Books");
+            }
+        }
 
     }// End Class 
 }

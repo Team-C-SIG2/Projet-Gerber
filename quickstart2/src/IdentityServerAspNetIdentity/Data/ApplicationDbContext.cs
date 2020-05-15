@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using IdentityServerAspNetIdentity.Models;
+
+
+using IdentityServerAspNetIdentity.ViewModels;
+
 
 namespace IdentityServerAspNetIdentity.Data
 {

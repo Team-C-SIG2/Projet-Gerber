@@ -1,9 +1,9 @@
 ﻿@model LoginViewModel
 
 <div class="login-page">
-    <div class="page-header">
-        <h1>Login</h1>
-    </div>
+    @*<div class="page-header">
+        <h1>Page de connexion</h1>
+    </div>*@
 
     <partial name="_ValidationSummary" />
 
@@ -14,7 +14,7 @@
             <div class="col-sm-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Local Login</h3>
+                        <h3 class="panel-title">Page de connexion</h3>
                     </div>
                     <div class="panel-body">
 
@@ -23,11 +23,11 @@
 
                             <fieldset>
                                 <div class="form-group">
-                                    <label asp-for="Username"></label>
+                                    <label asp-for="Username">Nom d'utilisateur</label>
                                     <input class="form-control" placeholder="Username" asp-for="Username" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <label asp-for="Password"></label>
+                                    <label asp-for="Password">Mot de passe</label>
                                     <input type="password" class="form-control" placeholder="Password" asp-for="Password" autocomplete="off">
                                 </div>
                                 @if (Model.AllowRememberLogin)
@@ -35,22 +35,19 @@
                                     <div class="form-group login-remember">
                                         <label asp-for="RememberLogin">
                                             <input asp-for="RememberLogin">
-                                            <strong>Remember My Login</strong>
+                                            <strong>Se rappeler de moi</strong>
                                         </label>
                                     </div>
                                 }
 
-                                <div>
-                                    <p>The default users are alice/bob, password: Pass123$</p>
-                                </div>
-
                                 <div class="form-group">
-                                    <button class="btn btn-primary" name="button" value="login">Login</button>
-                                    <button class="btn btn-default" name="button" value="cancel">Cancel</button>
+                                    <button class="btn btn-primary" name="button" value="login">Connexion</button>
+                                    <button class="btn btn-default" name="button" value="cancel">Annuler</button>
                                 </div>
                             </fieldset>
                         </form>
-                        @Html.ActionLink("Créer un compte", "create", "ApplicationUser")
+                        @Html.ActionLink("Créer un compte", "create", "ApplicationUser")<br>
+                        @Html.ActionLink("Mot de passe oublié", "ResetPwd", "ApplicationUser")
                     </div>
                 </div>
             </div>
@@ -61,7 +58,7 @@
             <div class="col-md-6 col-sm-6 external-providers">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">External Login</h3>
+                        <h3 class="panel-title">External Login (En construction)</h3>
                     </div>
                     <div class="panel-body">
                         <ul class="list-inline">

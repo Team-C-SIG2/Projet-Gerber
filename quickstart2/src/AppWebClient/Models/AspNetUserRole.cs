@@ -8,10 +8,8 @@ namespace AppWebClient.Models
     public partial class AspNetUserRole
     {
         [Key]
-        [StringLength(450)]
         public string RoleId { get; set; }
         [Key]
-        [StringLength(450)]
         public string UserId { get; set; }
 
         [ForeignKey(nameof(RoleId))]

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AppWebClient.Models.LineItem>
+﻿@model IEnumerable<LibraryDbContext.Models.LineItem>
 
 @{
     ViewData["Title"] = "Index";
@@ -51,8 +51,7 @@
                     @Html.DisplayFor(modelItem => item.IdBookNavigation.Isbn)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Editer</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-controller="Books" asp-action="Details" asp-route-id="@item.IdBook">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>
                 </td>
             </tr>

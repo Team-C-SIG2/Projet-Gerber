@@ -17,7 +17,7 @@ namespace AppWebClient.Models
         [StringLength(50)]
         public string Description { get; set; }
 
-        [InverseProperty("IdFormatNavigation")]
+        [InverseProperty(nameof(Rank.IdFormatNavigation))]
         public virtual ICollection<Rank> Ranks { get; set; }
     }
 }

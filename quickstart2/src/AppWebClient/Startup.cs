@@ -1,24 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+
 
 namespace AppWebClient
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using System.IdentityModel.Tokens.Jwt;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-
-            // StripeConfiguration.SetApiKey(Configuration.GetSection("Stripe")["SecretKey"]);
         }
 
         public IConfiguration Configuration { get; }

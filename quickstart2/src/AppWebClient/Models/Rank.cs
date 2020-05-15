@@ -27,8 +27,8 @@ namespace AppWebClient.Models
         [InverseProperty(nameof(Book.Ranks))]
         public virtual Book IdBookNavigation { get; set; }
         [ForeignKey(nameof(IdCategorie))]
-        [InverseProperty(nameof(Categorie.Ranks))]
-        public virtual Categorie IdCategorieNavigation { get; set; }
+        [InverseProperty(nameof(Category.Ranks))]
+        public virtual Category IdCategorieNavigation { get; set; }
         [ForeignKey(nameof(IdFormat))]
         [InverseProperty(nameof(Format.Ranks))]
         public virtual Format IdFormatNavigation { get; set; }

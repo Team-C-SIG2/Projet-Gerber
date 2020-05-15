@@ -12,9 +12,7 @@ namespace AppWebClient.Models
         [Required]
         [StringLength(450)]
         public string UserId { get; set; }
-        [StringLength(255)]
         public string ClaimType { get; set; }
-        [StringLength(255)]
         public string ClaimValue { get; set; }
 
         [ForeignKey(nameof(UserId))]

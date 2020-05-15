@@ -5,26 +5,25 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Api.Models
 {
-    [Table("SHOPPINGCARTS")]
-    public partial class Shoppingcart
+    public partial class ShoppingCart
     {
-        public Shoppingcart()
+        public ShoppingCart()
         {
-            Lineitems = new HashSet<Lineitem>();
+            LineItems = new HashSet<LineItem>();
         }
 
         [Key]
-        [Column("ID")]
         public int Id { get; set; }
-        [Column("CREATEDDATE", TypeName = "datetime")]
-        public DateTime Createddate { get; set; }
-        [Column("ID_ACCOUNT")]
-        public int IdAccount { get; set; }
+        [Required]
+        [StringLength(450)]
+        public string UserId { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime CreatedDate { get; set; }
 
-        [ForeignKey(nameof(IdAccount))]
-        [InverseProperty(nameof(Account.Shoppingcarts))]
-        public virtual Account IdAccountNavigation { get; set; }
-        [InverseProperty(nameof(Lineitem.IdShoppingcartNavigation))]
-        public virtual ICollection<Lineitem> Lineitems { get; set; }
+        [ForeignKey(nameof(UserId))]
+        [InverseProperty(nameof(AspNetUser.ShoppingCarts))]
+        public virtual AspNetUser User { get; set; }
+        [InverseProperty(nameof(LineItem.IdShoppingcartNavigation))]
+        public virtual ICollection<LineItem> LineItems { get; set; }
     }
 }
