@@ -448,6 +448,7 @@ namespace AppWebClient.Controllers
                 else
                 {
                     q.Quantity++;
+                    q.InsertedDate = DateTime.Now;
                     string jsonString = System.Text.Json.JsonSerializer.Serialize<LineItem>(q);
                     StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
                     response = await client.PutAsync(_configuration["URLApi"] + "api/LineItems/" + q.Id, httpContent);

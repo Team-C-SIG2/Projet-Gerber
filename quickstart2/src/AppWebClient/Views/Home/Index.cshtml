@@ -15,27 +15,27 @@
 <br />
 <br />
 
-<h1>Bienvenue sur ES-Bookshop</h1>
+<h1>Bienvenue sur ESBookshop</h1>
 <br />
 <div>
     @*@Html.ActionLink("Connexion", "Index", "Connexion")<br />*@
     @Html.ActionLink("Mon profil", "Index", "UserProfile")<br />
     <br />
     <hr />
-    @Html.ActionLink("Liste des utilisateurs", "Index", "AspNetUsers")<br />
     @Html.ActionLink("Liste des ouvrages", "Index", "Books")<br />
-    @Html.ActionLink("Rechercher", "Search", "Books")<br />
+    @Html.ActionLink("Rechercher un livre", "Search", "Books")<br />
+    @Html.ActionLink("Liste des utilisateurs", "Index", "AspNetUsers")<br />
     <br />
     <hr />
-    @Html.ActionLink("Liste des Appreciations", "Index", "Appreciations")<br />
-    @Html.ActionLink("Liste des Categories", "Index", "Categories")<br />
+    @Html.ActionLink("Liste des Appréciations", "Index", "Appreciations")<br />
+    @Html.ActionLink("Liste des Catégories", "Index", "Categories")<br />
     <br />
     <hr />
     @Html.ActionLink("Panier d'achat (Utilisateur)", "Index", new { Controller = "UserShoppingCarts", action = "Index", id = @ViewBag.USERID })<br />
     @Html.ActionLink("Liste des paniers d'achat (Administration) ", "Index", "AdminShoppingCarts")<br />
     <br />
     <hr />
-    @Html.ActionLink("About us", "About", "Home")<br />
+    @Html.ActionLink("A propos de nous", "About", "Home")<br />
     @Html.ActionLink("Contact", "Contact", "Home")<br />
     @Html.ActionLink("Aide Stripe (service de paiement)", "About", "StripePay")<br />
     <br />

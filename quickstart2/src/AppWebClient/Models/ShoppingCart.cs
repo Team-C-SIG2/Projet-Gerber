@@ -17,6 +17,7 @@ namespace AppWebClient.Models
         [Required]
         [StringLength(450)]
         public string UserId { get; set; }
+        [Display(Name = "Date de création du panier")]
         [Column(TypeName = "datetime")]
         public DateTime CreatedDate { get; set; }
 

@@ -22,10 +22,12 @@ namespace AppWebClient.Models
         public string Id { get; set; }
         [Column("Id_Customer")]
         public int IdCustomer { get; set; }
+        [Display(Name = "Nom d'utilisateur")]
         [StringLength(256)]
         public string Username { get; set; }
         [StringLength(256)]
         public string NormalizedUsername { get; set; }
+        [Display(Name = "Adresse mail")]
         [StringLength(256)]
         public string Email { get; set; }
         [StringLength(256)]
@@ -34,6 +36,7 @@ namespace AppWebClient.Models
         public string PasswordHash { get; set; }
         public string SecurityStamp { get; set; }
         public string ConcurrencyStamp { get; set; }
+        [Display(Name = "Numéro de téléphone")]
         public string PhoneNumber { get; set; }
         public bool PhoneNumberConfirmed { get; set; }
         public bool TwoFactorEnabled { get; set; }
