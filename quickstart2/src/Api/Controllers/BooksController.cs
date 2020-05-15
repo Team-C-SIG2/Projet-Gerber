@@ -1,7 +1,9 @@
 ﻿using Api.Models;
+using Api.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -12,7 +14,7 @@ namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class BooksController : ControllerBase
     {
 
@@ -105,7 +107,7 @@ namespace Api.Controllers
         // Update an existing Book 
         // PUT: api/Books/5
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBook(int id, Book book)
         {
@@ -140,6 +142,7 @@ namespace Api.Controllers
         // POST: api/Books
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<Book>> PostBook(Book book)
         {
@@ -156,6 +159,7 @@ namespace Api.Controllers
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         // DELETE: api/Books/5
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Book>> DeleteBook(int id)
         {
@@ -250,6 +254,100 @@ namespace Api.Controllers
             // return CreatedAtAction("AddItem", new { id = lineItem.Id }, line);
 
 
+        }
+
+        [HttpPost]
+        [Route("find")]
+        public List<Book> Find(BookSearch searchedBook)
+        {
+            StringComparison sc = StringComparison.OrdinalIgnoreCase;
+            var q = _context.Books.ToList();
+
+            if (searchedBook.Isbn != null)
+            {
+                q = (from b in q
+                     where b.Isbn == searchedBook.Isbn
+                     select b).ToList();
+            }
+
+            if (searchedBook.authorName != null)
+            {
+                var contentCowriters = _context.Cowriters.ToList();
+                var contentAuthors = _context.Authors.ToList();
+                q = (from b in q
+                     join cowriter in contentCowriters on b.Id equals cowriter.IdBook
+                     join author in contentAuthors on cowriter.IdAuthor equals author.Id
+                     where author.Firstname.Contains(searchedBook.authorName, sc)
+                     || author.Lastname.Contains(searchedBook.authorName, sc)
+                     || (author.Lastname + " " + author.Firstname).Contains(searchedBook.authorName, sc)
+                     || (author.Firstname + " " + author.Lastname).Contains(searchedBook.authorName, sc)
+                     select b).ToList();
+            }
+
+            if (searchedBook.category != 0)
+            {
+                var contentRank = _context.Ranks.ToList();
+                q = (from b in q
+                     join rank in contentRank on b.Id equals rank.IdBook
+                     where rank.IdCategorie == searchedBook.category
+                     select b).ToList();
+            }
+
+            if (searchedBook.Title != null)
+            {
+                q = (from b in q
+                     where b.Title.Contains(searchedBook.Title, sc)
+                     select b).ToList();
+            }
+
+            if (searchedBook.Subtitle != null)
+            {
+                q = (from b in q
+                     where b.Subtitle.Contains(searchedBook.Subtitle, sc)
+                     select b).ToList();
+            }
+
+            if (searchedBook.DatePublicationFrom != null)
+            {
+                q = (from b in q
+                     where b.DatePublication > searchedBook.DatePublicationFrom
+                     select b).ToList();
+            }
+
+            if (searchedBook.DatePublicationTo != null)
+            {
+                q = (from b in q
+                     where b.DatePublication < searchedBook.DatePublicationTo
+                     select b).ToList();
+            }
+
+            if (searchedBook.PriceFrom != null)
+            {
+                q = (from b in q
+                     where b.Price > searchedBook.PriceFrom
+                     select b).ToList();
+            }
+
+            if (searchedBook.PriceTo != null)
+            {
+                q = (from b in q
+                     where b.Price < searchedBook.PriceTo
+                     select b).ToList();
+            }
+            if (searchedBook.Summary != null)
+            {
+                q = (from b in q
+                     where b.Summary.Contains(searchedBook.Summary)
+                     select b).ToList();
+            }
+            if (searchedBook.IdEditor != 0)
+            {
+                q = (from b in q
+                     where b.IdEditor == searchedBook.IdEditor
+                     select b).ToList();
+            }
+
+            return q;
         }
 
 

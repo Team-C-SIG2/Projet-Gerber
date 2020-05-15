@@ -23,8 +23,12 @@ namespace Api
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
             services.AddDbContext<ESBookshopContext>(op => op.UseSqlServer(Configuration.GetConnectionString("ESBookshopContext"))); //Add
-            services.AddControllers();
+            
 
             services.AddAuthentication("Bearer")
                 .AddJwtBearer("Bearer", options =>
@@ -34,6 +38,8 @@ namespace Api
 
                     options.Audience = "api1";
                 });
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
