@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using AppWebClient.Models;
 using System.Net.Http;
 using Newtonsoft.Json;
-
 using AppWebClient.Tools;
 using Microsoft.AspNetCore.Authentication;
 using System.Net.Http.Headers;
@@ -60,7 +59,7 @@ namespace AppWebClient.Controllers
 
             string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Books/");
 
-            List<Book> books = JsonConvert.DeserializeObject<List<Book>>(content);
+            List<Models.Book> books = JsonConvert.DeserializeObject<List<Models.Book>>(content);
 
             if (books == null)
             {
@@ -102,7 +101,7 @@ namespace AppWebClient.Controllers
 
             string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Books/" + id);
 
-            Book book = JsonConvert.DeserializeObject<Book>(content);
+            Models.Book book = JsonConvert.DeserializeObject<Models.Book>(content);
 
             if (book == null)
             {
@@ -123,7 +122,7 @@ namespace AppWebClient.Controllers
         // Display the "Create" View of Books Controller 
         // GET: Books/Create
         // ________________________________________________________
-        public async Task<IActionResult> Create(Book book)
+        public async Task<IActionResult> Create(Models.Book book)
         {
 
             List<Editor> editors;
@@ -146,10 +145,10 @@ namespace AppWebClient.Controllers
         // Post (send) the new Ressource Book to the API Server 
         // POST: Books/Create
         // ________________________________________________________
-        public async Task<IActionResult> PostRessource(Book book)
+        public async Task<IActionResult> PostRessource(Models.Book book)
         {
 
-            Book b = new Book
+            Models.Book b = new Models.Book
             {
                 IdEditor = book.IdEditor,
                 Title = book.Title,
@@ -179,7 +178,7 @@ namespace AppWebClient.Controllers
         // GET: api/Books/Edit/5
         // ________________________________________________________
 
-        public async Task<IActionResult> Edit(int? id, Book book)
+        public async Task<IActionResult> Edit(int? id, Models.Book book)
         {
             string accessToken = await HttpContext.GetTokenAsync("access_token");
 
@@ -187,7 +186,7 @@ namespace AppWebClient.Controllers
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Books/" + id);
 
-            Book _book = JsonConvert.DeserializeObject<Book>(content);
+            Models.Book _book = JsonConvert.DeserializeObject<Models.Book>(content);
 
             if (_book == null)
             {
@@ -196,7 +195,7 @@ namespace AppWebClient.Controllers
 
             if (ModelState.IsValid)
             {
-                string jsonString = System.Text.Json.JsonSerializer.Serialize<Book>(book);
+                string jsonString = System.Text.Json.JsonSerializer.Serialize<Models.Book>(book);
 
                 StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PutAsync(_configuration["URLApi"] + "api/Books/" + _book.Id, httpContent);
@@ -215,11 +214,11 @@ namespace AppWebClient.Controllers
         // UPDATE : Update a Books ->  <form asp-action="PutRessource">
         // PUT: / api/Books/
         // ________________________________________________________
-        public async Task<IActionResult> PutRessource(int id, Book book)
+        public async Task<IActionResult> PutRessource(int id, Models.Book book)
         {
             string uri = _url + id;
 
-            Book b = new Book
+            Models.Book b = new Models.Book
             {
                 Id = book.Id,
                 IdEditor = book.IdEditor,
@@ -254,14 +253,14 @@ namespace AppWebClient.Controllers
 
             string uri = _url + id;
 
-            Book book = new Book();
+            Models.Book book = new Models.Book();
 
             HttpResponseMessage response = await _client.GetAsync(uri);
 
             if (response.IsSuccessStatusCode)
             {
                 var result = response.Content.ReadAsStringAsync().Result;
-                book = JsonConvert.DeserializeObject<Book>(result);
+                book = JsonConvert.DeserializeObject<Models.Book>(result);
             }
             else
             {
@@ -304,10 +303,10 @@ namespace AppWebClient.Controllers
         // POST: Books/AddToShoppingCart/S
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        public async Task<IActionResult> PostToShoppingCart(Book book)
+        public async Task<IActionResult> PostToShoppingCart(Models.Book book)
         {
 
-            Book b = new Book
+            Models.Book b = new Models.Book
             {
                 IdEditor = book.IdEditor,
                 Title = book.Title,
@@ -395,14 +394,14 @@ namespace AppWebClient.Controllers
             // _________________________________________________________________
 
             string uriBook = _configuration["URLApi"] + "api/Books/" + id;
-            Book book = new Book();
+            Models.Book book = new Models.Book();
 
             HttpResponseMessage responseBook = await client.GetAsync(uriBook);
 
             if (responseBook.IsSuccessStatusCode)
             {
                 var result = responseBook.Content.ReadAsStringAsync().Result;
-                book = JsonConvert.DeserializeObject<Book>(result);
+                book = JsonConvert.DeserializeObject<Models.Book>(result);
             }
 
 
@@ -517,137 +516,21 @@ namespace AppWebClient.Controllers
         // POST: Books/find
         public async Task<IActionResult> FindAsync(BookSearch searchedBook)
         {
-            bool searched = false;
-            IEnumerable<Book> books;
-            IEnumerable<Book> q = null;
-            StringComparison sc = StringComparison.OrdinalIgnoreCase;
-            string uri = _configuration["URLApi"] + "api/Books/";
-            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            bool searched = true;
+            string jsonString = System.Text.Json.JsonSerializer.Serialize(searchedBook);
+            StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
+            //  Pour joindre l'API
+            string uri = _configuration["URLApi"] + "api/Books/Find";
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            var content = await client.GetStringAsync(uri);
 
-
-            if (content != null)
-            {
-                var result = content;
-                books = JsonConvert.DeserializeObject<IEnumerable<Book>>(result);
-                q = books;
-
-                if (searchedBook.Isbn != null)
-                {
-                    q = (from b in q
-                         where b.Isbn == searchedBook.Isbn
-                         select b).ToList();
-                    searched = true;
-                }
-
-                if (searchedBook.authorName != null)
-                {
-                    uri = _configuration["URLApi"] + "api/Cowriters/";
-                    var contentCowriters = await client.GetStringAsync(uri);
-                    var cowriters = JsonConvert.DeserializeObject<IEnumerable<Cowriter>>(contentCowriters);
-                    uri = _configuration["URLApi"] + "api/Authors/";
-                    var contentAuthors = await client.GetStringAsync(uri);
-                    var authors = JsonConvert.DeserializeObject<IEnumerable<Author>>(contentAuthors);
-                    q = (from b in q
-                         join cowriter in cowriters on b.Id equals cowriter.IdBook
-                         join author in authors on cowriter.IdAuthor equals author.Id
-                         where author.Firstname.Contains(searchedBook.authorName, sc)
-                         || author.Lastname.Contains(searchedBook.authorName, sc)
-                         || (author.Lastname + " " + author.Firstname).Contains(searchedBook.authorName, sc)
-                         || (author.Firstname + " " + author.Lastname).Contains(searchedBook.authorName, sc)
-                         select b).ToList();
-
-                    searched = true;
-                }
-
-                if (searchedBook.category != 0)
-                {
-                    uri = _configuration["URLApi"] + "api/Ranks/";
-                    var contentRank = await client.GetStringAsync(uri);
-                    var ranks = JsonConvert.DeserializeObject<IEnumerable<Rank>>(contentRank);
-                    q = (from b in q
-                         join rank in ranks on b.Id equals rank.IdBook
-                         where rank.IdCategorie == searchedBook.category
-                         select b).ToList();
-                    searched = true;
-                }
-
-                if (searchedBook.Title != null)
-                {
-                    q = (from b in q
-                         where b.Title.Contains(searchedBook.Title, sc)
-                         select b).ToList();
-
-                    searched = true;
-                }
-
-                if (searchedBook.Subtitle != null)
-                {
-                    q = (from b in q
-                         where b.Subtitle.Contains(searchedBook.Subtitle, sc)
-                         select b).ToList();
-
-                    searched = true;
-                }
-
-                if (searchedBook.DatePublicationFrom != null)
-                {
-                    q = (from b in q
-                         where b.DatePublication > searchedBook.DatePublicationFrom
-                         select b).ToList();
-
-                    searched = true;
-                }
-
-                if (searchedBook.DatePublicationTo != null)
-                {
-                    q = (from b in q
-                         where b.DatePublication < searchedBook.DatePublicationTo
-                         select b).ToList();
-
-                    searched = true;
-                }
-
-                if (searchedBook.PriceFrom != null)
-                {
-                    q = (from b in q
-                         where b.Price > searchedBook.PriceFrom
-                         select b).ToList();
-
-                    searched = true;
-                }
-
-                if (searchedBook.PriceTo != null)
-                {
-                    q = (from b in q
-                         where b.Price < searchedBook.PriceTo
-                         select b).ToList();
-
-                    searched = true;
-                }
-                if (searchedBook.Summary != null)
-                {
-                    q = (from b in q
-                         where b.Summary.Contains(searchedBook.Summary)
-                         select b).ToList();
-
-                    searched = true;
-                }
-                if (searchedBook.IdEditor != 0)
-                {
-                    q = (from b in q
-                         where b.IdEditor == searchedBook.IdEditor
-                         select b).ToList();
-
-                    searched = true;
-                }
-            }
+            var response = client.PostAsync(uri, httpContent);
+            var foundbooks = await response.Result.Content.ReadAsAsync<IEnumerable<Book>>();
             if (searched)
             {
-                return View(q);
+                return View(foundbooks);
             }
             else
             {
