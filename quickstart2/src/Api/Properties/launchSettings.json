@@ -15,15 +15,11 @@
       }
     },
     "Api": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
+      "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "http://localhost:5001"
-    },
-    "newProfile1": {
-      "commandName": "Executable"
     }
   }
 }

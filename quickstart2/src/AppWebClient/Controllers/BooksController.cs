@@ -417,6 +417,7 @@ namespace AppWebClient.Controllers
             // Pour incrémenter la quantité lorsque le livre est déjà choisi --> Pas encore fonctionnel, à creuser !
             if (content != null)
             {
+                HttpResponseMessage response;
                 lineItems = JsonConvert.DeserializeObject<IEnumerable<LineItem>>(content);
 
                 var q = (from lineItem in lineItems
@@ -432,20 +433,28 @@ namespace AppWebClient.Controllers
                         IdOrder = null,
                         InsertedDate = DateTime.Now,
                         Quantity = 1,
-                        IdShoppingcart = shoppingcart.Id,
+                        IdShoppingcart = shoppingcart.Id
                     };
 
                     ViewBag.USERID = UserID;
                     // string jsonLine = JsonConvert.SerializeObject(line);
-                    HttpResponseMessage response = await client.PostAsJsonAsync(_configuration["URLApi"] + "api/Books/AddLine/", line);
-                    //response.EnsureSuccessStatusCode();
+                    response = await client.PostAsJsonAsync(_configuration["URLApi"] + "api/Books/AddLine/", line);
+                    if (response.StatusCode != HttpStatusCode.OK)
+                    {
+                        return BadRequest();
+                    }
                 }
                 else
                 {
                     q.Quantity++;
+                    q.InsertedDate = DateTime.Now;
                     string jsonString = System.Text.Json.JsonSerializer.Serialize<LineItem>(q);
                     StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                    HttpResponseMessage response = await client.PutAsync(_configuration["URLApi"] + "api/LineItems/" + q.Id, httpContent);
+                    response = await client.PutAsync(_configuration["URLApi"] + "api/LineItems/" + q.Id, httpContent);
+                    if (response.StatusCode != HttpStatusCode.NoContent)
+                    {
+                        return BadRequest();
+                    }
                 }
             }
             else
@@ -453,7 +462,7 @@ namespace AppWebClient.Controllers
                 return View("Error");
             }
 
-            return RedirectToAction("Index", "Books");
+            return RedirectToAction("");
 
 
         }

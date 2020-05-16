@@ -4,10 +4,9 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Details du livre</h1>
 
 <div>
-    <h4>Book</h4>
     <hr />
     <dl class="row">
 
@@ -86,8 +85,7 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Editer</a> |
-    <a asp-action="Index">Retour à la liste</a> |
-    <a asp-action="AddItem" asp-route-id="@Model.Id">Ajouter au panier</a>
-
+    <a asp-action="Index">Retour à la liste des livres</a> |
+    <a asp-action="AddItem" asp-route-id="@Model.Id">Ajouter au panier</a> |
+    <a asp-action="Index" asp-controller="UserShoppingCarts">Mon panier</a>
 </div>

@@ -12,15 +12,11 @@
 
 
 
-@*   titre  *@
-<h1>Bienvenue @USER.Username </h1>
-
-@USER.Email;
 
 @*  information sur le propriétaire du panier (utilisateur connecté)  *@
 <div>
 
-    <h4>Panier d'achat </h4>
+    <h1>Mon panier d'achat </h1>
     <hr />
     <dl class="row">
 
@@ -39,22 +35,22 @@
             @Html.DisplayNameFor(model => model.User.PhoneNumber)
         </dt>
         <dd class="col-sm-8">
-            @if (@USER.PhoneNumber != null)
+        @if (@USER.PhoneNumber != null)
             {<text>@USER.PhoneNumber</text>}
         else
-        {<text>Inconnu</text>}
+            {<text>Inconnu</text>}
         </dd>
 
 
         @*   Client Bookshop -  NOm et prénom *@
         <dt class="col-sm-4">
-            Email
+            @Html.DisplayNameFor(model => model.User.Email)
         </dt>
         <dd class="col-sm-8">
-            @if (@USER.Email != null)
+        @if (@USER.Email != null)
             {<text>@USER.Email</text>}
         else
-        {<text>Inconnu</text>}
+            {<text>Inconnu</text>}
         </dd>
 
 
@@ -63,34 +59,34 @@
             Nom
         </dt>
         <dd class="col-sm-8">
-            @if (@CUSTOMER.Lastname != null)
+        @if (@CUSTOMER.Lastname != null)
             {<text>@CUSTOMER.Firstname @CUSTOMER.Lastname</text>}
         else
-        {<text>Indisponible</text>}
+            {<text>Indisponible</text>}
         </dd>
 
 
         @*   Client Bookshop -  Adresse *@
         <dt class="col-sm-4">
-            Adresse
+            @Html.DisplayNameFor(model => model.User.IdCustomerNavigation.Address)
         </dt>
         <dd class="col-sm-8">
-            @if (@CUSTOMER.Address != null)
+        @if (@CUSTOMER.Address != null)
             {<text>@CUSTOMER.Address , @CUSTOMER.Zip @CUSTOMER.City </text>}
         else
-        {<text>Indisponible</text>}
+            {<text>Indisponible</text>}
         </dd>
 
 
         @*   Client Bookshop -  Adresse de facturation*@
         <dt class="col-sm-4">
-            Adresse de facturation
+            @Html.DisplayNameFor(model => model.User.IdCustomerNavigation.BillingAddress)
         </dt>
         <dd class="col-sm-8">
-            @if (@CUSTOMER.BillingAddress != null)
+        @if (@CUSTOMER.BillingAddress != null)
             {<text>@CUSTOMER.BillingAddress </text>}
         else
-        {<text>Indisponible</text>}
+            {<text>Indisponible</text>}
         </dd>
 
     </dl>
@@ -101,14 +97,10 @@
 
 
 <div>
-
     <br />
     <hr />
-    @Html.ActionLink("Retour à accueil", "Index", "Home")<br />
-    @Html.ActionLink("Contenu du panier", "Index", new { Controller = "Lineitems", action = "Index", id = ViewBag.ShoppingCartId })<br />
-    <br />
-    <hr />
-
+    @Html.ActionLink("Retour à l'accueil", "Index", "Home")<br />
+    @Html.ActionLink("Contenu du panier", "Index", new { Controller = "LineItems", action = "Index", id = ViewBag.ShoppingCartId })
 </div>
 
 

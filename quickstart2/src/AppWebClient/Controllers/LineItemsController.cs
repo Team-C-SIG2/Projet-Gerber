@@ -18,17 +18,12 @@ namespace AppWebClient.Controllers
     using Microsoft.AspNetCore.Authentication;
     using System.Net.Http.Headers;
     using Microsoft.Extensions.Configuration;
+    using System.Net;
 
     public class LineItemsController : Controller
     {
-        // Var USERID 
-        private readonly string UserID = "002078C2AB";
-
         // HTTPCLIENT 
-        private HttpClient _client = ApiHttpClient.ConnectClient();
-
-        // URL   
-        private string _url = $"api/LineItems/";
+        private HttpClient client = new HttpClient();
 
         private readonly IConfiguration _configuration;
 
@@ -46,12 +41,8 @@ namespace AppWebClient.Controllers
         // GET: LineItems
         public async Task<IActionResult> Index(int? id)
         {
-            
-            ViewBag.USERID = UserID;
-
             string accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
             string content = await client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/Items/" + id);
@@ -59,7 +50,6 @@ namespace AppWebClient.Controllers
             // ___________________________________________________
             // To get LineItems list 
             // ___________________________________________________
-            //string uri = _url + "Items/" + id;
 
             IEnumerable<LineItem> lineItems;
 
@@ -81,12 +71,9 @@ namespace AppWebClient.Controllers
             decimal total = 0;
 
             foreach (var item in lineItems)
-                {
-                    total += (item.UnitPrice * item.Quantity);
-                }
-
-
-
+            {
+                total += (item.UnitPrice * item.Quantity);
+            }
 
             // ___________________________________________________
             // Calculate the total amount of charge 
@@ -103,8 +90,6 @@ namespace AppWebClient.Controllers
             
             // Récupère le numéro (ID) du panier 
             ViewBag.PANIER = id;
-
-
 
 
             // ___________________________________________________
@@ -143,13 +128,8 @@ namespace AppWebClient.Controllers
             ViewBag.PUBLICKEY = publickey;
 
 
-
-
             return View(lineItems);
-
         }
-
-
 
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -159,15 +139,12 @@ namespace AppWebClient.Controllers
 
         public async Task<LineItem> GetLineItem(int? id)
         {
-            ViewBag.USER = UserID;
-
             string accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
             LineItem lineItem = null;
-            HttpResponseMessage response = await _client.GetAsync(_configuration["URLApi"] + "api/LineItems/LineItem/" + id);
+            HttpResponseMessage response = await client.GetAsync(_configuration["URLApi"] + "api/LineItems/LineItem/" + id);
 
             if (response.IsSuccessStatusCode)
             {
@@ -176,7 +153,40 @@ namespace AppWebClient.Controllers
             return lineItem;
         }
 
+        public async Task<IActionResult> Delete(int? id)
+        {
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
+            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/LineItem/" + id);
+
+            LineItem line = JsonConvert.DeserializeObject<LineItem>(content);
+
+            if (line == null)
+            {
+                return NotFound();
+            }
+
+            return View(line);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int? id)
+        {
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/LineItem/" + id);
+            LineItem line = JsonConvert.DeserializeObject<LineItem>(content);
+
+            HttpResponseMessage response = await client.DeleteAsync(_configuration["URLApi"] + "api/LineItems/" + id);
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                return BadRequest();
+            }
+            return RedirectToAction("Index", "LineItems", new { id = line.IdShoppingcart });
+        }
 
     }// End Class 
 }

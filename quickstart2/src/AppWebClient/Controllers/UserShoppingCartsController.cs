@@ -47,9 +47,6 @@
         // GET: ShoppingCarts
         public async Task<IActionResult> Index()
         {
-            
-
-            // To obtain the shopping cart of User (id) 
             string accessToken = await HttpContext.GetTokenAsync("access_token");
 
             HttpClient client = new HttpClient();
@@ -94,19 +91,10 @@
                     ViewData["USER"] = aspUser; // Save to ViewData
                     ViewData["CUSTOMER"] = customer;
                     ViewBag.ShoppingCartId = shoppingCart.Id;
-
                     }
-                
             }
-
-
             return View(shoppingCart);
         }
-
-
-
-
-
 
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -214,10 +202,5 @@
 
             return exist;
         }
-
-
-
-
-
     }// End Class 
 }
