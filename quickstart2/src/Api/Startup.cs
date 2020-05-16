@@ -23,12 +23,7 @@ namespace Api
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
-<<<<<<< HEAD
-=======
-
->>>>>>> master
             services.AddDbContext<ESBookshopContext>(op => op.UseSqlServer(Configuration.GetConnectionString("ESBookshopContext"))); //Add
-            
 
             services.AddAuthentication("Bearer")
                 .AddJwtBearer("Bearer", options =>
