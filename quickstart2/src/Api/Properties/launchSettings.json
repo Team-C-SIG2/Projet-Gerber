@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:5004",
+      "applicationUrl": "http://localhost:5001",
       "sslPort": 0
     }
   },
@@ -15,15 +15,11 @@
       }
     },
     "Api": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
+      "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "http://localhost:5001"
-    },
-    "newProfile1": {
-      "commandName": "Executable"
     }
   }
 }

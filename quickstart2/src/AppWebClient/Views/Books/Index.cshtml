@@ -4,11 +4,16 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-<p>
-    <a asp-action="Create">Inserer un nouveau livre</a> |
-    @Html.ActionLink("Panier d'achat (Utilisateur)", "Index", new { Controller = "UserShoppingCarts", action = "Index", id = @ViewBag.USERID })<br />
-</p>
+<h1>Catalogue de nos livres</h1>
+<hr />
+@Html.ActionLink("Page d'accueil", "Index", "Home")
+<br />
+@Html.ActionLink("Mon panier d'achat", "Index", "UserShoppingCarts")
+<br />
+@Html.ActionLink("Rechercher un livre", "Search", "Books")
+<br />
+<br />
+
 <table id="table" class="compact hover stripe">
     <thead>
         <tr>
@@ -45,9 +50,7 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    <a class="btn btn-default" asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a>
                     <a class="btn btn-default" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info"></i></a>
-                    <a class="btn btn-default" asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-trash-alt"></i></a>
                 </td>
             </tr>
         }
@@ -55,11 +58,42 @@
 </table>
 
 
-
-<script>
-    $(document).ready(function () {
-        $('#table').DataTable({
-            "dom": '<"wrapper"lipt>'
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#table').DataTable({
+                dom: '<"wrapper"lipt>',
+                language: {
+                    "sEmptyTable": "Aucune donnée disponible dans le tableau",
+                    "sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+                    "sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+                    "sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ",",
+                    "sLengthMenu": "Afficher _MENU_ éléments",
+                    "sLoadingRecords": "Chargement...",
+                    "sProcessing": "Traitement...",
+                    "sSearch": "Rechercher :",
+                    "sZeroRecords": "Aucun élément correspondant trouvé",
+                    "oPaginate": {
+                        "sFirst": "Premier",
+                        "sLast": "Dernier",
+                        "sNext": "Suivant",
+                        "sPrevious": "Précédent"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                        "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+                    },
+                    "select": {
+                        "rows": {
+                            "_": "%d lignes sélectionnées",
+                            "0": "Aucune ligne sélectionnée",
+                            "1": "1 ligne sélectionnée"
+                        }
+                    }
+                }
+            });
         });
-    });
-</script>
+    </script>
+}

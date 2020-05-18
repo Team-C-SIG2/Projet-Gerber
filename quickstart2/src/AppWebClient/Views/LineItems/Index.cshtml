@@ -10,11 +10,9 @@
 
 
 <h1>Contenu du panier</h1>
-<h4>Utilisateur : @ViewBag.USERID</h4>
-<br />
 <hr />
 <p>
-    <a asp-action="Index" asp-controller="Books">Ajouter </a>
+    <a asp-action="Index" asp-controller="Books">Continuer l'achat</a>
 </p>
 <table class="table">
     <thead>
@@ -51,8 +49,7 @@
                     @Html.DisplayFor(modelItem => item.IdBookNavigation.Isbn)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Editer</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-controller="Books" asp-action="Details" asp-route-id="@item.IdBook">Détails</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>
                 </td>
             </tr>
@@ -71,7 +68,7 @@
     <br />
     <hr />
     @Html.ActionLink("Accueil", "Index", "Home")<br />
-    @Html.ActionLink("Panier", "Index", new { Controller = "UserShoppingCarts", action = "Index", id = @ViewBag.USERID })<br />
+    @Html.ActionLink("Panier", "Index", new { Controller = "UserShoppingCarts", action = "Index" })<br />
     <br />
     <hr />
 </div>

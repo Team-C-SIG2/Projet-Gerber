@@ -87,7 +87,7 @@ namespace AppWebClient.Controllers
             string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Customers/");
 
             Customer user = JsonConvert.DeserializeObject<Customer>(content);
-
+            
             if (user == null)
             {
                 return NotFound();

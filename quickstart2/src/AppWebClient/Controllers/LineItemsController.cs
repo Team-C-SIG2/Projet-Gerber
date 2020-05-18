@@ -15,19 +15,22 @@ namespace AppWebClient.Controllers
 
     using AppWebClient.Models;
     using AppWebClient.Tools;
-
+    using Microsoft.AspNetCore.Authentication;
+    using System.Net.Http.Headers;
+    using Microsoft.Extensions.Configuration;
+    using System.Net;
 
     public class LineItemsController : Controller
     {
-        // Var USERID 
-        private readonly string UserID = "002078C2AB";
-
         // HTTPCLIENT 
-        private HttpClient _client = ApiHttpClient.ConnectClient();
+        private HttpClient client = new HttpClient();
 
-        // URL   
-        private string _url = $"api/LineItems/";
+        private readonly IConfiguration _configuration;
 
+        public LineItemsController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         // READ: Return the LineItems list
@@ -38,23 +41,22 @@ namespace AppWebClient.Controllers
         // GET: LineItems
         public async Task<IActionResult> Index(int? id)
         {
-            
-            ViewBag.USERID = UserID;
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
 
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/Items/" + id);
 
             // ___________________________________________________
             // To get LineItems list 
             // ___________________________________________________
-            string uri = _url + "Items/" + id;
 
-            List<LineItem> lineItems = new List<LineItem>();
+            IEnumerable<LineItem> lineItems;
 
-            HttpResponseMessage response = await _client.GetAsync(uri);
 
-            if (response.IsSuccessStatusCode)
+            if (content != null)
             {
-                var result = response.Content.ReadAsStringAsync().Result;
-                lineItems = JsonConvert.DeserializeObject<List<LineItem>>(result);
+                lineItems = JsonConvert.DeserializeObject<IEnumerable<LineItem>>(content);
             }
             else
             {
@@ -69,12 +71,9 @@ namespace AppWebClient.Controllers
             decimal total = 0;
 
             foreach (var item in lineItems)
-                {
-                    total += (item.UnitPrice * item.Quantity);
-                }
-
-
-
+            {
+                total += (item.UnitPrice * item.Quantity);
+            }
 
             // ___________________________________________________
             // Calculate the total amount of charge 
@@ -93,8 +92,6 @@ namespace AppWebClient.Controllers
             ViewBag.PANIER = id;
 
 
-
-
             // ___________________________________________________
             // To get public key 
             // Set your secret key. Remember to switch to your live secret key in production!
@@ -102,11 +99,11 @@ namespace AppWebClient.Controllers
 
             //  private string _url = $"api/StripePay/";
 
-            string uriPkey = $"api/StripePay/PKey";
+            string uriPkey = _configuration["URLApi"] + "api/StripePay/PKey/";
             string pKey = null;
-            List<string> stripePKeys = new List<string>();
+            List<string> stripePKeys;
 
-            HttpResponseMessage responsePKey = await _client.GetAsync(uriPkey);
+            HttpResponseMessage responsePKey = await client.GetAsync(uriPkey);
             if (responsePKey.IsSuccessStatusCode)
             {
                 var result = responsePKey.Content.ReadAsStringAsync().Result;
@@ -131,13 +128,8 @@ namespace AppWebClient.Controllers
             ViewBag.PUBLICKEY = publickey;
 
 
-
-
             return View(lineItems);
-
         }
-
-
 
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -147,10 +139,12 @@ namespace AppWebClient.Controllers
 
         public async Task<LineItem> GetLineItem(int? id)
         {
-            ViewBag.USER = UserID;
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
             LineItem lineItem = null;
-            HttpResponseMessage response = await _client.GetAsync(_url + id);
+            HttpResponseMessage response = await client.GetAsync(_configuration["URLApi"] + "api/LineItems/LineItem/" + id);
 
             if (response.IsSuccessStatusCode)
             {
@@ -159,7 +153,40 @@ namespace AppWebClient.Controllers
             return lineItem;
         }
 
+        public async Task<IActionResult> Delete(int? id)
+        {
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
+            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/LineItem/" + id);
+
+            LineItem line = JsonConvert.DeserializeObject<LineItem>(content);
+
+            if (line == null)
+            {
+                return NotFound();
+            }
+
+            return View(line);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int? id)
+        {
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/LineItem/" + id);
+            LineItem line = JsonConvert.DeserializeObject<LineItem>(content);
+
+            HttpResponseMessage response = await client.DeleteAsync(_configuration["URLApi"] + "api/LineItems/" + id);
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                return BadRequest();
+            }
+            return RedirectToAction("Index", "LineItems", new { id = line.IdShoppingcart });
+        }
 
     }// End Class 
 }

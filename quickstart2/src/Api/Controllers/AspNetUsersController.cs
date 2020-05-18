@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Api.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -22,51 +23,28 @@ namespace Api.Controllers
             _context = context;
         }
 
-        //// GET: api/AspNetUsers
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<AspNetUser>>> GetAspNetUsers()
-        //{
-        //    return await _context.AspNetUsers.ToListAsync();
-        //}
-
-        //GET: api/AspNetUsers
+        // GET: api/AspNetUsers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserRoles>>> GetAspNetUsers()
+        public async Task<ActionResult<IEnumerable<AspNetUser>>> GetAspNetUsers()
         {
-            var utilisateurs =
-                (from i in _context.AspNetUsers
-                 join f in _context.AspNetUserRoles on i.Id equals f.UserId
-                 join n in _context.AspNetRoles on f.RoleId equals n.Id
-                 where (i.Id == f.UserId) && (n.Id == f.RoleId) || (f.RoleId != n.Id)
-                 select new UserRoles() { UserId = i.Id, Email = i.Email, Name = n.Name, RoleId = n.Id, Username = i.Username, PhoneNumber = i.PhoneNumber }
-                 );
-
-            if (utilisateurs == null)
-            {
-                return NotFound();
-            }
-
-            return await utilisateurs.ToListAsync();
+            return await _context.AspNetUsers.ToListAsync();
         }
 
         // GET: api/AspNetUsers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserRoles>> GetAspNetUser(string id)
+        public async Task<ActionResult<AspNetUser>> GetAspNetUser(string id)
         {
-            var utilisateur = (from i in _context.AspNetUsers
-                               join f in _context.AspNetUserRoles on i.Id equals f.UserId
-                               join n in _context.AspNetRoles on f.RoleId equals n.Id
-                               where (i.Id == f.UserId)
-                               select new UserRoles() { UserId = i.Id, Email = i.Email, Name = n.Name, RoleId = n.Id, Username = i.Username, PhoneNumber = i.PhoneNumber }
-                 ).FirstOrDefault();
+            var aspNetUser = await _context.AspNetUsers.FindAsync(id);
 
-            if (utilisateur == null)
+            if (aspNetUser == null)
             {
                 return NotFound();
             }
 
-            return utilisateur;
+            return aspNetUser;
         }
+
+
 
         // PUT: api/AspNetUsers/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
@@ -146,5 +124,13 @@ namespace Api.Controllers
         {
             return _context.AspNetUsers.Any(e => e.Id == id);
         }
+
+        [Route("UserId")]
+        public string GetUserId()
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return userId;
+        }
     }
+
 }

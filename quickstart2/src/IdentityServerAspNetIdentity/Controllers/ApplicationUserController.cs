@@ -90,7 +90,16 @@ namespace IdentityServerAspNetIdentity.Controllers
                                 resView = "ErrorPassword";
                             }
                             else {
+                                //var lastId = _context.AspNetUsers.Max(u => u.Id);
                                 Log.Debug($"{checkUser.UserName} created");
+                                
+                                /*ShoppingCart sp = new ShoppingCart {
+                                    UserId = lastId,
+                                    CreatedDate = DateTime.Now
+                                };*/
+
+                                /*_context.ShoppingCarts.Add(sp);
+                                await _context.SaveChangesAsync();*/
                                 resView = "CreateDone";
                                 /*var token = await userMgr.GenerateEmailConfirmationTokenAsync(checkUser);
                                 await userMgr.ConfirmEmailAsync(checkUser, token);*/

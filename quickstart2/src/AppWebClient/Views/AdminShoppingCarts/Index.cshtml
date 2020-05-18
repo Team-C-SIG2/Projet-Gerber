@@ -4,19 +4,17 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Liste de tous les paniers</h1>
+<hr />
 
-<p>
-    <a asp-action="Create">Nouveau panier</a>
-</p>
-<table class="table">
+<table id="table" class="compact hover stripe">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.CreatedDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User)
+                @Html.DisplayNameFor(model => model.User.Username)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.User.Email)
@@ -38,16 +36,52 @@
                     @Html.DisplayFor(modelItem => item.User.Email)
                 </td>
                 <td>
-
-                    @Html.ActionLink("supprimer", "Delete", new { id = item.Id }) |
                     @Html.ActionLink("Details", "Index", new { Controller = "LineItems", action = "Index", id = item.Id })
-
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
-<hr />
-@Html.ActionLink("Accueil", "Index", "Home")
 <br />
+@Html.ActionLink("Retour à l'accueil", "Index", "Home")
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#table').DataTable({
+                dom: '<"wrapper"lipt>',
+                language: {
+                    "sEmptyTable": "Aucune donnée disponible dans le tableau",
+                    "sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+                    "sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+                    "sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ",",
+                    "sLengthMenu": "Afficher _MENU_ éléments",
+                    "sLoadingRecords": "Chargement...",
+                    "sProcessing": "Traitement...",
+                    "sSearch": "Rechercher :",
+                    "sZeroRecords": "Aucun élément correspondant trouvé",
+                    "oPaginate": {
+                        "sFirst": "Premier",
+                        "sLast": "Dernier",
+                        "sNext": "Suivant",
+                        "sPrevious": "Précédent"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                        "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+                    },
+                    "select": {
+                        "rows": {
+                            "_": "%d lignes sélectionnées",
+                            "0": "Aucune ligne sélectionnée",
+                            "1": "1 ligne sélectionnée"
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+}
