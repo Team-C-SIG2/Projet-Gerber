@@ -38,7 +38,7 @@ namespace AppWebClient
                 .AddCookie("Cookies")
                 .AddOpenIdConnect("oidc", options =>
                 {
-                    options.Authority = "http://localhost:5000";
+                    options.Authority = Configuration["URLIdentity"];
                     options.RequireHttpsMetadata = false;
 
                     options.ClientId = "mvc";
