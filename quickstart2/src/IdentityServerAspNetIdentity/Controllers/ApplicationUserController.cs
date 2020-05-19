@@ -87,12 +87,23 @@ namespace IdentityServerAspNetIdentity.Controllers
 
                             checkUser = user;
                             var result = userMgr.CreateAsync(checkUser, user.PasswordHash).Result;
-                            if (await _roleManager.RoleExistsAsync("Admin"))
+                            if (checkUser.UserName.Contains("alice"))
                             {
-                                await _roleManager.CreateAsync(new IdentityRole("Admin"));
-
+                                if (await _roleManager.RoleExistsAsync("Admin"))
+                                {
+                                    await _roleManager.CreateAsync(new IdentityRole("Admin"));
+                                }
+                                await userMgr.AddToRoleAsync(checkUser, "Admin");
                             }
-                            await userMgr.AddToRoleAsync(checkUser, "Admin");
+                            else
+                            {
+                                if (await _roleManager.RoleExistsAsync("User"))
+                                {
+                                    await _roleManager.CreateAsync(new IdentityRole("User"));
+                                }
+                                await userMgr.AddToRoleAsync(checkUser, "User");
+                            }
+
                             if (!result.Succeeded)
                             {
                                 resView = "ErrorPassword";
