@@ -28,14 +28,16 @@ namespace IdentityServerAspNetIdentity.Controllers
     public class ApplicationUserController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ESBookshopContext _context;
         private readonly IEmailSender _emailSender;
         private readonly IConfiguration _configuration;
         private string resView;
 
-        public ApplicationUserController(IConfiguration configuration, UserManager<ApplicationUser> userManager, ESBookshopContext context, IEmailSender emailSender)
+        public ApplicationUserController(IConfiguration configuration, UserManager<ApplicationUser> userManager, ESBookshopContext context, IEmailSender emailSender, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
             _context = context;
             _emailSender = emailSender;
             _configuration = configuration;
@@ -85,6 +87,23 @@ namespace IdentityServerAspNetIdentity.Controllers
 
                             checkUser = user;
                             var result = userMgr.CreateAsync(checkUser, user.PasswordHash).Result;
+                            if (checkUser.UserName.Contains("alice"))
+                            {
+                                if (await _roleManager.RoleExistsAsync("Admin"))
+                                {
+                                    await _roleManager.CreateAsync(new IdentityRole("Admin"));
+                                }
+                                await userMgr.AddToRoleAsync(checkUser, "Admin");
+                            }
+                            else
+                            {
+                                if (await _roleManager.RoleExistsAsync("User"))
+                                {
+                                    await _roleManager.CreateAsync(new IdentityRole("User"));
+                                }
+                                await userMgr.AddToRoleAsync(checkUser, "User");
+                            }
+
                             if (!result.Succeeded)
                             {
                                 resView = "ErrorPassword";
@@ -92,14 +111,16 @@ namespace IdentityServerAspNetIdentity.Controllers
                             else {
                                 //var lastId = _context.AspNetUsers.Max(u => u.Id);
                                 Log.Debug($"{checkUser.UserName} created");
-                                
+
                                 /*ShoppingCart sp = new ShoppingCart {
                                     UserId = lastId,
                                     CreatedDate = DateTime.Now
                                 };*/
 
+
                                 /*_context.ShoppingCarts.Add(sp);
                                 await _context.SaveChangesAsync();*/
+
                                 resView = "CreateDone";
                                 /*var token = await userMgr.GenerateEmailConfirmationTokenAsync(checkUser);
                                 await userMgr.ConfirmEmailAsync(checkUser, token);*/
