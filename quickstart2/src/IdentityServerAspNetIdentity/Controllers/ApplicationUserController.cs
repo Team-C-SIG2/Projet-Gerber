@@ -1,27 +1,17 @@
 ﻿using IdentityServerAspNetIdentity.Data;
-
-
 // HB 
 using IdentityServerAspNetIdentity.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Linq;
-using IdentityServerAspNetIdentity.Services;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using SendGrid.Helpers.Mail;
-using SendGrid;
-using System.Net.Mail;
 using System.Net;
-using System;
-using Microsoft.AspNetCore.Authentication;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using Newtonsoft.Json.Linq;
-using Microsoft.Extensions.Configuration;
+using System.Net.Mail;
+using System.Threading.Tasks;
 
 namespace IdentityServerAspNetIdentity.Controllers
 {
@@ -75,7 +65,7 @@ namespace IdentityServerAspNetIdentity.Controllers
                         if (checkUser == null)
                         {
                             Customer newCust = new Customer();
-                            
+
                             /* Prod only
                             newCust.Id = _context.Customers.Max(u => u.Id)+1;
                             */
@@ -89,10 +79,11 @@ namespace IdentityServerAspNetIdentity.Controllers
                             {
                                 resView = "ErrorPassword";
                             }
-                            else {
+                            else
+                            {
                                 //var lastId = _context.AspNetUsers.Max(u => u.Id);
                                 Log.Debug($"{checkUser.UserName} created");
-                                
+
                                 /*ShoppingCart sp = new ShoppingCart {
                                     UserId = lastId,
                                     CreatedDate = DateTime.Now

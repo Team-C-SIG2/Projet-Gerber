@@ -1,7 +1,4 @@
-﻿using IdentityServerAspNetIdentity.Services;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc.ViewFeatures.Buffers;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.AspNetCore.Identity.UI.Services;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Threading.Tasks;
