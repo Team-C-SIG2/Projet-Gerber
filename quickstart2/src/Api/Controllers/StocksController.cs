@@ -6,9 +6,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Api.Models;
+using Api.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers
 {
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class StocksController : ControllerBase
@@ -25,6 +28,20 @@ namespace Api.Controllers
         public async Task<ActionResult<IEnumerable<Stock>>> GetStocks()
         {
             return await _context.Stocks.ToListAsync();
+        }
+        
+        // GET: api/Stocks/BookStocks
+        [HttpGet]
+        [Route("BookStocks")]
+        public async Task<ActionResult<IEnumerable<BookStock>>> GetBookStocks()
+        {
+            var contentStocks = await _context.Stocks.ToListAsync();
+            var contentBooks = await _context.Books.ToListAsync();
+            var bookStockList = (from bs in contentBooks
+                                                   join cs in contentStocks on bs.Id equals cs.IdBook
+                                                   select new BookStock {IdBook = bs.Id, IdStock = cs.Id, Isbn=bs.Isbn, Price=bs.Price, Title=bs.Title, currentStock=cs.CurrentStock }).ToList();
+
+            return bookStockList;
         }
 
         // GET: api/Stocks/5
