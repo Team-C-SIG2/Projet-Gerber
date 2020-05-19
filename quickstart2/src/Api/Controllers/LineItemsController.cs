@@ -71,10 +71,12 @@ namespace Api.Controllers
                      Quantity = i.Quantity,
                      UnitPrice = i.UnitPrice,
                      IdShoppingcart = i.IdShoppingcart,
+                     IdWishlist = i.IdWishlist,
                      IdBook = i.IdBook,
                      IdOrder = i.IdOrder,
                      IdBookNavigation = (from b in _context.Books where b.Id == i.IdBook select b).FirstOrDefault(),
-                     IdShoppingcartNavigation = (from s in _context.ShoppingCarts where s.Id == i.IdShoppingcart select s).FirstOrDefault()
+                     IdShoppingcartNavigation = (from s in _context.ShoppingCarts where s.Id == i.IdShoppingcart select s).FirstOrDefault(), 
+                     IdWishlistNavigation = (from w in _context.Wishlists where w.Id == i.IdWishlist select w).FirstOrDefault()
                  });
 
             if (lines == null)
@@ -83,7 +85,35 @@ namespace Api.Controllers
             }
 
             return await lines.ToListAsync();
+        }
 
+
+        [Route("Wishlist/{id?}")]
+        public async Task<ActionResult<IEnumerable<LineItem>>> GetUserWishList(int? id)
+        {
+            var lines =
+                (from i in _context.LineItems
+                 where i.IdWishlist == id
+                 select new LineItem()
+                 {
+                     Id = i.Id,
+                     Quantity = i.Quantity,
+                     UnitPrice = i.UnitPrice,
+                     IdShoppingcart = i.IdShoppingcart,
+                     IdWishlist = i.IdWishlist,
+                     IdBook = i.IdBook,
+                     IdOrder = i.IdOrder,
+                     IdBookNavigation = (from b in _context.Books where b.Id == i.IdBook select b).FirstOrDefault(),
+                     IdShoppingcartNavigation = (from s in _context.ShoppingCarts where s.Id == i.IdShoppingcart select s).FirstOrDefault(),
+                     IdWishlistNavigation = (from w in _context.Wishlists where w.Id == i.IdWishlist select w).FirstOrDefault()
+                 });
+
+            if (lines == null)
+            {
+                return NotFound();
+            }
+
+            return await lines.ToListAsync();
         }
 
 

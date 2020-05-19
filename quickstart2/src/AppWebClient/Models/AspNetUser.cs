@@ -16,18 +16,17 @@ namespace AppWebClient.Models
             Orders = new HashSet<Order>();
             Payments = new HashSet<Payment>();
             ShoppingCarts = new HashSet<ShoppingCart>();
+            Wishlists = new HashSet<Wishlist>();
         }
 
         [Key]
         public string Id { get; set; }
         [Column("Id_Customer")]
         public int IdCustomer { get; set; }
-        [Display(Name = "Nom d'utilisateur")]
         [StringLength(256)]
         public string Username { get; set; }
         [StringLength(256)]
         public string NormalizedUsername { get; set; }
-        [Display(Name = "Adresse mail")]
         [StringLength(256)]
         public string Email { get; set; }
         [StringLength(256)]
@@ -36,7 +35,6 @@ namespace AppWebClient.Models
         public string PasswordHash { get; set; }
         public string SecurityStamp { get; set; }
         public string ConcurrencyStamp { get; set; }
-        [Display(Name = "Numéro de téléphone")]
         public string PhoneNumber { get; set; }
         public bool PhoneNumberConfirmed { get; set; }
         public bool TwoFactorEnabled { get; set; }
@@ -62,5 +60,7 @@ namespace AppWebClient.Models
         public virtual ICollection<Payment> Payments { get; set; }
         [InverseProperty(nameof(ShoppingCart.User))]
         public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
+        [InverseProperty(nameof(Wishlist.User))]
+        public virtual ICollection<Wishlist> Wishlists { get; set; }
     }
 }
