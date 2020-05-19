@@ -6,6 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Charts\**" />
+    <Content Remove="Views\Charts\**" />
+    <EmbeddedResource Remove="Views\Charts\**" />
+    <None Remove="Views\Charts\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\ChartsController.cs" />
     <Compile Remove="Views\Home\json.cshtml.cs" />
   </ItemGroup>
 

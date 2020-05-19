@@ -2,17 +2,14 @@
 
 namespace Api.Controllers
 {
-
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Data;
-    using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Http;
+    using Api.Models;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.AspNetCore.Authorization;
-    using Api.Models;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     [Route("api/[controller]")]
     [ApiController]

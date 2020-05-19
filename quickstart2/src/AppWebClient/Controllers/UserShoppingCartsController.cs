@@ -1,21 +1,16 @@
 ﻿namespace AppWebClient.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
     using AppWebClient.Models;
     using AppWebClient.Tools;
-    using System.Net.Http;
-    using Newtonsoft.Json;
-
-    using System.Text.Json;
-    using System.Security.Claims;
-    using Microsoft.Extensions.Configuration;
     using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using Microsoft.Extensions.Configuration;
+    using Newtonsoft.Json;
+    using System.Collections.Generic;
+    using System.Net.Http;
     using System.Net.Http.Headers;
-    using System.Collections;
+    using System.Threading.Tasks;
 
     public class UserShoppingCartsController : Controller
     {
@@ -62,7 +57,7 @@
             {
                 string result = response.Content.ReadAsStringAsync().Result;
                 shoppingCart = JsonConvert.DeserializeObject<ShoppingCart>(result);
-                @ViewBag.USERID = id; 
+                @ViewBag.USERID = id;
 
             }
             else
@@ -73,17 +68,17 @@
 
             // To obtain the data of User (id)
 
-            
+
             AspNetUser users;
-            AspNetUser aspUser; 
+            AspNetUser aspUser;
             string uriUsers = _configuration["URLApi"] + "api/AspNetUsers/" + id;
             string responseUsers = await client.GetStringAsync(uriUsers); // HTTP GET
             if (responseUsers != null)
             {
                 users = JsonConvert.DeserializeObject<AspNetUser>(responseUsers);
                 //users = await responseUsers.Content.ReadAsAsync<List<AspNetUser>>();
-                    if (users.Id == id)
-                    {
+                if (users.Id == id)
+                {
                     string uriCustomer = _configuration["URLApi"] + "api/Customers/" + users.IdCustomer;
                     aspUser = users;
                     string reponseCustomer = await client.GetStringAsync(uriCustomer);
@@ -91,7 +86,7 @@
                     ViewData["USER"] = aspUser; // Save to ViewData
                     ViewData["CUSTOMER"] = customer;
                     ViewBag.ShoppingCartId = shoppingCart.Id;
-                    }
+                }
             }
             return View(shoppingCart);
         }

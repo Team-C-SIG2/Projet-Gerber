@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using AppWebClient.Models;
+﻿using AppWebClient.Models;
 using Microsoft.AspNetCore.Authentication;
-using System.Net.Http;
-using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using Microsoft.EntityFrameworkCore;
-using System.Text;
 using System.Net;
-using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authorization;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace AppWebClient.Controllers
 {
@@ -40,7 +34,7 @@ namespace AppWebClient.Controllers
             string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Customers/");
 
             Customer customer = JsonConvert.DeserializeObject<Customer>(content);
-            
+
             if (customer == null)
             {
                 return NotFound();
@@ -87,7 +81,7 @@ namespace AppWebClient.Controllers
             string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Customers/");
 
             Customer user = JsonConvert.DeserializeObject<Customer>(content);
-            
+
             if (user == null)
             {
                 return NotFound();

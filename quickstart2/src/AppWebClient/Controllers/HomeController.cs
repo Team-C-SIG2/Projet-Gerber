@@ -1,20 +1,16 @@
-﻿using System;
+﻿using AppWebClient.Models;
+using AppWebClient.Tools;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
+using Stripe;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-
-using Stripe;
-
-using AppWebClient.Models;
-using AppWebClient.Tools;
-using Microsoft.AspNetCore.Authorization;
 using System.Net.Http.Headers;
-using Microsoft.AspNetCore.Authentication;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 
 namespace AppWebClient.Controllers
 {
@@ -42,7 +38,7 @@ namespace AppWebClient.Controllers
         }
 
         public IActionResult Charge(string stripeEmail, string StripeToken)
-        {           
+        {
             ViewBag.USERID = UserID;
 
             // Set your secret key. Remember to switch to your live secret key in production!
@@ -56,7 +52,7 @@ namespace AppWebClient.Controllers
             // Tdodo  Récupérer dans lineItems
             decimal decimalAmount = 15.00M;
             var centsAmount = (decimalAmount * 100);
-            long chargeAmount = Convert.ToInt64(centsAmount); 
+            long chargeAmount = Convert.ToInt64(centsAmount);
 
             var customers = new CustomerService();
             var Charges = new ChargeService();
@@ -65,8 +61,8 @@ namespace AppWebClient.Controllers
                 new CustomerCreateOptions
                 {
                     Email = stripeEmail,
-                    Source= StripeToken
-                }); 
+                    Source = StripeToken
+                });
 
             var charge = Charges.Create(
                 new ChargeCreateOptions
@@ -74,16 +70,16 @@ namespace AppWebClient.Controllers
                     Amount = chargeAmount,
 
                     Description = "Test Payment",
-                    Currency = "chf", 
-                    Customer = customer.Id, 
-                    ReceiptEmail = stripeEmail, 
+                    Currency = "chf",
+                    Customer = customer.Id,
+                    ReceiptEmail = stripeEmail,
                     Metadata = new Dictionary<string, string>()
-                    { 
+                    {
                         {"integration_check", "accept_a_payment" },
                         {"OrderId", "111"},
                         {"Postcode", "3100"}
                     }
-                    
+
                 });
 
             if (charge.Status == "succeeded")
@@ -94,7 +90,7 @@ namespace AppWebClient.Controllers
             {
                 return View("Error");
             }
-            
+
             return View();
         }
 
@@ -143,7 +139,7 @@ namespace AppWebClient.Controllers
         public IActionResult Error()
         {
             ViewBag.USERID = UserID;
-            return View(new ErrorViewModel {RequestId= Activity.Current?.Id ?? HttpContext.TraceIdentifier});
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
         public async Task<IActionResult> CallApi()

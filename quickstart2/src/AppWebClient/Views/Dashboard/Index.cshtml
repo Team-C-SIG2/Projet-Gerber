@@ -2,7 +2,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Tableau de bord</h1>
 <br />
 
 <div>
@@ -12,14 +12,11 @@
         <a asp-controller="Dashboard" asp-action="Index"> TextAffiche </a>
         <a asp-controller="Home" asp-action="Index"> TextAffiche </a>
     *@
-    <a asp-controller="Dashboard" asp-action="Index">Retour au tableau de bord</a>
-</div>
-<div>
     <a asp-controller="Home" asp-action="Index">Retour à l'accueil</a>
 </div>
-
+<br />
 <div>
-    <h4>Appreciation</h4>
+    <h4>Indicateurs KPI pour gérer ESBookshop</h4>
     <hr />
     <dl class="row">
 
@@ -35,13 +32,32 @@
 
         @* Nom de l'action*@
         <dt class="col-sm-8">
-            Evolution des appréciations
+            Appréciations des clients
         </dt>
         @* Action*@
         <dd class="col-sm-4">
-            @Html.ActionLink("Evolution des appréciations", "Appreciations", "Charts")
+            @Html.ActionLink("Evolution des appréciations", "Appreciations", "Dashboard")
         </dd>
 
+
+        @* Nom de l'action*@
+        <dt class="col-sm-8">
+            Meilleures villes
+        </dt>
+        @* Action*@
+        <dd class="col-sm-4">
+            @Html.ActionLink("Top 10 des villes", "BestCities", "Dashboard")
+        </dd>
+
+
+        @* Nom de l'action*@
+        <dt class="col-sm-8">
+            Meilleures clients (acheteurs)
+        </dt>
+        @* Action*@
+        <dd class="col-sm-4">
+            @Html.ActionLink("Top 10 des clients", "BestCustomers", "Dashboard")
+        </dd>
     </dl>
 </div>
 

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Api.Models;
-using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Api.Controllers
 {
@@ -45,7 +42,7 @@ namespace Api.Controllers
             // return await _context.Customers.ToListAsync();
         }
 
-        
+
         // GET: api/Customers/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Customer>> GetCustomer(int id)
@@ -59,7 +56,7 @@ namespace Api.Controllers
 
             return customer;
         }
-        
+
 
         // PUT: api/Customers/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for

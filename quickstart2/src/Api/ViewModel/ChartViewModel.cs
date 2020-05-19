@@ -1,6 +1,5 @@
 ﻿namespace Api.ViewModel
 {
-    using System;
     using System.Runtime.Serialization;
 
 
@@ -20,6 +19,10 @@
         }
 
 
+        // _______________________________________________________________
+        // APPRECIATIONS 
+        // _______________________________________________________________
+
         //Explicitly setting the name to be used while serializing to JSON.
         [DataMember(Name = "Evaluation")]
         public int Evaluation { get; set; }
@@ -28,6 +31,22 @@
         [DataMember(Name = "EvaluationDate")]
         public int EvaluationDate { get; set; }
 
+
+        // _______________________________________________________________
+        // CUSTOMERS / CLIENTS  
+        // _______________________________________________________________
+
+        //Explicitly setting the name to be used while serializing to JSON.
+        [DataMember(Name = "NbClients")]
+        public int Clients { get; set; }
+
+        //Explicitly setting the Date to be used while serializing to JSON.
+        [DataMember(Name = "City")]
+        public string City { get; set; }
+
+        //Explicitly setting the name to be used while serializing to JSON.
+        [DataMember(Name = "NbTotalClients")]
+        public int CountCustomers { get; set; }
 
     }// End Class 
 }

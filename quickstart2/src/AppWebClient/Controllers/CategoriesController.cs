@@ -1,14 +1,11 @@
 ﻿namespace AppWebClient.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Mvc;
-    using System.Net.Http;
-    using Newtonsoft.Json;
-
     using AppWebClient.Models;
     using AppWebClient.Tools;
+    using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
+    using System.Net.Http;
+    using System.Threading.Tasks;
 
 
     public class CategoriesController : Controller
@@ -26,7 +23,7 @@
         // READ: Return the Categories list
         // GET: .../ api/Categories/
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-       
+
         // ________________________________________________________
         // Entry point of the Controller (View)
         // Return all Categories 
@@ -143,7 +140,7 @@
 
         public async Task<IActionResult> Edit(int? id)
         {
-            string uri = _url + id; 
+            string uri = _url + id;
             Categorie categorie = new Categorie();
 
             HttpResponseMessage response = await _client.GetAsync(uri);
@@ -183,25 +180,25 @@
         // DELETE: Categories/Delete/5
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-       
-            // GET: Movies/Delete/5
-            public async Task<IActionResult> Delete(int? id)
+
+        // GET: Movies/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+
+            if (id == null)
             {
-
-                if (id == null)
-                {
-                    return NotFound();
-                }
-
-                // HTTP DELETE
-                string uri = _url + id;
-
-                 HttpResponseMessage response = await _client.DeleteAsync(uri);
-                 response.EnsureSuccessStatusCode(); 
-
-                 // return RedirectToAction(nameof(Index));
-                return RedirectToAction("Index", "Categories");
+                return NotFound();
             }
+
+            // HTTP DELETE
+            string uri = _url + id;
+
+            HttpResponseMessage response = await _client.DeleteAsync(uri);
+            response.EnsureSuccessStatusCode();
+
+            // return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Categories");
+        }
 
 
 

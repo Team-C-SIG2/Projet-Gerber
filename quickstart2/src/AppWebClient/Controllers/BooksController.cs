@@ -1,25 +1,23 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using AppWebClient.Models;
+using AppWebClient.Tools;
+using AppWebClient.ViewModel;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using AppWebClient.Models;
-using System.Net.Http;
-using Newtonsoft.Json;
-using AppWebClient.Tools;
-using Microsoft.AspNetCore.Authentication;
-using System.Net.Http.Headers;
 using Microsoft.Extensions.Configuration;
-using AppWebClient.ViewModel;
-using Stripe.Issuing;
-using System.Text;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
 
 
 namespace AppWebClient.Controllers
-{ 
+{
     public class BooksController : Controller
     {
 
@@ -381,7 +379,7 @@ namespace AppWebClient.Controllers
             {
                 responseShoppingcart = await client.GetAsync(_configuration["URLApi"] + "api/ShoppingCarts/GetUserShoppingCarts/" + idUser);
             }
-            
+
             if (responseShoppingcart.IsSuccessStatusCode)
             {
                 shoppingcart = await responseShoppingcart.Content.ReadAsAsync<ShoppingCart>();
@@ -421,8 +419,8 @@ namespace AppWebClient.Controllers
                 lineItems = JsonConvert.DeserializeObject<IEnumerable<LineItem>>(content);
 
                 var q = (from lineItem in lineItems
-                        where lineItem.IdBook == book.Id
-                        select lineItem).FirstOrDefault();
+                         where lineItem.IdBook == book.Id
+                         select lineItem).FirstOrDefault();
 
                 if (q == null)
                 {

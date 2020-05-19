@@ -1,12 +1,10 @@
-﻿using System;
+﻿using Api.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Api.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers
 {
@@ -86,17 +84,17 @@ namespace Api.Controllers
                 (from i in _context.AspNetUsers
                  select new AspNetUser()
                  {
-                     Id = i.Id, 
-                     IdCustomer = i.IdCustomer, 
-                     Username = i.Username, 
-                     Email = i.Email, 
-                     EmailConfirmed = i.EmailConfirmed, 
-                     PasswordHash = i.PasswordHash, 
-                     PhoneNumber = i.PhoneNumber, 
-                     TwoFactorEnabled = i.TwoFactorEnabled, 
-                     LockoutEnabled = i.LockoutEnabled, 
-                     LockoutEnd = i.LockoutEnd, 
-                     Orders = (from o in _context.Orders where o.UserId == i.Id select o).ToList(), 
+                     Id = i.Id,
+                     IdCustomer = i.IdCustomer,
+                     Username = i.Username,
+                     Email = i.Email,
+                     EmailConfirmed = i.EmailConfirmed,
+                     PasswordHash = i.PasswordHash,
+                     PhoneNumber = i.PhoneNumber,
+                     TwoFactorEnabled = i.TwoFactorEnabled,
+                     LockoutEnabled = i.LockoutEnabled,
+                     LockoutEnd = i.LockoutEnd,
+                     Orders = (from o in _context.Orders where o.UserId == i.Id select o).ToList(),
                      Payments = (from p in _context.Payments where p.UserId == i.Id select p).ToList(),
                      ShoppingCarts = (from s in _context.ShoppingCarts where s.UserId == i.Id select s).ToList()
                  });
@@ -170,7 +168,7 @@ namespace Api.Controllers
                 {
                     foreach (var cart in user.ShoppingCarts)
                     {
-                        
+
                         if (cart.UserId == id)
                         {
                             shoppingCart = cart;
@@ -197,12 +195,12 @@ namespace Api.Controllers
                  select new LineItem()
                  {
                      Id = i.Id,
-                     Quantity = i.Quantity, 
+                     Quantity = i.Quantity,
                      UnitPrice = i.UnitPrice,
-                     IdShoppingcart = i.IdShoppingcart, 
-                     IdBook = i.IdBook, 
-                     IdOrder = i.IdOrder, 
-                     IdBookNavigation = (from b in _context.Books where b.Id == i.IdBook select b).FirstOrDefault(), 
+                     IdShoppingcart = i.IdShoppingcart,
+                     IdBook = i.IdBook,
+                     IdOrder = i.IdOrder,
+                     IdBookNavigation = (from b in _context.Books where b.Id == i.IdBook select b).FirstOrDefault(),
                      IdShoppingcartNavigation = (from s in _context.ShoppingCarts where s.Id == i.IdShoppingcart select s).FirstOrDefault()
                  });
 
@@ -215,7 +213,7 @@ namespace Api.Controllers
 
         }
 
-       
+
 
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////

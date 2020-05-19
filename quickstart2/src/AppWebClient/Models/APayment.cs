@@ -55,7 +55,7 @@ namespace AppWebClient.Models
         [StringLength(450)]
         public string UserId { get; set; }
 
-        [DisplayName("Utilisateur")]        
+        [DisplayName("Utilisateur")]
         [ForeignKey("UserId")]
         public virtual AspNetUser User { get; set; }
 
