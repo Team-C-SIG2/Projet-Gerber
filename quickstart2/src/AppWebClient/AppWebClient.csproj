@@ -6,22 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Views\Charts\**" />
-    <Content Remove="Views\Charts\**" />
-    <EmbeddedResource Remove="Views\Charts\**" />
-    <None Remove="Views\Charts\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Controllers\ChartsController.cs" />
-    <Compile Remove="Views\Home\json.cshtml.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Remove="Views\Home\json.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AspNet.Security.OAuth.Paypal" Version="3.1.1" />
     <PackageReference Include="Bricelam.EntityFrameworkCore.Pluralizer" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>

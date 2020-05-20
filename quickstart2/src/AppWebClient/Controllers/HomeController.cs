@@ -1,5 +1,6 @@
-﻿using AppWebClient.Models;
-using AppWebClient.Tools;
+﻿using AppWebClient.Tools;
+using AppWebClient.ViewModel;
+
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;

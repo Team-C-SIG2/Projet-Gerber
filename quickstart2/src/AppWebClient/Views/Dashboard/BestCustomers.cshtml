@@ -1,8 +1,62 @@
-﻿
+﻿@model IEnumerable<AppWebClient.ViewModel.ChartViewModel>
 @{
     ViewData["Title"] = "BestCustomers";
 }
 
-<h1>BestCustomers</h1>
 
-<h1>En construction</h1>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Bar</title>
+</head>
+<body>
+
+    <h1>Top 10 des Clients</h1>
+
+    <br />
+    <div>
+        @* COMMENT *@
+        <a asp-controller="Dashboard" asp-action="Index">Retour au tableau de bord</a>
+    </div>
+    <div>
+        <a asp-controller="Home" asp-action="Index">Retour à l'accueil</a>
+    </div>
+    <br />
+    <table class="table">
+        <tr>
+            <th>
+                Nom
+            </th>
+            <th>
+                Commandes passées
+            </th>
+            <th>
+                Répartition (%)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Firstname) @Html.DisplayFor(modelItem => item.Lastname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CountOrders)
+                </td>
+                <td>
+                    @( ((@Convert.ToDecimal(@item.CountOrders) / @Convert.ToDecimal(@ViewBag.NBORDERS))* 100).ToString("F2") ) %
+                </td>
+            </tr>
+        }
+    </table>
+    <hr />
+    <h6><b> Nombre total de Commandes : @ViewBag.NBORDERS</b></h6>
+
+
+
+</body>
+</html>
+

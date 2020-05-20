@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "Appreciations";
+    ViewData["Title"] = "ChartAppreciations";
 }
 
 @model List<AppWebClient.ViewModel.ChartViewModel>
@@ -26,6 +26,9 @@
             <canvas id="chart" style="width:100%; height:500px"></canvas>
         </div>
     </div>
+
+    <hr />
+    <h6><b> Nombre total d'appreciations : @ViewBag.NBAPPRECIATIONS</b></h6>
 </body>
 </html>
 
@@ -40,7 +43,7 @@
         var data = {
                 labels: @Html.Raw(XLabels),
                 datasets: [{
-                    label: "Graphe des appréciations",
+                    label: "NbAppréciations",
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',

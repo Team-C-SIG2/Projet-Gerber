@@ -19,7 +19,7 @@
         }
 
         // _______________________________________________________________
-        // APPRECIATIONS 
+        // APPRECIATIONS TRENDS 
         // _______________________________________________________________
 
         //Explicitly setting the name to be used while serializing to JSON.
@@ -32,7 +32,7 @@
 
 
         // _______________________________________________________________
-        // CUSTOMERS / CLIENTS  
+        // TOP CITIES   
         // _______________________________________________________________
 
         //Explicitly setting the name to be used while serializing to JSON.
@@ -46,6 +46,33 @@
         //Explicitly setting the name to be used while serializing to JSON.
         [DataMember(Name = "NbTotalClients")]
         public int CountCustomers { get; set; }
+
+
+        // _______________________________________________________________
+        // TOP BYERS (CUSTOMERS)
+        // _______________________________________________________________
+
+        //Explicitly setting the Date to be used while serializing to JSON.
+        [DataMember(Name = "Firstname")]
+        public string Firstname { get; set; }
+
+        //Explicitly setting the Date to be used while serializing to JSON.
+        [DataMember(Name = "Lastname")]
+        public string Lastname { get; set; }
+
+        //Explicitly setting the name to be used while serializing to JSON.
+        [DataMember(Name = "Email")]
+        public string Email { get; set; }
+
+        //Explicitly setting the name to be used while serializing to JSON.
+        [DataMember(Name = "NbOrders")]
+        public int CountOrders { get; set; }
+
+
+        //Explicitly setting the Date to be used while serializing to JSON.
+        [DataMember(Name = "OrderDate")]
+        public int OrderDate { get; set; }
+
 
 
     }// End Class 

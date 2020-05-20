@@ -22,7 +22,7 @@
 
         @* Nom de l'action*@
         <dt class="col-sm-8">
-            Titre
+            KPI
         </dt>
         @* Action*@
         <dd class="col-sm-4">
@@ -32,32 +32,45 @@
 
         @* Nom de l'action*@
         <dt class="col-sm-8">
-            Appréciations des clients
+            Appréciations des clients (en années)
         </dt>
         @* Action*@
         <dd class="col-sm-4">
-            @Html.ActionLink("Evolution des appréciations", "Appreciations", "Dashboard")
+            @Html.ActionLink("Graphe des appréciations", "ChartAppreciations", "Dashboard")
         </dd>
 
 
         @* Nom de l'action*@
         <dt class="col-sm-8">
-            Meilleures villes
+            Top 10 des villes
         </dt>
         @* Action*@
         <dd class="col-sm-4">
-            @Html.ActionLink("Top 10 des villes", "BestCities", "Dashboard")
+            @Html.ActionLink("Liste des meilleures villes", "BestCities", "Dashboard")
         </dd>
 
 
         @* Nom de l'action*@
         <dt class="col-sm-8">
-            Meilleures clients (acheteurs)
+            Top 10 des  clients (acheteurs)
         </dt>
         @* Action*@
         <dd class="col-sm-4">
-            @Html.ActionLink("Top 10 des clients", "BestCustomers", "Dashboard")
+            @Html.ActionLink("Liste des meilleurs clients", "BestCustomers", "Dashboard")
         </dd>
+
+
+        @* Nom de l'action*@
+        <dt class="col-sm-8">
+            Evolution des commandes (en années)
+        </dt>
+        @* Action*@
+        <dd class="col-sm-4">
+            @Html.ActionLink("Graphe des commandes", "ChartOrders", "Dashboard")
+        </dd>
+
+
+
     </dl>
 </div>
 
