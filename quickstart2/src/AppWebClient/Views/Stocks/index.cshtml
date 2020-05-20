@@ -31,9 +31,9 @@
                 </td>
                 <td>
                     <form asp-action="edit">
-                        <input style="width:100px;" class="form-control" type="number" name="currentStock" value="@Html.DisplayFor(modelItem => item.Stock)" />
+                        <input style="width:100px;" class="form-control form-inline" type="number" name="currentStock" value="@Html.DisplayFor(modelItem => item.Stock)" />
                         <input type="hidden" name="IdBook" value="@Html.DisplayFor(modelItem => item.Id)" />
-                        <button class="btn btn-default"><i class="fas fa-check"></i></button>
+                        <button class="btn btn-primary form-inline"><i class="fas fa-check"></i></button>
                     </form>
                 </td>
                 <td>
