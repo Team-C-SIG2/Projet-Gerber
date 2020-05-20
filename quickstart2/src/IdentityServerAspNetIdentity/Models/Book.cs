@@ -34,6 +34,7 @@ namespace IdentityServerAspNetIdentity.Models
         [Column("ISBN")]
         [StringLength(13)]
         public string Isbn { get; set; }
+        public int Stock { get; set; }
 
         [ForeignKey(nameof(IdEditor))]
         [InverseProperty(nameof(Editor.Books))]
@@ -44,7 +45,7 @@ namespace IdentityServerAspNetIdentity.Models
         public virtual ICollection<LineItem> LineItems { get; set; }
         [InverseProperty(nameof(Rank.IdBookNavigation))]
         public virtual ICollection<Rank> Ranks { get; set; }
-        [InverseProperty(nameof(Stock.IdBookNavigation))]
+        [InverseProperty("IdBookNavigation")]
         public virtual ICollection<Stock> Stocks { get; set; }
     }
 }

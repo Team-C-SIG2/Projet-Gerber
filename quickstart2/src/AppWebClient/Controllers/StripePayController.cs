@@ -16,6 +16,8 @@ namespace AppWebClient.Controllers
     using AppWebClient.Models;
     using AppWebClient.Tools;
     using System.Threading.Tasks;
+    using System.Net.Http.Headers;
+    using Microsoft.AspNetCore.Authentication;
 
     public class StripePayController : Controller
     {
@@ -45,8 +47,6 @@ namespace AppWebClient.Controllers
         // URL 
         private string _url = $"api/StripePay/";
 
-
-
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         // HELP STRIPE ONLINE PAYMENT
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -70,15 +70,17 @@ namespace AppWebClient.Controllers
             // To get public key 
             // Set your secret key. Remember to switch to your live secret key in production!
             // ___________________________________________________
-            string uriPkey = _url + "PKey" ;
+            string uriPkey = _configuration["URLApi"] + "stripePay/PKey" ;
             string pKey = null; 
             List<string> stripePKeys = new List<string>();
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            HttpResponseMessage responsePKey = await _client.GetAsync(uriPkey);
-            if (responsePKey.IsSuccessStatusCode)
+            string content = await client.GetStringAsync(uriPkey);
+            if (content != null)
             {
-                var result = responsePKey.Content.ReadAsStringAsync().Result;
-                stripePKeys = JsonConvert.DeserializeObject<List<string>>(result);
+                stripePKeys = JsonConvert.DeserializeObject<List<string>>(content);
             }
             else
             {
@@ -102,15 +104,14 @@ namespace AppWebClient.Controllers
             // To get ApiKey
             // ___________________________________________________
 
-            string uriApiKey = _url + "ApiKey";
+            string uriApiKey = _configuration["URLApi"] + "stripePay/ApiKey";
             string apiKey = null;
             List<string> stripeApiKeys = new List<string>();
 
-            HttpResponseMessage responseApiKey = await _client.GetAsync(uriApiKey);
-            if (responseApiKey.IsSuccessStatusCode)
+            string contentApikey = await client.GetStringAsync(uriApiKey);
+            if (contentApikey != null)
             {
-                var result = responseApiKey.Content.ReadAsStringAsync().Result;
-                stripeApiKeys = JsonConvert.DeserializeObject<List<string>>(result);
+                stripeApiKeys = JsonConvert.DeserializeObject<List<string>>(contentApikey);
             }
             else
             {

@@ -20,29 +20,22 @@ namespace AppWebClient.Models
         [Column("Id_Editor")]
         public int IdEditor { get; set; }
         [Required]
-        [Display(Name = "Titre")]
         [StringLength(255)]
         public string Title { get; set; }
-        [Display(Name = "Sous-titre")]
         [StringLength(128)]
         public string Subtitle { get; set; }
-        [Display(Name = "Prix")]
         [Column(TypeName = "money")]
         public decimal Price { get; set; }
-        [Display(Name = "Date de publication")]
         [Column(TypeName = "datetime")]
-        [DataType(DataType.Date)]
         public DateTime? DatePublication { get; set; }
-        [Display(Name = "Résumé")]
         [StringLength(255)]
         public string Summary { get; set; }
         [Required]
-        [Display(Name = "ISBN")]
         [Column("ISBN")]
         [StringLength(13)]
         public string Isbn { get; set; }
+        public int Stock { get; set; }
 
-        [Display(Name = "Editeur")]
         [ForeignKey(nameof(IdEditor))]
         [InverseProperty(nameof(Editor.Books))]
         public virtual Editor IdEditorNavigation { get; set; }
@@ -52,7 +45,7 @@ namespace AppWebClient.Models
         public virtual ICollection<LineItem> LineItems { get; set; }
         [InverseProperty(nameof(Rank.IdBookNavigation))]
         public virtual ICollection<Rank> Ranks { get; set; }
-        [InverseProperty(nameof(Stock.IdBookNavigation))]
+        [InverseProperty("IdBookNavigation")]
         public virtual ICollection<Stock> Stocks { get; set; }
     }
 }

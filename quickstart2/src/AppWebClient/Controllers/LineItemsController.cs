@@ -12,13 +12,14 @@ namespace AppWebClient.Controllers
     using Microsoft.EntityFrameworkCore;
     using System.Net.Http;
     using Newtonsoft.Json;
-
     using AppWebClient.Models;
     using AppWebClient.Tools;
     using Microsoft.AspNetCore.Authentication;
     using System.Net.Http.Headers;
     using Microsoft.Extensions.Configuration;
     using System.Net;
+    using System.Linq;
+    using AppWebClient.ViewModel;
 
     public class LineItemsController : Controller
     {
@@ -127,6 +128,17 @@ namespace AppWebClient.Controllers
             string publickey = pKey;
             ViewBag.PUBLICKEY = publickey;
 
+            ViewBag.stockOk = true;
+            string contentStocks = await client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/StockControl/"+ id);
+            var stocks = JsonConvert.DeserializeObject<List<LineItemStock>>(contentStocks);
+
+            foreach (var stock in stocks) {
+                if (!stock.stockOk) {
+                    ViewBag.stockOk = false;
+                }
+            }
+
+            ViewBag.stock = stocks;
 
             return View(lineItems);
         }

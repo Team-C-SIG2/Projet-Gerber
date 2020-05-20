@@ -29,16 +29,16 @@ namespace AppWebClient.Controllers
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Stocks/BookStocks");
+            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Books");
 
-            List<BookStock> bookStocks = JsonConvert.DeserializeObject<List<BookStock>>(content);
+            List<Book> books = JsonConvert.DeserializeObject<List<Book>>(content);
 
-            if (bookStocks == null)
+            if (books == null)
             {
                 return NotFound();
             }
 
-            return View(bookStocks);
+            return View(books);
         }
 
         [HttpPost]
@@ -55,21 +55,21 @@ namespace AppWebClient.Controllers
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Stocks/" + bookStock.IdStock);
+            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Books/" + bookStock.IdBook);
 
-            Stock stock = JsonConvert.DeserializeObject<Stock>(content);
+            Book book = JsonConvert.DeserializeObject<Book>(content);
 
-            if (stock == null)
+            if (book == null)
             {
                 return NotFound();
             }
             else
             {
-                stock.CurrentStock = bookStock.currentStock;
-                string jsonString = System.Text.Json.JsonSerializer.Serialize<Models.Stock>(stock);
+                book.Stock = bookStock.currentStock;
+                string jsonString = System.Text.Json.JsonSerializer.Serialize<Models.Book>(book);
 
                 StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PutAsync(_configuration["URLApi"] + "api/Stocks/" + stock.Id, httpContent);
+                HttpResponseMessage response = await client.PutAsync(_configuration["URLApi"] + "api/Books/" + book.Id, httpContent);
 
                 if (!response.IsSuccessStatusCode)
                 {

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AppWebClient.ViewModel.BookStock>
+﻿@model IEnumerable<AppWebClient.Models.Book>
 
 <h1>Gestion du stock</h1>
 <p>
@@ -14,7 +14,7 @@
                 @Html.DisplayNameFor(model => model.Isbn)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.currentStock)
+                @Html.DisplayNameFor(model => model.Stock)
             </th>
             <th> </th>
         </tr>
@@ -31,13 +31,13 @@
                 </td>
                 <td>
                     <form asp-action="edit">
-                        <input style="width:100px;" class="form-control" type="number" name="currentStock" value="@Html.DisplayFor(modelItem => item.currentStock)" />
-                        <input type="hidden" name="IdStock" value="@Html.DisplayFor(modelItem => item.IdStock)" />
+                        <input style="width:100px;" class="form-control" type="number" name="currentStock" value="@Html.DisplayFor(modelItem => item.Stock)" />
+                        <input type="hidden" name="IdBook" value="@Html.DisplayFor(modelItem => item.Id)" />
                         <button class="btn btn-default"><i class="fas fa-check"></i></button>
                     </form>
                 </td>
                 <td>
-                    <a class="btn btn-default" asp-action="Details" asp-route-id="@item.IdBook"><i class="fas fa-info"></i></a>                    
+                    <a class="btn btn-default" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info"></i></a>                    
                 </td>
             </tr>
         }

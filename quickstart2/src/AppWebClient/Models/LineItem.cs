@@ -18,9 +18,7 @@ namespace AppWebClient.Models
         public int IdShoppingcart { get; set; }
         [Column("Id_Book")]
         public int IdBook { get; set; }
-        [Display(Name = "Quantité")]
         public int Quantity { get; set; }
-        [Display(Name = "Prix unitaire")]
         [Column(TypeName = "money")]
         public decimal UnitPrice { get; set; }
         [Column("Id_Order")]
