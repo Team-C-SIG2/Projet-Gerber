@@ -5,6 +5,7 @@
 <h1>Résultats</h1>
 <p>
     @Html.ActionLink("Liste des ouvrages", "Index", "Books")<br />
+    @Html.ActionLink("Ma liste des favoris", "Index", "Wishlists")<br />
     @Html.ActionLink("Mon panier d'achat", "Index", new { Controller = "UserShoppingCarts", action = "Index", id = @ViewBag.USERID })<br />
 </p>
 <table id="table" class="compact hover stripe">

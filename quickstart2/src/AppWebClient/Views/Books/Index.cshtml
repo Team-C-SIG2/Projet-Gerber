@@ -6,7 +6,7 @@
 
 <h1>Catalogue de nos livres</h1>
 <hr />
-@Html.ActionLink("Page d'accueil", "Index", "Home")
+@Html.ActionLink("Ma liste des favoris", "Index", "Wishlists")
 <br />
 @Html.ActionLink("Mon panier d'achat", "Index", "UserShoppingCarts")
 <br />
@@ -60,6 +60,9 @@
         }
     </tbody>
 </table>
+<br />
+@Html.ActionLink("Page d'accueil", "Index", "Home")
+
 
 
 @section Scripts{

@@ -245,9 +245,6 @@ namespace Api.Controllers
                 IdWishlist = lineItem.IdWishlist
             };
 
-
-
-
             _context.LineItems.Add(line);
             await _context.SaveChangesAsync();
 

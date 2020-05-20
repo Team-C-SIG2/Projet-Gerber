@@ -42,7 +42,6 @@ namespace AppWebClient.Controllers
                 string result = response.Content.ReadAsStringAsync().Result;
                 wishlist = JsonConvert.DeserializeObject<Wishlist>(result);
                 string content = await client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/Wishlist/" + wishlist.Id);
-                ViewBag.USERID = wishlist.Id;
                 if (content != null)
                 {
                     lineItems = JsonConvert.DeserializeObject<IEnumerable<LineItem>>(content);

@@ -155,7 +155,7 @@ namespace Api.Controllers
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLineItem(int id, /*[FromBody]*/LineItem lineItem)
+        public async Task<IActionResult> PutLineItem(int id, LineItem lineItem)
         {
             if (id != lineItem.Id)
             {

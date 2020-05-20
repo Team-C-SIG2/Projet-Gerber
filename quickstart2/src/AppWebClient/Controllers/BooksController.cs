@@ -399,6 +399,17 @@ namespace AppWebClient.Controllers
 
 
             // _________________________________________________________________
+            // GET The Wishlist of the LineItems  
+            // _________________________________________________________________
+
+            string responseWL = await client.GetStringAsync(_configuration["URLApi"] + "api/Wishlists/Wishlist/");
+            IEnumerable<Wishlist> wishlists = JsonConvert.DeserializeObject<IEnumerable<Wishlist>>(responseWL);
+
+            Wishlist wishlist = (from w in wishlists
+                                 where w.User.Id == idUser
+                                 select w).FirstOrDefault();
+
+            // _________________________________________________________________
             // CREATE a LineItems  
             // _________________________________________________________________
 
@@ -418,19 +429,30 @@ namespace AppWebClient.Controllers
 
                 if (q == null)
                 {
-                    LineItem line = new LineItem
+                    if (wishlist == null)
                     {
-                        IdBook = book.Id,
-                        UnitPrice = book.Price,
-                        IdOrder = null,
-                        InsertedDate = DateTime.Now,
-                        Quantity = 1,
-                        IdShoppingcart = shoppingcart.Id
-                    };
+                        LineItem line = new LineItem
+                        {
+                            IdBook = book.Id,
+                            UnitPrice = book.Price,
+                            IdOrder = null,
+                            InsertedDate = DateTime.Now,
+                            Quantity = 1,
+                            IdShoppingcart = shoppingcart.Id
+                        };
+                        ViewBag.USERID = UserID;
+                        response = await client.PostAsJsonAsync(_configuration["URLApi"] + "api/Books/AddLine/", line);
+                    }
+                    else
+                    {
+                        ViewBag.USERID = UserID;
+                        q.IdWishlist = wishlist.Id;
+                        string jsonString = System.Text.Json.JsonSerializer.Serialize<LineItem>(q);
+                        StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+                        response = await client.PutAsync(_configuration["URLApi"] + "api/LineItems/" + q.Id, httpContent);
+                    }
 
-                    ViewBag.USERID = UserID;
-                    response = await client.PostAsJsonAsync(_configuration["URLApi"] + "api/Books/AddLine/", line);
-                    if (response.StatusCode != HttpStatusCode.OK)
+                    if (response.StatusCode != HttpStatusCode.OK || response.StatusCode != HttpStatusCode.NoContent)
                     {
                         return BadRequest();
                     }
@@ -457,16 +479,9 @@ namespace AppWebClient.Controllers
         }
 
 
-        
          
         public async Task<IActionResult> AddToWishlist(int? id)
         {
-
-            // _________________________________________________________________
-            // GET The Book for adding to User Shoppingcart
-            // _________________________________________________________________
-
-
             string accessToken = await HttpContext.GetTokenAsync("access_token");
 
             HttpClient client = new HttpClient();
@@ -474,12 +489,12 @@ namespace AppWebClient.Controllers
 
             Wishlist wishlist = new Wishlist();
 
-            string idUser = await client.GetStringAsync(_configuration["URLApi"] + "api/AspNetUsers/UserId/"); // HTTP GET
+            string idUser = await client.GetStringAsync(_configuration["URLApi"] + "api/AspNetUsers/UserId/"); 
 
             string responseWL = await client.GetStringAsync(_configuration["URLApi"] + "api/Wishlists/Wishlist/");
-            IEnumerable<Wishlist> list = JsonConvert.DeserializeObject<IEnumerable<Wishlist>>(responseWL);
+            IEnumerable<Wishlist> wishlists = JsonConvert.DeserializeObject<IEnumerable<Wishlist>>(responseWL);
 
-            Wishlist wl = (from w in list
+            Wishlist wl = (from w in wishlists
                            where w.User.Id == idUser
                            select w).FirstOrDefault();
 
@@ -523,6 +538,18 @@ namespace AppWebClient.Controllers
 
 
             // _________________________________________________________________
+            // GET The Shoppingcart of the LineItems  
+            // _________________________________________________________________
+
+            string responseSP = await client.GetStringAsync(_configuration["URLApi"] + "api/ShoppingCarts/");
+            IEnumerable<ShoppingCart> shopcarts = JsonConvert.DeserializeObject<IEnumerable<ShoppingCart>>(responseSP);
+
+            ShoppingCart shopcart = (from sp in shopcarts
+                                     where sp.User.Id == idUser
+                                     select sp).FirstOrDefault();
+
+
+            // _________________________________________________________________
             // CREATE a LineItems  
             // _________________________________________________________________
 
@@ -536,24 +563,34 @@ namespace AppWebClient.Controllers
                 HttpResponseMessage response;
                 lineItems = JsonConvert.DeserializeObject<IEnumerable<LineItem>>(content);
 
-                var q = (from lineItem in lineItems
-                        where lineItem.IdBook == book.Id
-                        select lineItem).FirstOrDefault();
+                LineItem q = (from lineItem in lineItems
+                              where lineItem.IdBook == book.Id
+                              select lineItem).FirstOrDefault();
 
                 if (q == null)
                 {
-                    LineItem line = new LineItem
+                    if (shopcart == null)
                     {
-                        IdBook = book.Id,
-                        UnitPrice = book.Price,
-                        IdOrder = null,
-                        InsertedDate = DateTime.Now,
-                        Quantity = 1,
-                        IdWishlist = wishlist.Id
-                    };
-
-                    response = await client.PostAsJsonAsync(_configuration["URLApi"] + "api/Books/AddLine/", line);
-                    if (response.StatusCode != HttpStatusCode.OK)
+                        LineItem line = new LineItem
+                        {
+                            IdBook = book.Id,
+                            UnitPrice = book.Price,
+                            IdOrder = null,
+                            InsertedDate = DateTime.Now,
+                            Quantity = 1,
+                            IdWishlist = wishlist.Id
+                        };
+                        response = await client.PostAsJsonAsync(_configuration["URLApi"] + "api/Books/AddLine/", line);
+                    }
+                    else
+                    {
+                        q.IdShoppingcart = shopcart.Id;
+                        string jsonString = System.Text.Json.JsonSerializer.Serialize<LineItem>(q);
+                        StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+                        response = await client.PutAsync(_configuration["URLApi"] + "api/LineItems/" + q.Id, httpContent); // --> FAIRE UN PUT AU LIEU D'UN POST (TEST POSSIBLE SUR USER CHAPPY (PAS DE WISHLIST) ET MARCVAGO (PAS DE SHOPCART))
+                    }
+                    
+                    if (response.StatusCode != HttpStatusCode.OK || response.StatusCode != HttpStatusCode.NoContent)
                     {
                         return BadRequest();
                     }
