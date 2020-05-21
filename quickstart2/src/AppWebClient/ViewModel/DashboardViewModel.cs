@@ -1,26 +1,16 @@
-﻿namespace Api.ViewModel
+﻿namespace AppWebClient.ViewModel
 {
+    using System;
     using System.Runtime.Serialization;
 
 
     //DataContract for Serializing Data - required to serve in JSON format
     [DataContract]
-    public class ChartViewModel
+    public class DashboardViewModel
     {
-        public ChartViewModel(int evaluation, int year)
-        {
-            this.Evaluation = evaluation;
-            this.EvaluationDate = year;
-        }
-
-
-        public ChartViewModel()
-        {
-        }
-
 
         // _______________________________________________________________
-        // APPRECIATIONS 
+        // APPRECIATIONS TRENDS 
         // _______________________________________________________________
 
         //Explicitly setting the name to be used while serializing to JSON.
@@ -30,6 +20,7 @@
         //Explicitly setting the Date to be used while serializing to JSON.
         [DataMember(Name = "EvaluationDate")]
         public int EvaluationDate { get; set; }
+
 
         // _______________________________________________________________
         // TOP CITIES   
@@ -74,7 +65,40 @@
         public int OrderDate { get; set; }
 
 
+        // _______________________________________________________________
+        // RANKS (CLASSIFICATIONS)  
+        // _______________________________________________________________
+
+        //Explicitly setting the name to be used while serializing to JSON.
+        [DataMember(Name = "Description")]
+        public string Description { get; set; }
+
+        //Explicitly setting the Date to be used while serializing to JSON.
+        [DataMember(Name = "NbLivres")]
+        public int NbLivres { get; set; }
+
+
+        // _______________________________________________________________
+        // STOCKS (RESERVES)  
+        // _______________________________________________________________
+
+        //Explicitly setting the name to be used while serializing to JSON.
+        [DataMember(Name = "InitialStock")]
+        public int InitialStock { get; set; }
+
+        //Explicitly setting the name to be used while serializing to JSON.
+        [DataMember(Name = "CurrentStock")]
+        public int CurrentStock { get; set; }
+
+        //Explicitly setting the Date to be used while serializing to JSON.
+        [DataMember(Name = "DeliveryDate")]
+        public DateTime DeliveryDate { get; set; }
+
+        //Explicitly setting the name to be used while serializing to JSON.
+        [DataMember(Name = "DifferenceStock")]
+        public int DifferenceStock { get; set; }
+
+
 
     }// End Class 
 }
-

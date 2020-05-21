@@ -3,7 +3,7 @@
     ViewData["Title"] = "ChartAppreciations";
 }
 
-@model List<AppWebClient.ViewModel.ChartViewModel>
+@model List<AppWebClient.ViewModel.DashboardViewModel>
 @{
     var XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.EvaluationDate).ToList());
     var YValues = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Evaluation).ToList());
@@ -20,6 +20,19 @@
 </head>
 <body>
     <h1>Evolution des appréciations (en année)</h1>
+
+    <br />
+    <div>
+        @* COMMENT *@
+        <a asp-controller="Dashboard" asp-action="Index">Retour au tableau de bord</a>
+    </div>
+    <div>
+        <a asp-controller="Home" asp-action="Index">Retour à l'accueil</a>
+    </div>
+    <br />
+
+
+
     <div class="box-body">
 
         <div class="chart-container">

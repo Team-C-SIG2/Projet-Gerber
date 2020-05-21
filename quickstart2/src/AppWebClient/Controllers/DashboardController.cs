@@ -58,13 +58,13 @@ namespace AppWebClient.Controllers
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
             // GET LIST OF APPRECIATIONS
-            List<ChartViewModel> items = new List<ChartViewModel>();
+            List<DashboardViewModel> items = new List<DashboardViewModel>();
             string uri = _configuration["URLApi"] + _url + "ChartAppreciations";
             HttpResponseMessage response = await _client.GetAsync(uri);// HTTP GET
             if (response.IsSuccessStatusCode)
             {
                 var result = response.Content.ReadAsStringAsync().Result; // HTTP GET
-                items = JsonConvert.DeserializeObject<List<ChartViewModel>>(result);
+                items = JsonConvert.DeserializeObject<List<DashboardViewModel>>(result);
 
             }
             else
@@ -104,13 +104,13 @@ namespace AppWebClient.Controllers
 
 
             // GET TOP 10 CITIES WITH MOST CUSTOMERS 
-            List<ChartViewModel> items = new List<ChartViewModel>();
+            List<DashboardViewModel> items = new List<DashboardViewModel>();
             string uri = _configuration["URLApi"] + _url + "BestCities";
             HttpResponseMessage response = await _client.GetAsync(uri);// HTTP GET
             if (response.IsSuccessStatusCode)
             {
                 var result = response.Content.ReadAsStringAsync().Result; // HTTP GET
-                items = JsonConvert.DeserializeObject<List<ChartViewModel>>(result);
+                items = JsonConvert.DeserializeObject<List<DashboardViewModel>>(result);
 
             }
             else
@@ -153,13 +153,13 @@ namespace AppWebClient.Controllers
 
 
             // GET TOP 10 CUSTOMERS 
-            List<ChartViewModel> itemsCustomers = new List<ChartViewModel>();
+            List<DashboardViewModel> itemsCustomers = new List<DashboardViewModel>();
             string uriCustomers = _configuration["URLApi"] + _url + "BestCustomers";
             HttpResponseMessage responseCustomers = await _client.GetAsync(uriCustomers);// HTTP GET
             if (responseCustomers.IsSuccessStatusCode)
             {
                 var result = responseCustomers.Content.ReadAsStringAsync().Result; // HTTP GET
-                itemsCustomers = JsonConvert.DeserializeObject<List<ChartViewModel>>(result);
+                itemsCustomers = JsonConvert.DeserializeObject<List<DashboardViewModel>>(result);
 
             }
             else
@@ -202,13 +202,13 @@ namespace AppWebClient.Controllers
 
 
             // GET ORDERS BY YEARS 
-            List<ChartViewModel> itemsOrders = new List<ChartViewModel>();
+            List<DashboardViewModel> itemsOrders = new List<DashboardViewModel>();
             string uriOrders = _configuration["URLApi"] + _url + "ChartOrders";
             HttpResponseMessage responseOrders = await _client.GetAsync(uriOrders);// HTTP GET
             if (responseOrders.IsSuccessStatusCode)
             {
                 var resultOrders = responseOrders.Content.ReadAsStringAsync().Result; // HTTP GET
-                itemsOrders = JsonConvert.DeserializeObject<List<ChartViewModel>>(resultOrders);
+                itemsOrders = JsonConvert.DeserializeObject<List<DashboardViewModel>>(resultOrders);
 
             }
             else
@@ -221,8 +221,192 @@ namespace AppWebClient.Controllers
         }
 
 
+        // ---------------------------------------------------
+        // -- Top 10 Books Categories
+        // ---------------------------------------------------
+
+        [Route("RankCategories")]
+        public async Task<IActionResult> RankCategories()
+        {
+            // ADD SECURITY 
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
 
+            // GET TOP 10 CUSTOMERS 
+            List<DashboardViewModel> itemRankCategories = new List<DashboardViewModel>();
+            string uriRankCategories = _configuration["URLApi"] + _url + "RankCategories";
+            HttpResponseMessage responseRankCategories = await _client.GetAsync(uriRankCategories);// HTTP GET
+            if (responseRankCategories.IsSuccessStatusCode)
+            {
+                var result = responseRankCategories.Content.ReadAsStringAsync().Result; // HTTP GET
+                itemRankCategories = JsonConvert.DeserializeObject<List<DashboardViewModel>>(result);
+
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            // GET TOTAL NUMBER OF BOOKS IN THE DB
+            int nbStocks;
+            string uriTotalStocks = _configuration["URLApi"] + _url + "TotalStocks";
+            HttpResponseMessage responseTotalStocks = await _client.GetAsync(uriTotalStocks);// HTTP GET
+            if (responseTotalStocks.IsSuccessStatusCode)
+            {
+                var resultTotalStocks = responseTotalStocks.Content.ReadAsStringAsync().Result; // HTTP GET
+                nbStocks = JsonConvert.DeserializeObject<int>(resultTotalStocks);
+            }
+            else
+            {
+                return NotFound();
+            }
+
+
+            ViewBag.dataSource = itemRankCategories; 
+            ViewBag.NBSTOCKS = nbStocks;
+            return View(itemRankCategories);
+        }
+
+        // ---------------------------------------------------
+        // -- Format States
+        // ---------------------------------------------------
+
+        [Route("RankFormats")]
+        public async Task<IActionResult> RankFormats()
+        {
+            // ADD SECURITY 
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+
+            // GET TOP 10 CUSTOMERS 
+            List<DashboardViewModel> itemRankFormats = new List<DashboardViewModel>();
+            string uriRankFormats = _configuration["URLApi"] + _url + "RankFormats";
+            HttpResponseMessage responseRankFormats = await _client.GetAsync(uriRankFormats);// HTTP GET
+
+            if (responseRankFormats.IsSuccessStatusCode)
+            {
+                var result = responseRankFormats.Content.ReadAsStringAsync().Result; // HTTP GET
+                itemRankFormats = JsonConvert.DeserializeObject<List<DashboardViewModel>>(result);
+
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            // GET TOTAL NUMBER OF BOOKS IN THE DB
+            int nbStocks;
+            string uriTotalStocks = _configuration["URLApi"] + _url + "TotalStocks";
+            HttpResponseMessage responseTotalStocks = await _client.GetAsync(uriTotalStocks);// HTTP GET
+            if (responseTotalStocks.IsSuccessStatusCode)
+            {
+                var resultTotalStocks = responseTotalStocks.Content.ReadAsStringAsync().Result; // HTTP GET
+                nbStocks = JsonConvert.DeserializeObject<int>(resultTotalStocks);
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            ViewBag.NBSTOCKS = nbStocks;
+            return View(itemRankFormats);
+        }
+
+
+        // ---------------------------------------------------
+        // -- Format States
+        // ---------------------------------------------------
+
+        [Route("RankGenres")]
+        public async Task<IActionResult> RankGenres()
+        {
+            // ADD SECURITY 
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+
+            // GET TOP 10 CUSTOMERS 
+            List<DashboardViewModel> itemRankGenres = new List<DashboardViewModel>();
+            string uriRankGenres = _configuration["URLApi"] + _url + "RankGenres";
+            HttpResponseMessage responseRankGenres = await _client.GetAsync(uriRankGenres);// HTTP GET
+
+            if (responseRankGenres.IsSuccessStatusCode)
+            {
+                var result = responseRankGenres.Content.ReadAsStringAsync().Result; // HTTP GET
+                itemRankGenres = JsonConvert.DeserializeObject<List<DashboardViewModel>>(result);
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            // GET TOTAL NUMBER OF BOOKS IN THE DB
+            int nbStocks;
+            string uriTotalStocks = _configuration["URLApi"] + _url + "TotalStocks";
+            HttpResponseMessage responseTotalStocks = await _client.GetAsync(uriTotalStocks);// HTTP GET
+            if (responseTotalStocks.IsSuccessStatusCode)
+            {
+                var resultTotalStocks = responseTotalStocks.Content.ReadAsStringAsync().Result; // HTTP GET
+                nbStocks = JsonConvert.DeserializeObject<int>(resultTotalStocks);
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            ViewBag.NBSTOCKS = nbStocks;
+            return View(itemRankGenres);
+        }
+
+
+
+
+        // ---------------------------------------------------
+        // -- Stock States
+        // ---------------------------------------------------
+
+        [Route("StockAvailability")]
+        public async Task<IActionResult> StockAvailability()
+        {
+            // ADD SECURITY 
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+
+            // GET TOP 10 CUSTOMERS 
+            List<DashboardViewModel> itemStockAvailability = new List<DashboardViewModel>();
+            string uriStockAvailability = _configuration["URLApi"] + _url + "StockAvailability";
+            HttpResponseMessage responseStockAvailability = await _client.GetAsync(uriStockAvailability);// HTTP GET
+
+            if (responseStockAvailability.IsSuccessStatusCode)
+            {
+                var result = responseStockAvailability.Content.ReadAsStringAsync().Result; // HTTP GET
+                itemStockAvailability = JsonConvert.DeserializeObject<List<DashboardViewModel>>(result);
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            // GET TOTAL NUMBER OF BOOKS IN THE DB
+            int nbStocks;
+            string uriTotalStocks = _configuration["URLApi"] + _url + "TotalStocks";
+            HttpResponseMessage responseTotalStocks = await _client.GetAsync(uriTotalStocks);// HTTP GET
+            if (responseTotalStocks.IsSuccessStatusCode)
+            {
+                var resultTotalStocks = responseTotalStocks.Content.ReadAsStringAsync().Result; // HTTP GET
+                nbStocks = JsonConvert.DeserializeObject<int>(resultTotalStocks);
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            ViewBag.NBSTOCKS = nbStocks;
+            return View(itemStockAvailability);
+        }
 
 
     }// End Class

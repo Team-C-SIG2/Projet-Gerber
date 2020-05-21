@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<AppWebClient.ViewModel.DashboardViewModel>
 @{
-    ViewData["Title"] = "BestCustomers";
+    ViewData["Title"] = "StockAvailability";
 }
 
 
@@ -9,11 +9,11 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Bar</title>
+    <title>StockAvailability</title>
 </head>
 <body>
 
-    <h1>Top 10 des Clients</h1>
+    <h1>Stocks en épuisement</h1>
 
     <br />
     <div>
@@ -27,13 +27,16 @@
     <table class="table">
         <tr>
             <th>
-                Nom
+                Titre
             </th>
             <th>
-                Commandes passées
+                Stock initital
             </th>
             <th>
-                Répartition (%)
+                Stock Courant
+            </th>
+            <th>
+                Reste 
             </th>
         </tr>
 
@@ -41,19 +44,23 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Firstname) @Html.DisplayFor(modelItem => item.Lastname)
+                    @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CountOrders)
+                    @Html.DisplayFor(modelItem => item.InitialStock)
                 </td>
                 <td>
-                    @( ((@Convert.ToDecimal(@item.CountOrders) / @Convert.ToDecimal(@ViewBag.NBORDERS))* 100).ToString("F2") ) %
+                    @Html.DisplayFor(modelItem => item.CurrentStock)
                 </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DifferenceStock)
+                </td>
+
             </tr>
         }
     </table>
     <hr />
-    <h6><b> Nombre total de Commandes : @ViewBag.NBORDERS</b></h6>
+    <h6><b> Nombre de livres actuellement en stock : @ViewBag.NBSTOCKS</b></h6>
 
 
 

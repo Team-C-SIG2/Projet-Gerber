@@ -10,6 +10,7 @@ namespace Api.Controllers
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Cryptography.X509Certificates;
     using System.Threading.Tasks;
 
     [Route("api/[controller]")]
@@ -43,11 +44,11 @@ namespace Api.Controllers
 
         [HttpGet]
         [Route("ChartAppreciations")]
-        public async Task<ActionResult<IEnumerable<ChartViewModel>>> GetAppreciations()
+        public async Task<ActionResult<IEnumerable<DashbordViewModel>>> GetAppreciations()
         {
             var result = (from ord in _context.Appreciations
                           group ord by ord.EvaluationDate.Date.Year into grp
-                          select new ChartViewModel
+                          select new DashbordViewModel
                           {
                               EvaluationDate = grp.Key,
                               Evaluation = grp.Count()
@@ -90,11 +91,11 @@ namespace Api.Controllers
 
         [HttpGet]
         [Route("BestCities")]
-        public async Task<ActionResult<IEnumerable<ChartViewModel>>> GetBestCities()
+        public async Task<ActionResult<IEnumerable<DashbordViewModel>>> GetBestCities()
         {
             var result = (from client in _context.Customers
                           group client by client.City into clientGroup
-                          select new ChartViewModel
+                          select new DashbordViewModel
                           {
                               City = clientGroup.Key,
                               Clients = clientGroup.Count()
@@ -124,7 +125,7 @@ namespace Api.Controllers
 
         [HttpGet]
         [Route("BestCustomers")]
-        public async Task<ActionResult<IEnumerable<ChartViewModel>>> BestCustomers()
+        public async Task<ActionResult<IEnumerable<DashbordViewModel>>> BestCustomers()
         {
 
             /*
@@ -142,7 +143,7 @@ namespace Api.Controllers
                           join cus in _context.Customers on asp.IdCustomer equals cus.Id
                           group new {asp, cus} by new {cus.Firstname, cus.Lastname}
                           into grp
-                          select new ChartViewModel
+                          select new DashbordViewModel
                           {
                               CountOrders = grp.Count(), 
                               Firstname = grp.Key.Firstname, 
@@ -160,12 +161,12 @@ namespace Api.Controllers
 
         [HttpGet]
         [Route("ChartOrders")]
-        public async Task<ActionResult<IEnumerable<ChartViewModel>>> ChartOrders()
+        public async Task<ActionResult<IEnumerable<DashbordViewModel>>> ChartOrders()
         {
 
             var result = (from ord in _context.Orders
                           group ord by ord.OrderedDate.Date.Year into grp
-                          select new ChartViewModel
+                          select new DashbordViewModel
                           {
                               OrderDate = grp.Key, 
                               CountOrders = grp.Count()
@@ -188,6 +189,106 @@ namespace Api.Controllers
 
         }
 
+
+        // ---------------------------------------------------
+        // -- Rank stats 
+        // ---------------------------------------------------
+
+        [HttpGet]
+        [Route("RankCategories")]
+        public async Task<ActionResult<IEnumerable<DashbordViewModel>>> RankCategories()
+        {
+            var result = (from rank in _context.Ranks
+                          group rank by rank.IdCategorie into grp
+                          select new DashbordViewModel
+                          {
+                              Description = (from i in _context.Categories
+                                             where i.Id == grp.Key
+                                             select i.Description).First(), 
+                              NbLivres = grp.Count()
+                          }).OrderByDescending(e => e.NbLivres).Take(10).ToListAsync();
+
+
+            return await result;
+
+        }
+
+
+        [HttpGet]
+        [Route("RankFormats")]
+        public async Task<ActionResult<IEnumerable<DashbordViewModel>>> RankFormats()
+        {
+            var result = (from rank in _context.Ranks
+                          group rank by rank.IdFormat into grp
+                          select new DashbordViewModel
+                          {
+                              Description = (from i in _context.Formats
+                                             where i.Id == grp.Key
+                                             select i.Description).First(),
+                              NbLivres = grp.Count()
+                          }).OrderByDescending(e => e.NbLivres).ToListAsync();
+
+
+            return await result;
+
+        }
+
+
+        [HttpGet]
+        [Route("RankGenres")]
+        public async Task<ActionResult<IEnumerable<DashbordViewModel>>> RankGenres()
+        {
+            var result = (from rank in _context.Ranks
+                          group rank by rank.IdGenre into grp
+                          select new DashbordViewModel
+                          {
+                              Description = (from i in _context.Genres
+                                             where i.Id == grp.Key
+                                             select i.Description).First(),
+                              NbLivres = grp.Count()
+                          }).OrderByDescending(e => e.NbLivres).ToListAsync();
+
+            return await result;
+
+        }
+
+
+        // ---------------------------------------------------
+        // -- Availability of Stocks
+        // ---------------------------------------------------
+
+        [HttpGet]
+        [Route("StockAvailability")]
+        public async Task<ActionResult<IEnumerable<DashbordViewModel>>> StockAvailability()
+        {
+            var result = (from stock in _context.Stocks
+                          join book in _context.Books on stock.IdBook equals book.Id
+                          where ((stock.InitialStock - stock.CurrentStock) < 26)
+                          select new DashbordViewModel
+                          {
+                              InitialStock = stock.InitialStock,
+                              CurrentStock = stock.CurrentStock,
+                              Description = book.Title,
+                              DifferenceStock = (stock.InitialStock - stock.CurrentStock)
+                          }).OrderBy(e => e.DifferenceStock).ToListAsync();
+
+            return await result;
+
+        }
+
+
+        // ---------------------------------------------------
+        // -- Total of Orders 
+        // ---------------------------------------------------
+        [HttpGet]
+        [Route("TotalStocks")]
+        public async Task<ActionResult<int>> GetTotalStocks()
+        {
+            // SELECT COUNT(*) FROM Books;
+            var nbBooks = (from b in _context.Stocks select b).Sum(s => s.Id);
+            return nbBooks;
+
+        }
 
 
     }// END CLASS 
