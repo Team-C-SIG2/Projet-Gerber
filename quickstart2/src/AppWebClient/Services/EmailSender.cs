@@ -1,14 +1,7 @@
-﻿using IdentityServerAspNetIdentity.Services;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc.ViewFeatures.Buffers;
-using Microsoft.Extensions.Options;
-using SendGrid;
-using SendGrid.Helpers.Mail;
-using System.Net;
+﻿using System.Net;
 using System.Net.Mail;
-using System.Threading.Tasks;
 
-namespace IdentityServerAspNetIdentity.Services
+namespace AppWebClient.Services
 {
     public class EmailSender
     {

@@ -72,6 +72,23 @@ namespace AppWebClient.Controllers
 
             return View(user);
         }
+        
+
+        public async Task<IActionResult> EmailConfirm()
+        {
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            string idUser = await client.GetStringAsync(_configuration["URLApi"] + "api/AspNetUsers/UserId/");
+
+            if (idUser == null)
+            {
+                return NotFound();
+            }
+
+            return Redirect(_configuration["URLIdentity"]+"ApplicationUser/ConfirmEmailSend/"+idUser);
+        }
 
         // POST: Movies/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
