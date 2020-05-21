@@ -10,14 +10,18 @@ namespace AppWebClient.Controllers
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using Newtonsoft.Json;
+    using Rotativa.AspNetCore;
     using System.Collections.Generic;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Threading.Tasks;
 
 
+
     public class DashboardController : Controller
     {
+
+
         // Client HTTP
         private HttpClient _client = new HttpClient();
 
@@ -31,6 +35,7 @@ namespace AppWebClient.Controllers
         public DashboardController(IConfiguration configuration)
         {
             _configuration = configuration;
+
         }
 
 
@@ -263,7 +268,7 @@ namespace AppWebClient.Controllers
             }
 
 
-            ViewBag.dataSource = itemRankCategories; 
+            ViewBag.dataSource = itemRankCategories;
             ViewBag.NBSTOCKS = nbStocks;
             return View(itemRankCategories);
         }
@@ -405,7 +410,11 @@ namespace AppWebClient.Controllers
             }
 
             ViewBag.NBSTOCKS = nbStocks;
-            return View(itemStockAvailability);
+
+            // return View(itemStockAvailability);
+
+
+            return new ViewAsPdf(itemStockAvailability); 
         }
 
 
