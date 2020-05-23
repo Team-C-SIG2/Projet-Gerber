@@ -5,9 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AppWebClient.Models
 {
-    public partial class ShoppingCart
+    public partial class Wishlist
     {
-        public ShoppingCart()
+        public Wishlist()
         {
             LineItems = new HashSet<LineItem>();
         }
@@ -21,9 +21,9 @@ namespace AppWebClient.Models
         public DateTime CreatedDate { get; set; }
 
         [ForeignKey(nameof(UserId))]
-        [InverseProperty(nameof(AspNetUser.ShoppingCarts))]
+        [InverseProperty(nameof(AspNetUser.Wishlists))]
         public virtual AspNetUser User { get; set; }
-        [InverseProperty(nameof(LineItem.IdShoppingcartNavigation))]
+        [InverseProperty(nameof(LineItem.IdWishlistNavigation))]
         public virtual ICollection<LineItem> LineItems { get; set; }
     }
 }

@@ -39,13 +39,14 @@ namespace Api.Models
         public virtual DbSet<Rank> Ranks { get; set; }
         public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public virtual DbSet<Stock> Stocks { get; set; }
+        public virtual DbSet<Wishlist> Wishlists { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=ESBookshop;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=ESBookshop;Trusted_Connection=True;");
             }
         }
 
@@ -281,8 +282,12 @@ namespace Api.Models
                 entity.HasOne(d => d.IdShoppingcartNavigation)
                     .WithMany(p => p.LineItems)
                     .HasForeignKey(d => d.IdShoppingcart)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_LINEITEMS_SHOPPINGCARTS");
+
+                entity.HasOne(d => d.IdWishlistNavigation)
+                    .WithMany(p => p.LineItems)
+                    .HasForeignKey(d => d.IdWishlist)
+                    .HasConstraintName("FK_LINEITEMS_WISHLISTS");
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -365,6 +370,15 @@ namespace Api.Models
                     .HasForeignKey(d => d.IdBook)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_STOCKS_BOOKS");
+            });
+
+            modelBuilder.Entity<Wishlist>(entity =>
+            {
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Wishlists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_WISHLISTS_USERS");
             });
 
             OnModelCreatingPartial(modelBuilder);

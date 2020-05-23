@@ -77,13 +77,12 @@
             AspNetUser users;
             AspNetUser aspUser; 
             string uriUsers = _configuration["URLApi"] + "api/AspNetUsers/" + id;
-            string responseUsers = await client.GetStringAsync(uriUsers); // HTTP GET
+            string responseUsers = await client.GetStringAsync(uriUsers);
             if (responseUsers != null)
             {
                 users = JsonConvert.DeserializeObject<AspNetUser>(responseUsers);
-                //users = await responseUsers.Content.ReadAsAsync<List<AspNetUser>>();
-                    if (users.Id == id)
-                    {
+                if (users.Id == id)
+                {
                     string uriCustomer = _configuration["URLApi"] + "api/Customers/" + users.IdCustomer;
                     aspUser = users;
                     string reponseCustomer = await client.GetStringAsync(uriCustomer);
@@ -91,7 +90,7 @@
                     ViewData["USER"] = aspUser; // Save to ViewData
                     ViewData["CUSTOMER"] = customer;
                     ViewBag.ShoppingCartId = shoppingCart.Id;
-                    }
+                }
             }
             return View(shoppingCart);
         }

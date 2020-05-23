@@ -1,0 +1,57 @@
+﻿@model IEnumerable<AppWebClient.Models.LineItem>
+
+@{
+    ViewData["Title"] = "Ma wishlist";
+}
+
+
+<h1>Ma liste de favoris</h1>
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdBookNavigation.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdBookNavigation.Isbn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdBookNavigation.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdBookNavigation.Isbn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                </td>
+                <td>
+                    <a asp-controller="Books" asp-action="Details" asp-route-id="@item.IdBook">Détails</a> |
+                    <a asp-controller="Wishlists" asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<hr />
+
+<div>
+    <br />
+    @Html.ActionLink("Accueil", "Index", "Home")<br />
+    @Html.ActionLink("Panier", "Index", new { Controller = "UserShoppingCarts", action = "Index" })<br />
+    <br />
+</div>
+

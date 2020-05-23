@@ -15,7 +15,9 @@ namespace Api.Models
         [Key]
         public int Id { get; set; }
         [Column("Id_Shoppingcart")]
-        public int IdShoppingcart { get; set; }
+        public int? IdShoppingcart { get; set; }
+        [Column("Id_Wishlist")]
+        public int? IdWishlist { get; set; }
         [Column("Id_Book")]
         public int IdBook { get; set; }
         public int Quantity { get; set; }
@@ -32,6 +34,9 @@ namespace Api.Models
         [ForeignKey(nameof(IdShoppingcart))]
         [InverseProperty(nameof(ShoppingCart.LineItems))]
         public virtual ShoppingCart IdShoppingcartNavigation { get; set; }
+        [ForeignKey(nameof(IdWishlist))]
+        [InverseProperty(nameof(Wishlist.LineItems))]
+        public virtual Wishlist IdWishlistNavigation { get; set; }
         [InverseProperty(nameof(Appreciation.IdLineItemNavigation))]
         public virtual ICollection<Appreciation> Appreciations { get; set; }
     }

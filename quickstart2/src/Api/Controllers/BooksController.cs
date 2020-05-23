@@ -14,7 +14,7 @@ namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class BooksController : ControllerBase
     {
 
@@ -242,10 +242,8 @@ namespace Api.Controllers
                 InsertedDate = lineItem.InsertedDate,
                 Quantity = 1,
                 IdShoppingcart = lineItem.IdShoppingcart,
+                IdWishlist = lineItem.IdWishlist
             };
-
-
-
 
             _context.LineItems.Add(line);
             await _context.SaveChangesAsync();

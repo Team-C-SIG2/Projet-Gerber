@@ -16,6 +16,7 @@ namespace IdentityServerAspNetIdentity.Models
             Orders = new HashSet<Order>();
             Payments = new HashSet<Payment>();
             ShoppingCarts = new HashSet<ShoppingCart>();
+            Wishlists = new HashSet<Wishlist>();
         }
 
         [Key]
@@ -59,5 +60,7 @@ namespace IdentityServerAspNetIdentity.Models
         public virtual ICollection<Payment> Payments { get; set; }
         [InverseProperty(nameof(ShoppingCart.User))]
         public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
+        [InverseProperty(nameof(Wishlist.User))]
+        public virtual ICollection<Wishlist> Wishlists { get; set; }
     }
 }

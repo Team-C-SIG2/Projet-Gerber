@@ -6,7 +6,7 @@
 
 <h1>Catalogue de nos livres</h1>
 <hr />
-@Html.ActionLink("Page d'accueil", "Index", "Home")
+@Html.ActionLink("Ma liste des favoris", "Index", "Wishlists")
 <br />
 @Html.ActionLink("Mon panier d'achat", "Index", "UserShoppingCarts")
 <br />
@@ -27,6 +27,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Price)
             </th>
+            <th> </th>
             <th> </th>
         </tr>
     </thead>
@@ -52,10 +53,16 @@
                 <td>
                     <a class="btn btn-default" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info"></i></a>
                 </td>
+                <td>
+                    <a class="btn btn-default" asp-action="AddToWishlist" asp-route-id="@item.Id"><i class="far fa-star"></i></a>
+                </td>
             </tr>
         }
     </tbody>
 </table>
+<br />
+@Html.ActionLink("Page d'accueil", "Index", "Home")
+
 
 
 @section Scripts{
