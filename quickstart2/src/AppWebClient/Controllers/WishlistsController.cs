@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Threading.Tasks;
 using AppWebClient.Models;
 using Microsoft.AspNetCore.Authentication;
@@ -17,6 +19,7 @@ namespace AppWebClient.Controllers
     {
         private readonly IConfiguration _configuration;
         private string _url;
+        HttpClient client = new HttpClient();
 
         public WishlistsController(IConfiguration configuration)
         {
@@ -28,7 +31,6 @@ namespace AppWebClient.Controllers
         {
             string accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
             string uriUserId = _configuration["URLApi"] + "api/AspNetUsers/UserId/";
@@ -57,6 +59,59 @@ namespace AppWebClient.Controllers
             }
 
             return View(lineItems);
+        }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/LineItem/" + id);
+
+            LineItem line = JsonConvert.DeserializeObject<LineItem>(content);
+
+            if (line == null)
+            {
+                return NotFound();
+            }
+
+            return View(line);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int? id)
+        {
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/LineItem/" + id);
+            LineItem line = JsonConvert.DeserializeObject<LineItem>(content);
+            HttpResponseMessage response;
+
+            if (line.IdShoppingcart == null)
+            {
+                response = await client.DeleteAsync(_configuration["URLApi"] + "api/LineItems/" + id);
+                if (response.StatusCode != HttpStatusCode.OK)
+                {
+                    return BadRequest();
+                }
+            }
+            else
+            {
+                line.IdWishlist = null;
+                line.InsertedDate = DateTime.Now;
+                string jsonString = System.Text.Json.JsonSerializer.Serialize<LineItem>(line);
+                StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+                response = await client.PutAsync(_configuration["URLApi"] + "api/LineItems/" + line.Id, httpContent);
+
+                if (response.StatusCode != HttpStatusCode.NoContent)
+                {
+                    return BadRequest();
+                }
+            }
+            
+            return RedirectToAction("Index", "Wishlists");
         }
     }
 }

@@ -19,6 +19,7 @@ namespace AppWebClient.Controllers
     using System.Net.Http.Headers;
     using Microsoft.Extensions.Configuration;
     using System.Net;
+    using System.Text;
 
     public class LineItemsController : Controller
     {
@@ -179,12 +180,32 @@ namespace AppWebClient.Controllers
 
             string content = await client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/LineItem/" + id);
             LineItem line = JsonConvert.DeserializeObject<LineItem>(content);
+            var tempId = line.IdShoppingcart;
+            HttpResponseMessage response;
 
-            HttpResponseMessage response = await client.DeleteAsync(_configuration["URLApi"] + "api/LineItems/" + id);
-            if (response.StatusCode != HttpStatusCode.OK)
+            if (line.IdWishlist == null)
             {
-                return BadRequest();
+                response = await client.DeleteAsync(_configuration["URLApi"] + "api/LineItems/" + id);
+                if (response.StatusCode != HttpStatusCode.OK)
+                {
+                    return BadRequest();
+                }
             }
+            else
+            {
+                line.IdShoppingcart = null;
+                line.InsertedDate = DateTime.Now;
+                string jsonString = System.Text.Json.JsonSerializer.Serialize<LineItem>(line);
+                StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+                response = await client.PutAsync(_configuration["URLApi"] + "api/LineItems/" + line.Id, httpContent);
+
+                if (response.StatusCode != HttpStatusCode.NoContent)
+                {
+                    return BadRequest();
+                }
+            }
+
+            line.IdShoppingcart = tempId;
             return RedirectToAction("Index", "LineItems", new { id = line.IdShoppingcart });
         }
 

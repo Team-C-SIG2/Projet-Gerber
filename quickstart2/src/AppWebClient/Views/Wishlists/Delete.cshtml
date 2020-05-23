@@ -1,0 +1,37 @@
+﻿@model AppWebClient.Models.LineItem
+
+@{
+    ViewData["Title"] = "Delete";
+}
+<h1>Suppression de l'item</h1>
+<br />
+<h3>Etes-vous sûr de vouloir supprimer cet item de votre liste des favoris ?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IdBookNavigation.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IdBookNavigation.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IdBookNavigation.Isbn)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IdBookNavigation.Isbn)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UnitPrice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UnitPrice)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Supprimer" class="btn btn-danger" /> |
+        <a asp-controller="Wishlists" asp-action="Index">Retour à votre wishlist</a>
+    </form>
+</div>
