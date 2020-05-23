@@ -53,12 +53,21 @@
 
 
         @* Nom de l'action*@
+    <dd class="col-sm-6">
+        Top (10) des acheteurs de l'année 2020
+    </dd>
+        @* Action*@
         <dd class="col-sm-6">
-            Top 10 des  clients (acheteurs)
+            @Html.ActionLink("Liste des meilleurs clients et montants", "BestCustomers", "Dashboard", new{year = 2020 })
+        </dd>
+
+        @* Nom de l'action*@
+        <dd class="col-sm-6">
+            Top 10 des commandes des clients
         </dd>
         @* Action*@
         <dd class="col-sm-6">
-            @Html.ActionLink("Liste des meilleurs clients", "BestCustomers", "Dashboard")
+            @Html.ActionLink("Liste des meilleurs clients et commandes", "BestOrders", "Dashboard")
         </dd>
 
 
@@ -94,7 +103,7 @@
 
         @* Nom de l'action*@
         <dd class="col-sm-6">
-             Genres de livres préférés
+            Genres de livres préférés
         </dd>
         @* Action*@
         <dd class="col-sm-6">

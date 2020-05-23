@@ -15,7 +15,7 @@ namespace Api.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-   // [Authorize]
+    [Authorize]
     public class DashboardController : ControllerBase
     {
 
@@ -124,8 +124,8 @@ namespace Api.Controllers
         // ---------------------------------------------------
 
         [HttpGet]
-        [Route("BestCustomers")]
-        public async Task<ActionResult<IEnumerable<DashbordViewModel>>> BestCustomers()
+        [Route("BestCustomers/{year}")]
+        public async Task<ActionResult<IEnumerable<DashbordViewModel>>> BestCustomers(int? year)
         {
 
             /*
@@ -138,21 +138,41 @@ namespace Api.Controllers
             
              */
 
+
             var result = (from ord in _context.Orders 
                           join asp in _context.AspNetUsers on ord.UserId equals asp.Id
                           join cus in _context.Customers on asp.IdCustomer equals cus.Id
-                          group new {asp, cus} by new {cus.Firstname, cus.Lastname}
+                          where ord.OrderedDate.Year == year
+                          group new {ord, asp, cus} by new {cus.Firstname, cus.Lastname}
                           into grp
                           select new DashbordViewModel
                           {
                               CountOrders = grp.Count(), 
                               Firstname = grp.Key.Firstname, 
                               Lastname = grp.Key.Lastname,
-                          }).OrderByDescending(e => e.CountOrders).Take(10).ToListAsync();
+                              // Amount = grp.Key.TotalPrice
+                              Amount = grp.Sum(f => f.ord.TotalPrice), 
+
+                          }).OrderByDescending(e => e.Amount).Take(10).ToListAsync();
 
             return await result;
         }
 
+
+
+        // ---------------------------------------------------
+        // -- Total of Order Amount  
+        // ---------------------------------------------------
+        [HttpGet]
+        [Route("TotalAmount/{year}")]
+        public async Task<ActionResult<decimal>> GetTotalAmount(int? year)
+        {
+            var amount = (from c in _context.Orders
+                          where c.OrderedDate.Year == year
+                          select c).Sum(x => x.TotalPrice);
+            return amount;
+
+        }
 
 
         // ---------------------------------------------------
@@ -191,7 +211,7 @@ namespace Api.Controllers
 
 
         // ---------------------------------------------------
-        // -- Rank stats 
+        // -- Rank states 
         // ---------------------------------------------------
 
         [HttpGet]

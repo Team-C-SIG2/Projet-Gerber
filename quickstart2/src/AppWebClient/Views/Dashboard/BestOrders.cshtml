@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<AppWebClient.ViewModel.DashboardViewModel>
 @{
-    ViewData["Title"] = "BestCustomers";
+    ViewData["Title"] = "BestOrders";
 }
 
 
@@ -14,7 +14,7 @@
 <body>
 
     <h1>Top (10) des Clients</h1>
-    <h4>Indicateur : montant des commandes passées en 2020</h4>
+    <h4>Indicateur : nombre de commandes passées</h4>
     <br />
     <div>
         @* COMMENT *@
@@ -30,7 +30,7 @@
                 Nom
             </th>
             <th>
-                Montant (CHF)
+                Commandes passées
             </th>
             <th>
                 Répartition (%)
@@ -44,16 +44,16 @@
                     @Html.DisplayFor(modelItem => item.Firstname) @Html.DisplayFor(modelItem => item.Lastname)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Amount)
+                    @Html.DisplayFor(modelItem => item.CountOrders)
                 </td>
                 <td>
-                    @( ((@item.Amount / @ViewBag.AMOUNT) * 100).ToString("F2") ) %
+                    @( ((@Convert.ToDecimal(@item.CountOrders) / @Convert.ToDecimal(@ViewBag.NBORDERS))* 100).ToString("F2") ) %
                 </td>
             </tr>
         }
     </table>
     <hr />
-    <h6><b> Montant total des commandes passées en 2020 : Fr. @( (@ViewBag.AMOUNT).ToString("F2") ) </b></h6>
+    <h6><b> Nombre total de Commandes : @ViewBag.NBORDERS</b></h6>
 
 
 

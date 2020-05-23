@@ -144,13 +144,11 @@ namespace AppWebClient.Controllers
         }
 
 
-
         // ---------------------------------------------------
         // -- Top 10 Best Customers / Buyer 
         // ---------------------------------------------------
-
-        [Route("BestCustomers")]
-        public async Task<IActionResult> BestCustomers()
+        [Route("BestOrders")]
+        public async Task<IActionResult> BestOrders()
         {
             // ADD SECURITY 
             string accessToken = await HttpContext.GetTokenAsync("access_token");
@@ -190,6 +188,58 @@ namespace AppWebClient.Controllers
             ViewBag.NBORDERS = nbOrders;
             return View(itemsCustomers);
         }
+
+
+
+
+        // BestOrders
+
+        // ---------------------------------------------------
+        // -- Top 10 Buyer (Amount)
+        // ---------------------------------------------------
+
+        [Route("BestCustomers/{year}")]
+        public async Task<IActionResult> BestCustomers(int year)
+        {
+            // ADD SECURITY 
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+
+            // GET TOP 10 CUSTOMERS 
+            List<DashboardViewModel> itemsCustomers = new List<DashboardViewModel>();
+            string uriCustomers = _configuration["URLApi"] + _url + "BestCustomers/"+year;
+            HttpResponseMessage responseCustomers = await _client.GetAsync(uriCustomers);// HTTP GET
+            if (responseCustomers.IsSuccessStatusCode)
+            {
+                var result = responseCustomers.Content.ReadAsStringAsync().Result; // HTTP GET
+                itemsCustomers = JsonConvert.DeserializeObject<List<DashboardViewModel>>(result);
+
+            }
+            else
+            {
+                return NotFound();
+            }
+
+
+            // GET TotalAmount OF ORDERS IN THE DB
+            decimal totalAmount;
+            string uriTotalAmount = _configuration["URLApi"] + _url + "TotalAmount/"+ year;
+            HttpResponseMessage responseTotalAmount = await _client.GetAsync(uriTotalAmount);// HTTP GET
+            if (responseTotalAmount.IsSuccessStatusCode)
+            {
+                var resultTotalAmount = responseTotalAmount.Content.ReadAsStringAsync().Result; // HTTP GET
+                totalAmount = JsonConvert.DeserializeObject<decimal>(resultTotalAmount);
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            ViewBag.AMOUNT = totalAmount;
+            return View(itemsCustomers);
+        }
+
 
 
 
@@ -416,6 +466,48 @@ namespace AppWebClient.Controllers
 
             return new ViewAsPdf(itemStockAvailability); 
         }
+
+
+
+        // ------------------------------------------------------------------
+        // CONTROL THE CONNECTED USER ROLE (ACCES RIGHTS)
+        // ------------------------------------------------------------------
+        [Route("VerifyUserRole")]
+        public async Task<IActionResult> VerifyUserRole()
+        {
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+
+            // GET CONNECTED USER ID 
+            string uriUserId = _configuration["URLApi"] + "api/AspNetUsers/UserId";
+            string idUser = await _client.GetStringAsync(uriUserId);
+            ViewBag.USERID = idUser;
+
+
+            // GET CONNECTED USER ROLE
+            string uriUserRole = _configuration["URLApi"] + "api/AspNetUserRoles/GetUserRole/";
+            string userRole = await _client.GetStringAsync(uriUserRole);// HTTP GET
+            ViewBag.ROLE = userRole;
+
+
+            if (userRole.ToUpper() == "ADMIN")
+            {
+                return RedirectToAction("Index", "Dashboard");  // ACCESS DASHBOARD
+            }
+            else
+            {
+                ViewBag.ERROR = "Rôle utilisateur introuvable.";
+                return RedirectToAction("Error", "Home");
+            }
+
+
+        }
+
+
+
+
+
 
 
     }// End Class

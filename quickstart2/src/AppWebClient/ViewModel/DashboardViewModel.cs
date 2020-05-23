@@ -65,6 +65,12 @@
         public int OrderDate { get; set; }
 
 
+
+        //Explicitly setting the name to be used while serializing to JSON.
+        [DataMember(Name = "Amount")]
+        public decimal Amount { get; set; }
+
+
         // _______________________________________________________________
         // RANKS (CLASSIFICATIONS)  
         // _______________________________________________________________
