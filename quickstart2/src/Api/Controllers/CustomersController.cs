@@ -30,6 +30,7 @@ namespace Api.Controllers
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             customer = await _context.Customers
+                                .Include(a => a.AspNetUsers)
                                 .Where(a => a.AspNetUsers.FirstOrDefault().Id == userId)
                                 .SingleOrDefaultAsync();
 
