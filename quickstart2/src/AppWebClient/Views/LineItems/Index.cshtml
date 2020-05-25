@@ -40,6 +40,14 @@
         {
             <tr>
                 <td>
+                    @foreach (var s in ViewBag.stock)
+                    {
+                        if (s.idLineItem == item.Id && !s.stockOk) {
+                            <span>Stock insufisant</span>
+                        }
+                    }
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Quantity)
                 </td>
                 <td>
@@ -78,6 +86,7 @@
 
 
 @*Bouton Stripe pour lancer le paiement PayPal *@
+@if (ViewBag.stockOk) {
 <div class="text-center">
 
     <form asp-action="Charge" asp-controller="StripePay" asp-route-amount="@ViewBag.MONTANTAFFICHE" methode="POST">
@@ -94,3 +103,4 @@
     </form>
 
 </div>
+}

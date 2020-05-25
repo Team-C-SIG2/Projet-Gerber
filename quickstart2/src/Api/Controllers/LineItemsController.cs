@@ -13,6 +13,7 @@ namespace Api.Controllers
     using Microsoft.EntityFrameworkCore;
     using Microsoft.AspNetCore.Authorization;
     using Api.Models;
+    using Api.ViewModel;
 
     [Route("api/[controller]")]
     [ApiController]
@@ -249,6 +250,26 @@ namespace Api.Controllers
             return book;
         }
 
+
+        [HttpGet]
+        [Route("StockControl")]
+        public async Task<List<LineItemStock>> GetStockControl(int id)
+        {
+            var lineItems = (from i in _context.LineItems
+                             where i.IdShoppingcart == id
+                             select i).ToList();
+            Book book;
+            List<LineItemStock> stockCtrlList = new List<LineItemStock>();
+
+            foreach (var item in lineItems)
+            {
+                book = (from i in _context.Books
+                              where i.Id == item.IdBook
+                             select i).FirstOrDefault();
+                stockCtrlList.Add(new LineItemStock { IdLineItem = item.Id, stockOk = item.Quantity <= book.Stock });
+            }
+            return stockCtrlList;
+        }
 
     }// End Class
 }

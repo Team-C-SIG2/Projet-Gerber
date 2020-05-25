@@ -22,6 +22,8 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity.UI.V3.Pages.Account.Internal;
+using IdentityServerAspNetIdentity.ViewModels;
 
 namespace IdentityServerAspNetIdentity.Controllers
 {
@@ -30,16 +32,14 @@ namespace IdentityServerAspNetIdentity.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ESBookshopContext _context;
-        private readonly IEmailSender _emailSender;
         private readonly IConfiguration _configuration;
         private string resView;
 
-        public ApplicationUserController(IConfiguration configuration, UserManager<ApplicationUser> userManager, ESBookshopContext context, IEmailSender emailSender, RoleManager<IdentityRole> roleManager)
+        public ApplicationUserController(IConfiguration configuration, UserManager<ApplicationUser> userManager, ESBookshopContext context, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _context = context;
-            _emailSender = emailSender;
             _configuration = configuration;
             resView = "Error";
         }
@@ -121,9 +121,15 @@ namespace IdentityServerAspNetIdentity.Controllers
                                 /*_context.ShoppingCarts.Add(sp);
                                 await _context.SaveChangesAsync();*/
 
+                                
+                                var code = await userMgr.GenerateEmailConfirmationTokenAsync(checkUser);
+                                var callbackUrl = Url.Action("ConfirmEmailAsync", "ApplicationUser", new EmailConfirmViewModel { UserId = checkUser.Id, code = code}, "http");
+                                string subject = "Confirmez votre email";
+                                string body = "Cliquez sur ce lien pour confirmmer votre email: <a href='" + callbackUrl + "'>Reinit</a>";
+                                EmailSender es = new EmailSender(_configuration["sendgridApi"], _configuration["email"]);
+                                es.SendEmail(checkUser.Email, subject, body);
+
                                 resView = "CreateDone";
-                                /*var token = await userMgr.GenerateEmailConfirmationTokenAsync(checkUser);
-                                await userMgr.ConfirmEmailAsync(checkUser, token);*/
                             }
                         }
                         else
@@ -138,6 +144,65 @@ namespace IdentityServerAspNetIdentity.Controllers
 
         public IActionResult ResetPwd()
         {
+
+            return View();
+        }
+
+        public async Task<IActionResult> ConfirmEmailSendAsync(string id)
+        {
+            var services = new ServiceCollection();
+            services.AddLogging();
+            services.AddDbContext<ApplicationDbContext>(options =>
+               options.UseSqlServer(Startup.ConnectionString));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            using (var serviceProvider = services.BuildServiceProvider())
+            {
+                using (var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
+                {
+                    var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                    var user = await userMgr.FindByIdAsync(id);
+                    if (!user.EmailConfirmed) {
+                        var code = await userMgr.GenerateEmailConfirmationTokenAsync(user);
+                        var callbackUrl = Url.Action("ConfirmEmail", "ApplicationUser", new EmailConfirmViewModel { UserId = user.Id, code = code }, "http");
+                        string subject = "Confirmez votre email";
+                        string body = "Cliquez sur ce lien pour confirmmer votre email: <a href='" + callbackUrl + "'>Reinit</a>";
+                        EmailSender es = new EmailSender(_configuration["sendgridApi"], _configuration["email"]);
+                        es.SendEmail(user.Email, subject, body);
+                    }
+                    else
+                    {
+                        return View("ConfirmEmailDone");
+                    }
+                }
+            }
+            return View("ConfirmEmailSend");
+        }
+
+
+        public async Task<IActionResult> ConfirmEmailAsync(EmailConfirmViewModel ec)
+        {
+            var services = new ServiceCollection();
+            services.AddLogging();
+            services.AddDbContext<ApplicationDbContext>(options =>
+               options.UseSqlServer(Startup.ConnectionString));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            using (var serviceProvider = services.BuildServiceProvider())
+            {
+                using (var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
+                {
+                    var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                    var user = await userMgr.FindByIdAsync(ec.UserId);
+                    await userMgr.ConfirmEmailAsync(user, ec.code);
+                }
+            }
             return View();
         }
 
@@ -172,19 +237,10 @@ namespace IdentityServerAspNetIdentity.Controllers
                     {
                         var code = await userMgr.GeneratePasswordResetTokenAsync(checkUser);
                         var callbackUrl = Url.Action("ResetPwdForm", "ApplicationUser", new ResetPwdViewModel { UserId = checkUser.Id, code = code }, "http");
-                        var basicCredential = new NetworkCredential("apikey", _configuration["sendgridApi"]);
-                        string to = mail;
-                        string from = "info.esbookshop@gmail.com";
-                        MailMessage message = new MailMessage(from, to);
-                        message.Subject = "Réinitialisation du mot de passe";
-                        message.Body = "Cliquez sur ce lien pour réinitialiser votre MDP: <a href='" + callbackUrl + "'>Reinit</a>";
-                        message.IsBodyHtml = true;
-                        SmtpClient smtpClient = new SmtpClient("smtp.sendgrid.net", 25);
-                        // Credentials are necessary if the server requires the client 
-                        // to authenticate before it will send email on the client's behalf.
-                        smtpClient.UseDefaultCredentials = false;
-                        smtpClient.Credentials = basicCredential;
-                        smtpClient.Send(message);
+                        string subject = "Réinitialisation du mot de passe";
+                        string body = "Cliquez sur ce lien pour réinitialiser votre MDP: <a href='" + callbackUrl + "'>Reinit</a>";
+                        EmailSender es = new EmailSender(_configuration["sendgridApi"], _configuration["email"]);
+                        es.SendEmail(mail, subject, body);
 
                     }
                 }
