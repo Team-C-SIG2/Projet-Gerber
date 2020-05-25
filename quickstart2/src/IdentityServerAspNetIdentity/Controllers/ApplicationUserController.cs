@@ -109,17 +109,23 @@ namespace IdentityServerAspNetIdentity.Controllers
                                 resView = "ErrorPassword";
                             }
                             else {
-                                //var lastId = _context.AspNetUsers.Max(u => u.Id);
                                 Log.Debug($"{checkUser.UserName} created");
 
-                                /*ShoppingCart sp = new ShoppingCart {
-                                    UserId = lastId,
+                                ShoppingCart sp = new ShoppingCart
+                                {
+                                    UserId = checkUser.Id,
                                     CreatedDate = DateTime.Now
-                                };*/
+                                };
+                                _context.ShoppingCarts.Add(sp);
+                                await _context.SaveChangesAsync();
 
-
-                                /*_context.ShoppingCarts.Add(sp);
-                                await _context.SaveChangesAsync();*/
+                                Wishlist wl = new Wishlist
+                                {
+                                    UserId = checkUser.Id,
+                                    CreatedDate = DateTime.Now
+                                };
+                                _context.Wishlists.Add(wl);
+                                await _context.SaveChangesAsync();
 
                                 
                                 var code = await userMgr.GenerateEmailConfirmationTokenAsync(checkUser);

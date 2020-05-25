@@ -27,7 +27,7 @@ namespace AppWebClient.Controllers
             _url = _configuration["URLApi"] + "api/Wishlists/";
         }
 
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index()
         {
             string accessToken = await HttpContext.GetTokenAsync("access_token");
 
