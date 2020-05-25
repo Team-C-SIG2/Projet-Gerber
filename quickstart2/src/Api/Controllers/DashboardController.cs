@@ -276,46 +276,46 @@ namespace Api.Controllers
         // ---------------------------------------------------
         // -- Availability of Stocks
         // ---------------------------------------------------
-/*
-        [HttpGet]
-        [Route("StockAvailability")]
-        public async Task<ActionResult<IEnumerable<DashbordViewModel>>> StockAvailability()
-        {
-            var result = (from book in _context.Books
-                          where ((book.StockInitial - book.Stock) < 26)
-                          select new DashbordViewModel
-                          {
-                              InitialStock = book.StockInitial,
-                              CurrentStock = book.Stock,
-                              Description = book.Title,
-                              DifferenceStock = (book.StockInitial - book.Stock)
-                          }).OrderBy(e => e.DifferenceStock).ToListAsync();
+        /*
+                [HttpGet]
+                [Route("StockAvailability")]
+                public async Task<ActionResult<IEnumerable<DashbordViewModel>>> StockAvailability()
+                {
+                    var result = (from book in _context.Books
+                                  where ((book.StockInitial - book.Stock) < 26)
+                                  select new DashbordViewModel
+                                  {
+                                      InitialStock = book.StockInitial,
+                                      CurrentStock = book.Stock,
+                                      Description = book.Title,
+                                      DifferenceStock = (book.StockInitial - book.Stock)
+                                  }).OrderBy(e => e.DifferenceStock).ToListAsync();
 
-            return await result;
+                    return await result;
 
-        }
+                }
 
-*/ 
-/*
-        [HttpGet]
-        [Route("StockAvailability")]
-        public async Task<ActionResult<IEnumerable<DashbordViewModel>>> StockAvailability()
-        {
-            var result = (from stock in _context.Stocks
-                          join book in _context.Books on stock.IdBook equals book.Id
-                          where ((stock.InitialStock - stock.CurrentStock) < 26)
-                          select new DashbordViewModel
-                          {
-                              InitialStock = stock.InitialStock,
-                              CurrentStock = stock.CurrentStock,
-                              Description = book.Title,
-                              DifferenceStock = (stock.InitialStock - stock.CurrentStock)
-                          }).OrderBy(e => e.DifferenceStock).ToListAsync();
+        */
+        /*
+                [HttpGet]
+                [Route("StockAvailability")]
+                public async Task<ActionResult<IEnumerable<DashbordViewModel>>> StockAvailability()
+                {
+                    var result = (from stock in _context.Stocks
+                                  join book in _context.Books on stock.IdBook equals book.Id
+                                  where ((stock.InitialStock - stock.CurrentStock) < 26)
+                                  select new DashbordViewModel
+                                  {
+                                      InitialStock = stock.InitialStock,
+                                      CurrentStock = stock.CurrentStock,
+                                      Description = book.Title,
+                                      DifferenceStock = (stock.InitialStock - stock.CurrentStock)
+                                  }).OrderBy(e => e.DifferenceStock).ToListAsync();
 
-            return await result;
+                    return await result;
 
-        }
-*/ 
+                }
+        */
 
 
         // ---------------------------------------------------
@@ -323,10 +323,10 @@ namespace Api.Controllers
         // ---------------------------------------------------
         [HttpGet]
         [Route("TotalStocks")]
-        public async Task<ActionResult<int>> GetTotalStocks()
+        public ActionResult<int> GetTotalStocks()
         {
             // SELECT COUNT(*) FROM Books;
-            var nbBooks = (from b in _context.Stocks select b).Sum(s => s.Id);
+            var nbBooks = (from b in _context.Books select b).Sum(s => s.Stock);
             return nbBooks;
 
         }

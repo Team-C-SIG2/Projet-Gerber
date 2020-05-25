@@ -19,6 +19,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity.UI.V3.Pages.Account.Internal;
 using IdentityServerAspNetIdentity.ViewModels;
 using System.Threading.Tasks;
+using AppWebClient.Services;
 
 namespace IdentityServerAspNetIdentity.Controllers
 {

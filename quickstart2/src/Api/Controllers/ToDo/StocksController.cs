@@ -1,4 +1,4 @@
-﻿using Api.Models;
+﻿/*using Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -105,3 +105,4 @@ namespace Api.Controllers
         }
     }
 }
+*/
