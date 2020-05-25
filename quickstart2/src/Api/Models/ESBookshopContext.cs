@@ -38,7 +38,6 @@ namespace Api.Models
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<Rank> Ranks { get; set; }
         public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
-        public virtual DbSet<Stock> Stocks { get; set; }
         public virtual DbSet<Wishlist> Wishlists { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -216,15 +215,9 @@ namespace Api.Models
 
                 entity.Property(e => e.City).IsUnicode(false);
 
-                entity.Property(e => e.Email)
-                    .IsUnicode(false)
-                    .IsFixedLength();
-
                 entity.Property(e => e.Firstname).IsUnicode(false);
 
                 entity.Property(e => e.Lastname).IsUnicode(false);
-
-                entity.Property(e => e.Phone).IsUnicode(false);
 
                 entity.Property(e => e.Zip).IsUnicode(false);
             });
@@ -361,15 +354,6 @@ namespace Api.Models
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_SHOPPINGCARTS_USERS");
-            });
-
-            modelBuilder.Entity<Stock>(entity =>
-            {
-                entity.HasOne(d => d.IdBookNavigation)
-                    .WithMany(p => p.Stocks)
-                    .HasForeignKey(d => d.IdBook)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_STOCKS_BOOKS");
             });
 
             modelBuilder.Entity<Wishlist>(entity =>

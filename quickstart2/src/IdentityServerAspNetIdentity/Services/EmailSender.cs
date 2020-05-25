@@ -33,7 +33,7 @@ namespace IdentityServerAspNetIdentity.Services
             message.Subject = subject;
             message.Body = body;
             message.IsBodyHtml = true;
-            SmtpClient smtpClient = new SmtpClient("smtp.sendgrid.net", 25);
+            SmtpClient smtpClient = new SmtpClient("smtp.sendgrid.net", 587);
             // Credentials are necessary if the server requires the client 
             // to authenticate before it will send email on the client's behalf.
             smtpClient.UseDefaultCredentials = false;

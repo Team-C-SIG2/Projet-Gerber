@@ -26,10 +26,6 @@ namespace IdentityServerAspNetIdentity.Models
         public string Zip { get; set; }
         [StringLength(100)]
         public string City { get; set; }
-        [StringLength(13)]
-        public string Phone { get; set; }
-        [StringLength(255)]
-        public string Email { get; set; }
         [StringLength(255)]
         public string BillingAddress { get; set; }
 
