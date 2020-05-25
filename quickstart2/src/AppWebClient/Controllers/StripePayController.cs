@@ -65,12 +65,14 @@ namespace AppWebClient.Controllers
             // To get public key 
             // Set your secret key. Remember to switch to your live secret key in production!
             // ___________________________________________________
-            string uriPkey = _configuration["URLApi"] + "stripePay/PKey" ;
+            string uriPkey = _configuration["URLApi"] + "api/stripePay/PKey/" ;
             string pKey = null; 
             List<string> stripePKeys = new List<string>();
             string accessToken = await HttpContext.GetTokenAsync("access_token");
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            var test = uriPkey;
 
             string content = await client.GetStringAsync(uriPkey);
             if (content != null)
@@ -99,7 +101,7 @@ namespace AppWebClient.Controllers
             // To get ApiKey
             // ___________________________________________________
 
-            string uriApiKey = _configuration["URLApi"] + "stripePay/ApiKey";
+            string uriApiKey = _configuration["URLApi"] + "api/stripePay/ApiKey";
             string apiKey = null;
             List<string> stripeApiKeys = new List<string>();
 
