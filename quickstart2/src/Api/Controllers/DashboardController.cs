@@ -276,7 +276,27 @@ namespace Api.Controllers
         // ---------------------------------------------------
         // -- Availability of Stocks
         // ---------------------------------------------------
+/*
+        [HttpGet]
+        [Route("StockAvailability")]
+        public async Task<ActionResult<IEnumerable<DashbordViewModel>>> StockAvailability()
+        {
+            var result = (from book in _context.Books
+                          where ((book.StockInitial - book.Stock) < 26)
+                          select new DashbordViewModel
+                          {
+                              InitialStock = book.StockInitial,
+                              CurrentStock = book.Stock,
+                              Description = book.Title,
+                              DifferenceStock = (book.StockInitial - book.Stock)
+                          }).OrderBy(e => e.DifferenceStock).ToListAsync();
 
+            return await result;
+
+        }
+
+*/ 
+/*
         [HttpGet]
         [Route("StockAvailability")]
         public async Task<ActionResult<IEnumerable<DashbordViewModel>>> StockAvailability()
@@ -295,6 +315,7 @@ namespace Api.Controllers
             return await result;
 
         }
+*/ 
 
 
         // ---------------------------------------------------
