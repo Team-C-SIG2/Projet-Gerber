@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
+using AppWebClient.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,6 +28,7 @@ namespace AppWebClient
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddSignalR();
 
             JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 
@@ -77,6 +79,7 @@ namespace AppWebClient
             {
                 endpoints.MapDefaultControllerRoute()
                     .RequireAuthorization();
+                endpoints.MapHub<ChatHub>("/chatHub");
             });
         }
     }
