@@ -2,19 +2,14 @@
 namespace AppWebClient.Controllers
 {
 
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Net.Http;
+    using AppWebClient.Tools;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using Newtonsoft.Json;
-    using Microsoft.Extensions.Options;
-
     using Stripe;
-
-    using AppWebClient.Models;
-    using AppWebClient.Tools;
+    using System;
+    using System.Collections.Generic;
+    using System.Net.Http;
     using System.Threading.Tasks;
     using System.Net.Http.Headers;
     using Microsoft.AspNetCore.Authentication;
@@ -97,7 +92,7 @@ namespace AppWebClient.Controllers
                 }
             }
 
-            string publickey = pKey; 
+            string publickey = pKey;
             ViewBag.PUBLICKEY = publickey;
 
             // ___________________________________________________
@@ -142,7 +137,7 @@ namespace AppWebClient.Controllers
             long chargeAmount = Convert.ToInt64(decimalAmount);
 
 
-            ViewBag.MONTANT = (amount / 100) ;
+            ViewBag.MONTANT = (amount / 100);
 
 
 

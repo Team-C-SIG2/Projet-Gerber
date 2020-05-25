@@ -127,9 +127,9 @@ namespace Api.Controllers
             }
             _context.Categories.Remove(categorie);
             await _context.SaveChangesAsync();
-            
+
             return categorie;
-        }            
+        }
 
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////

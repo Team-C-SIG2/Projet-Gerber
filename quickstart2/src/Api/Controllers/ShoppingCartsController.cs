@@ -1,13 +1,10 @@
-﻿using System;
+﻿using Api.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
-using Api.Models;
-using System.Security.Claims;
 
 namespace Api.Controllers
 {
@@ -136,7 +133,7 @@ namespace Api.Controllers
             return shoppingCart;
         }
 
-        
+
         [Route("GetUserShoppingCarts/{userId}")]
         public ActionResult<ShoppingCart> GetUserShoppingCarts(string userId) // string UserID
         {
@@ -219,7 +216,7 @@ namespace Api.Controllers
         {
             // var users = (from a in _context.AspNetUsers where a.Id == id select a).ToListAsync();
 
-            List<AspNetUser> users = new List<AspNetUser>(); 
+            List<AspNetUser> users = new List<AspNetUser>();
 
             var user =
                 (from i in _context.AspNetUsers
@@ -242,12 +239,12 @@ namespace Api.Controllers
                      IdCustomerNavigation = (from c in _context.Customers where c.Id == i.IdCustomer select c).FirstOrDefault()
                  }).FirstOrDefault();
 
-            users.Add(user); 
+            users.Add(user);
 
-            return  users;
+            return users;
         }
 
-        
+
         // POST: api/ShoppingCarts
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
@@ -260,7 +257,7 @@ namespace Api.Controllers
 
             return CreatedAtAction("GetShoppingCarts", new { id = shoppingCart.Id }, shoppingCart);
         }
-        
+
 
     }
 }

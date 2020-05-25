@@ -1,0 +1,69 @@
+﻿@model IEnumerable<AppWebClient.ViewModel.DashboardViewModel>
+@{
+    ViewData["Title"] = "StockAvailability";
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>StockAvailability</title>
+</head>
+<body>
+
+    <h1>Stocks en épuisement</h1>
+
+    <br />
+    <div>
+        @* COMMENT *@
+        <a asp-controller="Dashboard" asp-action="Index">Retour au tableau de bord</a>
+    </div>
+    <div>
+        <a asp-controller="Home" asp-action="Index">Retour à l'accueil</a>
+    </div>
+    <br />
+    <table class="table">
+        <tr>
+            <th>
+                Titre
+            </th>
+            <th>
+                Stock initital
+            </th>
+            <th>
+                Stock Courant
+            </th>
+            <th>
+                Reste 
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InitialStock)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CurrentStock)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DifferenceStock)
+                </td>
+
+            </tr>
+        }
+    </table>
+    <hr />
+    <h6><b> Nombre de livres actuellement en stock : @ViewBag.NBSTOCKS</b></h6>
+
+
+
+</body>
+</html>
+

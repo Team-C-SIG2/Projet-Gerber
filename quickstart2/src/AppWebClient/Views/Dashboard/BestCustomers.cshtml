@@ -1,0 +1,62 @@
+﻿@model IEnumerable<AppWebClient.ViewModel.DashboardViewModel>
+@{
+    ViewData["Title"] = "BestCustomers";
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Bar</title>
+</head>
+<body>
+
+    <h1>Top (10) des Clients</h1>
+    <h4>Indicateur : montant des commandes passées en 2020</h4>
+    <br />
+    <div>
+        @* COMMENT *@
+        <a asp-controller="Dashboard" asp-action="Index">Retour au tableau de bord</a>
+    </div>
+    <div>
+        <a asp-controller="Home" asp-action="Index">Retour à l'accueil</a>
+    </div>
+    <br />
+    <table class="table">
+        <tr>
+            <th>
+                Nom
+            </th>
+            <th>
+                Montant (CHF)
+            </th>
+            <th>
+                Répartition (%)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Firstname) @Html.DisplayFor(modelItem => item.Lastname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @( ((@item.Amount / @ViewBag.AMOUNT) * 100).ToString("F2") ) %
+                </td>
+            </tr>
+        }
+    </table>
+    <hr />
+    <h6><b> Montant total des commandes passées en 2020 : Fr. @( (@ViewBag.AMOUNT).ToString("F2") ) </b></h6>
+
+
+
+</body>
+</html>
+

@@ -1,20 +1,16 @@
 ﻿namespace AppWebClient.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
-    using Microsoft.EntityFrameworkCore;
     using AppWebClient.Models;
     using AppWebClient.Tools;
-    using System.Net.Http;
-    using Newtonsoft.Json;
-    using System.Net.Http.Headers;
     using Microsoft.AspNetCore.Authentication;
-    using Microsoft.Win32.SafeHandles;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.Extensions.Configuration;
+    using Newtonsoft.Json;
+    using System.Collections.Generic;
+    using System.Net.Http;
+    using System.Net.Http.Headers;
+    using System.Threading.Tasks;
 
     public class AdminShoppingCartsController : Controller
     {
@@ -24,12 +20,13 @@
         private HttpClient _client = ApiHttpClient.ConnectClient();
 
         // URL 
-        
+
         private IConfiguration _configuration;
 
         private string _url;
 
-        public AdminShoppingCartsController(IConfiguration configuration) {
+        public AdminShoppingCartsController(IConfiguration configuration)
+        {
             _configuration = configuration;
             _url = _configuration["URLApi"] + "api/ShoppingCarts/";
         }

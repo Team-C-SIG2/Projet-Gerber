@@ -2,18 +2,13 @@
 
 namespace AppWebClient.Controllers
 {
-    using System;
-    using System.Linq;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
-    using Microsoft.EntityFrameworkCore;
     using AppWebClient.Models;
-    using System.Net.Http;
-    using Newtonsoft.Json;
-
     using AppWebClient.Tools;
+    using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
+    using System.Collections.Generic;
+    using System.Net.Http;
+    using System.Threading.Tasks;
 
 
     public class UserBooksController : Controller

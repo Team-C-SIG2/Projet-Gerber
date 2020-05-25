@@ -13,14 +13,15 @@ namespace AppWebClient.Controllers
     using System.Net.Http;
     using Newtonsoft.Json;
     using AppWebClient.Models;
-    using AppWebClient.Tools;
     using Microsoft.AspNetCore.Authentication;
-    using System.Net.Http.Headers;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
+    using Newtonsoft.Json;
+    using System.Collections.Generic;
     using System.Net;
-    using System.Text;
-    using System.Linq;
-    using AppWebClient.ViewModel;
+    using System.Net.Http;
+    using System.Net.Http.Headers;
+    using System.Threading.Tasks;
 
     public class LineItemsController : Controller
     {
@@ -64,12 +65,12 @@ namespace AppWebClient.Controllers
             {
                 // View ERROR
                 return NotFound();
-            }
-
-            // ___________________________________________________
-            // Calculate the total amount of the shoppingcart 
-            // ___________________________________________________
-            
+            }
+
+            // ___________________________________________________
+            // Calculate the total amount of the shoppingcart 
+            // ___________________________________________________
+
             decimal total = 0;
 
             foreach (var item in lineItems)
@@ -87,10 +88,10 @@ namespace AppWebClient.Controllers
 
 
             ViewBag.MONTANT = centsAmount;
-            ViewBag.MONTANTAFFICHE = total.ToString("F");
-            
-            
-            // Récupère le numéro (ID) du panier 
+            ViewBag.MONTANTAFFICHE = total.ToString("F");
+
+
+            // Récupère le numéro (ID) du panier 
             ViewBag.PANIER = id;
 
 

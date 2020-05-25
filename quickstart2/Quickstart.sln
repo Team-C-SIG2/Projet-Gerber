@@ -6,8 +6,15 @@ MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9FAF5D58-5254-49D4-B5EE-F82A44A748E0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "src\Api\Api.csproj", "{7B22624B-84CE-4F26-B6E0-F79BC6554988}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D78A8C2C-9900-495A-A042-467699003272} = {D78A8C2C-9900-495A-A042-467699003272}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServerAspNetIdentity", "src\IdentityServerAspNetIdentity\IdentityServerAspNetIdentity.csproj", "{7652B4CA-CD81-48A9-AB33-1A06BD0CB04E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D78A8C2C-9900-495A-A042-467699003272} = {D78A8C2C-9900-495A-A042-467699003272}
+		{7B22624B-84CE-4F26-B6E0-F79BC6554988} = {7B22624B-84CE-4F26-B6E0-F79BC6554988}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppWebClient", "src\AppWebClient\AppWebClient.csproj", "{D78A8C2C-9900-495A-A042-467699003272}"
 EndProject

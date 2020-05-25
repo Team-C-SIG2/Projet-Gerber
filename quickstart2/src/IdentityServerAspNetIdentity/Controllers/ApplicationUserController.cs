@@ -1,20 +1,14 @@
 ﻿using IdentityServerAspNetIdentity.Data;
-
-
 // HB 
 using IdentityServerAspNetIdentity.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Linq;
-using IdentityServerAspNetIdentity.Services;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using SendGrid.Helpers.Mail;
-using SendGrid;
-using System.Net.Mail;
 using System.Net;
 using System;
 using Microsoft.AspNetCore.Authentication;
@@ -24,6 +18,7 @@ using Newtonsoft.Json.Linq;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity.UI.V3.Pages.Account.Internal;
 using IdentityServerAspNetIdentity.ViewModels;
+using System.Threading.Tasks;
 
 namespace IdentityServerAspNetIdentity.Controllers
 {
@@ -77,7 +72,7 @@ namespace IdentityServerAspNetIdentity.Controllers
                         if (checkUser == null)
                         {
                             Customer newCust = new Customer();
-                            
+
                             /* Prod only
                             newCust.Id = _context.Customers.Max(u => u.Id)+1;
                             */

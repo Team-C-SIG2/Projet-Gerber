@@ -6,7 +6,7 @@
 }
 
 
-@*  
+@*
     VUE DU CONCTROLEUR "HOME"
     MODE PAIEMENT - STRIPE
 *@
@@ -30,6 +30,9 @@
     <hr />
     @Html.ActionLink("Liste des Appréciations", "Index", "Appreciations")<br />
     @Html.ActionLink("Liste des Catégories", "Index", "Categories")<br />
+    <br />
+    <hr />
+    @Html.ActionLink("Tableau de bord (+Role Admin)", "VerifyUserRole", "Dashboard")<br />
     <br />
     <hr />
     @Html.ActionLink("Panier d'achat (Utilisateur)", "Index", new { Controller = "UserShoppingCarts", action = "Index", id = @ViewBag.USERID })<br />

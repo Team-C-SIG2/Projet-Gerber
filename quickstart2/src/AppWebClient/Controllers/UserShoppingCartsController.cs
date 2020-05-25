@@ -1,21 +1,16 @@
 ﻿namespace AppWebClient.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
     using AppWebClient.Models;
     using AppWebClient.Tools;
-    using System.Net.Http;
-    using Newtonsoft.Json;
-
-    using System.Text.Json;
-    using System.Security.Claims;
-    using Microsoft.Extensions.Configuration;
     using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using Microsoft.Extensions.Configuration;
+    using Newtonsoft.Json;
+    using System.Collections.Generic;
+    using System.Net.Http;
     using System.Net.Http.Headers;
-    using System.Collections;
+    using System.Threading.Tasks;
 
     public class UserShoppingCartsController : Controller
     {
@@ -62,7 +57,7 @@
             {
                 string result = response.Content.ReadAsStringAsync().Result;
                 shoppingCart = JsonConvert.DeserializeObject<ShoppingCart>(result);
-                @ViewBag.USERID = id; 
+                @ViewBag.USERID = id;
 
             }
             else
@@ -73,9 +68,9 @@
 
             // To obtain the data of User (id)
 
-            
+
             AspNetUser users;
-            AspNetUser aspUser; 
+            AspNetUser aspUser;
             string uriUsers = _configuration["URLApi"] + "api/AspNetUsers/" + id;
             string responseUsers = await client.GetStringAsync(uriUsers);
             if (responseUsers != null)

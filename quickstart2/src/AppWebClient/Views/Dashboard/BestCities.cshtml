@@ -1,0 +1,47 @@
+﻿@model IEnumerable<AppWebClient.ViewModel.DashboardViewModel>
+    @{
+        ViewData["Title"] = "BestCities";
+    }
+
+    <h1>Top 10 des villes </h1>
+    <br />
+    <div>
+        @* COMMENT *@
+        <a asp-controller="Dashboard" asp-action="Index">Retour au tableau de bord</a>
+    </div>
+    <div>
+        <a asp-controller="Home" asp-action="Index">Retour à l'accueil</a>
+    </div>
+    <br />
+    <table class="table">
+        <tr>
+            <th>
+                Ville
+            </th>
+            <th>
+                Clients
+            </th>
+            <th>
+                Répartition (%)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Clients)
+                </td>
+                <td>
+                    @( ((@Convert.ToDecimal(@item.Clients) / @Convert.ToDecimal(@ViewBag.NBCLIENTS))* 100).ToString("F2") ) %
+                </td>
+            </tr>
+        }
+    </table>
+    <hr />
+    <h6><b> Nombre total de Clients : @ViewBag.NBCLIENTS</b></h6>
+
+

@@ -1,13 +1,10 @@
-﻿using System;
+﻿using Api.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography.X509Certificates;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
-using Microsoft.AspNetCore.Authorization;
-using Api.Models;
 
 namespace Api.Controllers
 {
@@ -63,8 +60,9 @@ namespace Api.Controllers
 
                      IdPaymentNavigation = (from p in _context.Payments
                                             where p.Id == i.IdPayment
-                                            select (new Payment(){
-                                                Id = p.Id                                                
+                                            select (new Payment()
+                                            {
+                                                Id = p.Id
                                             })
                                             ).FirstOrDefault()
 
@@ -72,16 +70,16 @@ namespace Api.Controllers
 
 
             return await items.ToListAsync();
-        
+
         }
 
 
-    // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // Return an Appreciation (id)
-    // GET: api/Appreciations/5
-    // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Return an Appreciation (id)
+        // GET: api/Appreciations/5
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    [HttpGet("{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Appreciation>> ReadRessource(int? id) // int ? - supprimé
         {
             if (id == null)
@@ -173,7 +171,7 @@ namespace Api.Controllers
             _context.Appreciations.Remove(appreciation);
             await _context.SaveChangesAsync();
 
-            return appreciation; 
+            return appreciation;
         }
 
 
@@ -195,7 +193,7 @@ namespace Api.Controllers
         [Route("GetLineItems")]
 
         public async Task<ActionResult<IEnumerable<LineItem>>> GetLineItems()
-        {         
+        {
             var linesItems = (from a in _context.LineItems select a).ToListAsync();
             return await linesItems;
         }

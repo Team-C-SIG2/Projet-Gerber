@@ -1,0 +1,125 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Tableau de bord</h1>
+<br />
+
+<div>
+    @* Liens de Navitation
+
+        <a asp-action="Edit" asp-route-id="@Model.Id"> TextAffiche </a> |
+        <a asp-controller="Dashboard" asp-action="Index"> TextAffiche </a>
+        <a asp-controller="Home" asp-action="Index"> TextAffiche </a>
+    *@
+    <a asp-controller="Home" asp-action="Index">Retour à l'accueil</a>
+</div>
+<br />
+<div>
+    <h4>Indicateurs KPI pour gérer ESBookshop</h4>
+    <hr />
+    <br />
+    <br />
+    <dl class="row">
+
+        @* Nom de l'action*@
+        <dt class="col-sm-6">
+            KPI
+        </dt>
+        @* Action*@
+        <dt class="col-sm-6">
+            Lien/ URL
+        </dt>
+        <br />
+        <br />
+        @* Nom de l'action*@
+        <dd class="col-sm-6">
+            Appréciations des clients (en années)
+        </dd>
+        @* Action*@
+        <dd class="col-sm-6">
+            @Html.ActionLink("Graphe des appréciations", "ChartAppreciations", "Dashboard")
+        </dd>
+
+
+        @* Nom de l'action*@
+        <dd class="col-sm-6">
+            Top 10 des villes
+        </dd>
+        @* Action*@
+        <dd class="col-sm-6">
+            @Html.ActionLink("Liste des meilleures villes", "BestCities", "Dashboard")
+        </dd>
+
+
+        @* Nom de l'action*@
+    <dd class="col-sm-6">
+        Top (10) des acheteurs de l'année 2020
+    </dd>
+        @* Action*@
+        <dd class="col-sm-6">
+            @Html.ActionLink("Liste des meilleurs clients et montants", "BestCustomers", "Dashboard", new{year = 2020 })
+        </dd>
+
+        @* Nom de l'action*@
+        <dd class="col-sm-6">
+            Top 10 des commandes des clients
+        </dd>
+        @* Action*@
+        <dd class="col-sm-6">
+            @Html.ActionLink("Liste des meilleurs clients et commandes", "BestOrders", "Dashboard")
+        </dd>
+
+
+        @* Nom de l'action*@
+        <dd class="col-sm-6">
+            Commandes passées (en années)
+        </dd>
+        @* Action*@
+        <dd class="col-sm-6">
+            @Html.ActionLink("Graphe des commandes", "ChartOrders", "Dashboard")
+        </dd>
+
+
+        @* Nom de l'action*@
+        <dd class="col-sm-6">
+            Top 10 des categories des livres
+        </dd>
+        @* Action*@
+        <dd class="col-sm-6">
+            @Html.ActionLink("Meilleures categories", "RankCategories", "Dashboard")
+        </dd>
+
+
+        @* Nom de l'action*@
+        <dd class="col-sm-6">
+            Formats actuels en stock
+        </dd>
+        @* Action*@
+        <dd class="col-sm-6">
+            @Html.ActionLink("Tendance des formats des livres", "RankFormats", "Dashboard")
+        </dd>
+
+
+        @* Nom de l'action*@
+        <dd class="col-sm-6">
+            Genres de livres préférés
+        </dd>
+        @* Action*@
+        <dd class="col-sm-6">
+            @Html.ActionLink("Genres de livres en stock", "RankGenres", "Dashboard")
+        </dd>
+
+
+        @* Nom de l'action*@
+        <dd class="col-sm-6">
+            Etat des stocks
+        </dd>
+        @* Action*@
+        <dd class="col-sm-6">
+            @Html.ActionLink("Vérification des stocks", "StockAvailability", "Dashboard")
+        </dd>
+
+    </dl>
+</div>
+

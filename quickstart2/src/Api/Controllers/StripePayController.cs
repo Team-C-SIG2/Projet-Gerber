@@ -1,10 +1,10 @@
 ﻿
 namespace Api.Controllers
 {
-    using Microsoft.AspNetCore.Mvc;
-    using System.Collections.Generic;
-    using Microsoft.Extensions.Configuration;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Configuration;
+    using System.Collections.Generic;
 
     [Route("api/[controller]")]
     [ApiController]
@@ -38,8 +38,8 @@ namespace Api.Controllers
         [Route("PKey")]
         public IEnumerable<string> GetPublicKey()
         {
-            string publickey = _configuration.GetValue<string>("Stripe:PublishableKey"); 
-            return new string[] {publickey};
+            string publickey = _configuration.GetValue<string>("Stripe:PublishableKey");
+            return new string[] { publickey };
         }
 
 
