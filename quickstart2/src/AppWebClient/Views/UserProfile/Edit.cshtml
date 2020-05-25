@@ -57,18 +57,18 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Phone, new { @class = "control-label col-md-4" })
+        @Html.LabelFor(model => model.AspNetUsers.FirstOrDefault().PhoneNumber, new { @class = "control-label col-md-4" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.AspNetUsers.FirstOrDefault().PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.AspNetUsers.FirstOrDefault().PhoneNumber, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-4" })
+        @Html.LabelFor(model => model.AspNetUsers.FirstOrDefault().Email, new { @class = "control-label col-md-4" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.AspNetUsers.FirstOrDefault().Email, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.AspNetUsers.FirstOrDefault().Email, "", new { @class = "text-danger" })
         </div>
     </div>
 

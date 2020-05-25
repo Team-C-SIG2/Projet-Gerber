@@ -129,18 +129,6 @@ namespace AppWebClient.Controllers
             string publickey = pKey;
             ViewBag.PUBLICKEY = publickey;
 
-            ViewBag.stockOk = true;
-            string contentStocks = await client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/StockControl/"+ id);
-            var stocks = JsonConvert.DeserializeObject<List<LineItemStock>>(contentStocks);
-
-            foreach (var stock in stocks) {
-                if (!stock.stockOk) {
-                    ViewBag.stockOk = false;
-                }
-            }
-
-            ViewBag.stock = stocks;
-
             return View(lineItems);
         }
 
