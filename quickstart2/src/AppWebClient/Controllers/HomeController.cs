@@ -26,7 +26,7 @@ namespace AppWebClient.Controllers
         }
 
         // HTTPCLIENT 
-        private HttpClient _client = ApiHttpClient.ConnectClient();
+        private HttpClient _client = new HttpClient();
 
         // URL 
         private string _url = $"api/Home/";

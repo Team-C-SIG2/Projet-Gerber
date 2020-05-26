@@ -4,15 +4,20 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details du livre</h1>
+<h1>Details</h1>
 
 <div>
+    <h4>Détails du livre : @Model.Title</h4>
     <hr />
     <dl class="row">
 
         @* Titre *@
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
+            @*
+                TODO COWRITERS
+                @Html.DisplayNameFor(model => model.Cowriters)
+            *@
+            Titre
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Title)
@@ -21,7 +26,7 @@
 
         @* Sous-Titre *@
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Subtitle)
+            Sous-Titre
         </dt>
         <dd class="col-sm-10">
             @if (@Model.Subtitle != null)
@@ -31,9 +36,29 @@
         </dd>
 
 
+        @* ------------------------------------------------------------------------------------------------------- *@
+        @* Autheurs *@
+        @* ------------------------------------------------------------------------------------------------------- *@
+
+
+        <dt class="col-sm-2">
+            Auteur(s)
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var cowriter in Model.Cowriters)
+            {
+                <text> @cowriter.IdAuthorNavigation.Firstname @cowriter.IdAuthorNavigation.Lastname</text><br />
+            }
+        </dd>
+
+
+        @* ------------------------------------------------------------------------------------------------------- *@
+
+
+
         @* Prix Unitaire *@
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
+            Prix Unitaire
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Price)
@@ -42,19 +67,21 @@
 
         @* Date de publication *@
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DatePublication)
+            Date de publication
         </dt>
         <dd class="col-sm-10">
             @if (@Model.DatePublication != null)
-            {@Html.DisplayFor(model => model.DatePublication)}
-        else
-        {<text>/</text>}
+            {
+                @Convert.ToDateTime(@Model.DatePublication).ToString("dd.MM.yyyy")
+            }
+            else
+            {<text>/</text>}
         </dd>
 
 
         @* Résumé *@
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Summary)
+            Résumé
         </dt>
         <dd class="col-sm-10">
             @if (@Model.Summary != null)
@@ -75,7 +102,7 @@
 
         @* Editeur *@
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.IdEditorNavigation)
+            Editeur
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.IdEditorNavigation.Name)
@@ -85,8 +112,8 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Index">Retour à la liste des livres</a> |
-    <a asp-controller="Wishlists" asp-action="Index">Ma wishlist</a> |
-    <a asp-action="AddItem" asp-route-id="@Model.Id">Ajouter au panier</a> |
-    <a asp-action="Index" asp-controller="UserShoppingCarts">Mon panier</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Editer</a> |
+    <a asp-action="Index">Retour à la liste</a> |
+    <a asp-action="AddItem" asp-route-id="@Model.Id">Ajouter au panier</a>
+
 </div>

@@ -94,7 +94,7 @@ namespace AppWebClient.Controllers
 
 
             ViewBag.MONTANT = centsAmount;
-            ViewBag.MONTANTAFFICHE = total.ToString("F");
+            ViewBag.MONTANTAFFICHE = total.ToString("F2");
 
 
 
