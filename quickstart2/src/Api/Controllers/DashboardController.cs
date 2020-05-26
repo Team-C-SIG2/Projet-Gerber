@@ -44,11 +44,11 @@ namespace Api.Controllers
 
         [HttpGet]
         [Route("ChartAppreciations")]
-        public async Task<ActionResult<IEnumerable<DashbordViewModel>>> GetAppreciations()
+        public async Task<ActionResult<IEnumerable<DashboardViewModel>>> GetAppreciations()
         {
             var result = (from ord in _context.Appreciations
                           group ord by ord.EvaluationDate.Date.Year into grp
-                          select new DashbordViewModel
+                          select new DashboardViewModel
                           {
                               EvaluationDate = grp.Key,
                               Evaluation = grp.Count()
@@ -91,11 +91,11 @@ namespace Api.Controllers
 
         [HttpGet]
         [Route("BestCities")]
-        public async Task<ActionResult<IEnumerable<DashbordViewModel>>> GetBestCities()
+        public async Task<ActionResult<IEnumerable<DashboardViewModel>>> GetBestCities()
         {
             var result = (from client in _context.Customers
                           group client by client.City into clientGroup
-                          select new DashbordViewModel
+                          select new DashboardViewModel
                           {
                               City = clientGroup.Key,
                               Clients = clientGroup.Count()
@@ -124,28 +124,16 @@ namespace Api.Controllers
         // ---------------------------------------------------
 
         [HttpGet]
-        [Route("BestCustomers/{year}")]
-        public async Task<ActionResult<IEnumerable<DashbordViewModel>>> BestCustomers(int? year)
+        [Route("BestCustomers/{year?}")]
+        public async Task<ActionResult<IEnumerable<DashboardViewModel>>> BestCustomers(int? year)
         {
-
-            /*
-             SELECT cus.Firstname, cus.Lastname, asp.Email, count(ord.UserId) commands
-                FROM Orders ord
-                INNER JOIN AspNetUsers asp ON ord.UserId = asp.Id 
-                INNER JOIN Customers cus ON asp.Id_Customer = cus.Id
-                GROUP BY cus.Firstname, cus.Lastname, asp.Email
-                ORDER BY commands DESC
-            
-             */
-
-
             var result = (from ord in _context.Orders 
                           join asp in _context.AspNetUsers on ord.UserId equals asp.Id
                           join cus in _context.Customers on asp.IdCustomer equals cus.Id
                           where ord.OrderedDate.Year == year
                           group new {ord, asp, cus} by new {cus.Firstname, cus.Lastname}
                           into grp
-                          select new DashbordViewModel
+                          select new DashboardViewModel
                           {
                               CountOrders = grp.Count(), 
                               Firstname = grp.Key.Firstname, 
@@ -158,13 +146,47 @@ namespace Api.Controllers
             return await result;
         }
 
+        // ---------------------------------------------------
+        // -- Top 10 Best Customers 
+        // ---------------------------------------------------
+
+        [HttpGet]
+        [Route("BestOrders")]
+        public async Task<ActionResult<IEnumerable<DashboardViewModel>>> BestOrders()
+        {
+
+            /*
+             SELECT cus.Firstname, cus.Lastname, asp.Email, count(ord.UserId) commands
+                FROM Orders ord
+                INNER JOIN AspNetUsers asp ON ord.UserId = asp.Id 
+                INNER JOIN Customers cus ON asp.Id_Customer = cus.Id
+                GROUP BY cus.Firstname, cus.Lastname, asp.Email
+                ORDER BY commands DESC
+            
+             */
+
+            var result = (from ord in _context.Orders
+                          join asp in _context.AspNetUsers on ord.UserId equals asp.Id
+                          join cus in _context.Customers on asp.IdCustomer equals cus.Id
+                          group new { asp, cus } by new { cus.Firstname, cus.Lastname }
+                          into grp
+                          select new DashboardViewModel
+                          {
+                              CountOrders = grp.Count(),
+                              Firstname = grp.Key.Firstname,
+                              Lastname = grp.Key.Lastname,
+                          }).OrderByDescending(e => e.CountOrders).Take(10).ToListAsync();
+
+            return await result;
+        }
+
 
 
         // ---------------------------------------------------
         // -- Total of Order Amount  
         // ---------------------------------------------------
         [HttpGet]
-        [Route("TotalAmount/{year}")]
+        [Route("TotalAmount/{year?}")]
         public async Task<ActionResult<decimal>> GetTotalAmount(int? year)
         {
             var amount = (from c in _context.Orders
@@ -181,12 +203,12 @@ namespace Api.Controllers
 
         [HttpGet]
         [Route("ChartOrders")]
-        public async Task<ActionResult<IEnumerable<DashbordViewModel>>> ChartOrders()
+        public async Task<ActionResult<IEnumerable<DashboardViewModel>>> ChartOrders()
         {
 
             var result = (from ord in _context.Orders
                           group ord by ord.OrderedDate.Date.Year into grp
-                          select new DashbordViewModel
+                          select new DashboardViewModel
                           {
                               OrderDate = grp.Key, 
                               CountOrders = grp.Count()
@@ -210,17 +232,18 @@ namespace Api.Controllers
         }
 
 
+
         // ---------------------------------------------------
         // -- Rank states 
         // ---------------------------------------------------
 
         [HttpGet]
         [Route("RankCategories")]
-        public async Task<ActionResult<IEnumerable<DashbordViewModel>>> RankCategories()
+        public async Task<ActionResult<IEnumerable<DashboardViewModel>>> RankCategories()
         {
             var result = (from rank in _context.Ranks
                           group rank by rank.IdCategorie into grp
-                          select new DashbordViewModel
+                          select new DashboardViewModel
                           {
                               Description = (from i in _context.Categories
                                              where i.Id == grp.Key
@@ -236,11 +259,11 @@ namespace Api.Controllers
 
         [HttpGet]
         [Route("RankFormats")]
-        public async Task<ActionResult<IEnumerable<DashbordViewModel>>> RankFormats()
+        public async Task<ActionResult<IEnumerable<DashboardViewModel>>> RankFormats()
         {
             var result = (from rank in _context.Ranks
                           group rank by rank.IdFormat into grp
-                          select new DashbordViewModel
+                          select new DashboardViewModel
                           {
                               Description = (from i in _context.Formats
                                              where i.Id == grp.Key
@@ -256,17 +279,17 @@ namespace Api.Controllers
 
         [HttpGet]
         [Route("RankGenres")]
-        public async Task<ActionResult<IEnumerable<DashbordViewModel>>> RankGenres()
+        public async Task<ActionResult<IEnumerable<DashboardViewModel>>> RankGenres()
         {
             var result = (from rank in _context.Ranks
                           group rank by rank.IdGenre into grp
-                          select new DashbordViewModel
+                          select new DashboardViewModel
                           {
                               Description = (from i in _context.Genres
                                              where i.Id == grp.Key
                                              select i.Description).First(),
                               NbLivres = grp.Count()
-                          }).OrderByDescending(e => e.NbLivres).ToListAsync();
+                          }).OrderByDescending(e => e.NbLivres).Take(10).ToListAsync();
 
             return await result;
 
@@ -276,46 +299,21 @@ namespace Api.Controllers
         // ---------------------------------------------------
         // -- Availability of Stocks
         // ---------------------------------------------------
-        /*
+
                 [HttpGet]
                 [Route("StockAvailability")]
-                public async Task<ActionResult<IEnumerable<DashbordViewModel>>> StockAvailability()
+                public async Task<ActionResult<IEnumerable<DashboardViewModel>>> StockAvailability()
                 {
                     var result = (from book in _context.Books
-                                  where ((book.StockInitial - book.Stock) < 26)
-                                  select new DashbordViewModel
-                                  {
-                                      InitialStock = book.StockInitial,
-                                      CurrentStock = book.Stock,
+                                  where (book.Stock <= 10)
+                                  select new DashboardViewModel
+                                  {CurrentStock = book.Stock,
                                       Description = book.Title,
-                                      DifferenceStock = (book.StockInitial - book.Stock)
-                                  }).OrderBy(e => e.DifferenceStock).ToListAsync();
+                                  }).OrderBy(e => e.CurrentStock).ToListAsync();
 
                     return await result;
 
                 }
-
-        */
-        /*
-                [HttpGet]
-                [Route("StockAvailability")]
-                public async Task<ActionResult<IEnumerable<DashbordViewModel>>> StockAvailability()
-                {
-                    var result = (from stock in _context.Stocks
-                                  join book in _context.Books on stock.IdBook equals book.Id
-                                  where ((stock.InitialStock - stock.CurrentStock) < 26)
-                                  select new DashbordViewModel
-                                  {
-                                      InitialStock = stock.InitialStock,
-                                      CurrentStock = stock.CurrentStock,
-                                      Description = book.Title,
-                                      DifferenceStock = (stock.InitialStock - stock.CurrentStock)
-                                  }).OrderBy(e => e.DifferenceStock).ToListAsync();
-
-                    return await result;
-
-                }
-        */
 
 
         // ---------------------------------------------------

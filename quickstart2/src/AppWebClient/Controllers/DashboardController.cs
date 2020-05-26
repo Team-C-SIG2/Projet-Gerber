@@ -8,6 +8,7 @@ namespace AppWebClient.Controllers
 
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.Extensions.Configuration;
     using Newtonsoft.Json;
     using Rotativa.AspNetCore;
@@ -157,7 +158,7 @@ namespace AppWebClient.Controllers
 
             // GET TOP 10 CUSTOMERS 
             List<DashboardViewModel> itemsCustomers = new List<DashboardViewModel>();
-            string uriCustomers = _configuration["URLApi"] + _url + "BestCustomers";
+            string uriCustomers = _configuration["URLApi"] + _url + "BestOrders";
             HttpResponseMessage responseCustomers = await _client.GetAsync(uriCustomers);// HTTP GET
             if (responseCustomers.IsSuccessStatusCode)
             {
@@ -190,9 +191,6 @@ namespace AppWebClient.Controllers
         }
 
 
-
-
-        // BestOrders
 
         // ---------------------------------------------------
         // -- Top 10 Buyer (Amount)
@@ -235,6 +233,7 @@ namespace AppWebClient.Controllers
             {
                 return NotFound();
             }
+
 
             ViewBag.AMOUNT = totalAmount;
             return View(itemsCustomers);
@@ -430,7 +429,7 @@ namespace AppWebClient.Controllers
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
 
-            // GET TOP 10 CUSTOMERS 
+            // GET THE STOCK AVAILABILITY 
             List<DashboardViewModel> itemStockAvailability = new List<DashboardViewModel>();
             string uriStockAvailability = _configuration["URLApi"] + _url + "StockAvailability";
             HttpResponseMessage responseStockAvailability = await _client.GetAsync(uriStockAvailability);// HTTP GET
@@ -459,7 +458,9 @@ namespace AppWebClient.Controllers
                 return NotFound();
             }
 
+            //ViewBag.NBSTOCKS = nbStocks.ToString("F2");
             ViewBag.NBSTOCKS = nbStocks;
+            ViewData["NBSTOCKS2"] = nbStocks;
 
             // return View(itemStockAvailability);
 
@@ -503,9 +504,6 @@ namespace AppWebClient.Controllers
 
 
         }
-
-
-
 
 
 
