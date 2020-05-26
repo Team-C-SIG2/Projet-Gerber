@@ -35,7 +35,7 @@
     @Html.ActionLink("Tableau de bord (+Role Admin)", "VerifyUserRole", "Dashboard")<br />
     <br />
     <hr />
-    @Html.ActionLink("Panier d'achat (Utilisateur)", "Index", new { Controller = "UserShoppingCarts", action = "Index", id = @ViewBag.USERID })<br />
+    @Html.ActionLink("Panier d'achat (Utilisateur)", "Index", "UserShoppingCarts")<br />
     @Html.ActionLink("Liste des paniers d'achat (Administration) ", "Index", "AdminShoppingCarts")<br />
     <br />
     <hr />

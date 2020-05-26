@@ -49,7 +49,6 @@
 
             string uri = _configuration["URLApi"] + "api/AspNetUsers/UserId/";
             string id = await client.GetStringAsync(uri);
-            ViewBag.USERID = id;
             string uri2 = _url + id;
             ShoppingCart shoppingCart;
             HttpResponseMessage response = await client.GetAsync(uri2);
@@ -57,7 +56,6 @@
             {
                 string result = response.Content.ReadAsStringAsync().Result;
                 shoppingCart = JsonConvert.DeserializeObject<ShoppingCart>(result);
-                @ViewBag.USERID = id;
 
             }
             else
