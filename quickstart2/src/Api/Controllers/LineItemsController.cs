@@ -11,16 +11,12 @@ namespace Api.Controllers
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.AspNetCore.Authorization;
-    using Api.Models;
     using Api.ViewModel;
 
     [Route("api/[controller]")]
     [ApiController]
 
-    [Authorize]
+    // [Authorize]
     public class LineItemsController : ControllerBase
     {
 

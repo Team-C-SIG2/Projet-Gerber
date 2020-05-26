@@ -78,19 +78,25 @@
 
 
 @*Bouton Stripe pour lancer le paiement PayPal *@
+
+@{ 
+
+    decimal montant = @ViewBag.MONTANT;
+
 <div class="text-center">
 
     <form asp-action="Charge" asp-controller="StripePay" asp-route-amount="@ViewBag.MONTANTAFFICHE" methode="POST">
         <article>
-            <lable>Montant : CHF @ViewBag.MONTANTAFFICHE</lable>
+            <lable>Montant : CHF @ViewBag.MONTANTAFFICHE </lable>
         </article>
         <script src="//checkout.stripe.com/v2/checkout.js"
                 class="stripe-button"
                 data-key="@ViewBag.PUBLICKEY"
                 data-locale="auto"
                 data-description="Achat"
-                data-amount="@ViewBag.MONTANT">
+                data-amount=montant>
         </script>
     </form>
 
 </div>
+}

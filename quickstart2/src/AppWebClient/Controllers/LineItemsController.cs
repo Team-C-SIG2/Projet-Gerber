@@ -13,26 +13,27 @@ namespace AppWebClient.Controllers
     using System.Net.Http;
     using Newtonsoft.Json;
     using AppWebClient.Models;
-    using Microsoft.AspNetCore.Authentication;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Configuration;
-    using Newtonsoft.Json;
-    using System.Collections.Generic;
-    using System.Net;
-    using System.Net.Http;
-    using System.Net.Http.Headers;
-    using System.Threading.Tasks;
-    using System.Text;
+    using Microsoft.AspNetCore.Authentication;
+    using Microsoft.Extensions.Configuration;
+    using System.Net;
+    using System.Net.Http.Headers;
+    using System.Text;
+
     public class LineItemsController : Controller
     {
         // HTTPCLIENT 
         private HttpClient client = new HttpClient();
 
-        private readonly IConfiguration _configuration;
-
-        public LineItemsController(IConfiguration configuration)
-        {
-            _configuration = configuration;
+        private readonly IConfiguration _configuration;
+
+
+
+        public LineItemsController(IConfiguration configuration)
+
+        {
+
+            _configuration = configuration;
+
         }
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -45,7 +46,6 @@ namespace AppWebClient.Controllers
         public async Task<IActionResult> Index(int? id)
         {
             string accessToken = await HttpContext.GetTokenAsync("access_token");
-
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
             string content = await client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/Items/" + id);
@@ -65,12 +65,18 @@ namespace AppWebClient.Controllers
             {
                 // View ERROR
                 return NotFound();
-            }
-
-            // ___________________________________________________
-            // Calculate the total amount of the shoppingcart 
-            // ___________________________________________________
-
+            }
+
+
+
+            // ___________________________________________________
+
+            // Calculate the total amount of the shoppingcart 
+
+            // ___________________________________________________
+
+
+
             decimal total = 0;
 
             foreach (var item in lineItems)
@@ -88,10 +94,14 @@ namespace AppWebClient.Controllers
 
 
             ViewBag.MONTANT = centsAmount;
-            ViewBag.MONTANTAFFICHE = total.ToString("F");
-
-
-            // Récupère le numéro (ID) du panier 
+            ViewBag.MONTANTAFFICHE = total.ToString("F");
+
+
+
+
+
+            // Récupère le numéro (ID) du panier 
+
             ViewBag.PANIER = id;
 
 
@@ -134,6 +144,7 @@ namespace AppWebClient.Controllers
         }
 
 
+
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         // READ: Return a Categorie  
         // GET: .../ api/Categories/
@@ -154,60 +165,112 @@ namespace AppWebClient.Controllers
             }
             return lineItem;
         }
-
-        public async Task<IActionResult> Delete(int? id)
-        {
-            string accessToken = await HttpContext.GetTokenAsync("access_token");
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
-            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/LineItem/" + id);
-
-            LineItem line = JsonConvert.DeserializeObject<LineItem>(content);
-
-            if (line == null)
-            {
-                return NotFound();
-            }
-
-            return View(line);
+
+
+        public async Task<IActionResult> Delete(int? id)
+
+        {
+
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+
+
+            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/LineItem/" + id);
+
+
+
+            LineItem line = JsonConvert.DeserializeObject<LineItem>(content);
+
+
+
+            if (line == null)
+
+            {
+
+                return NotFound();
+
+            }
+
+
+
+            return View(line);
+
         }
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int? id)
-        {
-            string accessToken = await HttpContext.GetTokenAsync("access_token");
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
-            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/LineItem/" + id);
-            LineItem line = JsonConvert.DeserializeObject<LineItem>(content);
-            var tempId = line.IdShoppingcart;
-            HttpResponseMessage response;
-
-            if (line.IdWishlist == null)
-            {
-                response = await client.DeleteAsync(_configuration["URLApi"] + "api/LineItems/" + id);
-                if (response.StatusCode != HttpStatusCode.OK)
-                {
-                    return BadRequest();
-                }
-            }
-            else
-            {
-                line.IdShoppingcart = null;
-                line.InsertedDate = DateTime.Now;
-                string jsonString = System.Text.Json.JsonSerializer.Serialize<LineItem>(line);
-                StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                response = await client.PutAsync(_configuration["URLApi"] + "api/LineItems/" + line.Id, httpContent);
-
-                if (response.StatusCode != HttpStatusCode.NoContent)
-                {
-                    return BadRequest();
-                }
-            }
-
-            line.IdShoppingcart = tempId;
-            return RedirectToAction("Index", "LineItems", new { id = line.IdShoppingcart });
+        [HttpPost, ActionName("Delete")]
+
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> DeleteConfirmed(int? id)
+
+        {
+
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+
+
+            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/LineItem/" + id);
+
+            LineItem line = JsonConvert.DeserializeObject<LineItem>(content);
+
+            var tempId = line.IdShoppingcart;
+
+            HttpResponseMessage response;
+
+
+
+            if (line.IdWishlist == null)
+
+            {
+
+                response = await client.DeleteAsync(_configuration["URLApi"] + "api/LineItems/" + id);
+
+                if (response.StatusCode != HttpStatusCode.OK)
+
+                {
+
+                    return BadRequest();
+
+                }
+
+            }
+
+            else
+
+            {
+
+                line.IdShoppingcart = null;
+
+                line.InsertedDate = DateTime.Now;
+
+                string jsonString = System.Text.Json.JsonSerializer.Serialize<LineItem>(line);
+
+                StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+                response = await client.PutAsync(_configuration["URLApi"] + "api/LineItems/" + line.Id, httpContent);
+
+
+
+                if (response.StatusCode != HttpStatusCode.NoContent)
+
+                {
+
+                    return BadRequest();
+
+                }
+
+            }
+
+
+
+            line.IdShoppingcart = tempId;
+
+            return RedirectToAction("Index", "LineItems", new { id = line.IdShoppingcart });
+
         }
 
     }// End Class 
