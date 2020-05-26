@@ -19,9 +19,9 @@ namespace Api.Controllers
     {
 
 
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Initialize the Database Context 
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
+        // Initialize the Database Context  
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
         private readonly ESBookshopContext _context;
 
         public BooksController(ESBookshopContext context)
@@ -31,58 +31,51 @@ namespace Api.Controllers
 
 
 
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Return the list of all Books 
-        // GET: api/Books
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
+        // Return the list of all Books  
+        // GET: api/Books 
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Book>>> GetAll()
+        public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
         {
-            var books =
-                (from i in _context.Books
-                 orderby i.Title ascending
-                 select new Book()
-                 {
-                     Id = i.Id,
-                     Isbn = i.Isbn,
-                     IdEditor = i.IdEditor,
-                     DatePublication = i.DatePublication,
-                     Price = i.Price,
-                     Subtitle = i.Subtitle,
-                     Summary = i.Summary,
-                     Title = i.Title,
-                     IdEditorNavigation = (from e in _context.Editors where e.Id == i.IdEditor select e).FirstOrDefault(),
+            return await _context.Books.ToListAsync();
 
-                     Cowriters = (from c in _context.Cowriters
-                                  where c.IdBook == i.Id
-                                  select new Cowriter()
-                                  {
-                                      IdAuthor = c.IdAuthor,
-                                      IdAuthorNavigation = (from a in _context.Authors where a.Id == c.IdAuthor select a).FirstOrDefault()
-                                  }).ToList()
-                 });
-
-            if (books == null)
-            {
-                return NotFound();
-            }
-
-            return await books.ToListAsync();
-
+            /* 
+            var books = 
+                (from i in _context.Books 
+                 select new Book() 
+                 { 
+                     Id = i.Id, 
+                     Isbn = i.Isbn,  
+                     IdEditor = i.IdEditor,  
+                     DatePublication = i.DatePublication,  
+                     Price = i.Price,  
+                     Subtitle = i.Subtitle,  
+                     Summary = i.Summary,  
+                     Title = i.Title,  
+                     IdEditorNavigation = (from e in _context.Editors where e.Id == i.IdEditor select e).FirstOrDefault(), 
+                 }); 
+ 
+            if (books == null) 
+            { 
+                return NotFound(); 
+            } 
+ 
+            return await books.ToListAsync(); 
+            */
         }
 
 
 
 
-
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Return a Book (id)
-        // GET: api/Books/5
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
+        // Return a Book (id) 
+        // GET: api/Books/5 
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Book>> GetOne(int id)
+        public async Task<ActionResult<Book>> GetBook(int id)
         {
             var book = (from i in _context.Books
                         where id == i.Id
@@ -97,14 +90,7 @@ namespace Api.Controllers
                             Summary = i.Summary,
                             Title = i.Title,
                             IdEditorNavigation = (from e in _context.Editors where e.Id == i.IdEditor select e).FirstOrDefault(),
-                            LineItems = (from l in _context.LineItems where l.IdBook == i.Id select l).ToList(),
-                            Cowriters = (from c in _context.Cowriters
-                                         where c.IdBook == i.Id
-                                         select new Cowriter()
-                                         {
-                                             IdAuthor = c.IdAuthor,
-                                             IdAuthorNavigation = (from a in _context.Authors where a.Id == c.IdAuthor select a).FirstOrDefault()
-                                         }).ToList()
+                            LineItems = (from l in _context.LineItems where l.IdBook == i.Id select l).ToList()
                         }).FirstOrDefault();
 
             if (book == null)
@@ -117,13 +103,10 @@ namespace Api.Controllers
 
 
 
-
-
-
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Update an existing Book 
-        // PUT: api/Books/5
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
+        // Update an existing Book  
+        // PUT: api/Books/5 
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
         [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBook(int id, Book book)
@@ -154,10 +137,10 @@ namespace Api.Controllers
             return NoContent();
         }
 
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // POST — create a new resource Book
-        // POST: api/Books
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
+        // POST — create a new resource Book 
+        // POST: api/Books 
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
         [Authorize]
         [HttpPost]
@@ -170,11 +153,11 @@ namespace Api.Controllers
         }
 
 
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Delete a Book
-        // DELETE: api/Books/5
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // DELETE: api/Books/5
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
+        // Delete a Book 
+        // DELETE: api/Books/5 
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
+        // DELETE: api/Books/5 
 
         [Authorize]
         [HttpDelete("{id}")]
@@ -193,18 +176,18 @@ namespace Api.Controllers
         }
 
 
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Verify if a Book existe 
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
+        // Verify if a Book existe  
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
         private bool BookExists(int id)
         {
             return _context.Books.Any(e => e.Id == id);
         }
 
 
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Send the List of Editors for the Create View
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////	
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
+        // Send the List of Editors for the Create View 
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////	 
 
         [Route("GetEditors")]
         public async Task<ActionResult<IEnumerable<Editor>>> GetEditors()
@@ -215,11 +198,11 @@ namespace Api.Controllers
 
 
 
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // GET the shoppingcart by UserID
-        // GET: .../ api/Books/GetUserShoppingCart/002078C2AB
-        // https://localhost:44318/api/Books/GetUserShoppingCart/002078C2AB
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////	
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
+        // GET the shoppingcart by UserID 
+        // GET: .../ api/Books/GetUserShoppingCart/002078C2AB 
+        // https://localhost:44318/api/Books/GetUserShoppingCart/002078C2AB 
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////	 
 
         [Route("GetUserShoppingCart/{userId?}")]
         public async Task<ShoppingCart> GetUserShoppingCart(/*string? userId*/)
@@ -239,10 +222,10 @@ namespace Api.Controllers
         }
 
 
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // POST — Add a Book to a new resource LineItem
-        // POST: api/Books/postLineItem
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
+        // POST — Add a Book to a new resource LineItem 
+        // POST: api/Books/postLineItem 
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
 
         [HttpPost]
@@ -266,7 +249,7 @@ namespace Api.Controllers
             await _context.SaveChangesAsync();
 
             return line;
-            // return CreatedAtAction("AddItem", new { id = lineItem.Id }, line);
+            // return CreatedAtAction("AddItem", new { id = lineItem.Id }, line); 
 
 
         }
@@ -366,5 +349,5 @@ namespace Api.Controllers
         }
 
 
-    }// End Class 
+    }// End Class  
 }
