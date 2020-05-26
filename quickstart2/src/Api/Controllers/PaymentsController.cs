@@ -80,7 +80,8 @@ namespace Api.Controllers
             _context.Payments.Add(payment);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPayment", new { id = payment.Id }, payment);
+            return payment;
+            //return CreatedAtAction("GetPayment", new { id = payment.Id }, payment);
         }
 
         // DELETE: api/Payments/5

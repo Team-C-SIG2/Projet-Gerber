@@ -13,6 +13,8 @@ namespace AppWebClient.Controllers
     using System.Threading.Tasks;
     using System.Net.Http.Headers;
     using Microsoft.AspNetCore.Authentication;
+    using AppWebClient.Models;
+    using System.Net;
 
     public class StripePayController : Controller
     {
@@ -32,9 +34,6 @@ namespace AppWebClient.Controllers
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         // CLASS ATTRIBUTS 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        // Var USERID 
-        private readonly string UserID = "002078C2AB";
 
         // HTTPCLIENT 
         private HttpClient _client = ApiHttpClient.ConnectClient();
@@ -56,23 +55,19 @@ namespace AppWebClient.Controllers
         // HELP STRIPE ONLINE PAYMENT
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        public async Task<IActionResult> Charge(string stripeEmail, string StripeToken, decimal? amount)
+        public async Task<IActionResult> Charge(string stripeEmail, string StripeToken, decimal amount)
         {
-            ViewBag.USERID = UserID;
-
-
             // ___________________________________________________
             // To get public key 
             // Set your secret key. Remember to switch to your live secret key in production!
             // ___________________________________________________
             string uriPkey = _configuration["URLApi"] + "api/stripePay/PKey/" ;
             string pKey = null; 
-            List<string> stripePKeys = new List<string>();
+            List<string> stripePKeys;
             string accessToken = await HttpContext.GetTokenAsync("access_token");
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
-            var test = uriPkey;
+            string idUser = await client.GetStringAsync(_configuration["URLApi"] + "api/AspNetUsers/UserId/");
 
             string content = await client.GetStringAsync(uriPkey);
             if (content != null)
@@ -103,7 +98,7 @@ namespace AppWebClient.Controllers
 
             string uriApiKey = _configuration["URLApi"] + "api/stripePay/ApiKey";
             string apiKey = null;
-            List<string> stripeApiKeys = new List<string>();
+            List<string> stripeApiKeys;
 
             string contentApikey = await client.GetStringAsync(uriApiKey);
             if (contentApikey != null)
@@ -135,13 +130,9 @@ namespace AppWebClient.Controllers
             // ___________________________________________________
 
             // Tdodo  Récupérer dans lineItems
-            decimal? decimalAmount = amount;
-            long chargeAmount = Convert.ToInt64(decimalAmount);
-
-
-            ViewBag.MONTANT = (amount / 100);
-
-
+            long chargeAmount = Convert.ToInt64(amount);
+            decimal montant = amount / 100;
+            ViewBag.MONTANT = montant;
 
 
 
@@ -184,6 +175,21 @@ namespace AppWebClient.Controllers
             if (charge.Status == "succeeded")
             {
                 // string BalanceTransactionId = charge.BalanceTransaction.Id; 
+
+                Payment payment = new Payment
+                {
+                    UserId = idUser,
+                    PaidDate = DateTime.Now,
+                    PriceTotal = montant,
+                    Details = publickey
+                };
+                HttpResponseMessage response = await client.PostAsJsonAsync(_configuration["URLApi"] + "api/Payments/", payment);
+
+                if (response.StatusCode != HttpStatusCode.OK)
+                {
+                    return BadRequest();
+                }
+
                 return View();
             }
             else

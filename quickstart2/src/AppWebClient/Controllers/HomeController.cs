@@ -26,41 +26,16 @@ namespace AppWebClient.Controllers
         }
 
         // HTTPCLIENT 
-        private HttpClient _client = ApiHttpClient.ConnectClient();
+        private HttpClient _client = new HttpClient();
 
         // URL 
         private string _url = $"api/Home/";
 
 
-
-
-
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            // Retourner le ID de l'utilisateur 
-            // ________________________________________________________
-            // To obtain the User Id
-            // ________________________________________________________
-
-            AspNetUser user = new AspNetUser();
-
-
-            // To obtain the shopping cart of User (id) 
-            string accessToken = await HttpContext.GetTokenAsync("access_token");
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
-            string uri1 = _configuration["URLApi"] + "api/AspNetUsers/" + "UserId";
-            string id = await _client.GetStringAsync(uri1); // Error 401 :  Unauthorized
-
-
-            ViewBag.USER = id;
-            ViewBag.USERID = id;
-
-
             return View();
         }
-
-
 
 
         public IActionResult About()
