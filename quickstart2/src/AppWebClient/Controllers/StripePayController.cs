@@ -15,6 +15,8 @@ namespace AppWebClient.Controllers
     using Microsoft.AspNetCore.Authentication;
     using AppWebClient.Models;
     using System.Net;
+    using System.Linq;
+    using System.Text;
 
     public class StripePayController : Controller
     {
@@ -189,33 +191,33 @@ namespace AppWebClient.Controllers
                     return BadRequest();
                 }
 
-                // Récupération du Shoppingcart pour suppression des LineItems dans la BD après validation du paiement
+                // Récupération des livres pour y modifier la quantité
                 string uriShopcart = _configuration["URLApi"] + "api/ShoppingCarts/" + "ShoppingCart/" + idUser;
                 ShoppingCart shoppingcart;
                 HttpResponseMessage responseShopcart = await client.GetAsync(uriShopcart);
                 string resultShopcart = responseShopcart.Content.ReadAsStringAsync().Result;
                 shoppingcart = JsonConvert.DeserializeObject<ShoppingCart>(resultShopcart);
+
+                string contentLineItems = await client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/Items/" + shoppingcart.Id);
+                IEnumerable<Models.LineItem> lineItems = JsonConvert.DeserializeObject<IEnumerable<Models.LineItem>>(contentLineItems);
+                foreach (Models.LineItem lineItem in lineItems)
+                {
+                    lineItem.IdBookNavigation.Stock -= lineItem.Quantity;
+                    string jsonString = System.Text.Json.JsonSerializer.Serialize<Book>(lineItem.IdBookNavigation);
+                    StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+                    response = await client.PutAsync(_configuration["URLApi"] + "api/Books/" + lineItem.IdBookNavigation.Id, httpContent);
+                    if (response.StatusCode != HttpStatusCode.NoContent)
+                    {
+                        return BadRequest();
+                    }
+                }
+
+                // Récupération du Shoppingcart pour suppression des LineItems dans la BD après validation du paiement
                 response = await client.GetAsync(_configuration["URLApi"] + "api/LineItems/DeleteItems/" + shoppingcart.Id);
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
                     return BadRequest();
                 }
-
-                /*
-                 * A MODIFIER
-                // Diminution du stock
-                // Requête LINQ à faire sur les livres
-                q.Quantity++;
-                q.InsertedDate = DateTime.Now;
-                string jsonString = System.Text.Json.JsonSerializer.Serialize<LineItem>(q);
-                StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                response = await client.PutAsync(_configuration["URLApi"] + "api/LineItems/" + q.Id, httpContent);
-                if (response.StatusCode != HttpStatusCode.NoContent)
-                {
-                    return BadRequest();
-                }
-                */
-
 
                 return View();
             }
