@@ -207,6 +207,26 @@ namespace Api.Controllers
             return lineItem;
         }
 
+        [HttpGet]
+        [Route("DeleteItems/{id}")]
+        public async Task<ActionResult<List<LineItem>>> DeleteLineItems(int id)
+        {
+            List<LineItem> listLineItems = await _context.LineItems.Where(l => l.IdShoppingcart == id).ToListAsync();
+            if (listLineItems == null)
+            {
+                return NotFound();
+            }
+
+            foreach(LineItem lineItem in listLineItems)
+            {
+                _context.LineItems.Remove(lineItem);
+            }
+            
+            await _context.SaveChangesAsync();
+
+            return listLineItems;
+        }
+
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Verify if a LineItem existe 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////

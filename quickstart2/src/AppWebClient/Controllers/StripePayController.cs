@@ -61,14 +61,15 @@ namespace AppWebClient.Controllers
             // To get public key 
             // Set your secret key. Remember to switch to your live secret key in production!
             // ___________________________________________________
-            string uriPkey = _configuration["URLApi"] + "api/stripePay/PKey/" ;
-            string pKey = null; 
-            List<string> stripePKeys;
             string accessToken = await HttpContext.GetTokenAsync("access_token");
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            string idUser = await client.GetStringAsync(_configuration["URLApi"] + "api/AspNetUsers/UserId/");
 
+            string idUser = await client.GetStringAsync(_configuration["URLApi"] + "api/AspNetUsers/UserId/");
+            string uriPkey = _configuration["URLApi"] + "api/stripePay/PKey/" ;
+            string pKey = null; 
+            List<string> stripePKeys;
+            
             string content = await client.GetStringAsync(uriPkey);
             if (content != null)
             {
@@ -174,8 +175,7 @@ namespace AppWebClient.Controllers
 
             if (charge.Status == "succeeded")
             {
-                // string BalanceTransactionId = charge.BalanceTransaction.Id; 
-
+                // Enregistrement du paiement dans la BD
                 Payment payment = new Payment
                 {
                     UserId = idUser,
@@ -184,11 +184,38 @@ namespace AppWebClient.Controllers
                     Details = publickey
                 };
                 HttpResponseMessage response = await client.PostAsJsonAsync(_configuration["URLApi"] + "api/Payments/", payment);
-
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
                     return BadRequest();
                 }
+
+                // Récupération du Shoppingcart pour suppression des LineItems dans la BD après validation du paiement
+                string uriShopcart = _configuration["URLApi"] + "api/ShoppingCarts/" + "ShoppingCart/" + idUser;
+                ShoppingCart shoppingcart;
+                HttpResponseMessage responseShopcart = await client.GetAsync(uriShopcart);
+                string resultShopcart = responseShopcart.Content.ReadAsStringAsync().Result;
+                shoppingcart = JsonConvert.DeserializeObject<ShoppingCart>(resultShopcart);
+                response = await client.GetAsync(_configuration["URLApi"] + "api/LineItems/DeleteItems/" + shoppingcart.Id);
+                if (response.StatusCode != HttpStatusCode.OK)
+                {
+                    return BadRequest();
+                }
+
+                /*
+                 * A MODIFIER
+                // Diminution du stock
+                // Requête LINQ à faire sur les livres
+                q.Quantity++;
+                q.InsertedDate = DateTime.Now;
+                string jsonString = System.Text.Json.JsonSerializer.Serialize<LineItem>(q);
+                StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+                response = await client.PutAsync(_configuration["URLApi"] + "api/LineItems/" + q.Id, httpContent);
+                if (response.StatusCode != HttpStatusCode.NoContent)
+                {
+                    return BadRequest();
+                }
+                */
+
 
                 return View();
             }
