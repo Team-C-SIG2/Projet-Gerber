@@ -65,18 +65,19 @@ namespace AppWebClient.Controllers
             }
             else
             {
-                book.Stock = bookStock.currentStock;
-                string jsonString = System.Text.Json.JsonSerializer.Serialize<Models.Book>(book);
+                if (bookStock.currentStock >= 0) {
+                    book.Stock = bookStock.currentStock;
 
-                StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PutAsync(_configuration["URLApi"] + "api/Books/" + book.Id, httpContent);
+                    string jsonString = System.Text.Json.JsonSerializer.Serialize<Models.Book>(book);
 
-                if (!response.IsSuccessStatusCode)
-                {
-                    return View("Error");
+                    StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = await client.PutAsync(_configuration["URLApi"] + "api/Books/" + book.Id, httpContent);
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return View("Error");
+                    }
                 }
-
-
             }
 
             return RedirectToAction("index");
