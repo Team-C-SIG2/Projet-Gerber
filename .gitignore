@@ -26,3 +26,5 @@ quickstart2/src/AppWebClient/bin/
 quickstart2/src/AppWebClient/obj/
 
 quickstart2/src/AppWebClient/appsettings.json
+
+quickstart2/LibraryDbContext/

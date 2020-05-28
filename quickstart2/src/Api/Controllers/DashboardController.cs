@@ -299,20 +299,20 @@ namespace Api.Controllers
         // ---------------------------------------------------
         // -- Availability of Stocks
         // ---------------------------------------------------
-
-                [HttpGet]
-                [Route("StockAvailability")]
-                public async Task<ActionResult<IEnumerable<DashboardViewModel>>> StockAvailability()
-                {
-                    var result = (from book in _context.Books
-                                  where (book.Stock <= 10)
-                                  select new DashboardViewModel
-                                  {CurrentStock = book.Stock,
-                                      Description = book.Title,
-                                  }).OrderBy(e => e.CurrentStock).ToListAsync();
+        
+        [HttpGet]
+        [Route("StockAvailability")]
+        public async Task<ActionResult<IEnumerable<DashboardViewModel>>> StockAvailability()
+        {
+            var result = (from book in _context.Books
+                          where (book.Stock <= 10)
+                          select new DashboardViewModel
+                          {
+                              CurrentStock = book.Stock,
+                              Description = book.Title,
+                          }).OrderBy(e => e.CurrentStock).ToListAsync();
 
                     return await result;
-
                 }
 
 
