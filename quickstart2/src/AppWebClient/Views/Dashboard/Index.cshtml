@@ -54,11 +54,11 @@
 
         @* Nom de l'action*@
     <dd class="col-sm-6">
-        Top (10) des acheteurs de l'année 2020
+        Top (10) des acheteurs de l'année courante
     </dd>
         @* Action*@
         <dd class="col-sm-6">
-            @Html.ActionLink("Liste des meilleurs clients et montants", "BestCustomers", "Dashboard", new{year = 2020 })
+            @Html.ActionLink("Liste des meilleurs clients et montants", "BestCustomers", "Dashboard", new{year = @DateTime.Now.Year })
         </dd>
 
         @* Nom de l'action*@

@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<AppWebClient.ViewModel.DashboardViewModel>
 @{
-    ViewData["Title"] = "BestOrders";
+    ViewData["Title"] = "BestCustomers";
 }
 
 
@@ -13,8 +13,8 @@
 </head>
 <body>
 
-    <h1>Top (10) des Clients</h1>
-    <h4>Indicateur : nombre de commandes passées</h4>
+    <h1>Top (10) des commandes passées par clients</h1>
+
     <br />
     <div>
         @* COMMENT *@
@@ -23,6 +23,12 @@
     <div>
         <a asp-controller="Home" asp-action="Index">Retour à l'accueil</a>
     </div>
+    <br />
+    <div>
+        @* COMMENT *@
+        <p>Clients ayant passés le plus grand nombre de commandes.</p>
+    </div>
+
     <br />
     <table class="table">
         <tr>

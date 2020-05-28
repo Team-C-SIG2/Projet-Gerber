@@ -89,10 +89,6 @@
         // _______________________________________________________________
 
         //Explicitly setting the name to be used while serializing to JSON.
-        [DataMember(Name = "InitialStock")]
-        public int InitialStock { get; set; }
-
-        //Explicitly setting the name to be used while serializing to JSON.
         [DataMember(Name = "CurrentStock")]
         public int CurrentStock { get; set; }
 
@@ -100,9 +96,6 @@
         [DataMember(Name = "DeliveryDate")]
         public DateTime DeliveryDate { get; set; }
 
-        //Explicitly setting the name to be used while serializing to JSON.
-        [DataMember(Name = "DifferenceStock")]
-        public int DifferenceStock { get; set; }
 
 
 

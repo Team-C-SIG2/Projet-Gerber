@@ -6,7 +6,7 @@
 
     //DataContract for Serializing Data - required to serve in JSON format
     [DataContract]
-    public class DashbordViewModel
+    public class DashboardViewModel
     {
         // _______________________________________________________________
         // APPRECIATIONS 
@@ -86,10 +86,6 @@
         // _______________________________________________________________
 
         //Explicitly setting the name to be used while serializing to JSON.
-        [DataMember(Name = "InitialStock")]
-        public int InitialStock { get; set; }
-
-        //Explicitly setting the name to be used while serializing to JSON.
         [DataMember(Name = "CurrentStock")]
         public int CurrentStock { get; set; }
 
@@ -97,9 +93,6 @@
         [DataMember(Name = "DeliveryDate")]
         public DateTime DeliveryDate { get; set; }
 
-        //Explicitly setting the name to be used while serializing to JSON.
-        [DataMember(Name = "DifferenceStock")]
-        public int DifferenceStock { get; set; }
 
 
     }// End Class 
