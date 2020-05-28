@@ -27,6 +27,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
+                <li>
+                    <a class="nav-link" asp-controller="Administration" asp-action="PageAccueil">Accueil</a>
+                </li>
                 @if (this.User.IsInRole("Admin"))
                 {
                     <li class="nav-item active">
@@ -35,13 +38,16 @@
                     <li class="nav-item active">
                         <a class="nav-link" asp-action="CreateRole" asp-controller="Administration">Créer rôle</a>
                     </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" asp-action="ListUsers" asp-controller="Administration">Liste des utilisateurs</a>
+                    </li>
                 }
                 @*<li class="nav-item active">
-                        <a class="nav-link" asp-action="ListRoles" asp-controller="Administration">Liste des rôles</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" asp-action="CreateRole" asp-controller="Administration">Créer rôle</a>
-                    </li>*@
+            <a class="nav-link" asp-action="ListRoles" asp-controller="Administration">Liste des rôles</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" asp-action="CreateRole" asp-controller="Administration">Créer rôle</a>
+        </li>*@
                 @if (!string.IsNullOrWhiteSpace(name))
                 {
                     <li class="nav-item dropdown">
