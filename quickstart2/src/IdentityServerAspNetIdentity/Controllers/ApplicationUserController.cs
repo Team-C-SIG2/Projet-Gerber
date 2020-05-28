@@ -272,8 +272,6 @@ namespace IdentityServerAspNetIdentity.Controllers
                 return View();
             }
 
-
-
         }// End Class 
 
         public async Task<IActionResult> VerifyPhoneAsync()
@@ -284,6 +282,7 @@ namespace IdentityServerAspNetIdentity.Controllers
             return View(model);
         }
 
+        //  Méthode qui envoi le SMS de vérification
         [HttpPost]
         public async Task<IActionResult> PostVerifyPhoneModelAsync()
         {
@@ -303,7 +302,7 @@ namespace IdentityServerAspNetIdentity.Controllers
                     return View("ConfirmPhone", model);
                 }
 
-                ModelState.AddModelError("", $"Your verification is not pending, please constact admin");
+                ModelState.AddModelError("", $"Votre verification n'est pas traitée, contactez l'admin");
             }
             catch (Exception)
             {
@@ -312,6 +311,7 @@ namespace IdentityServerAspNetIdentity.Controllers
             return View("VerifyPhone", model);
         }
 
+        //  Méthode qui change la valeur de phone confirmed
         [HttpPost]
         public async Task<IActionResult> PostVerifyPhoneCodeAsync(SMSVerification input)
         {
@@ -341,18 +341,18 @@ namespace IdentityServerAspNetIdentity.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("", "There was an error confirming the verification code, please try again");
+                        ModelState.AddModelError("", "Erreur lors de la vérification du code, Veuillez reessayer");
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError("", $"There was an error confirming the verification code: {verification.Status}");
+                    ModelState.AddModelError("", $"Erreur lors de la vérification du code: {verification.Status}");
                 }
             }
             catch (Exception)
             {
                 ModelState.AddModelError("",
-                    "There was an error confirming the code, please check the verification code is correct and try again");
+                    "Erreur lors de la vérification, vérifiez que votre code est correct et reessayez");
             }
 
             return View("ConfirmPhone", input);

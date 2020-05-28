@@ -1,6 +1,6 @@
 ﻿@model IdentityServerAspNetIdentity.ViewModels.SMSVerification
 @{
-    ViewData["Title"] = "Confirm Phone number";
+    ViewData["Title"] = "Verification SMS";
 }
 
     <h4>@ViewData["Title"]</h4>
@@ -9,10 +9,7 @@
         <div class="col-md-6">
             <form asp-controller="ApplicationUser" asp-action="PostVerifyPhoneCode" method="post">
                 <p>
-                    Un code de confirmation à a été envoyé au numéro suivant : @Model.PhoneNumber
-                </p>
-                <p>
-                    Entrer le code à <strong>6 chiffres </strong> de la part de AUTHMSG:
+                    Entrer le code à <strong>6 chiffres </strong> qui a été envoyé au numéro : @Model.PhoneNumber
                 </p>
                 <div asp-validation-summary="All" class="text-danger"></div>
 

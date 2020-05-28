@@ -75,9 +75,19 @@
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Modifier mon profil</a>
 </div>
-<div>
-    <a asp-action="EmailConfirm">Envoyer mail de confirmation</a>
-</div>
+@if (!Model.AspNetUsers.FirstOrDefault().EmailConfirmed)
+{
+    <div>
+        <a asp-action="EmailConfirm">Envoyer mail de confirmation</a>
+    </div>
+}
+
+@if (!Model.AspNetUsers.FirstOrDefault().PhoneNumberConfirmed)
+{
+    <div>
+        <a asp-action="PhoneConfirm">Vérifier n° de tel</a>
+    </div>
+}
 <div>
     <a asp-controller="Wishlists">Voir ma wishlist</a>
 </div>

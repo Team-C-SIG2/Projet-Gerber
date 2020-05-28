@@ -31,8 +31,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doc", "Doc", "{B58C23A9-C04
 		Razor_Html.ActionLink.txt = Razor_Html.ActionLink.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryDbContext", "LibraryDbContext\LibraryDbContext.csproj", "{E1995D64-D21F-4CF5-B238-64A216313B16}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,18 +77,6 @@ Global
 		{D78A8C2C-9900-495A-A042-467699003272}.Release|x64.Build.0 = Release|Any CPU
 		{D78A8C2C-9900-495A-A042-467699003272}.Release|x86.ActiveCfg = Release|Any CPU
 		{D78A8C2C-9900-495A-A042-467699003272}.Release|x86.Build.0 = Release|Any CPU
-		{E1995D64-D21F-4CF5-B238-64A216313B16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E1995D64-D21F-4CF5-B238-64A216313B16}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E1995D64-D21F-4CF5-B238-64A216313B16}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{E1995D64-D21F-4CF5-B238-64A216313B16}.Debug|x64.Build.0 = Debug|Any CPU
-		{E1995D64-D21F-4CF5-B238-64A216313B16}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E1995D64-D21F-4CF5-B238-64A216313B16}.Debug|x86.Build.0 = Debug|Any CPU
-		{E1995D64-D21F-4CF5-B238-64A216313B16}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E1995D64-D21F-4CF5-B238-64A216313B16}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E1995D64-D21F-4CF5-B238-64A216313B16}.Release|x64.ActiveCfg = Release|Any CPU
-		{E1995D64-D21F-4CF5-B238-64A216313B16}.Release|x64.Build.0 = Release|Any CPU
-		{E1995D64-D21F-4CF5-B238-64A216313B16}.Release|x86.ActiveCfg = Release|Any CPU
-		{E1995D64-D21F-4CF5-B238-64A216313B16}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -100,7 +86,6 @@ Global
 		{7652B4CA-CD81-48A9-AB33-1A06BD0CB04E} = {9FAF5D58-5254-49D4-B5EE-F82A44A748E0}
 		{D78A8C2C-9900-495A-A042-467699003272} = {9FAF5D58-5254-49D4-B5EE-F82A44A748E0}
 		{B58C23A9-C04B-455B-BA4F-83013D24BC68} = {9FAF5D58-5254-49D4-B5EE-F82A44A748E0}
-		{E1995D64-D21F-4CF5-B238-64A216313B16} = {9FAF5D58-5254-49D4-B5EE-F82A44A748E0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AF5459F2-F947-412C-930A-A66FDA3CF9A2}
