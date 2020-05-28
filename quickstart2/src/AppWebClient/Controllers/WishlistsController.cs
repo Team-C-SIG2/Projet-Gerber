@@ -33,8 +33,7 @@ namespace AppWebClient.Controllers
 
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            string uriUserId = _configuration["URLApi"] + "api/AspNetUsers/UserId/";
-            string userId = await client.GetStringAsync(uriUserId);
+            string userId = await client.GetStringAsync(_configuration["URLApi"] + "api/AspNetUsers/UserId/");
             string uriWishlist = _url + "Wishlist/" + userId;
             Wishlist wishlist;
             IEnumerable<LineItem> lineItems;
