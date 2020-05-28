@@ -2,24 +2,18 @@
 // HB 
 using IdentityServerAspNetIdentity.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Linq;
-using System.Net;
 using System;
-using Microsoft.AspNetCore.Authentication;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using Newtonsoft.Json.Linq;
-using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Identity.UI.V3.Pages.Account.Internal;
 using IdentityServerAspNetIdentity.ViewModels;
 using System.Threading.Tasks;
-using AppWebClient.Services;
+using Twilio.Rest.Verify.V2.Service;
+using IdentityServerAspNetIdentity.Services;
+using Microsoft.Extensions.Options;
 
 namespace IdentityServerAspNetIdentity.Controllers
 {
@@ -29,14 +23,16 @@ namespace IdentityServerAspNetIdentity.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ESBookshopContext _context;
         private readonly IConfiguration _configuration;
+        private readonly TwilioVerifySettings _settings;
         private string resView;
 
-        public ApplicationUserController(IConfiguration configuration, UserManager<ApplicationUser> userManager, ESBookshopContext context, RoleManager<IdentityRole> roleManager)
+        public ApplicationUserController(IOptions<TwilioVerifySettings> settings, IConfiguration configuration, UserManager<ApplicationUser> userManager, ESBookshopContext context, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _context = context;
             _configuration = configuration;
+            _settings = settings.Value;
             resView = "Error";
         }
 
@@ -276,6 +272,101 @@ namespace IdentityServerAspNetIdentity.Controllers
                 return View();
             }
 
+
+
         }// End Class 
+
+        public async Task<IActionResult> VerifyPhoneAsync()
+        {
+            await LoadPhoneNumber();
+            SMSVerification model = new SMSVerification();
+            model.PhoneNumber = PhoneNumber;
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PostVerifyPhoneModelAsync()
+        {
+            await LoadPhoneNumber();
+            SMSVerification model = new SMSVerification();
+            try
+            {
+                VerificationResource verification = await VerificationResource.CreateAsync(
+                    to: PhoneNumber,
+                    channel: "sms",
+                    pathServiceSid: _settings.VerificationServiceSID
+                );
+
+                if (verification.Status == "pending")
+                {
+                    model.PhoneNumber = PhoneNumber;
+                    return View("ConfirmPhone", model);
+                }
+
+                ModelState.AddModelError("", $"Your verification is not pending, please constact admin");
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "There was an error sending the verification code, please contact admin");
+            }
+            return View("VerifyPhone", model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PostVerifyPhoneCodeAsync(SMSVerification input)
+        {
+            await LoadPhoneNumber();
+            if (!ModelState.IsValid)
+            {
+                return View("ConfirmPhone", input);
+            }
+
+            try
+            {
+                VerificationCheckResource verification = await VerificationCheckResource.CreateAsync(
+                    to: PhoneNumber,
+                    code: input.VerificationCode,
+                    pathServiceSid: _settings.VerificationServiceSID
+                );
+                if (verification.Status == "approved")
+                {
+                    var identityUser = await _userManager.GetUserAsync(User);
+                    identityUser.PhoneNumberConfirmed = true;
+                    var updateResult = await _userManager.UpdateAsync(identityUser);
+
+                    if (updateResult.Succeeded)
+                    {
+                        ViewBag.urlAppWeb = _configuration["URLAppWeb"];
+                        return View("ConfirmPhoneSuccess");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "There was an error confirming the verification code, please try again");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", $"There was an error confirming the verification code: {verification.Status}");
+                }
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("",
+                    "There was an error confirming the code, please check the verification code is correct and try again");
+            }
+
+            return View("ConfirmPhone", input);
+        }
+
+        public string PhoneNumber { get; set; }
+        private async Task LoadPhoneNumber()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                throw new Exception($"Unable to load user with ID");
+            }
+            PhoneNumber = user.PhoneNumber;
+        }
     }
 }
