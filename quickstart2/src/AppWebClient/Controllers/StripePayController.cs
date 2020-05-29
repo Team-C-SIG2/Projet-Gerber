@@ -135,6 +135,10 @@ namespace AppWebClient.Controllers
             // Tdodo  Récupérer dans lineItems
             long chargeAmount = Convert.ToInt64(amount);
             decimal montant = amount / 100;
+            if (_configuration["Environnement"] == "Prod")
+            {
+                montant = amount;
+            }
             ViewBag.MONTANT = montant;
 
 
