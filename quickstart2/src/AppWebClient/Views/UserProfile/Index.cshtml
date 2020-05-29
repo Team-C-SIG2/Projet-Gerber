@@ -6,6 +6,19 @@
 
 <h1>Vos informations personnelles</h1>
 <br />
+@if (!Model.AspNetUsers.FirstOrDefault().EmailConfirmed)
+{
+    <div class="alert alert-warning">
+        Veuillez confirmer votre adresse mail <a asp-action="EmailConfirm">Ici</a>
+    </div>
+}
+
+@if (!Model.AspNetUsers.FirstOrDefault().PhoneNumberConfirmed)
+{
+    <div class="alert alert-warning">
+        Veuillez confirmer votre N° de téléphone <a asp-action="PhoneConfirm">Ici</a>
+    </div>
+}
 <section style="border: 1px solid; border-radius: 10px">
     <div>
         <p><strong>Profil</strong></p>
@@ -73,26 +86,9 @@
 </section>
 <br />
 <div>
-    <a asp-action="Edit">Modifier mon profil</a>
-</div>
-@if (!Model.AspNetUsers.FirstOrDefault().EmailConfirmed)
-{
-    <div>
-        <a asp-action="EmailConfirm">Envoyer mail de confirmation</a>
-    </div>
-}
-
-@if (!Model.AspNetUsers.FirstOrDefault().PhoneNumberConfirmed)
-{
-    <div>
-        <a asp-action="PhoneConfirm">Vérifier n° de tel</a>
-    </div>
-}
-<div>
-    <a asp-controller="Wishlists">Voir ma wishlist</a>
-</div>
-<div>
-    <a asp-controller="Home" asp-action="Index">Retour à l'accueil</a>
+    <a class="btn btn-primary" asp-action="Edit"><i class="fas fa-edit"></i> Modifier profil</a>
+    <a class="btn btn-info" asp-controller="Wishlists"><i class="fas fa-star"></i>Wishlist</a>
+    <a class="btn btn-info" asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i> Accueil</a>
 </div>
 
 

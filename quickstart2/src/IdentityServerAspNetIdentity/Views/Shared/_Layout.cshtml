@@ -16,12 +16,21 @@
     <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
     <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
     <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/custom.css" />
     @*<link rel="stylesheet" href="~/css/site.css" />*@
 </head>
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="~/">Administration</a>
+        <a class="navbar-brand" href="~/">
+        @if (this.User.IsInRole("Admin"))
+        {
+            <span>Administration</span>
+        }
+        else {
+            <span>ESBookshop</span>
+        }
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -48,17 +57,6 @@
         <li class="nav-item active">
             <a class="nav-link" asp-action="CreateRole" asp-controller="Administration">Créer rôle</a>
         </li>*@
-                @if (!string.IsNullOrWhiteSpace(name))
-                {
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            @name
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a asp-action="Login" asp-controller="Account">Déconnecter</a>
-                        </div>
-                    </li>
-                }
             </ul>
         </div>
     </nav>

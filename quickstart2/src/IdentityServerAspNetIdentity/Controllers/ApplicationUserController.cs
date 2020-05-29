@@ -40,8 +40,16 @@ namespace IdentityServerAspNetIdentity.Controllers
         {
             return View();
         }
-        public async System.Threading.Tasks.Task<IActionResult> CreateDoneAsync(ApplicationUser user)
+        public async System.Threading.Tasks.Task<IActionResult> CreateDoneAsync(CreateUserViewModel createUserViewModel)
         {
+            ApplicationUser user = new ApplicationUser
+            {
+                UserName = createUserViewModel.UserName,
+                PasswordHash = createUserViewModel.PasswordHash,
+                Email = createUserViewModel.Email,
+                PhoneNumber = createUserViewModel.CountryCode+createUserViewModel.PhoneNumber
+            };
+
             var services = new ServiceCollection();
             services.AddLogging();
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -367,6 +375,11 @@ namespace IdentityServerAspNetIdentity.Controllers
                 throw new Exception($"Unable to load user with ID");
             }
             PhoneNumber = user.PhoneNumber;
+        }
+
+        public IActionResult Logout()
+        {
+            return SignOut("Cookies", "oidc");
         }
     }
 }
