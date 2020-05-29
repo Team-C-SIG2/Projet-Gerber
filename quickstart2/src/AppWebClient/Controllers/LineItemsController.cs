@@ -43,10 +43,25 @@ namespace AppWebClient.Controllers
 
 
         // GET: LineItems
-        public async Task<IActionResult> Index(int? id)
+        public async Task<IActionResult> Index()
         {
+            int? id = null;
+
             string accessToken = await HttpContext.GetTokenAsync("access_token");
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            string userId = await client.GetStringAsync(_configuration["URLApi"] + "api/aspNetUsers/UserId");
+            string contentShoppingCart = await client.GetStringAsync(_configuration["URLApi"] + "api/shoppingCarts/GetUserShoppingCarts/"+userId);
+
+            if (contentShoppingCart != null)
+            {
+                ShoppingCart shoppingCart = JsonConvert.DeserializeObject<ShoppingCart>(contentShoppingCart);
+                id = shoppingCart.Id;
+            }
+            else
+            {
+                // View ERROR
+                return NotFound();
+            }
 
             string content = await client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/Items/" + id);
 
