@@ -1,17 +1,17 @@
 ﻿@model IdentityServerAspNetIdentity.ViewModels.SMSVerification
 @{
-    ViewData["Title"] = "Verify Phone number";
+    ViewData["Title"] = "Vérification SMS";
 }
 
-<h2>>@ViewData["Title"]</h2>
+<h2>@ViewData["Title"]</h2>
 <div class="row">
     <div class="col-md-8">
         <form asp-controller="ApplicationUser" asp-action="PostVerifyPhoneModel" method="post">
             <p>
-                We will verify your phone number by sending a code to @Model.PhoneNumber
+                Un SMS de vérification va être envoyé sur votre téléphone @Model.PhoneNumber
             </p>
             <div asp-validation-summary="All" class="text-danger"></div>
-            <button type="submit" class="btn btn-primary">Send verification</button>
+            <button type="submit" class="btn btn-primary">Envoyer SMS</button>
         </form>
     </div>
 </div>
