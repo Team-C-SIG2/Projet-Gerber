@@ -133,12 +133,12 @@ namespace AppWebClient.Controllers
             // ___________________________________________________
 
             // Tdodo  Récupérer dans lineItems
-            long chargeAmount = Convert.ToInt64(amount);
-            decimal montant = amount / 100;
             if (_configuration["Environnement"] == "Prod")
             {
-                montant = amount;
+                amount = amount * 100;
             }
+            long chargeAmount = Convert.ToInt64(amount);
+            decimal montant = amount / 100;
             ViewBag.MONTANT = montant;
 
 
@@ -178,10 +178,11 @@ namespace AppWebClient.Controllers
             // ___________________________________________________
             // Verify the payment 
             // ___________________________________________________
-
             if (charge.Status == "succeeded")
             {
+                // ___________________________________________________
                 // Enregistrement du paiement dans la BD
+                // ___________________________________________________
                 Payment payment = new Payment
                 {
                     UserId = idUser,
@@ -195,7 +196,9 @@ namespace AppWebClient.Controllers
                     return BadRequest();
                 }
 
+                // ___________________________________________________
                 // Récupération des livres pour y modifier la quantité
+                // ___________________________________________________
                 string uriShopcart = _configuration["URLApi"] + "api/ShoppingCarts/" + "ShoppingCart/" + idUser;
                 ShoppingCart shoppingcart;
                 HttpResponseMessage responseShopcart = await client.GetAsync(uriShopcart);
@@ -216,7 +219,9 @@ namespace AppWebClient.Controllers
                     }
                 }
 
+                // ___________________________________________________
                 // Récupération du Shoppingcart pour suppression des LineItems dans la BD après validation du paiement
+                // ___________________________________________________
                 response = await client.GetAsync(_configuration["URLApi"] + "api/LineItems/DeleteItems/" + shoppingcart.Id);
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
