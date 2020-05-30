@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Api.Models
 {
@@ -298,10 +300,6 @@ namespace Api.Models
 
             modelBuilder.Entity<Payment>(entity =>
             {
-                entity.Property(e => e.Details)
-                    .IsUnicode(false)
-                    .IsFixedLength();
-
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Payments)
                     .HasForeignKey(d => d.UserId)

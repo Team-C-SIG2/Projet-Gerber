@@ -22,7 +22,6 @@ namespace IdentityServerAspNetIdentity.Models
         [Column(TypeName = "money")]
         public decimal PriceTotal { get; set; }
         [Required]
-        [StringLength(255)]
         public string Details { get; set; }
 
         [ForeignKey(nameof(UserId))]

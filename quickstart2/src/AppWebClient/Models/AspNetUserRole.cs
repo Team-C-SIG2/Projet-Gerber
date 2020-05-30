@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AppWebClient.Models
@@ -13,13 +15,8 @@ namespace AppWebClient.Models
         [ForeignKey(nameof(RoleId))]
         [InverseProperty(nameof(AspNetRole.AspNetUserRoles))]
         public virtual AspNetRole Role { get; set; }
-
-
         [ForeignKey(nameof(UserId))]
         [InverseProperty(nameof(AspNetUser.AspNetUserRoles))]
         public virtual AspNetUser User { get; set; }
-
-
-
     }
 }
