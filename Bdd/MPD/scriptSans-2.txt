@@ -416,7 +416,7 @@ INSERT [dbo].[_EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N'
 INSERT [dbo].[_EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N'MIGR-F388F76BF2', N'V03')
 
 INSERT [dbo].[AspNetRoles] ([Id], [ConcurrencyStamp], [Name], [NormalizedName]) VALUES (N'ID-32911D8393', N'CONCURRENCYSTAMP-F3F6E32662', N'Admin', N'ADMIN')
-INSERT [dbo].[AspNetRoles] ([Id], [ConcurrencyStamp], [Name], [NormalizedName]) VALUES (N'ID-8F25D63E5C', N'CONCURRENCYSTAMP-6E31621404', N'Utilisateur', N'UTILISATEUR')
+INSERT [dbo].[AspNetRoles] ([Id], [ConcurrencyStamp], [Name], [NormalizedName]) VALUES (N'ID-8F25D63E5C', N'CONCURRENCYSTAMP-6E31621404', N'User', N'USER')
 INSERT [dbo].[AspNetRoles] ([Id], [ConcurrencyStamp], [Name], [NormalizedName]) VALUES (N'ID-D41E97D28F', N'CONCURRENCYSTAMP-198B7AB0A3', N'Client', N'CLIENT')
 
 SET IDENTITY_INSERT [dbo].[Authors] ON 
