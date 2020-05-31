@@ -68,6 +68,7 @@ namespace AppWebClient.Controllers
                 Lastname = user.Lastname,
                 Address = user.Address,
                 Zip = user.Zip,
+                City = user.City,
                 BillingAddress = user.BillingAddress,
                 Email = user.AspNetUsers.FirstOrDefault().Email,
                 PhoneNumber = user.AspNetUsers.FirstOrDefault().PhoneNumber
@@ -122,6 +123,7 @@ namespace AppWebClient.Controllers
                 Lastname = userProfilViewModel.Lastname,
                 Address = userProfilViewModel.Address,
                 Zip = userProfilViewModel.Zip,
+                City = userProfilViewModel.City,
                 BillingAddress = userProfilViewModel.BillingAddress
             };
 
