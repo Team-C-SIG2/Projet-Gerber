@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SQLitePCL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,7 @@ namespace IdentityServer4.Quickstart.UI
         private readonly IClientStore _clientStore;
         private readonly IEventService _events;
         private readonly ILogger<ExternalController> _logger;
+        private ESBookshopContext _context;
 
         public ExternalController(
             UserManager<ApplicationUser> userManager,
@@ -43,6 +45,7 @@ namespace IdentityServer4.Quickstart.UI
             _clientStore = clientStore;
             _events = events;
             _logger = logger;
+            _context = new ESBookshopContext();
         }
 
         /// <summary>
@@ -271,9 +274,20 @@ namespace IdentityServer4.Quickstart.UI
                 filtered.Add(new Claim(JwtClaimTypes.Email, email));
             }
 
+            var customer = new Customer
+            {
+                Firstname = claims.FirstOrDefault(x => x.Type.Contains("givenname")).Value,
+                Lastname = claims.FirstOrDefault(x => x.Type.Contains("surname")).Value,
+                City = claims.FirstOrDefault(x => x.Type.Contains("urn:facebook:location")).Value
+            };
+            _context.Customers.Add(customer);
+            await _context.SaveChangesAsync();
+
             var user = new ApplicationUser
             {
-                UserName = Guid.NewGuid().ToString(),
+                UserName = ("fb_" + claims.FirstOrDefault(x => x.Type.Contains("givenname")).Value).ToLower(),
+                IdCustomer = customer.Id,
+                Email = claims.FirstOrDefault(x => x.Type.Contains("email")).Value
             };
             var identityResult = await _userManager.CreateAsync(user);
             if (!identityResult.Succeeded) throw new Exception(identityResult.Errors.First().Description);

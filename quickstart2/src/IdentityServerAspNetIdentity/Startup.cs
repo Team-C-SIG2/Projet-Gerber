@@ -78,13 +78,14 @@ namespace IdentityServerAspNetIdentity
             builder.AddDeveloperSigningCredential();
 
             services.AddAuthentication()
-                .AddGoogle(options =>
+                .AddFacebook(facebookOptions =>
                 {
-                    // register your IdentityServer with Google at https://console.developers.google.com
-                    // enable the Google+ API
-                    // set the redirect URI to http://localhost:5000/signin-google
-                    options.ClientId = "copy client ID from Google here";
-                    options.ClientSecret = "copy client secret from Google here";
+                    facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                    facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                    facebookOptions.SaveTokens = true;
+                    facebookOptions.Scope.Add("email");
+                    facebookOptions.Scope.Add("user_location");
+                    facebookOptions.Fields.Add("location");
                 });
             // requires
             // using Microsoft.AspNetCore.Identity.UI.Services;
