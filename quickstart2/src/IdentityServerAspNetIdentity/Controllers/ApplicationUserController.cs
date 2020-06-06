@@ -77,10 +77,6 @@ namespace IdentityServerAspNetIdentity.Controllers
                         if (checkUser == null)
                         {
                             Customer newCust = new Customer();
-
-                            /* Prod only
-                            newCust.Id = _context.Customers.Max(u => u.Id)+1;
-                            */
                             _context.Customers.Add(newCust);
                             await _context.SaveChangesAsync();
                             user.IdCustomer = _context.Customers.Max(u => u.Id);

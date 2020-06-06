@@ -2,16 +2,26 @@ using IdentityModel;
 using IdentityServer4.Events;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
+using IdentityServerAspNetIdentity;
+using IdentityServerAspNetIdentity.Data;
 using IdentityServerAspNetIdentity.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Serilog;
+using SQLitePCL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
@@ -28,6 +38,9 @@ namespace IdentityServer4.Quickstart.UI
         private readonly IClientStore _clientStore;
         private readonly IEventService _events;
         private readonly ILogger<ExternalController> _logger;
+        private ESBookshopContext _context;
+        private HttpClient _client;
+        private readonly IConfiguration _configuration;
 
         public ExternalController(
             UserManager<ApplicationUser> userManager,
@@ -35,7 +48,8 @@ namespace IdentityServer4.Quickstart.UI
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             IEventService events,
-            ILogger<ExternalController> logger)
+            ILogger<ExternalController> logger,
+            IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -43,6 +57,9 @@ namespace IdentityServer4.Quickstart.UI
             _clientStore = clientStore;
             _events = events;
             _logger = logger;
+            _context = new ESBookshopContext();
+            _client = new HttpClient();
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -123,40 +140,48 @@ namespace IdentityServer4.Quickstart.UI
             // issue authentication cookie for user
             // we must issue the cookie maually, and can't use the SignInManager because
             // it doesn't expose an API to issue additional claims from the login workflow
-            var principal = await _signInManager.CreateUserPrincipalAsync(user);
-            additionalLocalClaims.AddRange(principal.Claims);
-            var name = principal.FindFirst(JwtClaimTypes.Name)?.Value ?? user.Id;
 
-            var isuser = new IdentityServerUser(user.Id)
+            if (user == null)
             {
-                DisplayName = name,
-                IdentityProvider = provider,
-                AdditionalClaims = additionalLocalClaims
-            };
-
-            await HttpContext.SignInAsync(isuser, localSignInProps);
-
-            // delete temporary cookie used during external authentication
-            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-
-            // retrieve return URL
-            var returnUrl = result.Properties.Items["returnUrl"] ?? "~/";
-
-            // check if external login is in the context of an OIDC request
-            var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
-            await _events.RaiseAsync(new UserLoginSuccessEvent(provider, providerUserId, user.Id, name, true, context?.ClientId));
-
-            if (context != null)
-            {
-                if (await _clientStore.IsPkceClientAsync(context.ClientId))
-                {
-                    // if the client is PKCE then we assume it's native, so this change in how to
-                    // return the response is for better UX for the end user.
-                    return this.LoadingPage("Redirect", returnUrl);
-                }
+                return View("Error");
             }
+            else
+            {
+                var principal = await _signInManager.CreateUserPrincipalAsync(user);
+                additionalLocalClaims.AddRange(principal.Claims);
+                var name = principal.FindFirst(JwtClaimTypes.Name)?.Value ?? user.Id;
 
-            return Redirect(returnUrl);
+                var isuser = new IdentityServerUser(user.Id)
+                {
+                    DisplayName = name,
+                    IdentityProvider = provider,
+                    AdditionalClaims = additionalLocalClaims
+                };
+
+                await HttpContext.SignInAsync(isuser, localSignInProps);
+
+                // delete temporary cookie used during external authentication
+                await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+
+                // retrieve return URL
+                var returnUrl = result.Properties.Items["returnUrl"] ?? "~/";
+
+                // check if external login is in the context of an OIDC request
+                var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
+                await _events.RaiseAsync(new UserLoginSuccessEvent(provider, providerUserId, user.Id, name, true, context?.ClientId));
+
+                if (context != null)
+                {
+                    if (await _clientStore.IsPkceClientAsync(context.ClientId))
+                    {
+                        // if the client is PKCE then we assume it's native, so this change in how to
+                        // return the response is for better UX for the end user.
+                        return this.LoadingPage("Redirect", returnUrl);
+                    }
+                }
+
+                return Redirect(returnUrl);
+            }            
         }
 
         private async Task<IActionResult> ProcessWindowsLoginAsync(string returnUrl)
@@ -271,21 +296,70 @@ namespace IdentityServer4.Quickstart.UI
                 filtered.Add(new Claim(JwtClaimTypes.Email, email));
             }
 
+            var customer = new Customer
+            {
+                Firstname = claims.FirstOrDefault(x => x.Type.Contains("givenname")).Value,
+                Lastname = claims.FirstOrDefault(x => x.Type.Contains("surname")).Value,
+                City = claims.FirstOrDefault(x => x.Type.Contains("urn:facebook:location")).Value
+            };
+            _context.Customers.Add(customer);
+            await _context.SaveChangesAsync();
+
             var user = new ApplicationUser
             {
-                UserName = Guid.NewGuid().ToString(),
+                UserName = ("fb_" + claims.FirstOrDefault(x => x.Type.Contains("givenname")).Value).ToLower(),
+                IdCustomer = customer.Id,
+                Email = claims.FirstOrDefault(x => x.Type.Contains("email")).Value
             };
-            var identityResult = await _userManager.CreateAsync(user);
-            if (!identityResult.Succeeded) throw new Exception(identityResult.Errors.First().Description);
 
-            if (filtered.Any())
+            var services = new ServiceCollection();
+            services.AddLogging();
+            services.AddDbContext<ApplicationDbContext>(options =>
+               options.UseSqlServer(Startup.ConnectionString));
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            var serviceProvider = services.BuildServiceProvider();
+            var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope();
+            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+            var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+            ApplicationUser checkUserMail = userMgr.FindByEmailAsync(user.Email).Result;
+            if (checkUserMail == null)
             {
-                identityResult = await _userManager.AddClaimsAsync(user, filtered);
+                var identityResult = await _userManager.CreateAsync(user);
                 if (!identityResult.Succeeded) throw new Exception(identityResult.Errors.First().Description);
-            }
 
-            identityResult = await _userManager.AddLoginAsync(user, new UserLoginInfo(provider, providerUserId, provider));
-            if (!identityResult.Succeeded) throw new Exception(identityResult.Errors.First().Description);
+                if (filtered.Any())
+                {
+                    identityResult = await _userManager.AddClaimsAsync(user, filtered);
+                    if (!identityResult.Succeeded) throw new Exception(identityResult.Errors.First().Description);
+                }
+
+                identityResult = await _userManager.AddLoginAsync(user, new UserLoginInfo(provider, providerUserId, provider));
+                if (!identityResult.Succeeded) throw new Exception(identityResult.Errors.First().Description);
+
+                ShoppingCart sp = new ShoppingCart
+                {
+                    UserId = user.Id,
+                    CreatedDate = DateTime.Now
+                };
+                _context.ShoppingCarts.Add(sp);
+                await _context.SaveChangesAsync();
+
+                Wishlist wl = new Wishlist
+                {
+                    UserId = user.Id,
+                    CreatedDate = DateTime.Now
+                };
+                _context.Wishlists.Add(wl);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                return null;
+            }
 
             return user;
         }
