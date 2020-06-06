@@ -76,6 +76,11 @@ namespace IdentityServerAspNetIdentity.Controllers
                         var checkUser = userMgr.FindByEmailAsync(user.Email).Result;
                         if (checkUser == null)
                         {
+                            Customer newCust = new Customer();
+                            _context.Customers.Add(newCust);
+                            await _context.SaveChangesAsync();
+                            user.IdCustomer = _context.Customers.Max(u => u.Id);
+
                             checkUser = user;
                             var result = userMgr.CreateAsync(checkUser, user.PasswordHash).Result;
                             if (checkUser.UserName.Contains("alice"))
@@ -101,11 +106,6 @@ namespace IdentityServerAspNetIdentity.Controllers
                             }
                             else {
                                 Log.Debug($"{checkUser.UserName} created");
-
-                                Customer newCust = new Customer();
-                                _context.Customers.Add(newCust);
-                                await _context.SaveChangesAsync();
-                                user.IdCustomer = _context.Customers.Max(u => u.Id);
 
                                 ShoppingCart sp = new ShoppingCart
                                 {

@@ -137,6 +137,7 @@ namespace AppWebClient.Controllers
             AspNetUser currentUser = JsonConvert.DeserializeObject<AspNetUser>(users);
 
             currentUser.Email = userProfilViewModel.Email;
+            currentUser.NormalizedEmail = (userProfilViewModel.Email).ToUpper();
             currentUser.PhoneNumber = userProfilViewModel.PhoneNumber;
 
             string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Customers/");
