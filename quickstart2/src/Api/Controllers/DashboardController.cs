@@ -277,6 +277,20 @@ namespace Api.Controllers
         }
 
 
+        // ---------------------------------------------------
+        // -- Total of Orders 
+        // ---------------------------------------------------
+        [HttpGet]
+        [Route("TotalRanks")]
+        public ActionResult<int> GetTotalRanks()
+        {
+            // SELECT COUNT(*) FROM Books;
+            var nbBooks = (from b in _context.Ranks select b).Count();
+            return nbBooks;
+
+        }
+
+
         [HttpGet]
         [Route("RankGenres")]
         public async Task<ActionResult<IEnumerable<DashboardViewModel>>> RankGenres()

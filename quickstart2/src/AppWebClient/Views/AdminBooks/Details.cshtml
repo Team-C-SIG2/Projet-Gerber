@@ -1,0 +1,123 @@
+﻿@model AppWebClient.Models.Book
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Détails du livre : @Model.Title</h4>
+    <hr />
+    <dl class="row">
+
+        @* Titre *@
+        <dt class="col-sm-2">
+            @*
+            TODO COWRITERS
+            @Html.DisplayNameFor(model => model.Cowriters)
+            *@
+            Titre
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+
+        @* Sous-Titre *@
+        <dt class="col-sm-2">
+            Sous-Titre
+        </dt>
+        <dd class="col-sm-10">
+            @if (@Model.Subtitle != null)
+            {<text>@Model.Subtitle</text>}
+        else
+        {<text>/</text>}
+        </dd>
+
+
+        @* ------------------------------------------------------------------------------------------------------- *@
+        @* Autheurs *@
+        @* ------------------------------------------------------------------------------------------------------- *@
+
+
+        <dt class="col-sm-2">
+            Auteur(s)
+        </dt>
+        <dd class="col-sm-10">
+            @if (@Model.Cowriters.Count > 0)
+            {
+                @foreach (var cowriter in Model.Cowriters)
+                {
+                    <text> @cowriter.IdAuthorNavigation.Firstname @cowriter.IdAuthorNavigation.Lastname</text><br />
+                }
+            }
+            else
+            {<text>/</text>}
+
+        </dd>
+
+        @* ------------------------------------------------------------------------------------------------------- *@
+
+
+
+        @* Prix Unitaire *@
+        <dt class="col-sm-2">
+            Prix Unitaire
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+
+        @* Date de publication *@
+        <dt class="col-sm-2">
+            Date de publication
+        </dt>
+        <dd class="col-sm-10">
+            @if (@Model.DatePublication != null)
+            {
+                @Convert.ToDateTime(@Model.DatePublication).ToString("dd.MM.yyyy")
+            }
+            else
+            {<text>/</text>}
+        </dd>
+
+
+        @* Résumé *@
+        <dt class="col-sm-2">
+            Résumé
+        </dt>
+        <dd class="col-sm-10">
+            @if (@Model.Summary != null)
+            {<text>@Model.Summary</text>}
+        else
+        {<text>/</text>}
+        </dd>
+
+
+        @* ISBN *@
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Isbn)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Isbn)
+        </dd>
+
+
+        @* Editeur *@
+        <dt class="col-sm-2">
+            Editeur
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IdEditorNavigation.Name)
+        </dd>
+
+
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Retour à la liste</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Id">Editer</a> |
+    <a asp-action="Delete" asp-route-id="@Model.Id">Supprimer</a>
+</div>

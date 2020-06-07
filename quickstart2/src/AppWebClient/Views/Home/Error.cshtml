@@ -3,9 +3,14 @@
     ViewData["Title"] = "Error";
 }
 
-<h1>Erreur de traitement </h1>
+<h1>Erreur</h1>
 
 <div>
+
+    <div>
+        <h4>@TempData["ERROR"]</h4>
+    </div>
+
     @* Liens de Navitation
 
         <a asp-action="Edit" asp-route-id="@Model.Id"> TextAffiche </a> |

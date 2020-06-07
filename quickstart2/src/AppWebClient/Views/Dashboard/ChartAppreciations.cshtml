@@ -1,14 +1,10 @@
 ﻿
-@{
-    ViewData["Title"] = "ChartAppreciations";
-}
-
 @model List<AppWebClient.ViewModel.DashboardViewModel>
 @{
     var XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.EvaluationDate).ToList());
     var YValues = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Evaluation).ToList());
 
-    ViewData["Title"] = "Bar Chart";
+    ViewData["Title"] = "ChartAppreciations";
 }
 
 <!DOCTYPE html>
@@ -32,7 +28,7 @@
     <br />
 
 
-
+    @* DISPLAYED CONTENT *@
     <div class="box-body">
 
         <div class="chart-container">
@@ -45,19 +41,22 @@
 </body>
 </html>
 
+
+@* SCRIPTS CHART.JS AND JQUERY.JS *@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
+@* JAVASCRIPT CODE *@
 <script type="text/javascript">
 
         $(function () {
     var chartName = "chart";
-        var ctx = document.getElementById(chartName).getContext('2d');
+            var ctx = document.getElementById(chartName).getContext('2d'); @* CONTEXT = 2 DIM *@
         var data = {
-                labels: @Html.Raw(XLabels),
+                labels: @Html.Raw(XLabels),    @* X AXES *@
                 datasets: [{
                     label: "NbAppréciations",
-                    backgroundColor: [
+                    backgroundColor: [   
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
                         'rgba(255, 206, 86, 0.2)',
@@ -86,17 +85,17 @@
                         'rgba(255, 0, 255)'
                     ],
                     borderWidth: 1,
-                    data: @Html.Raw(YValues)
+                    data: @Html.Raw(YValues)    @* Y AXES*@
                 }]
             };
 
 var options = {
                 maintainAspectRatio: false,
                 scales: {
-                    yAxes: [{
+                    yAxes: [{ 
                         ticks: {
                             min: 0,
-                            beginAtZero: true
+                            beginAtZero: true    @* MIN VALUE *@
                         },
                         gridLines: {
                             display: true,
@@ -106,7 +105,7 @@ var options = {
                     xAxes: [{
                         ticks: {
                             min: 0,
-                            beginAtZero: true
+                            beginAtZero: true @* MIN VALUE  *@
                         },
                         gridLines: {
                             display: false
@@ -118,7 +117,7 @@ var options = {
        var myChart = new  Chart(ctx, {
                 options: options,
                 data: data,
-                type:'bar'
+           type: 'bar'  @* GRAPHE TYPE *@
 
             });
         });

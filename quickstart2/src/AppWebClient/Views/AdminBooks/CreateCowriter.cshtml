@@ -1,0 +1,53 @@
+﻿@model AppWebClient.Models.Cowriter
+
+@{
+    ViewData["Title"] = "CreateCowriter";
+}
+
+<h1>Auteur(s)</h1>
+<h4> Auteur(s) du livre : @ViewBag.BOOKTITLE</h4>
+
+<hr />
+<div>
+    <form asp-action="PostCowriter" asp-route-id="@ViewBag.BOOKID">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+        @* Titre *@
+        <div class="row">
+            <div class="col">
+                <label asp-for="@Model.IdBookNavigation.Title" class="control-label">Titre</label>
+            </div>
+            <div class="col">
+                @ViewBag.BOOKTITLE
+            </div>
+            <div class="col">
+            </div>
+        </div>
+        <br />
+
+        @* Nouveau auteur *@
+        <div class="row">
+            <div class="col">
+                <label asp-for="IdAuthor" class="control-label">Auteur</label>
+            </div>
+            <div class="col">
+                <select asp-for="IdAuthor" class="form-control" asp-items="ViewBag.SELECTAUTHORS"></select>
+            </div>
+            <div class="col">
+            </div>
+        </div>
+        <br /> <br />
+
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+        <br />
+
+    </form>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

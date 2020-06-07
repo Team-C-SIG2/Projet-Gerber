@@ -92,6 +92,8 @@ namespace AppWebClient.Controllers
                 return NotFound();
             }
 
+
+            // SEND DATA TO VIEW
             ViewBag.NBAPPRECIATIONS = nbAppreciations;
             return View(items);
 
@@ -138,9 +140,9 @@ namespace AppWebClient.Controllers
                 return NotFound();
             }
 
-            // SELECT COUNT(*) FROM Customers;
-            ViewBag.NBCLIENTS = nbClients;
 
+            // SEND DATA TO VIEW           
+            ViewBag.NBCLIENTS = nbClients; // SELECT COUNT(*) FROM Customers;
             return View(items);
         }
 
@@ -186,6 +188,7 @@ namespace AppWebClient.Controllers
                 return NotFound();
             }
 
+            // SEND DATA TO VIEW    
             ViewBag.NBORDERS = nbOrders;
             return View(itemsCustomers);
         }
@@ -352,7 +355,7 @@ namespace AppWebClient.Controllers
 
             // GET TOTAL NUMBER OF BOOKS IN THE DB
             int nbStocks;
-            string uriTotalStocks = _configuration["URLApi"] + _url + "TotalStocks";
+            string uriTotalStocks = _configuration["URLApi"] + _url + "TotalRanks";
             HttpResponseMessage responseTotalStocks = await _client.GetAsync(uriTotalStocks);// HTTP GET
             if (responseTotalStocks.IsSuccessStatusCode)
             {
@@ -492,6 +495,7 @@ namespace AppWebClient.Controllers
             ViewBag.ROLE = userRole;
 
 
+            // Redirection CONDITION 
             if (userRole.ToUpper() == "ADMIN")
             {
                 return RedirectToAction("Index", "Dashboard");  // ACCESS DASHBOARD

@@ -54,7 +54,7 @@ namespace Api.Controllers
                 FROM AspNetUserRoles usersRoles
                 INNER JOIN AspNetRoles roles ON usersRoles.RoleId =  roles.Id
                 INNER JOIN AspNetUsers users ON usersRoles.UserId =  users.Id 
-                WHERE usersRoles.UserId = '0023A1D661'
+                WHERE usersRoles.UserId = 'c9ec883f-dc10-476f-8d41-a79106fcfde6'
 
             */
             string currentUserRole = null;

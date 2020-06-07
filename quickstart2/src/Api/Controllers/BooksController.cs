@@ -103,6 +103,49 @@ namespace Api.Controllers
 
 
 
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Return a Book (id)
+        // GET: api/Books/5
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        [HttpGet("{id}")]
+        [Route("GetOneBook/{id}")]
+        public async Task<ActionResult<Book>> GetOne(int id)
+        {
+            var book = (from i in _context.Books
+                        where id == i.Id
+                        select new Book()
+                        {
+                            Id = id,
+                            Isbn = i.Isbn,
+                            IdEditor = i.IdEditor,
+                            DatePublication = i.DatePublication,
+                            Price = i.Price,
+                            Subtitle = i.Subtitle,
+                            Summary = i.Summary,
+                            Title = i.Title,
+                            IdEditorNavigation = (from e in _context.Editors where e.Id == i.IdEditor select e).FirstOrDefault(),
+                            LineItems = (from l in _context.LineItems where l.IdBook == i.Id select l).ToList(),
+                            Cowriters = (from c in _context.Cowriters
+                                         where c.IdBook == i.Id
+                                         select new Cowriter()
+                                         {
+                                             IdAuthor = c.IdAuthor,
+                                             IdAuthorNavigation = (from a in _context.Authors where a.Id == c.IdAuthor select a).FirstOrDefault()
+                                         }).ToList()
+                        }).FirstOrDefault();
+
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            return book;
+        }
+
+
+
+
         // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
         // Update an existing Book  
         // PUT: api/Books/5 
