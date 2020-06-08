@@ -2,9 +2,13 @@
 {
     using AppWebClient.Models;
     using AppWebClient.Tools;
+    using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Configuration;
     using Newtonsoft.Json;
+    using System.Collections.Generic;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Threading.Tasks;
 
 
@@ -12,11 +16,17 @@
     {
 
         // HTTPCLIENT 
-        private readonly HttpClient _client = ApiHttpClient.ConnectClient();
+        private readonly HttpClient _client;
 
         // URL   
         private string _url = $"api/categories/";
 
+        private IConfiguration _configuration;
+
+        public CategoriesController(IConfiguration configuration) {
+            _configuration = configuration;
+            _client = new HttpClient();
+        }
 
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -30,12 +40,11 @@
         // ________________________________________________________       
         public async Task<IActionResult> Index()
         {
-
-            // TODO - TRY CATCH 
-            /*
             List<Categorie> categories = new List<Categorie>();
-            
-            HttpResponseMessage response = await _client.GetAsync(_url);
+
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            HttpResponseMessage response = await _client.GetAsync(_configuration["URLApi"]+_url);
 
             if (response.IsSuccessStatusCode)
             {
@@ -44,13 +53,10 @@
             }
             else
             {
-                // View ERROR
                 return NotFound();
             }
 
             return View(categories);
-            */
-            return View();
         }
 
         // ________________________________________________________
