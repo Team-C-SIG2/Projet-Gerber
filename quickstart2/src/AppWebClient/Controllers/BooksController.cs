@@ -98,7 +98,7 @@ namespace AppWebClient.Controllers
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Books/" + id);
+            string content = await client.GetStringAsync(_configuration["URLApi"] + _url+"GetOneBook/" + id);
 
             Book book = JsonConvert.DeserializeObject<Book>(content);
 
@@ -233,68 +233,6 @@ namespace AppWebClient.Controllers
             response.EnsureSuccessStatusCode();
 
             return RedirectToAction("Index", "Books");
-        }
-
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Delete a Book
-        // DELETE: Books/Delete/5
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-        // ________________________________________________________
-        // Display the "Delete" View of Books Controller 
-        // GET: Books/Delete
-        // ________________________________________________________
-
-        public async Task<IActionResult> Delete(int? id)
-        {
-            // HTTP DELETE
-
-            string uri = _url + id;
-
-            Book book = new Book();
-
-            HttpResponseMessage response = await _client.GetAsync(uri);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var result = response.Content.ReadAsStringAsync().Result;
-                book = JsonConvert.DeserializeObject<Book>(result);
-            }
-            else
-            {
-                // View ERROR
-                return View();
-            }
-
-            // ViewBag.ID = book.Id; 
-            return View(book);
-
-        }// END 
-
-
-
-        // ________________________________________________________
-        // Delete a resource Book ->  <form asp-action="ConfirmeDelete">
-        // DELETE: / api/Books/s
-        // ________________________________________________________
-
-        public async Task<IActionResult> ConfirmeDelete(int? id)
-        {
-            var ID = id;
-            // HTTP DELETE
-            string uri = "api/Books/" + ID;
-
-
-            HttpResponseMessage response = await _client.DeleteAsync(uri);
-
-            response.EnsureSuccessStatusCode();
-
-            // return RedirectToAction("Index", "Books");
-            //  return RedirectToAction(nameof(Index)); 
-
-            return RedirectToAction("Index", "Books");
-
         }
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////

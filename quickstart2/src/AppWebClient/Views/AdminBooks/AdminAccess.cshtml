@@ -1,0 +1,37 @@
+﻿
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+
+@{
+    ViewBag.Title = "Admin Portal";
+}
+
+
+@*
+    VUE DU CONCTROLEUR "ADMINBOOKSCONTROLLER"
+*@
+
+
+<br />
+<br />
+
+<h1>Administration du site ES-Bookshop</h1>
+<br />
+<div>
+    <br />
+    <hr />
+    @*Lien d'administration *@
+    @Html.ActionLink("Tableau de bord", "VerifyUserRole", "Dashboard")<br />
+    @Html.ActionLink("Administration des livres", "Index", "AdminBooks")<br />
+    @Html.ActionLink("Gestion des paniers d'achat", "Index", "AdminShoppingCarts")<br />
+    @Html.ActionLink("Gestion du stock ", "Index", "Stocks")<br />
+    @Html.ActionLink("Administration des rôles (utilisateurs) ", "PageAdmin", "Home")<br />
+    @Html.ActionLink("Gestion des utilisateurs", "Index", "AspNetUsers")<br />
+    <br />
+    <hr />
+    @Html.ActionLink("Liste des Appréciations", "Index", "Appreciations")<br />
+    @Html.ActionLink("Liste des Catégories", "Index", "Categories")<br />
+    <br />
+    <hr />
+</div>
+

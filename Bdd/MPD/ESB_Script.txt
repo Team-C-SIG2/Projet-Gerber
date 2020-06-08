@@ -1,5 +1,5 @@
 USE [ESBookshop]
-GO
+GO     
 /****** Object:  Table [dbo].[_EFMigrationsHistory]    Script Date: 18.05.2020 17:00:05 ******/
 SET ANSI_NULLS ON
 GO

@@ -1,0 +1,155 @@
+﻿@model AppWebClient.Models.Book
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<h1>Gestion des livres</h1>
+
+<h4>Nouvelle insertion</h4>
+<hr />
+
+
+
+<form asp-action="Post">
+
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <input type="hidden" asp-for="Id" />
+
+
+    <div class="row">
+        <div class="col">
+            <label asp-for="Title" class="control-label">Titre</label>
+        </div>
+        <div class="col">
+            <input asp-for="Title" class="form-control" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col">
+            <label asp-for="Isbn" class="control-label">Isbn</label>
+        </div>
+        <div class="col">
+            <input asp-for="Isbn" class="form-control" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="Isbn" class="text-danger"></span>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col">
+            <label asp-for="Price" class="control-label">Prix</label>
+        </div>
+        <div class="col">
+            <input asp-for="Price" class="form-control" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+
+    </div>
+
+
+    <div class="row">
+        <div class="col">
+            <label asp-for="@Model.IdEditorNavigation.CountryCode" class="control-label">Editeur</label>
+        </div>
+        <div class="col">
+            <select asp-for="IdEditor" class="form-control" asp-items="ViewBag.EDITEURS"></select>
+            <input type="hidden" asp-for="@Model.IdEditorNavigation.Name" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="@Model.IdEditorNavigation.Name" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <label asp-for="DatePublication" class="control-label">Date de publication</label>
+        </div>
+        <div class="col">
+            <input asp-for="DatePublication" class="form-control" value="/" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="DatePublication" class="text-danger"></span>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col">
+            <label asp-for="Subtitle" class="control-label">Sous-titre</label>
+        </div>
+        <div class="col">
+            <input asp-for="Subtitle" class="form-control" value="/" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="Subtitle" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <label asp-for="Summary" class="control-label">Résumé</label>
+        </div>
+        <div class="col">
+            <textarea asp-for="Summary" class="form-control"></textarea>
+        </div>
+        <div class="col">
+            <span asp-validation-for="Summary" class="text-danger"></span>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col">
+            <label asp-for="Stock" class="control-label"></label>
+        </div>
+        <div class="col">
+            <input asp-for="Stock" class="form-control" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="Stock" class="text-danger"></span>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col">
+            <label asp-for="StockInitial" class="control-label"></label>
+        </div>
+        <div class="col">
+            <input asp-for="StockInitial" class="form-control" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="StockInitial" class="text-danger"></span>
+        </div>
+    </div>
+
+    <br /><br />
+          <div class="row">
+              <div class="col">
+                  <input type="submit" value="Créer" class="btn btn-primary" />
+              </div>
+          </div>
+
+</form>
+<br />
+
+<div>
+    <a asp-action="Index">Retour à la liste</a>
+</div>
+

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<AppWebClient.Models.Cowriter>
+
+@{
+    ViewData["Title"] = "ManageCowriters";
+}
+
+<h1>Auteur(s)</h1>
+<h4> Auteur(s) du livre : @ViewBag.BOOKTITLE</h4>
+<p>
+    <a asp-action="CreateCowriter" asp-route-id="@ViewBag.BOOKID">Insérer</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               Auteur
+            </th>
+            <th>
+                ISBN
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdAuthorNavigation.Firstname)  @Html.DisplayFor(modelItem => item.IdAuthorNavigation.Lastname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdBookNavigation.Isbn)
+            </td>
+            <td>
+                @Html.ActionLink("Supprimer", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

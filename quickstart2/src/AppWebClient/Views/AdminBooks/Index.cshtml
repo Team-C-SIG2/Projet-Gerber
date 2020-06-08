@@ -1,0 +1,106 @@
+﻿@model IEnumerable<AppWebClient.Models.Book>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Administration des livres</h1>
+<hr />
+@Html.ActionLink("Rechercher", "Search", "Books") |
+@Html.ActionLink("Nouveau", "Create", "AdminBooks") |
+@Html.ActionLink("Accueil", "Index", "Home")
+<br />
+<br />
+
+<table id="table" class="compact hover stripe">
+    <thead>
+        <tr>
+            <th>
+                Titre
+            </th>
+            <th>
+                Date de publication
+            </th>
+            <th>
+                ISBN
+            </th>
+
+            <th>
+                Prix
+            </th>
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @if (@item.DatePublication != null)
+                    {
+                        @Convert.ToDateTime(@item.DatePublication).ToString("dd.MM.yyyy")
+                    }
+                    else
+                    {<text>/</text>}
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Isbn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <a class="btn btn-default" asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a>
+                    <a class="btn btn-default" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info"></i></a>
+                    <a class="btn btn-default" asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-trash-alt"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#table').DataTable({
+                dom: '<"wrapper"lipt>',
+                language: {
+                    "sEmptyTable": "Aucune donnée disponible dans le tableau",
+                    "sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+                    "sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+                    "sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ",",
+                    "sLengthMenu": "Afficher _MENU_ éléments",
+                    "sLoadingRecords": "Chargement...",
+                    "sProcessing": "Traitement...",
+                    "sSearch": "Rechercher :",
+                    "sZeroRecords": "Aucun élément correspondant trouvé",
+                    "oPaginate": {
+                        "sFirst": "Premier",
+                        "sLast": "Dernier",
+                        "sNext": "Suivant",
+                        "sPrevious": "Précédent"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                        "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+                    },
+                    "select": {
+                        "rows": {
+                            "_": "%d lignes sélectionnées",
+                            "0": "Aucune ligne sélectionnée",
+                            "1": "1 ligne sélectionnée"
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+}
