@@ -84,10 +84,10 @@
 
         public async Task<IActionResult> Details(int? id)
         {
-            string uri = _url + id;
-
             Categorie categorie = new Categorie();
-
+            string uri = _configuration["URLApi"] + _url + id;
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             HttpResponseMessage response = await _client.GetAsync(uri);
 
             if (response.IsSuccessStatusCode)
@@ -115,7 +115,7 @@
         // Display the "Create" View of CategoriesController 
         // GET: Categories/Create
         // ________________________________________________________
-        public async Task<IActionResult> Create(Categorie categorie)
+        public IActionResult Create(Categorie categorie)
         {
             return View("Create");
         }
@@ -126,7 +126,9 @@
         // ________________________________________________________
         public async Task<IActionResult> PostCategorie(Categorie categorie)
         {
-            HttpResponseMessage response = await _client.PostAsJsonAsync("api/categories", categorie);
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            HttpResponseMessage response = await _client.PostAsJsonAsync(_configuration["URLApi"] + "api/categories", categorie);
             response.EnsureSuccessStatusCode();
             return RedirectToAction("Index", "Categories");
         }
@@ -146,9 +148,12 @@
 
         public async Task<IActionResult> Edit(int? id)
         {
-            string uri = _url + id;
             Categorie categorie = new Categorie();
+            string uri = _configuration["URLApi"] + _url + id;
+            Genre genre = new Genre();
 
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             HttpResponseMessage response = await _client.GetAsync(uri);
 
             if (response.IsSuccessStatusCode)
@@ -172,7 +177,10 @@
         // ________________________________________________________
         public async Task<IActionResult> PutCategorie(int id, Categorie categorie)
         {
-            string uri = _url + id;
+            string uri = _configuration["URLApi"] + _url + id;
+
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             HttpResponseMessage response = await _client.PutAsJsonAsync(uri, categorie);
             response.EnsureSuccessStatusCode();
 
@@ -197,8 +205,10 @@
             }
 
             // HTTP DELETE
-            string uri = _url + id;
+            string uri = _configuration["URLApi"] + _url + id;
 
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             HttpResponseMessage response = await _client.DeleteAsync(uri);
             response.EnsureSuccessStatusCode();
 
@@ -212,16 +222,27 @@
         // Verify if a categorie existe 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        private bool CategorieExists(int id)
+        private async Task<bool> CategorieExistsAsync(int id)
         {
             bool exist = false;
-            if (id > 0)
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            HttpResponseMessage response = await _client.GetAsync(_configuration["URLApi"] + _url);
+            if (response.IsSuccessStatusCode)
             {
-                exist = true;
+                var result = response.Content.ReadAsStringAsync().Result;
+                var genres = JsonConvert.DeserializeObject<List<Categorie>>(result);
+                foreach (var genre in genres)
+                {
+                    if (genre.Id == id)
+                    {
+                        exist = true;
+                    }
+                }
             }
             else
             {
-                exist = false;
+                return false;
             }
 
             return exist;
