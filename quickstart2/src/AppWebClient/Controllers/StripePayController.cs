@@ -223,6 +223,26 @@ namespace AppWebClient.Controllers
                 }
 
                 // ___________________________________________________
+                // Enregistrement de la commande dans la BD
+                // ___________________________________________________
+                string contentCustomer = await client.GetStringAsync(_configuration["URLApi"] + "api/Customers/");
+                Models.Customer currentCustomer = JsonConvert.DeserializeObject<Models.Customer>(contentCustomer);
+                Models.Order order = new Models.Order
+                {
+                    UserId = idUser,
+                    OrderedDate = DateTime.Now,
+                    ShippedDate = DateTime.Now,
+                    ShippingAddress = currentCustomer.BillingAddress,
+                    Status = "Envoyé",
+                    TotalPrice = montant
+                };
+                response = await client.PostAsJsonAsync(_configuration["URLApi"] + "api/Orders/", order);
+                if (response.StatusCode != HttpStatusCode.OK)
+                {
+                    return BadRequest();
+                }
+
+                // ___________________________________________________
                 // Récupération du Shoppingcart pour suppression des LineItems dans la BD après validation du paiement
                 // ___________________________________________________
                 response = await client.GetAsync(_configuration["URLApi"] + "api/LineItems/DeleteItems/" + shoppingcart.Id);

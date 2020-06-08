@@ -4,6 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <OutputType>Exe</OutputType>
     <UserSecretsId>b2d6713e-e54e-4d8e-97fd-e4e601ec5af4</UserSecretsId>
+    <ApplicationIcon />
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="bin\**" />
