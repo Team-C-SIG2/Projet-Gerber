@@ -1,5 +1,4 @@
 ﻿using AppWebClient.Models;
-using AppWebClient.Tools;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -11,35 +10,35 @@ using System.Threading.Tasks;
 
 namespace AppWebClient.Controllers
 {
-    public class CategoriesController : Controller
+    public class AuthorsController : Controller
     {
 
         // HTTPCLIENT 
         private readonly HttpClient _client;
 
         // URL   
-        private string _url = $"api/categories/";
+        private string _url = $"api/authors/";
 
         private IConfiguration _configuration;
 
-        public CategoriesController(IConfiguration configuration) {
+        public AuthorsController(IConfiguration configuration) {
             _configuration = configuration;
             _client = new HttpClient();
         }
 
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // READ: Return the Categories list
-        // GET: .../ api/Categories/
+        // READ: Return the Authors list
+        // GET: .../ api/Authors/
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // ________________________________________________________
         // Entry point of the Controller (View)
-        // Return all Categories 
+        // Return all Authors 
         // ________________________________________________________       
         public async Task<IActionResult> Index()
         {
-            List<Categorie> categories = new List<Categorie>();
+            List<Author> authors = new List<Author>();
 
             string accessToken = await HttpContext.GetTokenAsync("access_token");
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
@@ -48,42 +47,42 @@ namespace AppWebClient.Controllers
             if (response.IsSuccessStatusCode)
             {
                 var result = response.Content.ReadAsStringAsync().Result;
-                categories = JsonConvert.DeserializeObject<List<Categorie>>(result);
+                authors = JsonConvert.DeserializeObject<List<Author>>(result);
             }
             else
             {
                 return NotFound();
             }
 
-            return View(categories);
+            return View(authors);
         }
 
         // ________________________________________________________
-        // Return a Categorie by its Id 
-        // GET: .../ api/Categories/S
+        // Return a Author by its Id 
+        // GET: .../ api/Authors/S
         // ________________________________________________________  
 
-        public async Task<Categorie> ReadOne(int? id)
+        public async Task<Author> ReadOne(int? id)
         {
-            Categorie categorie = null;
+            Author author = null;
             HttpResponseMessage response = await _client.GetAsync(_url + id);
 
             if (response.IsSuccessStatusCode)
             {
-                categorie = await response.Content.ReadAsAsync<Categorie>();
+                author = await response.Content.ReadAsAsync<Author>();
             }
-            return categorie;
+            return author;
         }
 
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Get the Details of a resource Categorie (by id)
-        // GET : Categories/Details/5
+        // Get the Details of a resource Author (by id)
+        // GET : Authors/Details/5
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         public async Task<IActionResult> Details(int? id)
         {
-            Categorie categorie = new Categorie();
+            Author author = new Author();
             string uri = _configuration["URLApi"] + _url + id;
             string accessToken = await HttpContext.GetTokenAsync("access_token");
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
@@ -92,7 +91,7 @@ namespace AppWebClient.Controllers
             if (response.IsSuccessStatusCode)
             {
                 var result = response.Content.ReadAsStringAsync().Result;
-                categorie = JsonConvert.DeserializeObject<Categorie>(result);
+                author = JsonConvert.DeserializeObject<Author>(result);
             }
             else
             {
@@ -100,54 +99,54 @@ namespace AppWebClient.Controllers
                 return View();
             }
 
-            return View(categorie);
+            return View(author);
 
         }// END 
 
 
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // To Create a new Categorie 
+        // To Create a new Author 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // ________________________________________________________
-        // Display the "Create" View of CategoriesController 
-        // GET: Categories/Create
+        // Display the "Create" View of AuthorsController 
+        // GET: Authors/Create
         // ________________________________________________________
-        public IActionResult Create(Categorie categorie)
+        public IActionResult Create(Author author)
         {
             return View("Create");
         }
 
         // ________________________________________________________
-        // Post (send) the new Ressource Categorie to the API Server 
-        // POST: Categories/Create
+        // Post (send) the new Ressource Author to the API Server 
+        // POST: Authors/Create
         // ________________________________________________________
-        public async Task<IActionResult> PostCategorie(Categorie categorie)
+        public async Task<IActionResult> PostAuthor(Author author)
         {
             string accessToken = await HttpContext.GetTokenAsync("access_token");
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            HttpResponseMessage response = await _client.PostAsJsonAsync(_configuration["URLApi"] + "api/categories", categorie);
+            HttpResponseMessage response = await _client.PostAsJsonAsync(_configuration["URLApi"] + "api/authors", author);
             response.EnsureSuccessStatusCode();
-            return RedirectToAction("Index", "Categories");
+            return RedirectToAction("Index", "Authors");
         }
 
 
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // UPDATE : Update a Categorie 
-        // PUT (HTTP VERB) : api/Categories/
+        // UPDATE : Update a Author 
+        // PUT (HTTP VERB) : api/Authors/
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
         // ________________________________________________________
-        // READ: Edit Categorie for UPDATE
-        // GET: api/Categories/Edit/5
+        // READ: Edit Author for UPDATE
+        // GET: api/Authors/Edit/5
         // ________________________________________________________
 
         public async Task<IActionResult> Edit(int? id)
         {
-            Categorie categorie = new Categorie();
+            Author author = new Author();
             string uri = _configuration["URLApi"] + _url + id;
             Genre genre = new Genre();
 
@@ -158,7 +157,7 @@ namespace AppWebClient.Controllers
             if (response.IsSuccessStatusCode)
             {
                 var result = response.Content.ReadAsStringAsync().Result;
-                categorie = JsonConvert.DeserializeObject<Categorie>(result);
+                author = JsonConvert.DeserializeObject<Author>(result);
             }
             else
             {
@@ -166,31 +165,31 @@ namespace AppWebClient.Controllers
                 return View();
             }
 
-            return View(categorie);
+            return View(author);
         }
 
 
         // ________________________________________________________
-        // UPDATE : Update a categorie ->  <form asp-action="PutCategorie">
-        // PUT: / api/Categories/
+        // UPDATE : Update a author ->  <form asp-action="PutAuthor">
+        // PUT: / api/Authors/
         // ________________________________________________________
-        public async Task<IActionResult> PutCategorie(int id, Categorie categorie)
+        public async Task<IActionResult> PutAuthor(int id, Author author)
         {
             string uri = _configuration["URLApi"] + _url + id;
 
             string accessToken = await HttpContext.GetTokenAsync("access_token");
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            HttpResponseMessage response = await _client.PutAsJsonAsync(uri, categorie);
+            HttpResponseMessage response = await _client.PutAsJsonAsync(uri, author);
             response.EnsureSuccessStatusCode();
 
-            return RedirectToAction("Index", "Categories");
+            return RedirectToAction("Index", "Authors");
         }
 
 
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Delete a Categorie
-        // DELETE: Categories/Delete/5
+        // Delete a Author
+        // DELETE: Authors/Delete/5
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -212,16 +211,16 @@ namespace AppWebClient.Controllers
             response.EnsureSuccessStatusCode();
 
             // return RedirectToAction(nameof(Index));
-            return RedirectToAction("Index", "Categories");
+            return RedirectToAction("Index", "Authors");
         }
 
 
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Verify if a categorie existe 
+        // Verify if a author existe 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        private async Task<bool> CategorieExistsAsync(int id)
+        private async Task<bool> AuthorExistsAsync(int id)
         {
             bool exist = false;
             string accessToken = await HttpContext.GetTokenAsync("access_token");
@@ -230,7 +229,7 @@ namespace AppWebClient.Controllers
             if (response.IsSuccessStatusCode)
             {
                 var result = response.Content.ReadAsStringAsync().Result;
-                var genres = JsonConvert.DeserializeObject<List<Categorie>>(result);
+                var genres = JsonConvert.DeserializeObject<List<Author>>(result);
                 foreach (var genre in genres)
                 {
                     if (genre.Id == id)
