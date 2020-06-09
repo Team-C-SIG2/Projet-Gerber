@@ -13,8 +13,8 @@ namespace Api.Controllers
     [ApiController]
     public class ImageController : ControllerBase
     {
-        [HttpPost]
-        public async Task<IActionResult> Post(IFormFile file)
+        [HttpPost("upload")]
+        public async Task<IActionResult> Post(string image)
         {
             var uploads = Path.Combine("/", "Images");
             /*var filePath = Path.Combine(uploads, formFile.FileName);
