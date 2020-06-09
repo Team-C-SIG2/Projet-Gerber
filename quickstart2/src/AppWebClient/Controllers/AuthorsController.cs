@@ -1,9 +1,11 @@
 ﻿using AppWebClient.Models;
+using AppWebClient.ViewModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -196,7 +198,10 @@ namespace AppWebClient.Controllers
         // GET: Movies/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-
+            ErrorViewModel e = new ErrorViewModel
+            {
+                RequestId = ""
+            };
             if (id == null)
             {
                 return NotFound();
