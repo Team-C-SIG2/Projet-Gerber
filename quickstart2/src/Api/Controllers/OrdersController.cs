@@ -25,11 +25,12 @@ namespace Api.Controllers
             return await _context.Orders.ToListAsync();
         }
 
-        [Route("Commandes")]
-        public IQueryable<Order> GetOrdersWithUser()
+        [Route("Commandes/{id}")]
+        public async Task<ActionResult<IEnumerable<Order>>> GetOrdersWithUser(string id)
         {
             IQueryable<Order> orders =
                 (from i in _context.Orders
+                 where i.UserId == id
                  select new Order()
                  {
                      Id = i.Id,
@@ -43,7 +44,12 @@ namespace Api.Controllers
                      TotalPrice = i.TotalPrice
                  });
 
-            return orders;
+            if(orders == null)
+            {
+                return NotFound();
+            }
+
+            return await orders.ToListAsync();
         }
 
         // GET: api/Orders/5

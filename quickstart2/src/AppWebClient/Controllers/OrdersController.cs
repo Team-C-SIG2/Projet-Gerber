@@ -31,31 +31,21 @@ namespace AppWebClient.Controllers
 
             string userId = await client.GetStringAsync(_configuration["URLApi"] + "api/AspNetUsers/UserId/");
             string uriOrder = _url + "Commandes/" + userId;
-
-            // Changer l'API Orders comme dans l'API LineItems !
-
-            Order order;
-            HttpResponseMessage response = await client.GetAsync(uriOrder);
-            if (response.IsSuccessStatusCode && response.ReasonPhrase != "No Content")
+            IEnumerable<Order> orders;
+            string content = await client.GetStringAsync(uriOrder);
+            if (content != "[]")
             {
-                string result = response.Content.ReadAsStringAsync().Result;
-                order = JsonConvert.DeserializeObject<Order>(result);
-                string content = await client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/Wishlist/" + order.Id);
-                if (content != null)
-                {
-                    lineItems = JsonConvert.DeserializeObject<IEnumerable<LineItem>>(content);
-                }
-                else
-                {
-                    return NotFound();
-                }
+                orders = JsonConvert.DeserializeObject<IEnumerable<Order>>(content);
             }
             else
             {
                 return View("Empty");
             }
 
-            return View();
+            // Changer l'API Orders comme dans l'API LineItems !
+
+
+            return View(orders);
         }
     }
 }
