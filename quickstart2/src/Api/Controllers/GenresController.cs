@@ -1,5 +1,6 @@
 ﻿using Api.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -93,8 +94,27 @@ namespace Api.Controllers
                 return NotFound();
             }
 
+
             _context.Genres.Remove(genre);
-            await _context.SaveChangesAsync();
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                var sqlException = ex.GetBaseException() as SqlException;
+
+                if (sqlException != null)
+                {
+                    var number = sqlException.Number;
+
+                    if (number == 547)
+                    {
+                        return ValidationProblem(sqlException.Message);
+                    }
+                }
+            }
 
             return genre;
         }
