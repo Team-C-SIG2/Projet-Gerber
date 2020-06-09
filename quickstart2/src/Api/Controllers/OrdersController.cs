@@ -25,6 +25,33 @@ namespace Api.Controllers
             return await _context.Orders.ToListAsync();
         }
 
+        [Route("Commandes/{id}")]
+        public async Task<ActionResult<IEnumerable<Order>>> GetOrdersWithUser(string id)
+        {
+            IQueryable<Order> orders =
+                (from i in _context.Orders
+                 where i.UserId == id
+                 select new Order()
+                 {
+                     Id = i.Id,
+                     User = (from user in _context.AspNetUsers
+                             where user.Id == i.UserId
+                             select user).FirstOrDefault(),
+                     OrderedDate = i.OrderedDate,
+                     ShippedDate = i.ShippedDate,
+                     ShippingAddress = i.ShippingAddress,
+                     Status = i.Status,
+                     TotalPrice = i.TotalPrice
+                 });
+
+            if(orders == null)
+            {
+                return NotFound();
+            }
+
+            return await orders.ToListAsync();
+        }
+
         // GET: api/Orders/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Order>> GetOrders(int id)
@@ -80,7 +107,8 @@ namespace Api.Controllers
             _context.Orders.Add(orders);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetOrders", new { id = orders.Id }, orders);
+            return orders;
+            // return CreatedAtAction("GetOrders", new { id = orders.Id }, orders);
         }
 
         // DELETE: api/Orders/5

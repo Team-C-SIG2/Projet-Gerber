@@ -107,8 +107,7 @@ namespace Api.Controllers
         // Return a Book (id)
         // GET: api/Books/5
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        [HttpGet("{id}")]
+        
         [Route("GetOneBook/{id}")]
         public async Task<ActionResult<Book>> GetOne(int id)
         {
@@ -142,7 +141,7 @@ namespace Api.Controllers
 
             return book;
         }
-
+        
 
 
 
