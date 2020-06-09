@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -209,7 +210,16 @@ namespace AppWebClient.Controllers
             string accessToken = await HttpContext.GetTokenAsync("access_token");
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             HttpResponseMessage response = await _client.DeleteAsync(uri);
-            response.EnsureSuccessStatusCode();
+            if (response.StatusCode == HttpStatusCode.BadRequest)
+            {
+                e.RequestId = "Suppression impossible car l'objet est utilisé par une autre entité";
+                return View("Error", e);
+            }
+            else if (!response.IsSuccessStatusCode)
+            {
+                e.RequestId = response.ReasonPhrase;
+                return View("Error", e);
+            }
 
             // return RedirectToAction(nameof(Index));
             return RedirectToAction("Index", "Categories");
