@@ -100,7 +100,16 @@
     <br />
     <hr />
     @Html.ActionLink("Retour à l'accueil", "Index", "Home")<br />
-    @Html.ActionLink("Contenu du panier", "Index", new { Controller = "LineItems", action = "Index"})
+    @if (CUSTOMER.BillingAddress == null)
+    {
+        @Html.ActionLink("Contenu du panier", "Index", new { Controller = "LineItems", action = "Index" }, new { onclick = "javascript:return false;" })<br />
+        <br />
+        <p class="alert alert-danger" role="alert">Veuillez saisir une adresse de facturation</p>
+    } 
+    else
+    {
+        @Html.ActionLink("Contenu du panier", "Index", new { Controller = "LineItems", action = "Index" })
+    }
 </div>
 
 
