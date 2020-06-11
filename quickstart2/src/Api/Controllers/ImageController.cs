@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Api.ViewModel;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,16 +14,23 @@ namespace Api.Controllers
     [ApiController]
     public class ImageController : ControllerBase
     {
-        [HttpPost]
-        public async Task<IActionResult> Post(IFormFile file)
+        private readonly IWebHostEnvironment _hostingEnvironment;
+
+        public ImageController(IWebHostEnvironment hostingEnvironment) {
+            _hostingEnvironment = hostingEnvironment;
+        }
+
+        [HttpPost("{id}")]
+        public async Task<IActionResult> Post(string id, IFormFile file)
         {
-            var uploads = Path.Combine("/", "Images");
-            /*var filePath = Path.Combine(uploads, formFile.FileName);
+            string root = Path.Combine(_hostingEnvironment.WebRootPath, "Images");
+            string extension = ".jpg";
+            string filePath = Path.Combine(root, id+extension);
             using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
-                await formFile.CopyToAsync(fileStream);
+                await file.CopyToAsync(fileStream);
                 fileStream.Flush();
-            }*/
+            }
 
             return Ok();
         }

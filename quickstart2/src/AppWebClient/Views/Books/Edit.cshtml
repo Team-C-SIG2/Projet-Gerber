@@ -14,7 +14,7 @@
 <div class="row">
     <div class="col-md-4">
 
-        <form asp-action="PutRessource">
+        <form asp-action="PutRessource" enctype="multipart/form-data">
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -55,10 +55,9 @@
                 <label asp-for="DatePublication" class="control-label"></label>
                 @if (@Model.DatePublication != null)
                 {
-                    @Html.TextBoxFor(model => model.DatePublication, "{0:dd.MM.yyyy}", new { @class = "form-control datepicker" })
-                }
-                else
-                { <input asp-for="DatePublication" class="form-control" value="/" />}
+        @Html.TextBoxFor(model => model.DatePublication, "{0:dd.MM.yyyy}", new { @class = "form-control datepicker" }) }
+    else
+    { <input asp-for="DatePublication" class="form-control" value="/" />}
                 <span asp-validation-for="DatePublication" class="text-danger"></span>
             </div>
 
@@ -68,10 +67,9 @@
                 <label asp-for="Subtitle" class="control-label"></label>
                 @if (@Model.Subtitle != null)
                 {
-                    <input asp-for="Subtitle" class="form-control" />
-                }
-                else
-                { <input asp-for="Subtitle" class="form-control" value="/" />}
+        <input asp-for="Subtitle" class="form-control" /> }
+    else
+    { <input asp-for="Subtitle" class="form-control" value="/" />}
 
                 <span asp-validation-for="Subtitle" class="text-danger"></span>
 
@@ -82,17 +80,22 @@
                 <label asp-for="Summary" class="control-label"></label>
                 @if (@Model.Summary != null)
                 {
-                    <input asp-for="Summary" class="form-control" />
-                }
-                else
-                { <input asp-for="Summary" class="form-control" value="/" />}
+        <input asp-for="Summary" class="form-control" /> }
+    else
+    { <input asp-for="Summary" class="form-control" value="/" />}
                 <span asp-validation-for="Summary" class="text-danger"></span>
             </div>
 
+            <div class="form-group">
+                <img src="@ViewBag.imgUrl" alt="No available image">
+                <label for="Images" class="control-label">Images</label>
+                <input name="images" id="Images" type="file" class="form-control" />
+            </div>
 
             <div class="form-group">
                 <input type="submit" value="Mettre à jour" class="btn btn-primary" />
             </div>
+
 
 
         </form>
