@@ -25,6 +25,32 @@ namespace Api.Controllers
             return await _context.Payments.ToListAsync();
         }
 
+        [Route("DetailsPaiement/{id}")]
+        public async Task<ActionResult<Payment>> GetPaymentDetails(int id)
+        {
+            Payment payment =
+                (from i in _context.Payments
+                 where i.IdOrder == id
+                 select new Payment()
+                 {
+                     Id = i.Id,
+                     User = (from user in _context.AspNetUsers
+                             where user.Id == i.UserId
+                             select user).FirstOrDefault(),
+                     IdOrder = i.IdOrderNavigation.Id,
+                     PaidDate = i.PaidDate,
+                     PriceTotal = i.PriceTotal,
+                     Details = i.Details
+                 }).FirstOrDefault();
+
+            if (payment == null)
+            {
+                return NotFound();
+            }
+
+            return payment;
+        }
+
         // GET: api/Payments/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Payment>> GetPayment(int id)

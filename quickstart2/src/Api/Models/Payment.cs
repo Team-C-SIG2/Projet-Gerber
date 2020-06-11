@@ -17,6 +17,8 @@ namespace Api.Models
         [Required]
         [StringLength(450)]
         public string UserId { get; set; }
+        [Column("Id_Order")]
+        public int IdOrder { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime PaidDate { get; set; }
         [Column(TypeName = "money")]
@@ -24,6 +26,9 @@ namespace Api.Models
         [Required]
         public string Details { get; set; }
 
+        [ForeignKey(nameof(IdOrder))]
+        [InverseProperty(nameof(Order.Payments))]
+        public virtual Order IdOrderNavigation { get; set; }
         [ForeignKey(nameof(UserId))]
         [InverseProperty(nameof(AspNetUser.Payments))]
         public virtual AspNetUser User { get; set; }

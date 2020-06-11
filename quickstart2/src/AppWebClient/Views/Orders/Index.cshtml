@@ -4,7 +4,7 @@
     ViewData["Title"] = "Mes commandes";
 }
 
-<h1>Mes commandes</h1>
+<h1>Récapitulatif de mes commandes</h1>
 <br />
 
 <table class="table">
@@ -48,7 +48,7 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                <a asp-controller="Books" asp-action="Index">Détails de la commande</a>
+                <a asp-controller="Payments" asp-action="Index">Détails de la commande (En construction)</a>
             </td>
         </tr>
         }

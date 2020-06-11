@@ -1,5 +1,5 @@
-USE [ESBookshop]
-GO     
+﻿USE [ESBookshop]
+GO
 /****** Object:  Table [dbo].[_EFMigrationsHistory]    Script Date: 18.05.2020 17:00:05 ******/
 SET ANSI_NULLS ON
 GO
@@ -351,6 +351,7 @@ GO
 CREATE TABLE [dbo].[Payments](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[UserId] [nvarchar](450) NOT NULL,
+	[Id_Order] [int] NOT NULL,
 	[PaidDate] [datetime] NOT NULL,
 	[PriceTotal] [money] NOT NULL,
 	[Details] [nvarchar](max) NOT NULL,
@@ -1344,6 +1345,11 @@ ALTER TABLE [dbo].[Payments]  WITH CHECK ADD  CONSTRAINT [FK_PAYMENTS_USERS] FOR
 REFERENCES [dbo].[AspNetUsers] ([Id])
 GO
 ALTER TABLE [dbo].[Payments] CHECK CONSTRAINT [FK_PAYMENTS_USERS]
+GO
+ALTER TABLE [dbo].[Payments]  WITH CHECK ADD  CONSTRAINT [FK_PAYMENTS_ORDERS] FOREIGN KEY([Id_Order])
+REFERENCES [dbo].[Orders] ([Id])
+GO
+ALTER TABLE [dbo].[Payments] CHECK CONSTRAINT [FK_PAYMENTS_ORDERS]
 GO
 ALTER TABLE [dbo].[Ranks]  WITH CHECK ADD  CONSTRAINT [FK_RANKS_BOOKS] FOREIGN KEY([Id_Book])
 REFERENCES [dbo].[Books] ([Id])
