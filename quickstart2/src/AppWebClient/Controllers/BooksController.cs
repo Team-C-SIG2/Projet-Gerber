@@ -17,6 +17,7 @@ using System.Net;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace AppWebClient.Controllers
 {
@@ -194,7 +195,7 @@ namespace AppWebClient.Controllers
                 }
             }
 
-            return RedirectToAction("Index", "Books");
+            return RedirectToAction("Details", "Books", new {id= insertedBook.Id});
 
         }
 
@@ -272,7 +273,7 @@ namespace AppWebClient.Controllers
 
             foreach (var file in images)
             {
-                if (file.Length <= 0)
+                if (file.Length <= 0 || file.ContentType != "image")
                     continue;
 
                 var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
@@ -292,7 +293,7 @@ namespace AppWebClient.Controllers
                 }
             }
 
-            return RedirectToAction("Index", "Books");
+            return RedirectToAction("Details", "Books", new { id });
         }
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
