@@ -16,6 +16,7 @@ using System.Text;
 using System.Net;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace AppWebClient.Controllers
 {
@@ -94,6 +95,8 @@ namespace AppWebClient.Controllers
 
         public async Task<IActionResult> Details(int? id)
         {
+            ViewBag.imgUrl = _configuration["URLApi"]+"/images/"+id+".jpg";
+
             string accessToken = await HttpContext.GetTokenAsync("access_token");
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
@@ -126,9 +129,12 @@ namespace AppWebClient.Controllers
 
             List<Editor> editors;
 
-            string uriEditors = _url + "GetEditors";
+            string uriEditors = _configuration["URLApi"]+ _url + "GetEditors";
 
-            HttpResponseMessage responseLineItem = await _client.GetAsync(uriEditors); // HTTP GET
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            HttpResponseMessage responseLineItem = await client.GetAsync(uriEditors); // HTTP GET
 
             if (responseLineItem.IsSuccessStatusCode)
             {
@@ -144,9 +150,8 @@ namespace AppWebClient.Controllers
         // Post (send) the new Ressource Book to the API Server 
         // POST: Books/Create
         // ________________________________________________________
-        public async Task<IActionResult> PostRessource(Book book)
+        public async Task<IActionResult> PostRessource(Book book, ICollection<IFormFile> Images)
         {
-
             Book b = new Book
             {
                 IdEditor = book.IdEditor,
@@ -157,10 +162,37 @@ namespace AppWebClient.Controllers
                 Summary = book.Summary,
                 Isbn = book.Isbn
             };
-
-            HttpResponseMessage response = await _client.PostAsJsonAsync("api/Books", b);
-
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            HttpResponseMessage response = await client.PostAsJsonAsync(_configuration["URLApi"]+"api/Books", b);
             response.EnsureSuccessStatusCode();
+
+            string bookString = await response.Content.ReadAsStringAsync();
+
+
+            Book insertedBook = JsonConvert.DeserializeObject<Book>(bookString);
+            foreach (var file in Images)
+            {
+                if (file.Length <= 0)
+                    continue;
+
+                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+
+                using (var content = new MultipartFormDataContent())
+                {
+                    content.Add(new StreamContent(file.OpenReadStream())
+                    {
+                        Headers =
+                    {
+                        ContentLength = file.Length,
+                        ContentType = new MediaTypeHeaderValue(file.ContentType)
+                    }
+                    }, "File", fileName);
+
+                    var responseImg = await _client.PostAsync(_configuration["URLApi"] + "api/image/"+insertedBook.Id, content);
+                }
+            }
 
             return RedirectToAction("Index", "Books");
 
@@ -179,6 +211,8 @@ namespace AppWebClient.Controllers
 
         public async Task<IActionResult> Edit(int? id, Book book)
         {
+            ViewBag.imgUrl = _configuration["URLApi"] + "/images/" + id + ".jpg";
+
             string accessToken = await HttpContext.GetTokenAsync("access_token");
 
             HttpClient client = new HttpClient();
@@ -202,6 +236,7 @@ namespace AppWebClient.Controllers
                 {
                     return BadRequest();
                 }
+
                 return RedirectToAction(nameof(Index));
             }
 
@@ -213,9 +248,12 @@ namespace AppWebClient.Controllers
         // UPDATE : Update a Books ->  <form asp-action="PutRessource">
         // PUT: / api/Books/
         // ________________________________________________________
-        public async Task<IActionResult> PutRessource(int id, Book book)
+        public async Task<IActionResult> PutRessource(int id, Book book, ICollection<IFormFile> images)
         {
-            string uri = _url + id;
+            string uri = _configuration["URLApi"] + _url + id;
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
 
             Book b = new Book
             {
@@ -231,6 +269,28 @@ namespace AppWebClient.Controllers
 
             HttpResponseMessage response = await _client.PutAsJsonAsync(uri, b);
             response.EnsureSuccessStatusCode();
+
+            foreach (var file in images)
+            {
+                if (file.Length <= 0)
+                    continue;
+
+                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+
+                using (var contentImg = new MultipartFormDataContent())
+                {
+                    contentImg.Add(new StreamContent(file.OpenReadStream())
+                    {
+                        Headers =
+                    {
+                        ContentLength = file.Length,
+                        ContentType = new MediaTypeHeaderValue(file.ContentType)
+                    }
+                    }, "File", fileName);
+
+                    var responseImg = await _client.PostAsync(_configuration["URLApi"] + "api/image/" + id, contentImg);
+                }
+            }
 
             return RedirectToAction("Index", "Books");
         }

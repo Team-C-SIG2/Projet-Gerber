@@ -1,4 +1,4 @@
-﻿@model AppWebClient.Models.Book
+﻿@model AppWebClient.ViewModel.BookImg
 
 @{
     ViewData["Title"] = "Create";
@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="PostRessource">
+        <form asp-action="PostRessource" enctype="multipart/form-data">
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -48,6 +48,15 @@
                 <label asp-for="Isbn" class="control-label"></label>
                 <input asp-for="Isbn" class="form-control" />
                 <span asp-validation-for="Isbn" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                <label asp-for="Images" class="control-label"></label>
+                <input asp-for="Images" class="form-control" />
+                <span asp-validation-for="Images" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <label for="Images" class="control-label">Images</label>
+                <input name="Images" id="Images" type="file" class="form-control" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
