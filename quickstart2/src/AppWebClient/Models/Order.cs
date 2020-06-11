@@ -10,6 +10,7 @@ namespace AppWebClient.Models
         public Order()
         {
             Appreciations = new HashSet<Appreciation>();
+            Payments = new HashSet<Payment>();
         }
 
         [Key]
@@ -35,5 +36,7 @@ namespace AppWebClient.Models
         public virtual AspNetUser User { get; set; }
         [InverseProperty(nameof(Appreciation.IdOrderNavigation))]
         public virtual ICollection<Appreciation> Appreciations { get; set; }
+        [InverseProperty(nameof(Payment.IdOrderNavigation))]
+        public virtual ICollection<Payment> Payments { get; set; }
     }
 }

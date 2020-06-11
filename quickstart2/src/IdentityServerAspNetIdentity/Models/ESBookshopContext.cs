@@ -102,8 +102,6 @@ namespace IdentityServerAspNetIdentity.Models
 
             modelBuilder.Entity<AspNetUserClaim>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.AspNetUserClaims)
                     .HasForeignKey(d => d.UserId)
@@ -165,26 +163,11 @@ namespace IdentityServerAspNetIdentity.Models
 
                 entity.Property(e => e.Subtitle).IsUnicode(false);
 
-                entity.Property(e => e.Summary)
-                    .IsUnicode(false)
-                    .IsFixedLength();
-
-                entity.Property(e => e.Title)
-                    .IsUnicode(false)
-                    .IsFixedLength();
-
                 entity.HasOne(d => d.IdEditorNavigation)
                     .WithMany(p => p.Books)
                     .HasForeignKey(d => d.IdEditor)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_BOOKS_EDITORS");
-            });
-
-            modelBuilder.Entity<Category>(entity =>
-            {
-                entity.Property(e => e.Description)
-                    .IsUnicode(false)
-                    .IsFixedLength();
             });
 
             modelBuilder.Entity<Cowriter>(entity =>
@@ -226,15 +209,7 @@ namespace IdentityServerAspNetIdentity.Models
             {
                 entity.Property(e => e.CountryCode).IsUnicode(false);
 
-                entity.Property(e => e.Email)
-                    .IsUnicode(false)
-                    .IsFixedLength();
-
                 entity.Property(e => e.Name).IsUnicode(false);
-
-                entity.Property(e => e.Url)
-                    .IsUnicode(false)
-                    .IsFixedLength();
             });
 
             modelBuilder.Entity<EfmigrationsHistory>(entity =>
@@ -300,6 +275,12 @@ namespace IdentityServerAspNetIdentity.Models
 
             modelBuilder.Entity<Payment>(entity =>
             {
+                entity.HasOne(d => d.IdOrderNavigation)
+                    .WithMany(p => p.Payments)
+                    .HasForeignKey(d => d.IdOrder)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PAYMENTS_ORDERS");
+
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Payments)
                     .HasForeignKey(d => d.UserId)

@@ -12,16 +12,16 @@ using Newtonsoft.Json;
 
 namespace AppWebClient.Controllers
 {
-    public class OrdersController : Controller
+    public class PaymentsController : Controller
     {
         private readonly IConfiguration _configuration;
         HttpClient client = new HttpClient();
         private string _url;
 
-        public OrdersController(IConfiguration configuration)
+        public PaymentsController(IConfiguration configuration)
         {
             _configuration = configuration;
-            _url = _configuration["URLApi"] + "api/Orders/";
+            _url = _configuration["URLApi"] + "api/Payments/";
         }
 
         public async Task<IActionResult> Index()
@@ -30,19 +30,23 @@ namespace AppWebClient.Controllers
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
             string userId = await client.GetStringAsync(_configuration["URLApi"] + "api/AspNetUsers/UserId/");
-            string uriOrder = _url + "Commandes/" + userId;
+            string uriOrder = _configuration["URLApi"] + "api/Orders/Commandes/" + userId;
             IEnumerable<Order> orders;
-            string content = await client.GetStringAsync(uriOrder);
-            if (content != "[]")
+            string contentOrders = await client.GetStringAsync(uriOrder);
+            if (contentOrders != "[]")
             {
-                orders = JsonConvert.DeserializeObject<IEnumerable<Order>>(content);
-            }
-            else
-            {
-                return View("Empty");
+                orders = JsonConvert.DeserializeObject<IEnumerable<Order>>(contentOrders);
+                // Récupérer l'ID de la commande séléctionnée par le user
             }
 
-            return View(orders);
+            Payment payment = JsonConvert.DeserializeObject<Payment>(contentOrders);
+
+            if (payment == null)
+            {
+                return NotFound();
+            }
+
+            return View(payment);
         }
     }
 }

@@ -198,7 +198,7 @@ namespace AppWebClient.Controllers
                 string details = "Livres achetés : ";
                 foreach (Models.LineItem lineItem in lineItems)
                 {
-                    details += lineItem.IdBookNavigation.Title + " / ";
+                    details += lineItem.IdBookNavigation.Title + "\n";
                     lineItem.IdBookNavigation.Stock -= lineItem.Quantity;
                     string jsonString = System.Text.Json.JsonSerializer.Serialize<Book>(lineItem.IdBookNavigation);
                     StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
@@ -207,22 +207,6 @@ namespace AppWebClient.Controllers
                     {
                         return BadRequest();
                     }
-                }
-
-                // ___________________________________________________
-                // Enregistrement du paiement dans la BD
-                // ___________________________________________________
-                Payment payment = new Payment
-                {
-                    UserId = idUser,
-                    PaidDate = DateTime.Now,
-                    PriceTotal = montant,
-                    Details = details
-                };
-                response = await client.PostAsJsonAsync(_configuration["URLApi"] + "api/Payments/", payment);
-                if (response.StatusCode != HttpStatusCode.OK)
-                {
-                    return BadRequest();
                 }
 
                 // ___________________________________________________
@@ -240,6 +224,25 @@ namespace AppWebClient.Controllers
                     TotalPrice = montant
                 };
                 response = await client.PostAsJsonAsync(_configuration["URLApi"] + "api/Orders/", order);
+                if (response.StatusCode != HttpStatusCode.OK)
+                {
+                    return BadRequest();
+                }
+                // ___________________________________________________
+                // Enregistrement du paiement dans la BD
+                // ___________________________________________________
+                string contentOrders = await client.GetStringAsync(_configuration["URLApi"] + "api/Orders/");
+                IEnumerable<Models.Order> listOrders = JsonConvert.DeserializeObject<IEnumerable<Models.Order>>(contentOrders);
+                int orderId = listOrders.Max(i => i.Id);
+                Payment payment = new Payment
+                {
+                    UserId = idUser,
+                    IdOrder = orderId,
+                    PaidDate = order.OrderedDate,
+                    PriceTotal = montant,
+                    Details = details
+                };
+                response = await client.PostAsJsonAsync(_configuration["URLApi"] + "api/Payments/", payment);
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
                     return BadRequest();
