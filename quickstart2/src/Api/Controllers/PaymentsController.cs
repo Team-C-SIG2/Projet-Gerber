@@ -37,7 +37,9 @@ namespace Api.Controllers
                      User = (from user in _context.AspNetUsers
                              where user.Id == i.UserId
                              select user).FirstOrDefault(),
-                     IdOrder = i.IdOrderNavigation.Id,
+                     IdOrderNavigation = (from order in _context.Orders
+                                          where order.Id == i.IdOrder
+                                          select order).FirstOrDefault(),
                      PaidDate = i.PaidDate,
                      PriceTotal = i.PriceTotal,
                      Details = i.Details
