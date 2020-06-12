@@ -31,6 +31,18 @@
         </dd>
     </dl>
 </div>
+
+@if (Model.IdOrderNavigation.Status == "Envoyé")
+{
+    <p class="alert alert-success" role="alert">Votre commande a bien été envoyé et devrait arriver dans les 2 à 4 jours ouvrables.</p>
+}
+else
+{
+    <p class="alert alert-danger" role="alert">Votre commande n'a pas encore été envoyée car un des livres achetés n'est plus en stock.
+    Elle devrait arriver d'ici 2 semaines.</p>
+}
+
+<hr />
 <div>
     <a asp-controller="Orders" asp-action="Index">Retour au récapitulatif des commandes</a> |
     <a asp-controller="Home" asp-action="Index">Retour à l'accueil</a>

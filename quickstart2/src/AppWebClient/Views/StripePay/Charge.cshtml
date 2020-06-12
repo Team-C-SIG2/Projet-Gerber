@@ -4,50 +4,26 @@
 }
 
 
-<h1>Résultat de la transaction Stripe</h1>
-<p>Vous venez d'effectuer un paiement en ligne avec Stripe. Ci-dessous les valeurs retournées par le serveur API ES-Bookshop.</p>
-
-
-<h3>Clés du compte Stripe</h3>
-
+<h1>Résultat de la transaction</h1>
+<p>Votre paiement est valide et a bien été pris en compte par ESBookshop.</p>
 <br />
 
 <table class="table">
-
-
+    
     <tr>
-        <th>Type </th>
-        <th>Valeur </th>
+        <th>Détail de la commande</th>
+        <td>@ViewBag.DETAILS</td>
     </tr>
 
-
     <tr>
-        <th>Clé publique</th>
-        <td> @ViewBag.PUBLICKEY</td>
+        <th>Date et heure de la transaction</th>
+        <td>@ViewBag.DATE</td>
     </tr>
-
-
-    <tr>
-        <th>Clé privée</th>
-        <td>Non publiée, pour des raisons de sécurité.</td>
-    </tr>
-
-
-    @* VERIFICATION (TESTS) :  L'API Key est bien envoyée par le Serveur API, mais doit rester secrète
-        <td>@ViewBag.APIKEY</td>
-    *@
-
-    <tr>
-        <th>Clé API</th>
-        <td>Non publiée, pour des raisons de sécurité.</td>
-    </tr>
-
 
     <tr>
         <th>Paiement en faveur de ES-Bookshop</th>
-        <td> @(( @ViewBag.MONTANT).ToString("F2")) </td>
+        <td> @((@ViewBag.MONTANT).ToString("F2")) </td>
     </tr>
-
 
 </table>
 

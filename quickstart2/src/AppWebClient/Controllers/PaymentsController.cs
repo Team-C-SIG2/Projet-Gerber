@@ -24,11 +24,14 @@ namespace AppWebClient.Controllers
             _url = _configuration["URLApi"] + "api/Payments/";
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
             string accessToken = await HttpContext.GetTokenAsync("access_token");
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
+            string content = await client.GetStringAsync(_url + "DetailsPaiement/" + id);
+
+            /*
             string userId = await client.GetStringAsync(_configuration["URLApi"] + "api/AspNetUsers/UserId/");
             string uriOrder = _configuration["URLApi"] + "api/Orders/Commandes/" + userId;
             IEnumerable<Order> orders;
@@ -39,7 +42,11 @@ namespace AppWebClient.Controllers
                 // Récupérer l'ID de la commande séléctionnée par le user
             }
 
-            Payment payment = JsonConvert.DeserializeObject<Payment>(contentOrders);
+            string content = await client.GetStringAsync(_url + "DetailsPaiement/" + id);
+            */
+
+
+            Payment payment = JsonConvert.DeserializeObject<Payment>(content);
 
             if (payment == null)
             {

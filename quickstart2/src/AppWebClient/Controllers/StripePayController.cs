@@ -196,9 +196,10 @@ namespace AppWebClient.Controllers
                 IEnumerable<Models.LineItem> lineItems = JsonConvert.DeserializeObject<IEnumerable<Models.LineItem>>(contentLineItems);
                 HttpResponseMessage response;
                 string details = "Livres achetés : ";
+                string message = "Envoyé";
                 foreach (Models.LineItem lineItem in lineItems)
                 {
-                    details += lineItem.IdBookNavigation.Title + "\n";
+                    details += lineItem.IdBookNavigation.Title + " / ";
                     lineItem.IdBookNavigation.Stock -= lineItem.Quantity;
                     string jsonString = System.Text.Json.JsonSerializer.Serialize<Book>(lineItem.IdBookNavigation);
                     StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
@@ -206,6 +207,11 @@ namespace AppWebClient.Controllers
                     if (response.StatusCode != HttpStatusCode.NoContent)
                     {
                         return BadRequest();
+                    }
+
+                    if (lineItem.IdBookNavigation.Stock <= 0)
+                    {
+                        message = "En attente";
                     }
                 }
 
@@ -220,7 +226,7 @@ namespace AppWebClient.Controllers
                     OrderedDate = DateTime.Now,
                     ShippedDate = DateTime.Now,
                     ShippingAddress = currentCustomer.BillingAddress,
-                    Status = "Envoyé",
+                    Status = message,
                     TotalPrice = montant
                 };
                 response = await client.PostAsJsonAsync(_configuration["URLApi"] + "api/Orders/", order);
@@ -238,7 +244,7 @@ namespace AppWebClient.Controllers
                 {
                     UserId = idUser,
                     IdOrder = orderId,
-                    PaidDate = order.OrderedDate,
+                    PaidDate = DateTime.Now,
                     PriceTotal = montant,
                     Details = details
                 };
@@ -247,6 +253,8 @@ namespace AppWebClient.Controllers
                 {
                     return BadRequest();
                 }
+                ViewBag.DETAILS = details;
+                ViewBag.DATE = payment.PaidDate;
 
                 // ___________________________________________________
                 // Récupération du Shoppingcart pour suppression des LineItems dans la BD après validation du paiement
