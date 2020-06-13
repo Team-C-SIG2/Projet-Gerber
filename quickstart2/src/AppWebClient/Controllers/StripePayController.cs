@@ -133,13 +133,12 @@ namespace AppWebClient.Controllers
             // ___________________________________________________
 
             // Tdodo  Récupérer dans lineItems
-            /*
-            if (_configuration["Environnement"] == "Prod")
+            
+            if (_configuration["Environnement"] == "Prod") // Windows 10 ?
             {
                 amount = amount * 100;
             }
-            */
-            amount *= 100;
+            // amount *= 100; // Windows 7 ?
             long chargeAmount = Convert.ToInt64(amount);
             decimal montant = amount / 100;
             ViewBag.MONTANT = montant;
@@ -209,7 +208,7 @@ namespace AppWebClient.Controllers
                         return BadRequest();
                     }
 
-                    if (lineItem.IdBookNavigation.Stock <= 0)
+                    if (lineItem.IdBookNavigation.Stock < 0)
                     {
                         message = "En attente";
                     }

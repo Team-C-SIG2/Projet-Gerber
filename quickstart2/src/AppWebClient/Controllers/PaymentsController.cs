@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -9,6 +8,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Rotativa.AspNetCore;
 
 namespace AppWebClient.Controllers
 {
@@ -31,21 +31,6 @@ namespace AppWebClient.Controllers
 
             string content = await client.GetStringAsync(_url + "DetailsPaiement/" + id);
 
-            /*
-            string userId = await client.GetStringAsync(_configuration["URLApi"] + "api/AspNetUsers/UserId/");
-            string uriOrder = _configuration["URLApi"] + "api/Orders/Commandes/" + userId;
-            IEnumerable<Order> orders;
-            string contentOrders = await client.GetStringAsync(uriOrder);
-            if (contentOrders != "[]")
-            {
-                orders = JsonConvert.DeserializeObject<IEnumerable<Order>>(contentOrders);
-                // Récupérer l'ID de la commande séléctionnée par le user
-            }
-
-            string content = await client.GetStringAsync(_url + "DetailsPaiement/" + id);
-            */
-
-
             Payment payment = JsonConvert.DeserializeObject<Payment>(content);
 
             if (payment == null)
@@ -54,6 +39,28 @@ namespace AppWebClient.Controllers
             }
 
             return View(payment);
+        }
+
+        public async Task<IActionResult> Getpdf(int? id)
+        {
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            string content = await client.GetStringAsync(_url + "DetailsPaiement/" + id);
+
+            Payment payment = JsonConvert.DeserializeObject<Payment>(content);
+
+            if (payment == null)
+            {
+                return NotFound();
+            }
+
+            ViewAsPdf pdf = new ViewAsPdf(payment)
+            {
+                PageMargins = { Left = 20, Bottom = 20, Right = 20, Top = 20 },
+            };
+            return pdf;
+;
         }
     }
 }

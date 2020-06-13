@@ -38,12 +38,16 @@
 }
 else
 {
-    <p class="alert alert-danger" role="alert">Votre commande n'a pas encore été envoyée car un des livres achetés n'est plus en stock.
-    Elle devrait arriver d'ici 2 semaines.</p>
+    <p class="alert alert-danger" role="alert">
+        Votre commande n'a pas encore été envoyée car un des livres achetés n'est plus en stock.
+        Elle devrait arriver d'ici 2 semaines.
+    </p>
 }
 
 <hr />
 <div>
     <a asp-controller="Orders" asp-action="Index">Retour au récapitulatif des commandes</a> |
-    <a asp-controller="Home" asp-action="Index">Retour à l'accueil</a>
+    <a asp-controller="Home" asp-action="Index">Retour à l'accueil</a> |
+    <a asp-action="Getpdf" asp-route-id="@Model.Id">Générer en PDF</a> 
 </div>
+<br />
