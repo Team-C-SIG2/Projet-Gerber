@@ -7,10 +7,8 @@ namespace Api.Controllers
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Security.Cryptography.X509Certificates;
     using System.Threading.Tasks;
 
     [Route("api/[controller]")]
@@ -118,7 +116,7 @@ namespace Api.Controllers
 
         }
 
-        
+
         // ---------------------------------------------------
         // -- Top 10 Best Customers 
         // ---------------------------------------------------
@@ -127,19 +125,19 @@ namespace Api.Controllers
         [Route("BestCustomers/{year?}")]
         public async Task<ActionResult<IEnumerable<DashboardViewModel>>> BestCustomers(int? year)
         {
-            var result = (from ord in _context.Orders 
+            var result = (from ord in _context.Orders
                           join asp in _context.AspNetUsers on ord.UserId equals asp.Id
                           join cus in _context.Customers on asp.IdCustomer equals cus.Id
                           where ord.OrderedDate.Year == year
-                          group new {ord, asp, cus} by new {cus.Firstname, cus.Lastname}
+                          group new { ord, asp, cus } by new { cus.Firstname, cus.Lastname }
                           into grp
                           select new DashboardViewModel
                           {
-                              CountOrders = grp.Count(), 
-                              Firstname = grp.Key.Firstname, 
+                              CountOrders = grp.Count(),
+                              Firstname = grp.Key.Firstname,
                               Lastname = grp.Key.Lastname,
                               // Amount = grp.Key.TotalPrice
-                              Amount = grp.Sum(f => f.ord.TotalPrice), 
+                              Amount = grp.Sum(f => f.ord.TotalPrice),
 
                           }).OrderByDescending(e => e.Amount).Take(10).ToListAsync();
 
@@ -210,7 +208,7 @@ namespace Api.Controllers
                           group ord by ord.OrderedDate.Date.Year into grp
                           select new DashboardViewModel
                           {
-                              OrderDate = grp.Key, 
+                              OrderDate = grp.Key,
                               CountOrders = grp.Count()
                           }).OrderByDescending(e => e.OrderDate).ToListAsync();
 
@@ -247,7 +245,7 @@ namespace Api.Controllers
                           {
                               Description = (from i in _context.Categories
                                              where i.Id == grp.Key
-                                             select i.Description).First(), 
+                                             select i.Description).First(),
                               NbLivres = grp.Count()
                           }).OrderByDescending(e => e.NbLivres).Take(10).ToListAsync();
 
@@ -313,7 +311,7 @@ namespace Api.Controllers
         // ---------------------------------------------------
         // -- Availability of Stocks
         // ---------------------------------------------------
-        
+
         [HttpGet]
         [Route("StockAvailability")]
         public async Task<ActionResult<IEnumerable<DashboardViewModel>>> StockAvailability()
@@ -326,8 +324,8 @@ namespace Api.Controllers
                               Description = book.Title,
                           }).OrderBy(e => e.CurrentStock).ToListAsync();
 
-                    return await result;
-                }
+            return await result;
+        }
 
 
         // ---------------------------------------------------
@@ -346,4 +344,3 @@ namespace Api.Controllers
 
     }// END CLASS 
 }
- 

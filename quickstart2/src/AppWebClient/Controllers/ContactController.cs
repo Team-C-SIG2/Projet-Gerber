@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using AppWebClient.Services;
+﻿using AppWebClient.Services;
 using AppWebClient.ViewModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace AppWebClient.Controllers
 {
@@ -17,7 +14,8 @@ namespace AppWebClient.Controllers
 
         private readonly IConfiguration _configuration;
 
-        public ContactController(IConfiguration configuration) {
+        public ContactController(IConfiguration configuration)
+        {
             _configuration = configuration;
         }
 
@@ -36,8 +34,8 @@ namespace AppWebClient.Controllers
 
         public async Task<IActionResult> SendContact(ContactForm cf)
         {
-            string subject = cf.IdUser+" - "+cf.Object;
-            string body = cf.Body+" <br> <a href='mailto:"+cf.Email+"'>Répondre</a>";
+            string subject = cf.IdUser + " - " + cf.Object;
+            string body = cf.Body + " <br> <a href='mailto:" + cf.Email + "'>Répondre</a>";
             EmailSender es = new EmailSender(_configuration["sendgridApi"], _configuration["email"]);
             es.SendEmail(_configuration["email"], subject, body);
             return View();

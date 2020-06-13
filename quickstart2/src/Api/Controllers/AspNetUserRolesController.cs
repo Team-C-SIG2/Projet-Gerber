@@ -2,16 +2,14 @@
 
 namespace Api.Controllers
 {
-    using Api.ViewModel; 
-    using Api.Models;    
-    using System;
-    using System.Linq;
+    using Api.Models;
+    using Api.ViewModel;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Collections.Generic;
-    using System.Threading.Tasks;
-
+    using System.Linq;
     using System.Security.Claims;
+    using System.Threading.Tasks;
 
 
 

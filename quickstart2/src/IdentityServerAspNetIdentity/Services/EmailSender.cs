@@ -1,9 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
-using SendGrid;
-using SendGrid.Helpers.Mail;
-using System.Net;
+﻿using System.Net;
 using System.Net.Mail;
-using System.Threading.Tasks;
 
 namespace IdentityServerAspNetIdentity.Services
 {

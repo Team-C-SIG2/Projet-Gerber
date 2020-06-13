@@ -8,7 +8,6 @@ namespace AppWebClient.Controllers
 
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.Extensions.Configuration;
     using Newtonsoft.Json;
     using Rotativa.AspNetCore;
@@ -209,7 +208,7 @@ namespace AppWebClient.Controllers
 
             // GET TOP 10 CUSTOMERS 
             List<DashboardViewModel> itemsCustomers = new List<DashboardViewModel>();
-            string uriCustomers = _configuration["URLApi"] + _url + "BestCustomers/"+year;
+            string uriCustomers = _configuration["URLApi"] + _url + "BestCustomers/" + year;
             HttpResponseMessage responseCustomers = await _client.GetAsync(uriCustomers);// HTTP GET
             if (responseCustomers.IsSuccessStatusCode)
             {
@@ -225,7 +224,7 @@ namespace AppWebClient.Controllers
 
             // GET TotalAmount OF ORDERS IN THE DB
             decimal totalAmount;
-            string uriTotalAmount = _configuration["URLApi"] + _url + "TotalAmount/"+ year;
+            string uriTotalAmount = _configuration["URLApi"] + _url + "TotalAmount/" + year;
             HttpResponseMessage responseTotalAmount = await _client.GetAsync(uriTotalAmount);// HTTP GET
             if (responseTotalAmount.IsSuccessStatusCode)
             {
@@ -468,7 +467,7 @@ namespace AppWebClient.Controllers
             // return View(itemStockAvailability);
 
 
-            return new ViewAsPdf(itemStockAvailability); 
+            return new ViewAsPdf(itemStockAvailability);
         }
 
 

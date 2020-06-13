@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AppWebClient.ViewModel
+﻿namespace AppWebClient.ViewModel
 {
     public class ContactForm
     {

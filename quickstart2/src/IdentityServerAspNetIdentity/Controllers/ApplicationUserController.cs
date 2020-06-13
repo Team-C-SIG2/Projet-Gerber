@@ -1,19 +1,19 @@
 ﻿using IdentityServerAspNetIdentity.Data;
 // HB 
 using IdentityServerAspNetIdentity.Models;
+using IdentityServerAspNetIdentity.Services;
+using IdentityServerAspNetIdentity.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Serilog;
-using System.Linq;
 using System;
-using IdentityServerAspNetIdentity.ViewModels;
+using System.Linq;
 using System.Threading.Tasks;
 using Twilio.Rest.Verify.V2.Service;
-using IdentityServerAspNetIdentity.Services;
-using Microsoft.Extensions.Options;
 
 namespace IdentityServerAspNetIdentity.Controllers
 {
@@ -47,7 +47,7 @@ namespace IdentityServerAspNetIdentity.Controllers
                 UserName = createUserViewModel.UserName,
                 PasswordHash = createUserViewModel.PasswordHash,
                 Email = createUserViewModel.Email,
-                PhoneNumber = createUserViewModel.CountryCode+createUserViewModel.PhoneNumber
+                PhoneNumber = createUserViewModel.CountryCode + createUserViewModel.PhoneNumber
             };
 
             var services = new ServiceCollection();
@@ -104,7 +104,8 @@ namespace IdentityServerAspNetIdentity.Controllers
                             {
                                 resView = "ErrorPassword";
                             }
-                            else {
+                            else
+                            {
                                 Log.Debug($"{checkUser.UserName} created");
 
                                 ShoppingCart sp = new ShoppingCart
@@ -123,9 +124,9 @@ namespace IdentityServerAspNetIdentity.Controllers
                                 _context.Wishlists.Add(wl);
                                 await _context.SaveChangesAsync();
 
-                                
+
                                 var code = await userMgr.GenerateEmailConfirmationTokenAsync(checkUser);
-                                var callbackUrl = Url.Action("ConfirmEmailAsync", "ApplicationUser", new EmailConfirmViewModel { UserId = checkUser.Id, code = code}, "http");
+                                var callbackUrl = Url.Action("ConfirmEmailAsync", "ApplicationUser", new EmailConfirmViewModel { UserId = checkUser.Id, code = code }, "http");
                                 string subject = "Confirmez votre email";
                                 string body = "Cliquez sur ce lien pour confirmmer votre email: <a href='" + callbackUrl + "'>Reinit</a>";
                                 EmailSender es = new EmailSender(_configuration["sendgridApi"], _configuration["email"]);
@@ -167,7 +168,8 @@ namespace IdentityServerAspNetIdentity.Controllers
                 {
                     var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
                     var user = await userMgr.FindByIdAsync(id);
-                    if (!user.EmailConfirmed) {
+                    if (!user.EmailConfirmed)
+                    {
                         var code = await userMgr.GenerateEmailConfirmationTokenAsync(user);
                         var callbackUrl = Url.Action("ConfirmEmail", "ApplicationUser", new EmailConfirmViewModel { UserId = user.Id, code = code }, "http");
                         string subject = "Confirmez votre email";

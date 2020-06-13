@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace IdentityServerAspNetIdentity.ViewModels
+﻿namespace IdentityServerAspNetIdentity.ViewModels
 {
     public class CreateUserViewModel
     {

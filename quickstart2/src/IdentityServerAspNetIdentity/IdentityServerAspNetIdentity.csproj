@@ -9,12 +9,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="bin\**" />
+    <Compile Remove="Migrations\**" />
     <Compile Remove="obj\**" />
     <Content Remove="bin\**" />
+    <Content Remove="Migrations\**" />
     <Content Remove="obj\**" />
     <EmbeddedResource Remove="bin\**" />
+    <EmbeddedResource Remove="Migrations\**" />
     <EmbeddedResource Remove="obj\**" />
     <None Remove="bin\**" />
+    <None Remove="Migrations\**" />
     <None Remove="obj\**" />
   </ItemGroup>
   <ItemGroup>
@@ -52,9 +56,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.4" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
     <PackageReference Include="Twilio" Version="5.42.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Api\Api.csproj" />

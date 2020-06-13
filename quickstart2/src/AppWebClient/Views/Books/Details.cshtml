@@ -4,24 +4,18 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Détails</h1>
+<h1>Details</h1>
 
 <div>
     <h4>Détails du livre : @Model.Title</h4>
     <hr />
-    @* Titre *@
-    <div>
-        <img src="@ViewBag.imgUrl" alt="No available image">
-    </div>
     <dl class="row">
-
-
 
         @* Titre *@
         <dt class="col-sm-2">
             @*
-                TODO COWRITERS
-                @Html.DisplayNameFor(model => model.Cowriters)
+            TODO COWRITERS
+            @Html.DisplayNameFor(model => model.Cowriters)
             *@
             Titre
         </dt>
@@ -51,12 +45,17 @@
             Auteur(s)
         </dt>
         <dd class="col-sm-10">
-            @foreach (var cowriter in Model.Cowriters)
+            @if (@Model.Cowriters.Count > 0)
             {
-                <text> @cowriter.IdAuthorNavigation.Firstname @cowriter.IdAuthorNavigation.Lastname</text><br />
+                @foreach (var cowriter in Model.Cowriters)
+                {
+                    <text> @cowriter.IdAuthorNavigation.Firstname @cowriter.IdAuthorNavigation.Lastname</text><br />
+                }
             }
-        </dd>
+            else
+            {<text>/</text>}
 
+        </dd>
 
         @* ------------------------------------------------------------------------------------------------------- *@
 
@@ -117,9 +116,22 @@
 
     </dl>
 </div>
+
+@if ((string)@ViewData["ACCESSRIGHT"] == "ADMIN")
+{@* ADMIN *@
 <div>
+    <a asp-action="Index">Retour à la liste</a> |
     <a asp-action="Edit" asp-route-id="@Model.Id">Editer</a> |
+    <a asp-action="Delete" asp-route-id="@Model.Id">Supprimer</a>
+</div>
+
+}
+else
+{ @* USER *@
+<div>
     <a asp-action="Index">Retour à la liste</a> |
     <a asp-action="AddItem" asp-route-id="@Model.Id">Ajouter au panier</a>
-
 </div>
+
+}
+

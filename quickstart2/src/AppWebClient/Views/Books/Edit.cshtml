@@ -1,108 +1,179 @@
 ﻿@model AppWebClient.Models.Book
 
-@{
-    ViewData["Title"] = "Edit";
-}
+@{ ViewData["Title"] = "Edit"; }
 
 
 @{string datePublication = @Model.DatePublication.ToString();}
 
 
-<h1>Edition</h1>
+<h1>Mise à jour</h1>
 
+<h4>Mise à jour du livre : @Model.Title</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-
-        <form asp-action="PutRessource" enctype="multipart/form-data">
-
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-
-            <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="@Model.IdEditor" />
-
-
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-
-
-            <div class="form-group">
-                <label asp-for="Isbn" class="control-label"></label>
-                <input asp-for="Isbn" class="form-control" />
-                <span asp-validation-for="Isbn" class="text-danger"></span>
-            </div>
-
-
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input type="number" asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-
-
-            <div class="form-group">
-                <label asp-for="@Model.IdEditorNavigation.Name" class="control-label"></label>
-                <input asp-for="@Model.IdEditorNavigation.Name" class="form-control" />
-                <span asp-validation-for="@Model.IdEditorNavigation.Name" class="text-danger"></span>
-            </div>
-
-
-            <div class="form-group">
-                <label asp-for="DatePublication" class="control-label"></label>
-                @if (@Model.DatePublication != null)
-                {
-        @Html.TextBoxFor(model => model.DatePublication, "{0:dd.MM.yyyy}", new { @class = "form-control datepicker" }) }
-    else
-    { <input type="date" asp-for="DatePublication" class="form-control" value="/" />}
-                <span asp-validation-for="DatePublication" class="text-danger"></span>
-            </div>
 
 
 
-            <div class="form-group">
-                <label asp-for="Subtitle" class="control-label"></label>
-                @if (@Model.Subtitle != null)
-                {
-        <input asp-for="Subtitle" class="form-control" /> }
-    else
-    { <input asp-for="Subtitle" class="form-control" value="/" />}
+<form asp-action="Put">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                <span asp-validation-for="Subtitle" class="text-danger"></span>
-
-            </div>
+    <input type="hidden" asp-for="Id" />
 
 
-            <div class="form-group">
-                <label asp-for="Summary" class="control-label"></label>
-                @if (@Model.Summary != null)
-                {
-        <input asp-for="Summary" class="form-control" /> }
-    else
-    { <input asp-for="Summary" class="form-control" value="/" />}
-                <span asp-validation-for="Summary" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <img src="@ViewBag.imgUrl" alt="No available image">
-                <label for="Images" class="control-label">Images</label>
-                <input name="images" id="Images" type="file" accept="image/x-png,image/gif,image/jpeg" class="form-control" />
-            </div>
-
-            <div class="form-group">
-                <input type="submit" value="Mettre à jour" class="btn btn-primary" />
-            </div>
-
-
-
-        </form>
+    <div class="row">
+        <div class="col">
+            <label asp-for="Title" class="control-label">Titre</label>
+        </div>
+        <div class="col">
+            <input asp-for="Title" class="form-control" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
     </div>
-</div>
+
+
+
+    <div class="row">
+        <div class="col">
+            <label asp-for="Isbn" class="control-label">Isbn</label>
+        </div>
+        <div class="col">
+            <input asp-for="Isbn" class="form-control" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="Isbn" class="text-danger"></span>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col">
+            <label asp-for="Price" class="control-label">Prix</label>
+        </div>
+        <div class="col">
+            <input asp-for="Price" class="form-control" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+
+    </div>
+
+
+    <div class="row">
+        <div class="col">
+            <input type="button" value="Editeur" onclick="window.location='@Url.Action("CreateEditor", "Books", new { id = @Model.Id})'" class="btn btn-info" />
+        </div>
+        <div class="col">
+            <select asp-for="IdEditor" class="form-control" asp-items="ViewBag.EDITEURS"></select>
+            <input type="hidden" asp-for="@Model.IdEditorNavigation.Name" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="@Model.IdEditorNavigation.Name" class="text-danger"></span>
+            Si nouveau éditeur, alors cliquer sur le bouton "Editeur" pour le créer.
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col">
+            <label asp-for="DatePublication" class="control-label">Date de publication</label>
+        </div>
+        <div class="col">
+            @if (@Model.DatePublication != null)
+            {
+                @Html.TextBoxFor(model => model.DatePublication, "{0:dd.MM.yyyy}", new { @class = "form-control datepicker" }) }
+            else
+            { <input asp-for="DatePublication" class="form-control" value="/" />}
+        </div>
+        <div class="col">
+            <span asp-validation-for="DatePublication" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col">
+            <label asp-for="Subtitle" class="control-label">Sous-titre</label>
+        </div>
+        <div class="col">
+            @if (@Model.Subtitle != null)
+            {
+                <input asp-for="Subtitle" class="form-control" /> }
+            else
+            { <input asp-for="Subtitle" class="form-control" value="/" />}
+        </div>
+        <div class="col">
+            <span asp-validation-for="Subtitle" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <label asp-for="Summary" class="control-label">Résumé</label>
+        </div>
+        <div class="col">
+            @if (@Model.Summary != null)
+            {
+<textarea asp-for="Summary" class="form-control"></textarea> }
+            else
+            { <input asp-for="Summary" class="form-control" value="/" />}
+        </div>
+        <div class="col">
+            <span asp-validation-for="Summary" class="text-danger"></span>
+        </div>
+    </div>
+
+
+    @* ------------------------------------------------------------------------------------------------------- *@
+    @* Autheurs *@
+    @* ------------------------------------------------------------------------------------------------------- *@
+
+    <br />
+    <div class="row">
+        <div class="col">
+            <input type="button" value="Auteur(s)" onclick="window.location='@Url.Action("ManageCowriters", "Books", new { id = @Model.Id,  title = @Model.Title} )'" class="btn btn-info" />
+        </div>
+        <div class="col">
+
+            @if (@Model.Cowriters.Count > 0)
+            {
+                @foreach (var cowriter in Model.Cowriters)
+                {
+                    <text> @cowriter.IdAuthorNavigation.Firstname @cowriter.IdAuthorNavigation.Lastname</text><br />} }
+            else
+            {<text>/</text>}
+        </div>
+        <div class="col">
+            <span asp-validation-for="@Model.Cowriters" class="text-danger"></span>
+            Pour ajouter un auteur cliquez sur le bouton "Auteur(s)"
+        </div>
+    </div>
+
+
+
+
+
+    <br /><br />
+
+
+    <div class="row">
+        <img src="@ViewBag.imgUrl" alt="No available image">
+        <label for="Images" class="control-label">Images</label>
+        <input name="images" id="Images" type="file" accept="image/x-png,image/gif,image/jpeg" class="form-control" />
+    </div>
+    <br />
+    <div class="row">
+        <div class="col">
+            <input type="submit" value="Mettre à jour" class="btn btn-primary" />
+        </div>
+    </div>
+
+</form>
+<br />
 
 <div>
-    <a asp-action="Index">Retour à la liste</a>
+    <a asp-action="Index">Retour à la liste</a> |
+    <a asp-action="Delete" asp-route-id="@Model.Id">Supprimer</a>
 </div>
-

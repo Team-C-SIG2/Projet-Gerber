@@ -44,7 +44,7 @@ namespace Api.Controllers
                      TotalPrice = i.TotalPrice
                  });
 
-            if(orders == null)
+            if (orders == null)
             {
                 return NotFound();
             }

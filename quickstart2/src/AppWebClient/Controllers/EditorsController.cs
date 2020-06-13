@@ -1,22 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using AppWebClient.Models;
+﻿using AppWebClient.Models;
 using AppWebClient.ViewModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace AppWebClient.Controllers
 {
     public class EditorsController : Controller
     {
-        private readonly HttpClient _client; 
+        private readonly HttpClient _client;
         private string _url = $"api/editors/";
         private IConfiguration _configuration;
 
@@ -192,7 +190,9 @@ namespace AppWebClient.Controllers
             {
                 e.RequestId = "Suppression impossible car l'objet est utilisé par une autre entité";
                 return View("Error", e);
-            }else if(!response.IsSuccessStatusCode) {
+            }
+            else if (!response.IsSuccessStatusCode)
+            {
                 e.RequestId = response.ReasonPhrase;
                 return View("Error", e);
             }

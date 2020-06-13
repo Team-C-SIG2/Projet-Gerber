@@ -5,6 +5,7 @@
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
     <OutputType>Exe</OutputType>
   </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="AspNet.Security.OAuth.Paypal" Version="3.1.1" />
     <PackageReference Include="Bricelam.EntityFrameworkCore.Pluralizer" Version="1.0.0">

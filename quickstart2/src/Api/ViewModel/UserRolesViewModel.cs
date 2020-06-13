@@ -1,12 +1,5 @@
 ﻿namespace Api.ViewModel
 {
-
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-
-
     public class UserRolesViewModel
     {
         public string UserId { get; set; }

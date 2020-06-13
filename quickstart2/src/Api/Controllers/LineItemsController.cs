@@ -3,6 +3,7 @@
 namespace Api.Controllers
 {
     using Api.Models;
+    using Api.ViewModel;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
@@ -10,12 +11,6 @@ namespace Api.Controllers
     using System.Data;
     using System.Linq;
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.AspNetCore.Authorization;
-    using Api.Models;
-    using Api.ViewModel;
 
     [Route("api/[controller]")]
     [ApiController]
@@ -78,7 +73,7 @@ namespace Api.Controllers
                      IdBook = i.IdBook,
                      IdOrder = i.IdOrder,
                      IdBookNavigation = (from b in _context.Books where b.Id == i.IdBook select b).FirstOrDefault(),
-                     IdShoppingcartNavigation = (from s in _context.ShoppingCarts where s.Id == i.IdShoppingcart select s).FirstOrDefault(), 
+                     IdShoppingcartNavigation = (from s in _context.ShoppingCarts where s.Id == i.IdShoppingcart select s).FirstOrDefault(),
                      IdWishlistNavigation = (from w in _context.Wishlists where w.Id == i.IdWishlist select w).FirstOrDefault()
                  });
 
@@ -217,11 +212,11 @@ namespace Api.Controllers
                 return NotFound();
             }
 
-            foreach(LineItem lineItem in listLineItems)
+            foreach (LineItem lineItem in listLineItems)
             {
                 _context.LineItems.Remove(lineItem);
             }
-            
+
             await _context.SaveChangesAsync();
 
             return listLineItems;
@@ -286,8 +281,8 @@ namespace Api.Controllers
             foreach (var item in lineItems)
             {
                 book = (from i in _context.Books
-                              where i.Id == item.IdBook
-                             select i).FirstOrDefault();
+                        where i.Id == item.IdBook
+                        select i).FirstOrDefault();
                 stockCtrlList.Add(new LineItemStock { IdLineItem = item.Id, stockOk = item.Quantity <= book.Stock });
             }
             return stockCtrlList;

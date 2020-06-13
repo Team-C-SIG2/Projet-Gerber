@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace AppWebClient.ViewModel
+﻿namespace AppWebClient.ViewModel
 {
     public partial class UserProfilViewModel
     {

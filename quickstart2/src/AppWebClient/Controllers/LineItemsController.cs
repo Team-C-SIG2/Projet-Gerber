@@ -4,20 +4,18 @@
 namespace AppWebClient.Controllers
 {
 
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
-    using Microsoft.EntityFrameworkCore;
-    using System.Net.Http;
-    using Newtonsoft.Json;
     using AppWebClient.Models;
     using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
+    using Newtonsoft.Json;
+    using System;
+    using System.Collections.Generic;
     using System.Net;
+    using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Text;
+    using System.Threading.Tasks;
 
     public class LineItemsController : Controller
     {
@@ -50,7 +48,7 @@ namespace AppWebClient.Controllers
             string accessToken = await HttpContext.GetTokenAsync("access_token");
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             string userId = await client.GetStringAsync(_configuration["URLApi"] + "api/aspNetUsers/UserId");
-            string contentShoppingCart = await client.GetStringAsync(_configuration["URLApi"] + "api/shoppingCarts/GetUserShoppingCarts/"+userId);
+            string contentShoppingCart = await client.GetStringAsync(_configuration["URLApi"] + "api/shoppingCarts/GetUserShoppingCarts/" + userId);
 
             if (contentShoppingCart != null)
             {

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Api.ViewModel;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Api.Controllers
 {
@@ -16,7 +12,8 @@ namespace Api.Controllers
     {
         private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public ImageController(IWebHostEnvironment hostingEnvironment) {
+        public ImageController(IWebHostEnvironment hostingEnvironment)
+        {
             _hostingEnvironment = hostingEnvironment;
         }
 
@@ -25,7 +22,7 @@ namespace Api.Controllers
         {
             string root = Path.Combine(_hostingEnvironment.WebRootPath, "Images");
             string extension = ".jpg";
-            string filePath = Path.Combine(root, id+extension);
+            string filePath = Path.Combine(root, id + extension);
             using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(fileStream);

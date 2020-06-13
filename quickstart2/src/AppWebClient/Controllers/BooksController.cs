@@ -2,6 +2,7 @@
 using AppWebClient.Tools;
 using AppWebClient.ViewModel;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
@@ -13,96 +14,93 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Net;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using System.IO;
 
 namespace AppWebClient.Controllers
 {
     public class BooksController : Controller
     {
 
-        // Var USERID 
-        private readonly string UserID = "002078C2AB";
-
         // HTTPCLIENT 
-        private HttpClient _client = ApiHttpClient.ConnectClient();
+        private HttpClient _client = new HttpClient();
 
         // URL 
         private string _url = "api/books/";
 
+
+        //TO GET DATA FROM JSON FILE CONFIGURATION  
         private readonly IConfiguration _configuration;
 
+
+        // CONSTRUCTOR 
         public BooksController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
+
+
+
+        // _______________________________________________________________________________________________________
+        // COMMON PART 
+        // _______________________________________________________________________________________________________
+
+
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         // READ: Return the User ShoppingCart
         // GET: .../api/ShoppingCarts/5
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        // ________________________________________________________
-        // Entry point of the Controller (View)
-        // Return Books list 
-        // ________________________________________________________  
-
-        // GET: Books
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string bookSearch)
         {
-
             string accessToken = await HttpContext.GetTokenAsync("access_token");
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
-            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Books/");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            string content = await _client.GetStringAsync(_configuration["URLApi"] + _url);
 
             List<Book> books = JsonConvert.DeserializeObject<List<Book>>(content);
+            List<Book> bookList = books;
+
+            ViewData["GETBOOKDETTAILS"] = bookSearch;
+
+            if (!string.IsNullOrEmpty(bookSearch))
+            {
+                bookList = new List<Book>();
+
+                foreach (var book in books)
+                {
+                    if (book.Title.Contains(bookSearch))
+                    {
+                        bookList.Add(book);
+                    }
+                }
+            }
+
 
             if (books == null)
             {
                 return NotFound();
             }
 
-            return View(books);
+
+            // GET ACCESS RIGHT 
+            string accessRight = await GetRole();
+            ViewData["ACCESSRIGHT"] = accessRight;
+
+            return View(bookList);
         }
 
-        /*
-        // ________________________________________________________
-        // Return a Book by its Id 
-        // GET: .../ api/Books/S
-        // ________________________________________________________  
-
-        public async Task<Book> ReadRessource(int? id)
-        {
-            Book book = null;
-            HttpResponseMessage response = await _client.GetAsync(_url + id);
-
-            if (response.IsSuccessStatusCode)
-            {
-                book = await response.Content.ReadAsAsync<Book>();
-            }
-            return book;
-        }
-        */
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Get the Details of a resource Book (by id)
+        // Get the Details of a resource Book (by id) 
         // GET : Books/Details/5
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         public async Task<IActionResult> Details(int? id)
         {
-            ViewBag.imgUrl = _configuration["URLApi"]+"/images/"+id+".jpg";
-
             string accessToken = await HttpContext.GetTokenAsync("access_token");
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            string content = await client.GetStringAsync(_configuration["URLApi"] + _url+"GetOneBook/" + id);
+            string content = await _client.GetStringAsync(_configuration["URLApi"] + _url+ "GetOneBook/" + id);
 
             Book book = JsonConvert.DeserializeObject<Book>(content);
 
@@ -111,190 +109,22 @@ namespace AppWebClient.Controllers
                 return NotFound();
             }
 
+
+            // GET ACCESS RIGHT 
+            string accessRight = await GetRole();
+            ViewData["ACCESSRIGHT"] = accessRight;
+
             return View(book);
         }// END 
 
 
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // To Create a new Book 
-        // POST: Books/Create
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-        // ________________________________________________________
-        // Display the "Create" View of Books Controller 
-        // GET: Books/Create
-        // ________________________________________________________
-        public async Task<IActionResult> Create(Book book)
-        {
 
-            List<Editor> editors;
+        // _______________________________________________________________________________________________________
+        // USER/CLIENT PART 
+        // _______________________________________________________________________________________________________
 
-            string uriEditors = _configuration["URLApi"]+ _url + "GetEditors";
-
-            string accessToken = await HttpContext.GetTokenAsync("access_token");
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            HttpResponseMessage responseLineItem = await client.GetAsync(uriEditors); // HTTP GET
-
-            if (responseLineItem.IsSuccessStatusCode)
-            {
-                editors = await responseLineItem.Content.ReadAsAsync<List<Editor>>();
-                ViewData["IdEditor"] = new SelectList(editors, "Id", "Name", book.IdEditor);// Add To ViewData
-            }
-
-
-            return View("Create");
-        }
-
-        // ________________________________________________________
-        // Post (send) the new Ressource Book to the API Server 
-        // POST: Books/Create
-        // ________________________________________________________
-        public async Task<IActionResult> PostRessource(Book book, ICollection<IFormFile> Images)
-        {
-            Book b = new Book
-            {
-                IdEditor = book.IdEditor,
-                Title = book.Title,
-                Subtitle = book.Subtitle,
-                Price = book.Price,
-                DatePublication = book.DatePublication,
-                Summary = book.Summary,
-                Isbn = book.Isbn
-            };
-            string accessToken = await HttpContext.GetTokenAsync("access_token");
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            HttpResponseMessage response = await client.PostAsJsonAsync(_configuration["URLApi"]+"api/Books", b);
-            response.EnsureSuccessStatusCode();
-
-            string bookString = await response.Content.ReadAsStringAsync();
-
-
-            Book insertedBook = JsonConvert.DeserializeObject<Book>(bookString);
-            foreach (var file in Images)
-            {
-                if (file.Length <= 0)
-                    continue;
-
-                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-
-                using (var content = new MultipartFormDataContent())
-                {
-                    content.Add(new StreamContent(file.OpenReadStream())
-                    {
-                        Headers =
-                    {
-                        ContentLength = file.Length,
-                        ContentType = new MediaTypeHeaderValue(file.ContentType)
-                    }
-                    }, "File", fileName);
-
-                    var responseImg = await _client.PostAsync(_configuration["URLApi"] + "api/image/"+insertedBook.Id, content);
-                }
-            }
-
-            return RedirectToAction("Details", "Books", new {id= insertedBook.Id});
-
-        }
-
-
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // UPDATE : Update a Book 
-        // PUT (HTTP VERB) : api/Books/
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        // ________________________________________________________
-        // READ: Edit Book for UPDATE
-        // GET: api/Books/Edit/5
-        // ________________________________________________________
-
-        public async Task<IActionResult> Edit(int? id, Book book)
-        {
-            ViewBag.imgUrl = _configuration["URLApi"] + "/images/" + id + ".jpg";
-
-            string accessToken = await HttpContext.GetTokenAsync("access_token");
-
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Books/" + id);
-
-            Book _book = JsonConvert.DeserializeObject<Book>(content);
-
-            if (_book == null)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                string jsonString = System.Text.Json.JsonSerializer.Serialize<Book>(book);
-
-                StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PutAsync(_configuration["URLApi"] + "api/Books/" + _book.Id, httpContent);
-                if (response.StatusCode != HttpStatusCode.NoContent)
-                {
-                    return BadRequest();
-                }
-
-                return RedirectToAction(nameof(Index));
-            }
-
-            return View(_book);
-        }
-
-
-        // ________________________________________________________
-        // UPDATE : Update a Books ->  <form asp-action="PutRessource">
-        // PUT: / api/Books/
-        // ________________________________________________________
-        public async Task<IActionResult> PutRessource(int id, Book book, ICollection<IFormFile> images)
-        {
-            string uri = _configuration["URLApi"] + _url + id;
-            string accessToken = await HttpContext.GetTokenAsync("access_token");
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
-
-            Book b = new Book
-            {
-                Id = book.Id,
-                IdEditor = book.IdEditor,
-                Title = book.Title,
-                Subtitle = book.Subtitle,
-                Price = book.Price,
-                DatePublication = book.DatePublication,
-                Summary = book.Summary,
-                Isbn = book.Isbn
-            };
-
-            HttpResponseMessage response = await _client.PutAsJsonAsync(uri, b);
-            response.EnsureSuccessStatusCode();
-
-            foreach (var file in images)
-            {
-                if (file.Length <= 0 || file.ContentType != "image")
-                    continue;
-
-                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-
-                using (var contentImg = new MultipartFormDataContent())
-                {
-                    contentImg.Add(new StreamContent(file.OpenReadStream())
-                    {
-                        Headers =
-                    {
-                        ContentLength = file.Length,
-                        ContentType = new MediaTypeHeaderValue(file.ContentType)
-                    }
-                    }, "File", fileName);
-
-                    var responseImg = await _client.PostAsync(_configuration["URLApi"] + "api/image/" + id, contentImg);
-                }
-            }
-
-            return RedirectToAction("Details", "Books", new { id });
-        }
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Post (send) the new Ressource Book to the API Server 
@@ -315,13 +145,14 @@ namespace AppWebClient.Controllers
                 Isbn = book.Isbn
             };
 
-            HttpResponseMessage response = await _client.PostAsJsonAsync("api/Books", b);
+            HttpResponseMessage response = await _client.PostAsJsonAsync("api/Books/AddToShoppingCart/", b);
 
             response.EnsureSuccessStatusCode();
 
             return RedirectToAction("Index", "Books");
 
         }
+
 
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -340,42 +171,46 @@ namespace AppWebClient.Controllers
             // GET The Book for adding to User Shoppingcart
             // _________________________________________________________________
 
-
-            string accessToken = await HttpContext.GetTokenAsync("access_token");
-
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
+            HttpResponseMessage responseShoppingcart;
             ShoppingCart shoppingcart = new ShoppingCart();
 
-            string idUser = await client.GetStringAsync(_configuration["URLApi"] + "api/AspNetUsers/UserId/"); 
+            // GET ACCESS TOKEN & AUTHORIZATION REQUEST 
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            string responseSP = await client.GetStringAsync(_configuration["URLApi"] + "api/ShoppingCarts/");
+            // GET USER ID 
+            string idUser = await _client.GetStringAsync(_configuration["URLApi"] + "api/AspNetUsers/UserId/");
+
+            // GET SHOPPINGCARTS LIST 
+            string responseSP = await _client.GetStringAsync(_configuration["URLApi"] + "api/ShoppingCarts/");
             IEnumerable<ShoppingCart> shopcarts = JsonConvert.DeserializeObject<IEnumerable<ShoppingCart>>(responseSP);
 
+            // GET USER SHOPPINGCART 
             ShoppingCart shopcart = (from sp in shopcarts
                                      where sp.User.Id == idUser
                                      select sp).FirstOrDefault();
 
-            HttpResponseMessage responseShoppingcart;
-
             if (shopcart == null)
             {
+                // CREATE NEW SHOPPING CART FOR CONNECTED USER 
                 ShoppingCart sp = new ShoppingCart
                 {
                     UserId = idUser,
                     CreatedDate = DateTime.Now
                 };
 
-                responseShoppingcart = await client.PostAsJsonAsync(_configuration["URLApi"] + "api/ShoppingCarts/CreateShoppingCart/", sp);
+                // SEND THE NEW CREATED SHOPPINGCART TO THE SERVER API 
+                responseShoppingcart = await _client.PostAsJsonAsync(_configuration["URLApi"] + "api/ShoppingCarts/CreateShoppingCart/", sp);
             }
             else
             {
-                responseShoppingcart = await client.GetAsync(_configuration["URLApi"] + "api/ShoppingCarts/GetUserShoppingCarts/" + idUser);
+                // SHOPPINGCART ALREADY EXIST : GET THE SHOPPINGCART OF CONNECTED USER 
+                responseShoppingcart = await _client.GetAsync(_configuration["URLApi"] + "api/ShoppingCarts/GetUserShoppingCarts/" + idUser);
             }
 
             if (responseShoppingcart.IsSuccessStatusCode)
             {
+                // ACCESS THE SHOPPING CART CONTENT (BOOK LIST)
                 shoppingcart = await responseShoppingcart.Content.ReadAsAsync<ShoppingCart>();
             }
 
@@ -387,7 +222,7 @@ namespace AppWebClient.Controllers
             string uriBook = _configuration["URLApi"] + "api/Books/" + id;
             Book book = new Book();
 
-            HttpResponseMessage responseBook = await client.GetAsync(uriBook);
+            HttpResponseMessage responseBook = await _client.GetAsync(uriBook);
 
             if (responseBook.IsSuccessStatusCode)
             {
@@ -400,7 +235,7 @@ namespace AppWebClient.Controllers
             // GET The Wishlist of the LineItems  
             // _________________________________________________________________
 
-            string responseWL = await client.GetStringAsync(_configuration["URLApi"] + "api/Wishlists/Wishlist/");
+            string responseWL = await _client.GetStringAsync(_configuration["URLApi"] + "api/Wishlists/Wishlist/");
             IEnumerable<Wishlist> wishlists = JsonConvert.DeserializeObject<IEnumerable<Wishlist>>(responseWL);
 
             Wishlist wishlist = (from w in wishlists
@@ -412,31 +247,34 @@ namespace AppWebClient.Controllers
             // CREATE a LineItems  
             // _________________________________________________________________
 
-            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/Items/" + shoppingcart.Id);
-            string content2 = "[]";
+            // GET SHOPPING CART CONTENT (LINEITMES : BOOKS) 
+            string contentSC = await _client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/Items/" + shoppingcart.Id);
+
+            // GET WHISHLIST (BOOKS) 
+            string contentWL = "[]";
             if (shopcart != null)
             {
-                content2 = await client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/Wishlist/" + wishlist.Id);
+                contentWL = await _client.GetStringAsync(_configuration["URLApi"] + "api/LineItems/Wishlist/" + wishlist.Id);
             }
 
-            IEnumerable<LineItem> lineItems;
-            IEnumerable<LineItem> lineItems2;
+            IEnumerable<LineItem> SC_LineItems;
+            IEnumerable<LineItem> WL_LineItems;
 
-            if (content != null)
+            if (contentSC != null)
             {
                 HttpResponseMessage response;
-                lineItems = JsonConvert.DeserializeObject<IEnumerable<LineItem>>(content);
-                lineItems2 = JsonConvert.DeserializeObject<IEnumerable<LineItem>>(content2);
+                SC_LineItems = JsonConvert.DeserializeObject<IEnumerable<LineItem>>(contentSC);
+                WL_LineItems = JsonConvert.DeserializeObject<IEnumerable<LineItem>>(contentWL);
 
-                LineItem q = (from lineItem in lineItems
-                              where lineItem.IdBook == book.Id
-                              select lineItem).FirstOrDefault();
+                LineItem SC_lineitem = (from lineItem in SC_LineItems
+                                        where lineItem.IdBook == book.Id
+                                        select lineItem).FirstOrDefault();
 
-                LineItem q2 = (from lineItem in lineItems2
-                               where lineItem.IdBook == book.Id
-                               select lineItem).FirstOrDefault();
+                LineItem WL_lineitem = (from lineItem in WL_LineItems
+                                        where lineItem.IdBook == book.Id
+                                        select lineItem).FirstOrDefault();
 
-                if (q == null && q2 == null)
+                if (SC_lineitem == null && WL_lineitem == null)
                 {
                     LineItem line = new LineItem
                     {
@@ -447,22 +285,23 @@ namespace AppWebClient.Controllers
                         Quantity = 1,
                         IdShoppingcart = shoppingcart.Id
                     };
-                    ViewBag.USERID = UserID;
-                    response = await client.PostAsJsonAsync(_configuration["URLApi"] + "api/Books/AddLine/", line);
+
+                    ViewBag.USERID = idUser;
+                    response = await _client.PostAsJsonAsync(_configuration["URLApi"] + "api/Books/AddLine/", line);
 
                     if (response.StatusCode != HttpStatusCode.OK)
                     {
                         return BadRequest();
                     }
                 }
-                else if (q == null && q2 != null)
+                else if (SC_lineitem == null && WL_lineitem != null)
                 {
-                    ViewBag.USERID = UserID;
-                    q2.IdShoppingcart = shoppingcart.Id;
-                    q2.InsertedDate = DateTime.Now;
-                    string jsonString = System.Text.Json.JsonSerializer.Serialize<LineItem>(q2);
+                    ViewBag.USERID = idUser;
+                    WL_lineitem.IdShoppingcart = shoppingcart.Id;
+                    WL_lineitem.InsertedDate = DateTime.Now;
+                    string jsonString = System.Text.Json.JsonSerializer.Serialize<LineItem>(WL_lineitem);
                     StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                    response = await client.PutAsync(_configuration["URLApi"] + "api/LineItems/" + q2.Id, httpContent);
+                    response = await _client.PutAsync(_configuration["URLApi"] + "api/LineItems/" + WL_lineitem.Id, httpContent);
 
                     if (response.StatusCode != HttpStatusCode.NoContent)
                     {
@@ -471,11 +310,11 @@ namespace AppWebClient.Controllers
                 }
                 else
                 {
-                    q.Quantity++;
-                    q.InsertedDate = DateTime.Now;
-                    string jsonString = System.Text.Json.JsonSerializer.Serialize<LineItem>(q);
+                    SC_lineitem.Quantity++;
+                    SC_lineitem.InsertedDate = DateTime.Now;
+                    string jsonString = System.Text.Json.JsonSerializer.Serialize<LineItem>(SC_lineitem);
                     StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                    response = await client.PutAsync(_configuration["URLApi"] + "api/LineItems/" + q.Id, httpContent);
+                    response = await _client.PutAsync(_configuration["URLApi"] + "api/LineItems/" + SC_lineitem.Id, httpContent);
                     if (response.StatusCode != HttpStatusCode.NoContent)
                     {
                         return BadRequest();
@@ -504,7 +343,7 @@ namespace AppWebClient.Controllers
 
             Wishlist wishlist = new Wishlist();
 
-            string idUser = await client.GetStringAsync(_configuration["URLApi"] + "api/AspNetUsers/UserId/"); 
+            string idUser = await client.GetStringAsync(_configuration["URLApi"] + "api/AspNetUsers/UserId/");
 
             string responseWL = await client.GetStringAsync(_configuration["URLApi"] + "api/Wishlists/Wishlist/");
             IEnumerable<Wishlist> wishlists = JsonConvert.DeserializeObject<IEnumerable<Wishlist>>(responseWL);
@@ -529,7 +368,7 @@ namespace AppWebClient.Controllers
             {
                 responseWishlist = await client.GetAsync(_configuration["URLApi"] + "api/Wishlists/Wishlist/" + idUser);
             }
-            
+
             if (responseWishlist.IsSuccessStatusCode)
             {
                 wishlist = await responseWishlist.Content.ReadAsAsync<Wishlist>();
@@ -604,7 +443,7 @@ namespace AppWebClient.Controllers
                         IdWishlist = wishlist.Id
                     };
                     response = await client.PostAsJsonAsync(_configuration["URLApi"] + "api/Books/AddLine/", line);
-                    
+
                     if (response.StatusCode != HttpStatusCode.OK)
                     {
                         return BadRequest();
@@ -637,6 +476,202 @@ namespace AppWebClient.Controllers
         }
 
 
+
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // To Create a new Book 
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // ________________________________________________________
+        // Display the "Create" View of Books Controller 
+        // GET: Books/Create
+        // ________________________________________________________
+        public async Task<IActionResult> Create(Book book)
+        {
+            List<Editor> editors;
+
+            string uriEditors = _url + "GetEditors";
+
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            HttpResponseMessage responseEditor = await _client.GetAsync(_configuration["URLApi"] + uriEditors);// HTTP GET
+
+            // GET EDITOR SELECTLIST 
+            if (responseEditor.IsSuccessStatusCode)
+            {
+                editors = await responseEditor.Content.ReadAsAsync<List<Editor>>();
+                ViewData["EDITEURS"] = new SelectList(editors, "Id", "Name", book.IdEditor);// Add To ViewData
+            }
+
+            return View("Create");
+        }
+
+
+        // ________________________________________________________
+        // Post (send) the new Ressource Book to the API Server 
+        // POST: Books/Create
+        // ________________________________________________________
+        public async Task<IActionResult> Post(Book book)
+        {
+            // Recover the Book 
+            Book postBook = new Book
+            {
+                IdEditor = book.IdEditor,
+                Title = book.Title,
+                Subtitle = book.Subtitle,
+                Price = book.Price,
+                DatePublication = book.DatePublication,
+                Summary = book.Summary,
+                Isbn = book.Isbn,
+                Stock = book.Stock,
+                StockInitial = book.StockInitial
+            };
+
+
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            HttpResponseMessage response = await _client.PostAsJsonAsync(_configuration["URLApi"] + _url, postBook);
+            //  response.EnsureSuccessStatusCode();
+
+
+            // Message 
+            ViewBag.ID = postBook.Id;
+            TempData["msg"] = "Nouvelle insertion";
+
+            // Page de nouveau | liste | Auteurs 
+            return RedirectToAction("Index", "Books");
+
+        }
+
+
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // UPDATE : Update a Book 
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // ________________________________________________________
+        // Edit Book for UPDATE
+        // GET: api/Books/Edit/5
+        // ________________________________________________________
+
+
+        public async Task<IActionResult> Edit(int? id, Book book)
+        {
+
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            string uri = _url + "GetOneBook/"+ id;
+
+            string content = await _client.GetStringAsync(_configuration["URLApi"] + uri);
+            Book _book = JsonConvert.DeserializeObject<Book>(content);
+
+            if (_book == null)
+            {
+                return NotFound();
+            }
+
+            // Select List (Liste Déroulante) 
+            List<Editor> editeurs;
+            string uriGetEditeurs = _url + "GetEditors";
+            HttpResponseMessage responseEditors = await _client.GetAsync(_configuration["URLApi"] + uriGetEditeurs); // HTTP GET
+
+            if (responseEditors.IsSuccessStatusCode)
+            {
+                editeurs = await responseEditors.Content.ReadAsAsync<List<Editor>>();
+                ViewData["EDITEURS"] = new SelectList(editeurs, "Id", "Name", book.IdEditor);// Add To ViewData
+            }
+
+            return View(_book);
+        }
+
+
+        // ________________________________________________________
+        // UPDATE : Update Books ->  <form asp-action="Put">
+        // PUT (HTTP VERB) : / api/Books/S
+        // ________________________________________________________
+
+        public async Task<IActionResult> Put(int id, Book book)
+        {
+            string uri = _url + id;
+
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            Book b = new Book
+            {
+                Id = book.Id,
+                IdEditor = book.IdEditor,
+                Title = book.Title,
+                Subtitle = book.Subtitle,
+                Price = book.Price,
+                DatePublication = book.DatePublication,
+                Summary = book.Summary,
+                Isbn = book.Isbn
+            };
+
+            HttpResponseMessage response = await _client.PutAsJsonAsync(_configuration["URLApi"] + uri, b);
+            response.EnsureSuccessStatusCode();
+
+            return RedirectToAction("Index", "Books");
+        }
+
+
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Delete a Book
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // ________________________________________________________
+        // Display the "Delete" View of Books Controller 
+        // GET: Books/Delete
+        // ________________________________________________________
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            string uri = _url + "GetOneBook/" + id; 
+            Book book = new Book();
+
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            // HTTP DELETE
+            HttpResponseMessage response = await _client.GetAsync(_configuration["URLApi"] + uri);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var result = response.Content.ReadAsStringAsync().Result;
+                book = JsonConvert.DeserializeObject<Book>(result);
+            }
+            else
+            {
+                // ERROR
+                return NotFound();
+            }
+
+            return View(book);
+
+        }// END 
+
+        // ________________________________________________________
+        // Delete a resource Book ->  <form asp-action="ConfirmeDelete">
+        // DELETE: / api/Books/s
+        // ________________________________________________________
+
+        public async Task<IActionResult> ConfirmeDelete(int? id)
+        {
+            // HTTP DELETE
+            string uri = _url + id;
+
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            HttpResponseMessage response = await _client.DeleteAsync(_configuration["URLApi"] + uri);
+            // response.EnsureSuccessStatusCode(); 
+
+            return RedirectToAction("Index", "Books");
+        }
+
+
+
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Verify if a categorie existe 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -667,7 +702,9 @@ namespace AppWebClient.Controllers
         }
 
 
-
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Methods for ADVANCED SEARCH 
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // GET: Books/search
         public async Task<IActionResult> SearchAsync()
@@ -690,6 +727,7 @@ namespace AppWebClient.Controllers
 
             return View();
         }
+
 
         [HttpPost]
         // POST: Books/find
@@ -716,6 +754,350 @@ namespace AppWebClient.Controllers
                 return RedirectToAction("Search", "Books");
             }
         }
+
+
+
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // To Create a new Editor 
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+        // ________________________________________________________
+        // Display the "CreateEditor" View for createing new Editor 
+        // GET: AdminBooks/CreateEditor
+        // ________________________________________________________
+        public async Task<IActionResult> CreateEditor(int? id)
+        {
+            ViewBag.ID = id;
+            TempData["msg"] = "AdminBooks : Editor inserted";
+
+            return View("CreateEditor");
+        }
+
+
+
+        // ________________________________________________________
+        // Post (send) the new Editor to the API Server 
+        // POST: AdminBooks/PostEditor
+        // ________________________________________________________
+        public async Task<IActionResult> PostEditor(int? id, Editor editor, Book? book)
+        {
+            string uri = _url + id;
+            Book b = null;
+
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            // Recover the Editor
+            Editor postEditor = new Editor
+            {
+                Email = editor.Email,
+                Url = editor.Url,
+                CountryCode = editor.CountryCode,
+                Name = editor.Name
+
+            };
+
+            // HTTP POST Editor 
+            HttpResponseMessage responsePostEditor = await _client.PostAsJsonAsync(_configuration["URLApi"] + _url + "PostEditor", postEditor);
+
+            // GET Editor ID 
+            var resultPostEditor = responsePostEditor.Content.ReadAsStringAsync().Result;
+            int EditorID = JsonConvert.DeserializeObject<int>(resultPostEditor);
+
+            // HTTP GET and PUT Book 
+            HttpResponseMessage responseGetBook = await _client.GetAsync(_configuration["URLApi"] + uri);
+            // Update book's Editor 
+            var resultGetBook = responseGetBook.Content.ReadAsStringAsync().Result;
+            book = JsonConvert.DeserializeObject<Book>(resultGetBook);
+
+            b = new Book
+            {
+                Id = book.Id,
+                IdEditor = EditorID,
+                Title = book.Title,
+                Subtitle = book.Subtitle,
+                Price = book.Price,
+                DatePublication = book.DatePublication,
+                Summary = book.Summary,
+                Isbn = book.Isbn,
+                IdEditorNavigation = postEditor
+            };
+
+            uri = _url + b.Id;
+            HttpResponseMessage responsePutBook = await _client.PutAsJsonAsync(_configuration["URLApi"] + uri, b);// HTTP PUT (UPDATE)
+            responsePutBook.EnsureSuccessStatusCode();
+
+            // http://localhost:5002/AdminBooks/Edit/208
+            return RedirectToAction("Index", "Books");
+
+        }
+
+
+
+        // ------------------------------------------------------------------
+        // To get View of action AdminAccess() 
+        // ------------------------------------------------------------------
+
+        public IActionResult AdminAccess()
+        {
+            return View();
+        }
+
+
+        // ------------------------------------------------------------------
+        // To Manage the Authors of selected book () 
+        // ------------------------------------------------------------------
+        public async Task<IActionResult> ManageCowriters(int? id, string title) // Id = Book's Id
+        {
+            string isbn = null;
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            string content = await _client.GetStringAsync(_configuration["URLApi"] + _url + "ManageCowriters/" + id);
+            List<Cowriter> cowriters = JsonConvert.DeserializeObject<List<Cowriter>>(content);
+
+            if (cowriters == null)
+            {
+                return NotFound();
+            }
+
+            foreach (var item in cowriters)
+            {
+                // Get ISBN 
+                isbn = item.IdBookNavigation.Isbn;
+            }
+
+            ViewData["ISBN"] = isbn;
+            ViewData["BOOKID"] = id;
+            ViewData["BOOKTITLE"] = title;
+
+            return View(cowriters);
+        }
+
+
+
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Create a new Cowriter for a book
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        public async Task<IActionResult> CreateCowriter(int? id)
+        {
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+
+            // GET BOOK 
+            string uri = _url + id;
+            string content = await _client.GetStringAsync(_configuration["URLApi"] + uri);
+            Book _book = JsonConvert.DeserializeObject<Book>(content);
+
+            if (_book == null)
+            {
+                return NotFound();
+            }
+
+
+            // GET AUTHORS LIST 
+            string contentGetAuthors = await _client.GetStringAsync(_configuration["URLApi"] + _url + "GetAuthors");
+            List<Author> authors = JsonConvert.DeserializeObject<List<Author>>(contentGetAuthors);
+            if (authors == null)
+            {
+                return NotFound();
+            }
+
+
+            ViewData["SELECTAUTHORS"] = new SelectList(authors, "Id", "Lastname");
+            ViewData["BOOKTITLE"] = _book.Title;
+            ViewData["BOOKID"] = _book.Id;
+
+            return View("CreateCowriter");
+        }
+
+
+        // ________________________________________________________
+        // Post (send) the new Cowriter to the API Server 
+        // POST: AdminBooks/PostCowriter
+        // ________________________________________________________
+        public async Task<IActionResult> PostCowriter(int id, Cowriter cowriter)
+        {
+
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            // Recover the Cowriter
+            Cowriter postCowriter = new Cowriter
+            {
+                IdAuthor = cowriter.IdAuthor,
+                IdBook = id
+
+            };
+
+            // HTTP POST Cowriter 
+            HttpResponseMessage responsePostCowriter = await _client.PostAsJsonAsync(_configuration["URLApi"] + _url + "PostCowriter", postCowriter);
+
+            // http://localhost:5002/AdminBooks/Edit/208
+            return RedirectToAction("Index", "Books");
+
+        }
+
+
+
+
+
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Delete a Book
+        // DELETE: Books/Delete/5
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+        // ________________________________________________________
+        // HTTP DELETE
+        // Display the "Delete" View of Books Controller 
+        // GET: Books/Delete
+        // ________________________________________________________
+
+        public async Task<IActionResult> DeleteCowriter(int? idAuthor, int? idBook) // id = idAuthor
+        {
+            // _______________________
+            // GET CoWriter 
+            // _______________________
+
+            string uriGetCowriter = _url + "GetCowriter/" + idAuthor;
+            Cowriter cowriter = new Cowriter();
+
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+
+            HttpResponseMessage responseuriGetCowriter = await _client.GetAsync(_configuration["URLApi"] + uriGetCowriter);
+
+            if (responseuriGetCowriter.IsSuccessStatusCode)
+            {
+                var resultGetCowriter = responseuriGetCowriter.Content.ReadAsStringAsync().Result;
+                cowriter = JsonConvert.DeserializeObject<Cowriter>(resultGetCowriter);
+            }
+            else
+            {
+                // ERROR
+                return NotFound();
+            }
+
+
+            // _______________________
+            // GET Book 
+            // _______________________
+
+            string uriGetBook = _url + idBook;
+            string contentGetBook = await _client.GetStringAsync(_configuration["URLApi"] + uriGetBook);
+            Book book = JsonConvert.DeserializeObject<Book>(contentGetBook);
+
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["BOOKTITLE"] = book.Title;
+            ViewData["BOOKID"] = book.Id;
+            ViewData["BOOKISBN"] = book.Isbn;
+            ViewData["IdAuthor"] = cowriter.IdAuthor;
+
+            return View(cowriter);
+
+        }// END 
+
+
+
+        // ________________________________________________________
+        // Delete a resource Book ->  <form asp-action="ConfirmeDelete">
+        // DELETE: / api/Books/s
+        // ________________________________________________________
+
+        public async Task<IActionResult> ConfirmeDeleteCowriter(int? idAuthor, int? idBook)
+        {
+            Cowriter cowriter = new Cowriter();
+            // HTTP DELETE
+            string uri = _url + "DeleteCowriter/" + idAuthor+"/"+idBook;
+
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            HttpResponseMessage response = await _client.DeleteAsync(_configuration["URLApi"] + uri);
+            // response.EnsureSuccessStatusCode(); 
+
+            if (response.IsSuccessStatusCode)
+            {
+                var result = response.Content.ReadAsStringAsync().Result;
+                cowriter = JsonConvert.DeserializeObject<Cowriter>(result);
+            }
+            else
+            {
+                // ERROR
+                return NotFound();
+            }
+
+            ViewData["IdAuthor"] = cowriter.IdAuthor;
+            return RedirectToAction("Index", "Books");
+        }
+
+
+
+
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // CONTROL CONNECTED USER ROLE (ACCES RIGHTS)
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        [Route("VerifyRole")]
+        public async Task<IActionResult> VerifyRole()
+        {
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            string accessRight = await GetRole();
+            ViewData["ACCESSRIGHT"] = accessRight;
+
+            if (accessRight == "ADMIN")
+            {
+                return RedirectToAction("AdminAccess", "Books");  // ACCESS DASHBOARD
+            }
+            else
+            {
+                TempData["ERROR"] = "Droits d'accès refusés";
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+
+        public async Task<string> GetRole()
+        {
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            string accessRight = null;
+
+            // GET CONNECTED USER ID 
+            string uriUserId = _configuration["URLApi"] + "api/AspNetUsers/UserId";
+            string idUser = await _client.GetStringAsync(uriUserId);
+
+
+            // GET CONNECTED USER ROLE
+            string uriUserRole = _configuration["URLApi"] + "api/AspNetUserRoles/GetUserRole/";
+            string userRole = await _client.GetStringAsync(uriUserRole);// HTTP GET
+
+
+            if (userRole.ToUpper() == "ADMIN")
+            {
+                accessRight = "ADMIN";
+            }
+            else
+            {
+                accessRight = "OTHERS";
+            }
+
+            return accessRight;
+        }
+
+
 
     }// End Class 
 }

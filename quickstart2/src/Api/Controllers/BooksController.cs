@@ -1,17 +1,20 @@
-﻿using Api.Models;
-using Api.ViewModel;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
+﻿
 
 
 namespace Api.Controllers
 {
+
+    using Api.Models;
+    using Api.ViewModel;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
@@ -31,42 +34,50 @@ namespace Api.Controllers
 
 
 
-        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
-        // Return the list of all Books  
-        // GET: api/Books 
-        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
+        // _______________________________________________________________________________________________________
+        // COMMON PART 
+        // _______________________________________________________________________________________________________
+
+
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Return the list of all Books 
+        // GET: api/Books
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
+        public async Task<ActionResult<IEnumerable<Book>>> GetAll()
         {
-            return await _context.Books.ToListAsync();
+            var books =
+                (from i in _context.Books
+                 orderby i.Title ascending
+                 select new Book()
+                 {
+                     Id = i.Id,
+                     Isbn = i.Isbn,
+                     IdEditor = i.IdEditor,
+                     DatePublication = i.DatePublication,
+                     Price = i.Price,
+                     Subtitle = i.Subtitle,
+                     Summary = i.Summary,
+                     Title = i.Title,
+                     IdEditorNavigation = (from e in _context.Editors where e.Id == i.IdEditor select e).FirstOrDefault(),
+                     Cowriters = (from c in _context.Cowriters
+                                  where c.IdBook == i.Id
+                                  select new Cowriter()
+                                  {
+                                      IdAuthor = c.IdAuthor,
+                                      IdAuthorNavigation = (from a in _context.Authors where a.Id == c.IdAuthor select a).FirstOrDefault()
+                                  }).ToList()
+                 });
 
-            /* 
-            var books = 
-                (from i in _context.Books 
-                 select new Book() 
-                 { 
-                     Id = i.Id, 
-                     Isbn = i.Isbn,  
-                     IdEditor = i.IdEditor,  
-                     DatePublication = i.DatePublication,  
-                     Price = i.Price,  
-                     Subtitle = i.Subtitle,  
-                     Summary = i.Summary,  
-                     Title = i.Title,  
-                     IdEditorNavigation = (from e in _context.Editors where e.Id == i.IdEditor select e).FirstOrDefault(), 
-                 }); 
- 
-            if (books == null) 
-            { 
-                return NotFound(); 
-            } 
- 
-            return await books.ToListAsync(); 
-            */
+            if (books == null)
+            {
+                return NotFound();
+            }
+
+            return await books.ToListAsync();
+
         }
-
-
 
 
         // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
@@ -105,7 +116,7 @@ namespace Api.Controllers
         // Return a Book (id)
         // GET: api/Books/5
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
+
         [Route("GetOneBook/{id}")]
         public async Task<ActionResult<Book>> GetOne(int id)
         {
@@ -139,103 +150,6 @@ namespace Api.Controllers
 
             return book;
         }
-        
-
-
-
-        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
-        // Update an existing Book  
-        // PUT: api/Books/5 
-        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
-        [Authorize]
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutBook(int id, Book book)
-        {
-            if (id != book.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(book).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BookExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
-        // POST — create a new resource Book 
-        // POST: api/Books 
-        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
-
-        [Authorize]
-        [HttpPost]
-        public async Task<ActionResult<Book>> PostBook(Book book)
-        {
-            _context.Books.Add(book);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetBook", new { id = book.Id }, book);
-        }
-
-
-        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
-        // Delete a Book 
-        // DELETE: api/Books/5 
-        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
-        // DELETE: api/Books/5 
-
-        [Authorize]
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Book>> DeleteBook(int id)
-        {
-            var book = await _context.Books.FindAsync(id);
-            if (book == null)
-            {
-                return NotFound();
-            }
-
-            _context.Books.Remove(book);
-            await _context.SaveChangesAsync();
-
-            return book;
-        }
-
-
-        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
-        // Verify if a Book existe  
-        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
-        private bool BookExists(int id)
-        {
-            return _context.Books.Any(e => e.Id == id);
-        }
-
-
-        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
-        // Send the List of Editors for the Create View 
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////	 
-
-        [Route("GetEditors")]
-        public async Task<ActionResult<IEnumerable<Editor>>> GetEditors()
-        {
-            var editors = (from e in _context.Editors select e).ToListAsync();
-            return await editors;
-        }
-
 
 
         // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
@@ -260,6 +174,7 @@ namespace Api.Controllers
 
             return shoppingCart;
         }
+
 
 
         // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
@@ -293,6 +208,12 @@ namespace Api.Controllers
 
 
         }
+
+
+
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
+        // Method for advanced search
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
         [HttpPost]
         [Route("find")]
@@ -387,6 +308,272 @@ namespace Api.Controllers
 
             return q;
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // _______________________________________________________________________________________________________
+        // ADMINISTRATION PART 
+        // _______________________________________________________________________________________________________
+
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Update an existing Book 
+        // PUT: api/Books/5
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, Book book)
+        {
+            if (id != book.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(book).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!Exists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+
+
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
+        // Verify if a Book existe  
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
+        private bool Exists(int id)
+        {
+            return _context.Books.Any(e => e.Id == id);
+        }
+
+
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
+        // POST — create a new resource Book 
+        // POST: api/Books 
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
+
+        [Authorize]
+        [HttpPost]
+        public async Task<ActionResult<Book>> Post(Book book)
+        {
+            _context.Books.Add(book);
+            await _context.SaveChangesAsync();
+
+            _context.Entry(book).GetDatabaseValues();
+            return CreatedAtAction("GetAll", new { id = book.Id }, book);
+        }
+
+
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Delete a Book
+        // DELETE: api/Books/5
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Book>> Delete(int id)
+        {
+
+            // FIND Book 
+            var book = await _context.Books.FindAsync(id);
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            // REMOVE Book
+            _context.Books.Remove(book);
+            await _context.SaveChangesAsync();
+
+            // GET UPDATED DB VALUES 
+            _context.Entry(book).GetDatabaseValues();
+
+
+            return book;
+
+        }
+
+
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // To Manage Editor(s)  of a selected Book 
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////	
+
+        [Route("GetEditors")]
+        public async Task<ActionResult<IEnumerable<Editor>>> GetEditors()
+        {
+            var editors = (from e in _context.Editors select e).ToListAsync();
+            return await editors;
+        }
+
+
+        [Route("GetEditor")]
+        public async Task<ActionResult<Editor>> GetEditor(string name)
+        {
+            Editor editor = (from e in _context.Editors where e.Name == name select e).FirstOrDefault();
+            return editor;
+        }
+
+
+        [Route("PostEditor")]
+        [HttpPost]
+        public async Task<ActionResult<int>> PostEditor(Editor editor)
+        {
+            if (editor != null)
+            {
+                _context.Editors.Add(editor);
+                await _context.SaveChangesAsync();
+            }
+
+            _context.Entry(editor).GetDatabaseValues();
+            int id = editor.Id;
+
+            return id;
+        }
+
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // To manage Authors of a selected Book 
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////	
+        [Route("ManageCowriters/{id}")]
+        public async Task<ActionResult<IEnumerable<Cowriter>>> ManageCowriters(int? id)
+        {
+
+            var cowriters =
+                (from c in _context.Cowriters
+                 where c.IdBook == id
+                 select new Cowriter()
+                 {
+                     IdBook = c.IdBook,
+                     IdAuthor = c.IdAuthor,
+                     IdAuthorNavigation = (from a in _context.Authors where a.Id == c.IdAuthor select a).FirstOrDefault(),
+                     IdBookNavigation = (from b in _context.Books where b.Id == c.IdBook select b).FirstOrDefault()
+                 }
+
+                 ).ToListAsync();
+
+            return await cowriters;
+        }
+
+
+        // [HttpPost, Route("~/api/tests/save/{id}")]
+        [Route("PostCowriter")]
+        [HttpPost]
+        public async Task<ActionResult<int>> PostCowriter(Cowriter cowriter)
+        {
+            if (cowriter != null)
+            {
+                _context.Cowriters.Add(cowriter);
+                await _context.SaveChangesAsync();
+            }
+
+            // GET UPDATED DB VALUES 
+            _context.Entry(cowriter).GetDatabaseValues();
+
+            int id = cowriter.IdBook;
+
+            return id;
+        }
+
+
+
+        [Route("GetCowriter/{id}")]
+        public async Task<ActionResult<Cowriter>> GetCowriter(int? id)
+        {
+            var cowriter =
+                (from c in _context.Cowriters
+                 where c.IdAuthor == id
+                 select new Cowriter()
+                 {
+                     IdBook = c.IdBook,
+                     IdAuthor = c.IdAuthor,
+                     IdAuthorNavigation = (from a in _context.Authors where a.Id == c.IdAuthor select a).FirstOrDefault(),
+                     IdBookNavigation = (from b in _context.Books where b.Id == c.IdBook select b).FirstOrDefault()
+                 }
+
+                 ).FirstOrDefault();
+
+
+            return cowriter;
+        }
+
+
+
+        [HttpDelete]
+        [Route("DeleteCowriter/{idAuthor:int}/{idBook:int}")]
+        public async Task<ActionResult<Cowriter>> DeleteCowriter(int? idAuthor, int? idBook) 
+        {
+            // LINQ Query Syntax to find out teenager students
+            var cowriter = (from c in _context.Cowriters
+                                   where c.IdAuthor == idAuthor && c.IdBook == idBook
+                                  select c).FirstOrDefault();
+
+
+            if (cowriter != null)
+            {
+                // REMOVE Book
+                _context.Cowriters.Remove(cowriter);
+                await _context.SaveChangesAsync();
+
+
+                // GET UPDATED DB VALUES 
+                _context.Entry(cowriter).GetDatabaseValues();
+
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            return cowriter;
+        }
+
+
+
+
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // GET Authors List for DropDownList / SelectList (View MVC : CreateCowriter)
+        // GET: AdminBooks/GetAuthors
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        [Route("GetAuthors")]
+        public async Task<ActionResult<IEnumerable<Author>>> GetAuthors()
+        {
+            var authors =
+                (from c in _context.Authors
+                 select new Author()
+                 {
+                     Id = c.Id,
+                     Firstname = c.Firstname,
+                     Lastname = c.Lastname
+                 }
+
+                 ).ToListAsync();
+
+            return await authors;
+        }
+
 
 
     }// End Class  

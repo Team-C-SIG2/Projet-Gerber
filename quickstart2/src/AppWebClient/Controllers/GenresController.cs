@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using AppWebClient.Models;
+﻿using AppWebClient.Models;
 using AppWebClient.ViewModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace AppWebClient.Controllers
 {
@@ -133,7 +131,7 @@ namespace AppWebClient.Controllers
 
             string accessToken = await HttpContext.GetTokenAsync("access_token");
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            HttpResponseMessage response = await _client.PostAsJsonAsync(_configuration["URLApi"] +"api/genres", genre);
+            HttpResponseMessage response = await _client.PostAsJsonAsync(_configuration["URLApi"] + "api/genres", genre);
             response.EnsureSuccessStatusCode();
             return RedirectToAction("Index", "Genres");
         }
@@ -251,8 +249,10 @@ namespace AppWebClient.Controllers
             {
                 var result = response.Content.ReadAsStringAsync().Result;
                 var genres = JsonConvert.DeserializeObject<List<Genre>>(result);
-                foreach (var genre in genres) {
-                    if (genre.Id == id) {
+                foreach (var genre in genres)
+                {
+                    if (genre.Id == id)
+                    {
                         exist = true;
                     }
                 }

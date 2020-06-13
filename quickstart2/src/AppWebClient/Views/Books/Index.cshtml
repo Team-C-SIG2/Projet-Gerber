@@ -2,32 +2,64 @@
 
 @{
     ViewData["Title"] = "Index";
+
 }
 
-<h1>Catalogue de nos livres</h1>
-<hr />
-@Html.ActionLink("Ma liste des favoris", "Index", "Wishlists")
-<br />
-@Html.ActionLink("Mon panier d'achat", "Index", "UserShoppingCarts")
-<br />
-@Html.ActionLink("Rechercher un livre", "Search", "Books")
-<br />
-<br />
+
+<div class="row">
+    @if ((string)@ViewData["ACCESSRIGHT"] == "ADMIN")
+    {
+        @* ADMIN *@
+        <div class="col-md-12">
+            <h1>Administration des livres</h1>
+            <hr />
+            @Html.ActionLink("Nouveau", "Create", "Books") |
+            @Html.ActionLink("Recherche avancée", "Search", "Books")
+            <br />
+            <br />
+        </div>
+    }
+    else
+    {
+        @* USER *@
+        <div class="col-md-12">
+            <h1>Catalogue de nos livres</h1>
+            <hr />
+            @Html.ActionLink("Ma liste des favoris", "Index", "Wishlists") |
+            @Html.ActionLink("Mon panier d'achat", "Index", "UserShoppingCarts") |
+            @Html.ActionLink("Recherche avancée", "Search", "Books")
+            <br />
+            <br />
+        </div>
+    }
+</div>
+
+<form method="get" asp-action="Index">
+
+    <p>
+        <input type="search" placeholder="Entrez le titre du livre..." value="@ViewData["GETBOOKDETTAILS"]" name="bookSearch" style="width:500px;" />
+        <input type="submit" value="Rechercher" name="bookSearch" class="btn btn-dark" /> |
+        <a asp-action="Index">Afficher tous les livres</a>
+    </p>
+
+</form>
 
 <table id="table" class="compact hover stripe">
     <thead>
         <tr>
-            <th> </th>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                Titre
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Isbn)
+                Date de publication
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                ISBN
             </th>
-            <th> </th>
+
+            <th>
+                Prix
+            </th>
             <th> </th>
         </tr>
     </thead>
@@ -36,13 +68,15 @@
         {
             <tr>
                 <td>
-                    @* ADD TO SHOPPINGCART  *@
-                    <a class="btn btn-default" asp-action="AddItem" asp-route-id="@item.Id"><i class="fas fa-shopping-cart"></i></a>
-                </td>
-
-
-                <td>
                     @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @if (@item.DatePublication != null)
+                    {
+                        @Convert.ToDateTime(@item.DatePublication).ToString("dd.MM.yyyy")
+                    }
+                    else
+                    {<text>/</text>}
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Isbn)
@@ -50,19 +84,38 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
-                <td>
-                    <a class="btn btn-default" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info"></i></a>
-                </td>
-                <td>
-                    <a class="btn btn-default" asp-action="AddToWishlist" asp-route-id="@item.Id"><i class="far fa-star"></i></a>
-                </td>
+
+
+
+
+                @if ((string)@ViewData["ACCESSRIGHT"] == "ADMIN")
+                {
+                    @* ADMIN *@
+
+                    <td>
+                        <a class="btn btn-default" asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a>
+                        <a class="btn btn-default" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info"></i></a>
+                        <a class="btn btn-default" asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-trash-alt"></i></a>
+                    </td>
+                }
+                else
+                {
+                    @* USER *@
+
+                    <td>
+                        <a class="btn btn-default" asp-action="AddItem" asp-route-id="@item.Id"><i class="fas fa-shopping-cart"></i></a>
+                        <a class="btn btn-default" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info"></i></a>
+                        <a class="btn btn-default" asp-action="AddToWishlist" asp-route-id="@item.Id"><i class="far fa-star"></i></a>
+                    </td>
+                }
+
+
             </tr>
         }
     </tbody>
 </table>
 <br />
 @Html.ActionLink("Page d'accueil", "Index", "Home")
-
 
 
 @section Scripts{

@@ -6,6 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\ToDo\**" />
+    <Content Remove="Controllers\ToDo\**" />
+    <EmbeddedResource Remove="Controllers\ToDo\**" />
+    <None Remove="Controllers\ToDo\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\AdminBooksController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Bricelam.EntityFrameworkCore.Pluralizer" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

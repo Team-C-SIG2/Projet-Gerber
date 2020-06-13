@@ -94,7 +94,7 @@ namespace Api.Controllers
                 return NotFound();
             }
 
-            _context.Authors.Remove(authors); 
+            _context.Authors.Remove(authors);
             try
             {
                 await _context.SaveChangesAsync();

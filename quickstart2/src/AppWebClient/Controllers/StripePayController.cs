@@ -2,21 +2,21 @@
 namespace AppWebClient.Controllers
 {
 
+    using AppWebClient.Models;
     using AppWebClient.Tools;
+    using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using Newtonsoft.Json;
     using Stripe;
     using System;
     using System.Collections.Generic;
-    using System.Net.Http;
-    using System.Threading.Tasks;
-    using System.Net.Http.Headers;
-    using Microsoft.AspNetCore.Authentication;
-    using AppWebClient.Models;
-    using System.Net;
     using System.Linq;
+    using System.Net;
+    using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Text;
+    using System.Threading.Tasks;
 
     public class StripePayController : Controller
     {
@@ -68,10 +68,10 @@ namespace AppWebClient.Controllers
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
             string idUser = await client.GetStringAsync(_configuration["URLApi"] + "api/AspNetUsers/UserId/");
-            string uriPkey = _configuration["URLApi"] + "api/stripePay/PKey/" ;
-            string pKey = null; 
+            string uriPkey = _configuration["URLApi"] + "api/stripePay/PKey/";
+            string pKey = null;
             List<string> stripePKeys;
-            
+
             string content = await client.GetStringAsync(uriPkey);
             if (content != null)
             {

@@ -1,0 +1,64 @@
+﻿@model AppWebClient.Models.Book
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Suppression</h1>
+
+<h3>Voulez-vous vraimment supprimer cet article?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Titre
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class="col-sm-2">
+            ISBN
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Isbn)
+        </dd>
+        <dt class="col-sm-2">
+            Date de publication
+        </dt>
+        <dd class="col-sm-10">
+            @if (@Model.DatePublication != null)
+            {
+                @Convert.ToDateTime(@Model.DatePublication).ToString("dd.MM.yyyy")
+            }
+            else
+            {<text>/</text>}
+        </dd>
+        <dt class="col-sm-2">
+            Résumé
+        </dt>
+        <dd class="col-sm-10">
+            @if (@Model.Summary != null)
+            {
+                @Model.Summary
+            }
+            else
+            {<text>/</text>}
+        </dd>
+
+    </dl>
+
+    <form asp-action="ConfirmeDelete">
+
+        <input type="hidden" asp-for="@Model.Id" />
+        <input type="submit" value="Supprimer" class="btn btn-danger" onclick="warning()" />
+        <a asp-action="Index">Retour à la liste</a>
+    </form>
+
+</div>
+
+<script>
+    function warning() {
+        alert("Attention! Si le livre est enregistré dans le panier d'un utilisateur ou lié à un auteur, il ne sera pas supprimer.");
+    }
+</script>
+

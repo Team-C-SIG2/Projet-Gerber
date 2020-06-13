@@ -23,7 +23,8 @@ namespace AppWebClient.Controllers
 
         private IConfiguration _configuration;
 
-        public AuthorsController(IConfiguration configuration) {
+        public AuthorsController(IConfiguration configuration)
+        {
             _configuration = configuration;
             _client = new HttpClient();
         }
@@ -44,7 +45,7 @@ namespace AppWebClient.Controllers
 
             string accessToken = await HttpContext.GetTokenAsync("access_token");
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            HttpResponseMessage response = await _client.GetAsync(_configuration["URLApi"]+_url);
+            HttpResponseMessage response = await _client.GetAsync(_configuration["URLApi"] + _url);
 
             if (response.IsSuccessStatusCode)
             {

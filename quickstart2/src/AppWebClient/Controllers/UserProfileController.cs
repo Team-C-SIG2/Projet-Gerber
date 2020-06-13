@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -75,7 +74,7 @@ namespace AppWebClient.Controllers
             };
             return View(userProfil);
         }
-        
+
 
         public async Task<IActionResult> EmailConfirm()
         {
@@ -90,7 +89,7 @@ namespace AppWebClient.Controllers
                 return NotFound();
             }
 
-            return Redirect(_configuration["URLIdentity"]+"ApplicationUser/ConfirmEmailSend/"+idUser);
+            return Redirect(_configuration["URLIdentity"] + "ApplicationUser/ConfirmEmailSend/" + idUser);
         }
 
         public async Task<IActionResult> PhoneConfirm()
