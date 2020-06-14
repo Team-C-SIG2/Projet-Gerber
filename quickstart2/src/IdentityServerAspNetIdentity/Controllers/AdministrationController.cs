@@ -44,7 +44,6 @@ namespace IdentityServerAspNetIdentity.Controllers
                 return View("NotFound");
             }
 
-            // GetRolesAsync returns the list of user Roles
             var userRoles = await userManager.GetRolesAsync(user);
 
             var model = new EditUserViewModel
@@ -144,7 +143,7 @@ namespace IdentityServerAspNetIdentity.Controllers
 
             if (!result.Succeeded)
             {
-                ModelState.AddModelError("", "Cannot remove user existing roles");
+                ModelState.AddModelError("", "Suppression du role impossible");
                 return View(model);
             }
 
@@ -153,7 +152,7 @@ namespace IdentityServerAspNetIdentity.Controllers
 
             if (!result.Succeeded)
             {
-                ModelState.AddModelError("", "Cannot add selected roles to user");
+                ModelState.AddModelError("", "Ajout du role impossible");
                 return View(model);
             }
 

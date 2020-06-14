@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -39,7 +41,7 @@ namespace AppWebClient.Controllers
         // Entry point of the Controller (View)
         // Return all Authors 
         // ________________________________________________________       
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
             List<Author> authors = new List<Author>();
 
@@ -55,6 +57,32 @@ namespace AppWebClient.Controllers
             else
             {
                 return NotFound();
+            }
+
+            return View(authors);
+        }
+
+        public async Task<IActionResult> UserIndex(string searchString)
+        {
+            IEnumerable<Author> authors = new List<Author>();
+
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            HttpResponseMessage response = await _client.GetAsync(_configuration["URLApi"] + _url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var result = response.Content.ReadAsStringAsync().Result;
+                authors = JsonConvert.DeserializeObject<List<Author>>(result);
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                authors = authors.Where(s => s.Firstname.ToLower().Contains(searchString.ToLower()) || s.Lastname.ToLower().Contains(searchString.ToLower()));
             }
 
             return View(authors);
@@ -259,6 +287,24 @@ namespace AppWebClient.Controllers
             }
 
             return exist;
+        }
+
+        public async Task<IActionResult> GetAuthorBooks(int? id)
+        {
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            string content = await client.GetStringAsync(_configuration["URLApi"] + _url + "authorBooks/" + id);
+
+            List<AuthorBooks> authorBooks = JsonConvert.DeserializeObject<List<AuthorBooks>>(content);
+
+            if (authorBooks == null)
+            {
+                return NotFound();
+            }
+
+            return View(authorBooks);
         }
 
 

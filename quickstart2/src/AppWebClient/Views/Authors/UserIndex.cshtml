@@ -1,0 +1,44 @@
+﻿@model IEnumerable<AppWebClient.Models.Author>
+
+@{
+    ViewData["Title"] = "UserIndex";
+}
+
+<h1>Liste des auteurs</h1>
+
+<form asp-controller="Authors" asp-action="UserIndex">
+    <p>
+        Title: <input type="text" name="SearchString">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Lastname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Firstname)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lastname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Firstname)
+                </td>
+                <td>
+                    <a asp-action="GetAuthorBooks" asp-route-id="@item.Id">Liste des livres</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
