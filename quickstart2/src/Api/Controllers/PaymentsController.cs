@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Api.Controllers
@@ -28,7 +29,16 @@ namespace Api.Controllers
         [Route("DetailsPaiement/{id}")]
         public async Task<ActionResult<Payment>> GetPaymentDetails(int id)
         {
-            Payment payment =
+            Payment payment = null;
+
+            string userIdCurrentUser = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userIdOrder = (from pay in _context.Payments
+                                  where pay.Id == id
+                                  select pay.UserId).FirstOrDefault();
+
+            if (userIdOrder == userIdCurrentUser)
+            {
+                payment =
                 (from i in _context.Payments
                  where i.IdOrder == id
                  select new Payment()
@@ -44,10 +54,6 @@ namespace Api.Controllers
                      PriceTotal = i.PriceTotal,
                      Details = i.Details
                  }).FirstOrDefault();
-
-            if (payment == null)
-            {
-                return NotFound();
             }
 
             return payment;

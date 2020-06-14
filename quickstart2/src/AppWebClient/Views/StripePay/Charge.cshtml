@@ -31,10 +31,9 @@
 <div>
     <br />
     <hr />
+    @Html.ActionLink("Mes commandes", "Index", "Orders")<br />
     @Html.ActionLink("Accueil", "Index", "Home")<br />
     @Html.ActionLink("Panier", "Index", new { Controller = "UserShoppingCarts", action = "Index", id = @ViewBag.USERID })<br />
-    <br />
-    <hr />
 </div>
 
 
