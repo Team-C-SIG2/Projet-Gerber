@@ -40,6 +40,25 @@ namespace Api.Controllers
             return authors;
         }
 
+        // GET: api/Authors/5
+        [Route("authorBooks/{id}")]
+        public async Task<List<AuthorBooks>> GetAuthorBooks(int id)
+        {
+            var books = await (from i in _context.Authors
+                               join j in _context.Cowriters on i.Id equals j.IdAuthor
+                               join k in _context.Books on j.IdBook equals k.Id
+                               join l in _context.Editors on k.IdEditor equals l.Id
+                               where i.Id == id
+                               select new AuthorBooks { Title = k.Title, BookId = k.Id, EditorName = l.Name, EditorUrl = l.Url, EditorEmail = l.Email }).ToListAsync();
+
+            if (books == null)
+            {
+                return null;
+            }
+
+            return books;
+        }
+
         // PUT: api/Authors/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
