@@ -133,12 +133,12 @@ namespace AppWebClient.Controllers
             // ___________________________________________________
 
             // Tdodo  Récupérer dans lineItems
-            
+            /*
             if (_configuration["Environnement"] == "Prod") // Windows 10 ?
             {
                 amount = amount * 100;
-            }
-            // amount *= 100; // Windows 7 ?
+            }*/
+            amount *= 100; // Windows 7 ?
             long chargeAmount = Convert.ToInt64(amount);
             decimal montant = amount / 100;
             ViewBag.MONTANT = montant;

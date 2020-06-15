@@ -46,7 +46,7 @@ namespace AppWebClient.Controllers
             string accessToken = await HttpContext.GetTokenAsync("access_token");
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            string content = await client.GetStringAsync(_url + "DetailsPaiement/" + id);
+            string content = await client.GetStringAsync(_url + "DetailsPaiementPdf/" + id);
 
             Payment payment = JsonConvert.DeserializeObject<Payment>(content);
 

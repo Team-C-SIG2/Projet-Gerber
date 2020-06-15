@@ -33,7 +33,7 @@ namespace Api.Controllers
 
             string userIdCurrentUser = User.FindFirstValue(ClaimTypes.NameIdentifier);
             string userIdOrder = (from pay in _context.Payments
-                                  where pay.Id == id
+                                  where pay.IdOrder == id
                                   select pay.UserId).FirstOrDefault();
 
             if (userIdOrder == userIdCurrentUser)
@@ -41,6 +41,39 @@ namespace Api.Controllers
                 payment =
                 (from i in _context.Payments
                  where i.IdOrder == id
+                 select new Payment()
+                 {
+                     Id = i.Id,
+                     User = (from user in _context.AspNetUsers
+                             where user.Id == i.UserId
+                             select user).FirstOrDefault(),
+                     IdOrderNavigation = (from order in _context.Orders
+                                          where order.Id == i.IdOrder
+                                          select order).FirstOrDefault(),
+                     PaidDate = i.PaidDate,
+                     PriceTotal = i.PriceTotal,
+                     Details = i.Details
+                 }).FirstOrDefault();
+            }
+
+            return payment;
+        }
+
+        [Route("DetailsPaiementPdf/{id}")]
+        public async Task<ActionResult<Payment>> GetPaymentDetailsPdf(int id)
+        {
+            Payment payment = null;
+
+            string userIdCurrentUser = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userIdOrder = (from pay in _context.Payments
+                                  where pay.Id == id
+                                  select pay.UserId).FirstOrDefault();
+
+            if (userIdOrder == userIdCurrentUser)
+            {
+                payment =
+                (from i in _context.Payments
+                 where i.Id == id
                  select new Payment()
                  {
                      Id = i.Id,
