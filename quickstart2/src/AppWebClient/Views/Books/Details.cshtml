@@ -9,13 +9,16 @@
 <div>
     <h4>Détails du livre : @Model.Title</h4>
     <hr />
+    <div>
+        <img style="width:20em;" src="@ViewBag.imgUrl" alt="No available image">
+    </div>
     <dl class="row">
 
         @* Titre *@
         <dt class="col-sm-2">
             @*
-            TODO COWRITERS
-            @Html.DisplayNameFor(model => model.Cowriters)
+                TODO COWRITERS
+                @Html.DisplayNameFor(model => model.Cowriters)
             *@
             Titre
         </dt>

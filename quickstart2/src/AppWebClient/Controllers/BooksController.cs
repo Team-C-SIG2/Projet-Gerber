@@ -97,6 +97,8 @@ namespace AppWebClient.Controllers
 
         public async Task<IActionResult> Details(int? id)
         {
+            ViewBag.imgUrl = _configuration["URLApi"] + "/images/" + id + ".jpg";
+
             string accessToken = await HttpContext.GetTokenAsync("access_token");
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
@@ -510,7 +512,7 @@ namespace AppWebClient.Controllers
         // Post (send) the new Ressource Book to the API Server 
         // POST: Books/Create
         // ________________________________________________________
-        public async Task<IActionResult> Post(Book book)
+        public async Task<IActionResult> Post(Book book, ICollection<IFormFile> Images)
         {
             // Recover the Book 
             Book postBook = new Book
@@ -533,7 +535,31 @@ namespace AppWebClient.Controllers
             HttpResponseMessage response = await _client.PostAsJsonAsync(_configuration["URLApi"] + _url, postBook);
             //  response.EnsureSuccessStatusCode();
 
+             string bookString = await response.Content.ReadAsStringAsync(); 
+ 
+ 
+            Book insertedBook = JsonConvert.DeserializeObject<Book>(bookString);
+            foreach (var file in Images)
+            {
+                if (file.Length <= 0)
+                    continue;
 
+                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+
+                using (var content = new MultipartFormDataContent())
+                {
+                    content.Add(new StreamContent(file.OpenReadStream())
+                    {
+                        Headers =
+                    {
+                        ContentLength = file.Length,
+                        ContentType = new MediaTypeHeaderValue(file.ContentType)
+                    }
+                    }, "File", fileName);
+
+                    var responseImg = await _client.PostAsync(_configuration["URLApi"] + "api/image/" + insertedBook.Id, content);
+                }
+            }
             // Message 
             ViewBag.ID = postBook.Id;
             TempData["msg"] = "Nouvelle insertion";
@@ -556,6 +582,7 @@ namespace AppWebClient.Controllers
 
         public async Task<IActionResult> Edit(int? id, Book book)
         {
+            ViewBag.imgUrl = _configuration["URLApi"] + "/images/" + id + ".jpg";
 
             string accessToken = await HttpContext.GetTokenAsync("access_token");
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
@@ -590,7 +617,7 @@ namespace AppWebClient.Controllers
         // PUT (HTTP VERB) : / api/Books/S
         // ________________________________________________________
 
-        public async Task<IActionResult> Put(int id, Book book)
+        public async Task<IActionResult> Put(int id, Book book, ICollection<IFormFile> images)
         {
             string uri = _url + id;
 
@@ -611,6 +638,28 @@ namespace AppWebClient.Controllers
 
             HttpResponseMessage response = await _client.PutAsJsonAsync(_configuration["URLApi"] + uri, b);
             response.EnsureSuccessStatusCode();
+
+            foreach (var file in images)
+            {
+                if (file.Length <= 0)
+                    continue;
+
+                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+
+                using (var contentImg = new MultipartFormDataContent())
+                {
+                    contentImg.Add(new StreamContent(file.OpenReadStream())
+                    {
+                        Headers =
+                    {
+                        ContentLength = file.Length,
+                        ContentType = new MediaTypeHeaderValue(file.ContentType)
+                    }
+                    }, "File", fileName);
+
+                    var responseImg = await _client.PostAsync(_configuration["URLApi"] + "api/image/" + id, contentImg);
+                }
+            }
 
             return RedirectToAction("Index", "Books");
         }

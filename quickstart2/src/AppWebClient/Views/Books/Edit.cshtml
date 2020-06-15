@@ -13,7 +13,7 @@
 
 
 
-<form asp-action="Put">
+<form asp-action="Put" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <input type="hidden" asp-for="Id" />
@@ -159,8 +159,8 @@
 
 
     <div class="row">
-        <img src="@ViewBag.imgUrl" alt="No available image">
         <label for="Images" class="control-label">Images</label>
+        <img style="width:20em;" src="@ViewBag.imgUrl" alt="No available image">
         <input name="images" id="Images" type="file" accept="image/x-png,image/gif,image/jpeg" class="form-control" />
     </div>
     <br />
