@@ -130,6 +130,18 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col">
+            <label asp-for="Stock" class="control-label">Quantité en stock</label>
+        </div>
+        <div class="col">
+            <input type="number" asp-for="Stock" class="form-control" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="Stock" class="text-danger"></span>
+        </div>
+    </div>
+
 
     @* ------------------------------------------------------------------------------------------------------- *@
     @* Autheurs *@

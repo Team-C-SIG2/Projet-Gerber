@@ -17,8 +17,8 @@
         @* Titre *@
         <dt class="col-sm-2">
             @*
-                TODO COWRITERS
-                @Html.DisplayNameFor(model => model.Cowriters)
+            TODO COWRITERS
+            @Html.DisplayNameFor(model => model.Cowriters)
             *@
             Titre
         </dt>
@@ -116,7 +116,12 @@
             @Html.DisplayFor(model => model.IdEditorNavigation.Name)
         </dd>
 
-
+        <dt class="col-sm-2">
+            Quantité en stock
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Stock)
+        </dd>
     </dl>
 </div>
 

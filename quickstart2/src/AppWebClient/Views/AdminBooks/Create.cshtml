@@ -79,7 +79,7 @@
             <label asp-for="DatePublication" class="control-label">Date de publication</label>
         </div>
         <div class="col">
-            <input asp-for="DatePublication" class="form-control" value="/" />
+            <input type="date" asp-for="DatePublication" class="form-control" value="/" />
         </div>
         <div class="col">
             <span asp-validation-for="DatePublication" class="text-danger"></span>
@@ -118,7 +118,7 @@
             <label asp-for="Stock" class="control-label"></label>
         </div>
         <div class="col">
-            <input asp-for="Stock" class="form-control" />
+            <input type="number" asp-for="Stock" class="form-control" value="0" />
         </div>
         <div class="col">
             <span asp-validation-for="Stock" class="text-danger"></span>
@@ -132,7 +132,7 @@
             <label asp-for="StockInitial" class="control-label"></label>
         </div>
         <div class="col">
-            <input asp-for="StockInitial" class="form-control" />
+            <input type="number" asp-for="StockInitial" class="form-control" value="0" />
         </div>
         <div class="col">
             <span asp-validation-for="StockInitial" class="text-danger"></span>

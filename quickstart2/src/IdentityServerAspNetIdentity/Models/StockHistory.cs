@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Api.Models
+namespace IdentityServerAspNetIdentity.Models
 {
-    public partial class Cowriter
+    [Table("StockHistory")]
+    public partial class StockHistory
     {
         [Key]
-        [Column("Id_Author")]
-        public int IdAuthor { get; set; }
-        [Key]
+        public int Id { get; set; }
         [Column("Id_Book")]
         public int IdBook { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime TransactionDate { get; set; }
+        public int TransactionStock { get; set; }
 
-        [ForeignKey(nameof(IdAuthor))]
-        [InverseProperty(nameof(Author.Cowriters))]
-        public virtual Author IdAuthorNavigation { get; set; }
         [ForeignKey(nameof(IdBook))]
-        [InverseProperty(nameof(Book.Cowriters))]
+        [InverseProperty(nameof(Book.StockHistories))]
         public virtual Book IdBookNavigation { get; set; }
     }
 }
