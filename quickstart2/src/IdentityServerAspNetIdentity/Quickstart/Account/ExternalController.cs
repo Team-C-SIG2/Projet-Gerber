@@ -45,7 +45,8 @@ namespace IdentityServer4.Quickstart.UI
             IClientStore clientStore,
             IEventService events,
             ILogger<ExternalController> logger,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            ESBookshopContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -53,7 +54,7 @@ namespace IdentityServer4.Quickstart.UI
             _clientStore = clientStore;
             _events = events;
             _logger = logger;
-            _context = new ESBookshopContext();
+            _context = context;
             _client = new HttpClient();
             _configuration = configuration;
         }
