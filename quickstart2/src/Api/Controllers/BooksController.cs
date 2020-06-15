@@ -132,6 +132,7 @@ namespace Api.Controllers
                             Subtitle = i.Subtitle,
                             Summary = i.Summary,
                             Title = i.Title,
+                            Stock = i.Stock,
                             IdEditorNavigation = (from e in _context.Editors where e.Id == i.IdEditor select e).FirstOrDefault(),
                             LineItems = (from l in _context.LineItems where l.IdBook == i.Id select l).ToList(),
                             Cowriters = (from c in _context.Cowriters

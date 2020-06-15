@@ -560,12 +560,24 @@ namespace AppWebClient.Controllers
                     var responseImg = await _client.PostAsync(_configuration["URLApi"] + "api/image/" + insertedBook.Id, content);
                 }
             }
+
+
+            StockHistory sh = new StockHistory
+            {
+                IdBook = insertedBook.Id,
+                TransactionDate = DateTime.Now,
+                TransactionStock = book.Stock
+            };
+
+            HttpResponseMessage responseStock = await _client.PostAsJsonAsync(_configuration["URLApi"] + "api/StockHistories", sh);// HTTP GET
+            responseStock.EnsureSuccessStatusCode();
+
             // Message 
             ViewBag.ID = postBook.Id;
             TempData["msg"] = "Nouvelle insertion";
 
             // Page de nouveau | liste | Auteurs 
-            return RedirectToAction("Index", "Books");
+            return RedirectToAction("Details", "Books", new { id = insertedBook.Id});
 
         }
 
@@ -633,7 +645,8 @@ namespace AppWebClient.Controllers
                 Price = book.Price,
                 DatePublication = book.DatePublication,
                 Summary = book.Summary,
-                Isbn = book.Isbn
+                Isbn = book.Isbn,
+                Stock = book.Stock
             };
 
             HttpResponseMessage response = await _client.PutAsJsonAsync(_configuration["URLApi"] + uri, b);
@@ -661,7 +674,17 @@ namespace AppWebClient.Controllers
                 }
             }
 
-            return RedirectToAction("Index", "Books");
+            StockHistory sh = new StockHistory
+            {
+                IdBook = book.Id,
+                TransactionDate = DateTime.Now,
+                TransactionStock = book.Stock
+            };
+
+            HttpResponseMessage responseStock = await _client.PostAsJsonAsync(_configuration["URLApi"] + "api/StockHistories", sh);// HTTP GET
+            responseStock.EnsureSuccessStatusCode();
+
+            return RedirectToAction("Details", "Books", new { id = book.Id });
         }
 
 

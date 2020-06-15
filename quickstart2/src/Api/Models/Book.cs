@@ -12,6 +12,7 @@ namespace Api.Models
             Cowriters = new HashSet<Cowriter>();
             LineItems = new HashSet<LineItem>();
             Ranks = new HashSet<Rank>();
+            StockHistories = new HashSet<StockHistory>();
         }
 
         [Key]
@@ -45,5 +46,7 @@ namespace Api.Models
         public virtual ICollection<LineItem> LineItems { get; set; }
         [InverseProperty(nameof(Rank.IdBookNavigation))]
         public virtual ICollection<Rank> Ranks { get; set; }
+        [InverseProperty(nameof(StockHistory.IdBookNavigation))]
+        public virtual ICollection<StockHistory> StockHistories { get; set; }
     }
 }

@@ -51,7 +51,7 @@
             <label asp-for="Price" class="control-label">Prix</label>
         </div>
         <div class="col">
-            <input asp-for="Price" class="form-control" />
+            <input type="number" asp-for="Price" class="form-control" />
         </div>
         <div class="col">
             <span asp-validation-for="Price" class="text-danger"></span>
@@ -60,6 +60,18 @@
 
     </div>
 
+
+    <div class="row">
+        <div class="col">
+            <label asp-for="Stock" class="control-label">Quantité en stock</label>
+        </div>
+        <div class="col">
+            <input type="number" asp-for="Stock" class="form-control" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="Stock" class="text-danger"></span>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col">
@@ -83,9 +95,9 @@
         <div class="col">
             @if (@Model.DatePublication != null)
             {
-                @Html.TextBoxFor(model => model.DatePublication, "{0:dd.MM.yyyy}", new { @class = "form-control datepicker" }) }
-            else
-            { <input asp-for="DatePublication" class="form-control" value="/" />}
+@Html.TextBoxFor(model => model.DatePublication, "{0:dd.MM.yyyy}", new { @class = "form-control datepicker" }) }
+else
+{ <input type="date" asp-for="DatePublication" class="form-control" value="/" />}
         </div>
         <div class="col">
             <span asp-validation-for="DatePublication" class="text-danger"></span>
@@ -100,9 +112,9 @@
         <div class="col">
             @if (@Model.Subtitle != null)
             {
-                <input asp-for="Subtitle" class="form-control" /> }
-            else
-            { <input asp-for="Subtitle" class="form-control" value="/" />}
+<input asp-for="Subtitle" class="form-control" /> }
+else
+{ <input asp-for="Subtitle" class="form-control" value="/" />}
         </div>
         <div class="col">
             <span asp-validation-for="Subtitle" class="text-danger"></span>
@@ -117,8 +129,8 @@
             @if (@Model.Summary != null)
             {
 <textarea asp-for="Summary" class="form-control"></textarea> }
-            else
-            { <input asp-for="Summary" class="form-control" value="/" />}
+else
+{ <input asp-for="Summary" class="form-control" value="/" />}
         </div>
         <div class="col">
             <span asp-validation-for="Summary" class="text-danger"></span>
@@ -139,11 +151,11 @@
 
             @if (@Model.Cowriters.Count > 0)
             {
-                @foreach (var cowriter in Model.Cowriters)
-                {
-                    <text> @cowriter.IdAuthorNavigation.Firstname @cowriter.IdAuthorNavigation.Lastname</text><br />} }
-            else
-            {<text>/</text>}
+@foreach (var cowriter in Model.Cowriters)
+{
+<text> @cowriter.IdAuthorNavigation.Firstname @cowriter.IdAuthorNavigation.Lastname</text><br />} }
+else
+{<text>/</text>}
         </div>
         <div class="col">
             <span asp-validation-for="@Model.Cowriters" class="text-danger"></span>
@@ -159,10 +171,16 @@
 
 
     <div class="row">
-        <label for="Images" class="control-label">Images</label>
-        <img style="width:20em;" src="@ViewBag.imgUrl" alt="No available image">
-        <input name="images" id="Images" type="file" accept="image/x-png,image/gif,image/jpeg" class="form-control" />
+        <div class="col">
+            <label for="Images" class="control-label">Images</label>
+            <input name="images" id="Images" type="file" accept="image/x-png,image/gif,image/jpeg" class="form-control" />
+        </div>
+        
+        <div class="col">
+            <img style="width:20em;" src="@ViewBag.imgUrl" alt="No available image">
+        </div>
     </div>
+
     <br />
     <div class="row">
         <div class="col">

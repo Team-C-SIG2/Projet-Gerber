@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace AppWebClient.Models
 {
@@ -36,6 +38,7 @@ namespace AppWebClient.Models
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<Rank> Ranks { get; set; }
         public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public virtual DbSet<StockHistory> StockHistories { get; set; }
         public virtual DbSet<Wishlist> Wishlists { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -329,6 +332,15 @@ namespace AppWebClient.Models
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_SHOPPINGCARTS_USERS");
+            });
+
+            modelBuilder.Entity<StockHistory>(entity =>
+            {
+                entity.HasOne(d => d.IdBookNavigation)
+                    .WithMany(p => p.StockHistories)
+                    .HasForeignKey(d => d.IdBook)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_STOCKHISTORY_BOOKS");
             });
 
             modelBuilder.Entity<Wishlist>(entity =>

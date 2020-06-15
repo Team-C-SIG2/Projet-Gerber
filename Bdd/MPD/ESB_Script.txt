@@ -412,6 +412,22 @@ CREATE TABLE [dbo].[Wishlists](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+/****** Object:  Table [dbo].[StockHistory]    Script Date: 15.06.2020 17:00:05 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[StockHistory](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Id_Book] [int] NOT NULL,
+	[TransactionDate] [datetime] NOT NULL,
+	[TransactionStock] [int] NOT NULL,
+ CONSTRAINT [PK_STOCKHISTORY] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
 INSERT [dbo].[_EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N'MIGR-4EB586ACB9', N'V01')
 INSERT [dbo].[_EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N'MIGR-54349F3FC7', N'V01')
 INSERT [dbo].[_EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N'MIGR-F388F76BF2', N'V03')
@@ -1385,4 +1401,7 @@ ALTER TABLE [dbo].[Wishlists]  WITH CHECK ADD  CONSTRAINT [FK_WISHLISTS_USERS] F
 REFERENCES [dbo].[AspNetUsers] ([Id])
 GO
 ALTER TABLE [dbo].[Wishlists] CHECK CONSTRAINT [FK_WISHLISTS_USERS]
+GO
+ALTER TABLE [dbo].[StockHistory]  WITH CHECK ADD  CONSTRAINT [FK_STOCKHISTORY_BOOKS] FOREIGN KEY([Id_Book])
+REFERENCES [dbo].[Books] ([Id])
 GO
