@@ -198,7 +198,7 @@ namespace AppWebClient.Controllers
                 string message = "Envoyé";
                 foreach (Models.LineItem lineItem in lineItems)
                 {
-                    details += lineItem.IdBookNavigation.Title + " / ";
+                    details += lineItem.IdBookNavigation.Title + " (" + lineItem.Quantity + "x " + lineItem.UnitPrice.ToString("F2") + ") / ";
                     lineItem.IdBookNavigation.Stock -= lineItem.Quantity;
                     string jsonString = System.Text.Json.JsonSerializer.Serialize<Book>(lineItem.IdBookNavigation);
                     StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
