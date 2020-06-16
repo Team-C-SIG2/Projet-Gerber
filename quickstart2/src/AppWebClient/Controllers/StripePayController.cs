@@ -200,6 +200,17 @@ namespace AppWebClient.Controllers
                 {
                     details += lineItem.IdBookNavigation.Title + " / ";
                     lineItem.IdBookNavigation.Stock -= lineItem.Quantity;
+
+                    // historique du stock
+                    StockHistory sh = new StockHistory
+                    {
+                        IdBook = lineItem.IdBook,
+                        TransactionDate = DateTime.Now,
+                        TransactionStock = lineItem.IdBookNavigation.Stock
+                    };
+                    HttpResponseMessage responseStock = await _client.PostAsJsonAsync(_configuration["URLApi"] + "api/StockHistories", sh);// HTTP GET
+                    responseStock.EnsureSuccessStatusCode();
+
                     string jsonString = System.Text.Json.JsonSerializer.Serialize<Book>(lineItem.IdBookNavigation);
                     StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
                     response = await client.PutAsync(_configuration["URLApi"] + "api/Books/" + lineItem.IdBookNavigation.Id, httpContent);

@@ -620,6 +620,14 @@ namespace AppWebClient.Controllers
                 ViewData["EDITEURS"] = new SelectList(editeurs, "Id", "Name", book.IdEditor);// Add To ViewData
             }
 
+            var stockHistory = new List<StockHistory>();
+            string urlStock = _configuration["URLApi"] + "api/stockHistories/bookstockhistory/" + id;
+            HttpResponseMessage responseStock = await _client.GetAsync(urlStock);
+            ViewBag.stockHistory = null;
+            if (responseStock.IsSuccessStatusCode)
+            {
+                ViewBag.stockHistory = await responseStock.Content.ReadAsAsync<List<StockHistory>>();
+            }
             return View(_book);
         }
 

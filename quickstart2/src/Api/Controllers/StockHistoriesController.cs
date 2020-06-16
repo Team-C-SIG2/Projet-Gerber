@@ -105,5 +105,21 @@ namespace Api.Controllers
         {
             return _context.StockHistories.Any(e => e.Id == id);
         }
+
+        // GET: api/StockHistories/bookstockhistory/5
+        [Route("bookstockhistory/{bookId}")]
+        public ActionResult<List<StockHistory>> GetBookStockHistory(int bookId)
+        {
+            var stockHistory = (from q in _context.StockHistories
+                                where q.IdBook == bookId
+                                select q).ToList();
+
+            if (stockHistory == null)
+            {
+                return NotFound();
+            }
+
+            return stockHistory;
+        }
     }
 }
