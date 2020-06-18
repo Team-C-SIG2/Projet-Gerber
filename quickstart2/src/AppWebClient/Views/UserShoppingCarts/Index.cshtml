@@ -12,7 +12,6 @@
     }
 
 
-
 @*  information sur le propriétaire du panier (utilisateur connecté)  *@
 <div>
 
@@ -72,7 +71,7 @@
         </dt>
         <dd class="col-sm-8">
         @if (@CUSTOMER.Address != null)
-            {<text>@CUSTOMER.Address , @CUSTOMER.Zip @CUSTOMER.City </text>}
+            {<text>@CUSTOMER.Address, @CUSTOMER.Zip @CUSTOMER.City </text>}
         else
             {<text>Indisponible</text>}
         </dd>
@@ -100,7 +99,7 @@
     {
         @Html.ActionLink("Contenu du panier", "Index", new { Controller = "LineItems", action = "Index" }, new { onclick = "javascript:return false;" })<br />
         <br />
-        <p class="alert alert-danger" role="alert">Veuillez saisir une adresse de facturation</p>
+        <p class="alert alert-danger" role="alert">Veuillez saisir vos coordonnées.</p>
     } 
     else
     {

@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using AppWebClient.Models;
+using AppWebClient.ViewModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -46,10 +47,9 @@ namespace AppWebClient.Controllers
             string accessToken = await HttpContext.GetTokenAsync("access_token");
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
+            // Reprise du paiement séléctionné par le user
             string content = await client.GetStringAsync(_url + "DetailsPaiementPdf/" + id);
-
             Payment payment = JsonConvert.DeserializeObject<Payment>(content);
-
             if (payment == null)
             {
                 return NotFound();
@@ -58,9 +58,20 @@ namespace AppWebClient.Controllers
             // Reprise des coordonnées de l'utilisateur pour les rajouter dans le PDF
             string customerContent = await client.GetStringAsync(_configuration["URLApi"] + "api/Customers/");
             Customer customer = JsonConvert.DeserializeObject<Customer>(customerContent);
-            ViewBag.Customer = customer;
 
-            ViewAsPdf pdf = new ViewAsPdf(payment)
+            PdfViewModel pdfPayment = new PdfViewModel
+            {
+                Firstname = customer.Firstname,
+                Lastname = customer.Lastname,
+                Address = customer.Address,
+                Zip = customer.Zip,
+                City = customer.City,
+                PaidDate = payment.PaidDate,
+                PriceTotal = payment.PriceTotal,
+                Details = payment.Details
+            };
+
+            ViewAsPdf pdf = new ViewAsPdf(pdfPayment)
             {
                 PageMargins = { Left = 20, Bottom = 20, Right = 20, Top = 20 },
             };
