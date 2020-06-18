@@ -15,6 +15,7 @@ namespace AppWebClient.Models
         [Column(TypeName = "datetime")]
         public DateTime TransactionDate { get; set; }
         public int TransactionStock { get; set; }
+        public int TransactionType { get; set; }
 
         [ForeignKey(nameof(IdBook))]
         [InverseProperty(nameof(Book.StockHistories))]

@@ -422,6 +422,7 @@ CREATE TABLE [dbo].[StockHistory](
 	[Id_Book] [int] NOT NULL,
 	[TransactionDate] [datetime] NOT NULL,
 	[TransactionStock] [int] NOT NULL,
+	[TransactionType] [int] DEFAULT 0 NOT NULL,
  CONSTRAINT [PK_STOCKHISTORY] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
