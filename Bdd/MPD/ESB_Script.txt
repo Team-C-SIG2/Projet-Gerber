@@ -122,7 +122,7 @@ CREATE TABLE [dbo].[AspNetUsers](
 	[Id_Customer] [int] NOT NULL,
 	[Username] [nvarchar](256) NULL,
 	[NormalizedUsername] [nvarchar](256) NULL,
-	[Email] [nvarchar](256) NULL,
+	[Email] [nvarchar](256) NULL UNIQUE,
 	[NormalizedEmail] [nvarchar](256) NULL,
 	[EmailConfirmed] [bit] NOT NULL,
 	[PasswordHash] [nvarchar](max) NULL,
