@@ -1,125 +1,89 @@
-﻿@model AppWebClient.Models.Payment
+﻿@model AppWebClient.ViewModel.PdfViewModel
 
 @{
     ViewData["Title"] = "Getpdf";
 }
 
 @{ 
-    Customer customer = ViewBag.Customer as AppWebClient.Models.Customer;
+    var tauxTva = 0;
+    var montantTva = Model.PriceTotal * tauxTva / 100;
+    var montantTotal = montantTva + Model.PriceTotal;
 }
 
 <html>
 
 <body>
 
-    <h1>Détail de la facture</h1>
+    <h1>Détail du paiement</h1>
     <br />
-    <p><strong>Facturé à</strong></p> <br />
-    <p>@customer.Lastname @customer.Firstname</p><br />
-    <p>@customer.Address</p><br />
-    <p>@customer.Zip @customer.City</p><br />
-    <table class="table">
-        <tr>
+    <strong>Facturé à</strong> <br />
+    @Html.DisplayFor(model => model.Firstname) @Html.DisplayFor(model => model.Lastname) <br />
+    @Html.DisplayFor(model => model.Address) <br />
+    @Html.DisplayFor(model => model.Zip) @Html.DisplayFor(model => model.City) <br />
+    <br /><br />
+    <table class="table" border="1">
+        <tr style="background-color:lightgray; border:solid;">
             <th>
-                Date
+                Date de commande
+            </th>
+            <th>
+                Détails
             </th>
             <th>
                 Prix total
             </th>
-            <th>
-                Details
-            </th>
         </tr>
 
-        <tr>
+        <tr style="border-bottom:solid 2px">
             <td>
                 @Html.DisplayFor(model => model.PaidDate)
             </td>
             <td>
-                @Html.DisplayFor(model => model.PriceTotal) CHF
+                @Html.DisplayFor(model => model.Details)
             </td>
             <td>
-                @Html.DisplayFor(model => model.Details)
+                @Html.DisplayFor(model => model.PriceTotal) CHF
+            </td>
+        </tr>
+        
+        <tr>
+            <td style="border-left:hidden;">
+
+            </td>
+            <td style="text-align:right; border-left:hidden;">
+                Total HT
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.PriceTotal) CHF
             </td>
         </tr>
 
+        <tr>
+            <td style="border-left:hidden; border-top:hidden;">
+
+            </td>
+            <td style="text-align:right; border-left:hidden; border-top:hidden;"> 
+                TVA @tauxTva%
+            </td>
+            <td style="border-top:hidden;">
+                @montantTva.ToString("F2") CHF
+            </td>
+        </tr>
+
+        <tr>
+            <td style="border-left:hidden; border-top:hidden; border-bottom:hidden;">
+
+            </td>
+            <td style="text-align:right; border-left:hidden; border-top:hidden; border-bottom:hidden;">
+                <strong>TOTAL</strong>
+            </td>
+            <td style="background-color:lightgray; border:solid;">
+                <strong>@montantTotal.ToString("F2") CHF</strong>
+            </td>
+        </tr>
     </table>
-    <hr />
+    <br />
+    <p>Payé online le @Html.DisplayFor(model => model.PaidDate) par carte de crédit sur le site d'ESBookshop.</p>
 </body>
 </html>
 
-<!--
-<body>
-    <header>
-        <h1>Invoice</h1>
-        <address contenteditable>
-            <p>Jonathan Neal</p>
-            <p>101 E. Chapman Ave<br>Orange, CA 92866</p>
-            <p>(800) 555-1234</p>
-        </address>
-    </header>
-    <article>
-        <h1>Recipient</h1>
-        <address contenteditable>
-            <p>Demo Company<br>c/o Saineshwar</p>
-        </address>
-        <table class="meta">
-            <tr>
-                <th><span contenteditable>Invoice #</span></th>
-                <td><span contenteditable>000001</span></td>
-            </tr>
-            <tr>
-                <th><span contenteditable>Date</span></th>
-                <td><span contenteditable>January 1, 2018</span></td>
-            </tr>
-            <tr>
-                <th><span contenteditable>Amount Due</span></th>
-                <td><span id="prefix" contenteditable>र </span><span>600.00</span></td>
-            </tr>
-        </table>
-        <table class="inventory">
-            <thead>
-                <tr>
-                    <th><span contenteditable>Item</span></th>
-                    <th><span contenteditable>Description</span></th>
-                    <th><span contenteditable>Rate</span></th>
-                    <th><span contenteditable>Quantity</span></th>
-                    <th><span contenteditable>Price</span></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><a class="cut">-</a><span contenteditable>Front End Consultation</span></td>
-                    <td><span contenteditable>Experience Review</span></td>
-                    <td><span data-prefix>र </span><span contenteditable>150.00</span></td>
-                    <td><span contenteditable>4</span></td>
-                    <td><span data-prefix>र </span><span>600.00</span></td>
-                </tr>
-            </tbody>
-        </table>
-
-        <table class="balance">
-            <tr>
-                <th><span contenteditable>Total</span></th>
-                <td><span data-prefix>र </span><span>600.00</span></td>
-            </tr>
-            <tr>
-                <th><span contenteditable>Amount Paid</span></th>
-                <td><span data-prefix>र </span><span contenteditable>0.00</span></td>
-            </tr>
-            <tr>
-                <th><span contenteditable>Balance Due</span></th>
-                <td><span data-prefix>र </span><span>600.00</span></td>
-            </tr>
-        </table>
-    </article>
-
-    <aside>
-        <h1><span contenteditable>Additional Notes</span></h1>
-        <div contenteditable>
-            <p>A finance charge of 1.5% will be made on unpaid balances after 30 days.</p>
-        </div>
-    </aside>
-</body>
-</html>
--->
