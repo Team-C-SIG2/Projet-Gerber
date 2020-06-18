@@ -204,6 +204,7 @@
                 <tr>
                     <th scope="col">Date</th>
                     <th scope="col">Quantité</th>
+                    <th scope="col">Type d'operation</th>
                 </tr>
             </thead>
             <tbody>
@@ -214,6 +215,16 @@
                     <tr>
                         <th scope="row">@elem.TransactionDate</th>
                         <td>@elem.TransactionStock</td>
+                        <td>
+                            @if (elem.TransactionType == 1)
+                            {
+                                <span>Vente</span>
+                            }
+                            else
+                            {
+                                <span>Mise à jour du stock</span>
+                            }
+                        </td>
                     </tr>
                     }
                 }

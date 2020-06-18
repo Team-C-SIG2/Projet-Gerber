@@ -206,7 +206,8 @@ namespace AppWebClient.Controllers
                     {
                         IdBook = lineItem.IdBook,
                         TransactionDate = DateTime.Now,
-                        TransactionStock = lineItem.IdBookNavigation.Stock
+                        TransactionStock = lineItem.IdBookNavigation.Stock,
+                        TransactionType = 1
                     };
                     HttpResponseMessage responseStock = await _client.PostAsJsonAsync(_configuration["URLApi"] + "api/StockHistories", sh);// HTTP GET
                     responseStock.EnsureSuccessStatusCode();
