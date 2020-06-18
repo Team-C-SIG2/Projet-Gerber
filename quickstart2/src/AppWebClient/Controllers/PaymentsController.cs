@@ -55,12 +55,16 @@ namespace AppWebClient.Controllers
                 return NotFound();
             }
 
+            // Reprise des coordonnées de l'utilisateur pour les rajouter dans le PDF
+            string customerContent = await client.GetStringAsync(_configuration["URLApi"] + "api/Customers/");
+            Customer customer = JsonConvert.DeserializeObject<Customer>(customerContent);
+            ViewBag.Customer = customer;
+
             ViewAsPdf pdf = new ViewAsPdf(payment)
             {
                 PageMargins = { Left = 20, Bottom = 20, Right = 20, Top = 20 },
             };
             return pdf;
-;
         }
     }
 }

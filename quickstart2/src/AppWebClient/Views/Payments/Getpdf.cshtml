@@ -4,13 +4,20 @@
     ViewData["Title"] = "Getpdf";
 }
 
+@{ 
+    Customer customer = ViewBag.Customer as AppWebClient.Models.Customer;
+}
+
 <html>
 
 <body>
 
-    <h1>Stocks en épuisement</h1>
+    <h1>Détail de la facture</h1>
     <br />
-    <p>Lorem</p> <br />
+    <p><strong>Facturé à</strong></p> <br />
+    <p>@customer.Lastname @customer.Firstname</p><br />
+    <p>@customer.Address</p><br />
+    <p>@customer.Zip @customer.City</p><br />
     <table class="table">
         <tr>
             <th>
@@ -29,7 +36,7 @@
                 @Html.DisplayFor(model => model.PaidDate)
             </td>
             <td>
-                @Html.DisplayFor(model => model.PriceTotal)
+                @Html.DisplayFor(model => model.PriceTotal) CHF
             </td>
             <td>
                 @Html.DisplayFor(model => model.Details)

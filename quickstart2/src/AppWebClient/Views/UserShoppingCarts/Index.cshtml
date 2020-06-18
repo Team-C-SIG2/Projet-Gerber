@@ -92,15 +92,11 @@
     </dl>
 </div>
 
-
-
-
-
 <div>
     <br />
     <hr />
     @Html.ActionLink("Retour à l'accueil", "Index", "Home")<br />
-    @if (CUSTOMER.BillingAddress == null)
+    @if (CUSTOMER.Firstname == null || CUSTOMER.Lastname == null || CUSTOMER.Address == null || CUSTOMER.Zip == null || CUSTOMER.City == null || CUSTOMER.BillingAddress == null)
     {
         @Html.ActionLink("Contenu du panier", "Index", new { Controller = "LineItems", action = "Index" }, new { onclick = "javascript:return false;" })<br />
         <br />
@@ -112,11 +108,3 @@
     }
 </div>
 
-
-
-
-}
-@*   COMMENTCOMENTE
-    To user the variable :
-    var USER = ViewData["USER"] as AppWebClient.Models.AspNetUser;
-*@

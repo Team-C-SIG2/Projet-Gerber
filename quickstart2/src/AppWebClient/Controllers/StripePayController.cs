@@ -198,7 +198,7 @@ namespace AppWebClient.Controllers
                 string message = "Envoyé";
                 foreach (Models.LineItem lineItem in lineItems)
                 {
-                    details += lineItem.IdBookNavigation.Title + " / ";
+                    details += lineItem.IdBookNavigation.Title + " (" + lineItem.Quantity + "x " + lineItem.UnitPrice.ToString("F2") + ") / ";
                     lineItem.IdBookNavigation.Stock -= lineItem.Quantity;
 
                     // historique du stock
