@@ -94,6 +94,10 @@ namespace AppWebClient.Models
 
             modelBuilder.Entity<AspNetUser>(entity =>
             {
+                entity.HasIndex(e => e.Email)
+                    .HasName("UQ__AspNetUs__A9D10534D7D4A1ED")
+                    .IsUnique();
+
                 entity.HasOne(d => d.IdCustomerNavigation)
                     .WithMany(p => p.AspNetUsers)
                     .HasForeignKey(d => d.IdCustomer)
