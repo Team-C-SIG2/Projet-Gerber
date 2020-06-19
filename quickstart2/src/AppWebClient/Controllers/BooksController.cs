@@ -1177,6 +1177,98 @@ namespace AppWebClient.Controllers
             return accessRight;
         }
 
+        public async Task<IActionResult> GetBooksReviews(int? id)
+        {
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            string content = await client.GetStringAsync(_configuration["URLApi"] + _url + "booksReviews/" + id);
+
+            List<BookReviews> bookReviews = JsonConvert.DeserializeObject<List<BookReviews>>(content);
+
+            if (bookReviews == null)
+            {
+                return NotFound();
+            }
+            ViewBag.BookId = id;
+
+            string content2 = await client.GetStringAsync(_configuration["URLApi"] + _url + "ratingReviews/" + id);
+            int rating = JsonConvert.DeserializeObject<int>(content2);
+            ViewBag.rating = rating;
+
+            return View(bookReviews);
+        }
+
+        public async Task<IActionResult> GetRatingReviews(int? id)
+        {
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            string content = await client.GetStringAsync(_configuration["URLApi"] + _url + "ratingReviews/" + id);
+
+            int rating = JsonConvert.DeserializeObject<int>(content);
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddReviews(int bookid, int rating, string bookReview)
+        {
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            string userId = await client.GetStringAsync(_configuration["URLApi"] + "api/AspNetUsers/UserId/");
+
+            Review review = new Review();
+            review.BookId = bookid;
+            review.Description = bookReview;
+            review.Note = rating;
+            review.Date = DateTime.Now;
+            review.UserId = userId;
+            review.Signale = false;
+
+            HttpResponseMessage response = await _client.PostAsJsonAsync(_configuration["URLApi"] + "api/Reviews", review);
+
+            response.EnsureSuccessStatusCode();
+
+            return RedirectToAction("GetBooksReviews", new { id = bookid });
+        }
+
+        public async Task<IActionResult> SignalReview(int? id, int? bookid)
+        {
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            string content = await client.GetStringAsync(_configuration["URLApi"] + "api/Reviews/" + id);
+
+            Review review = JsonConvert.DeserializeObject<Review>(content);
+
+            if (review == null)
+            {
+                return NotFound();
+            }
+            review.Signale = true;
+
+            if (ModelState.IsValid)
+            {
+                string jsonString = System.Text.Json.JsonSerializer.Serialize<Review>(review);
+
+                StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PutAsync(_configuration["URLApi"] + "api/Reviews/" + id, httpContent);
+                if (response.StatusCode != HttpStatusCode.NoContent)
+                {
+                    return BadRequest();
+                }
+                return RedirectToAction("GetBooksReviews", new { id = bookid });
+            }
+
+            return RedirectToAction("GetBooksReviews", new { id = bookid });
+        }
 
 
     }// End Class 

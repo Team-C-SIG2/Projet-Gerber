@@ -60,7 +60,6 @@
             <th>
                 Prix
             </th>
-            <th> </th>
         </tr>
     </thead>
     <tbody>
@@ -102,11 +101,15 @@
                 {
                     @* USER *@
 
-                    <td>
-                        <a class="btn btn-default" asp-action="AddItem" asp-route-id="@item.Id"><i class="fas fa-shopping-cart"></i></a>
-                        <a class="btn btn-default" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info"></i></a>
-                        <a class="btn btn-default" asp-action="AddToWishlist" asp-route-id="@item.Id"><i class="far fa-star"></i></a>
-                    </td>
+            <td>
+                <a class="btn btn-default" asp-action="AddItem" asp-route-id="@item.Id"><i class="fas fa-shopping-cart"></i></a>
+                <a class="btn btn-default" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info"></i></a>
+                <a class="btn btn-default" asp-action="AddToWishlist" asp-route-id="@item.Id"><i class="far fa-star"></i></a>
+                <a class="btn btn-default" asp-action="GetBooksReviews" asp-route-id="@item.Id">Noter livre</a>
+            </td>
+            <td>
+
+            </td>
                 }
 
 

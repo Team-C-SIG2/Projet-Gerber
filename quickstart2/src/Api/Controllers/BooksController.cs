@@ -17,7 +17,7 @@ namespace Api.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class BooksController : ControllerBase
     {
 
@@ -575,7 +575,48 @@ namespace Api.Controllers
             return await authors;
         }
 
+        [Route("booksReviews/{id}")]
+        public async Task<List<BookReviews>> GetBookReviews(int id)
+        {
+            var reviews = await (from i in _context.Books
+                                 join j in _context.Reviews on i.Id equals j.BookId
+                                 join k in _context.AspNetUsers on j.UserId equals k.Id
+                                 where i.Id == id
+                                 select new BookReviews { Id = j.Id, BookId = i.Id, UserId = k.Id, Description = j.Description, Note = j.Note, Date = j.Date, Username = k.Username }).ToListAsync();
 
+            if (reviews == null)
+            {
+                return null;
+            }
+
+            return reviews;
+        }
+
+        [Route("ratingReviews/{id}")]
+        public async Task<int> GetRatingReviews(int id)
+        {
+            var listNotes = await (from i in _context.Books
+                                 join j in _context.Reviews on i.Id equals j.BookId
+                                 where i.Id == id
+                                 select j.Note).ToListAsync();
+
+            
+            if (listNotes.Count == 0)
+            {
+                return 0;
+            }
+            else
+            {
+                int somme = 0;
+                for (int i = 0; i < listNotes.Count; i++)
+                {
+                    somme += listNotes[i];
+                }
+                int moyenne = somme / listNotes.Count;
+                return moyenne;
+            }
+            
+        }
 
     }// End Class  
 }

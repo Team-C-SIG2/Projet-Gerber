@@ -429,6 +429,25 @@ CREATE TABLE [dbo].[StockHistory](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+/****** Object:  Table [dbo].[Reviews]    Script Date: 15.06.2020 22:43:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Reviews](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[BookId] [int] NOT NULL,
+	[UserId] [nvarchar](450) NOT NULL,
+	[Description] [nvarchar](250) NOT NULL,
+	[Note] [int] NOT NULL,
+	[Date] [datetime] NOT NULL,
+	[Signale] [bit] NOT NULL,
+ CONSTRAINT [PK_Reviews] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
 INSERT [dbo].[_EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N'MIGR-4EB586ACB9', N'V01')
 INSERT [dbo].[_EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N'MIGR-54349F3FC7', N'V01')
 INSERT [dbo].[_EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N'MIGR-F388F76BF2', N'V03')
