@@ -5,24 +5,27 @@
 }
 
 <h1>Liste des auteurs</h1>
-
+@Html.ActionLink("Accueil", "Index", "Home")
+<hr />
 <form asp-controller="Authors" asp-action="UserIndex">
     <p>
-        Title: <input type="text" name="SearchString">
-        <input type="submit" value="Filter" />
+        Recherche : <input type="text" name="SearchString">
+        <input type="submit" value="Filtrer" />
     </p>
 </form>
-
+<hr />
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Lastname)
+                Nom
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Firstname)
+                Prénom
             </th>
-            <th></th>
+            <th>
+                Livres par auteur
+            </th>
         </tr>
     </thead>
     <tbody>

@@ -37,6 +37,7 @@ namespace IdentityServerAspNetIdentity.Models
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<Rank> Ranks { get; set; }
+        public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public virtual DbSet<StockHistory> StockHistories { get; set; }
         public virtual DbSet<Wishlist> Wishlists { get; set; }
@@ -46,7 +47,7 @@ namespace IdentityServerAspNetIdentity.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=ESBookshop;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=localhost;Database=ESBookshop;Trusted_Connection=True;");
             }
         }
 
@@ -95,7 +96,7 @@ namespace IdentityServerAspNetIdentity.Models
             modelBuilder.Entity<AspNetUser>(entity =>
             {
                 entity.HasIndex(e => e.Email)
-                    .HasName("UQ__AspNetUs__A9D10534D7D4A1ED")
+                    .HasName("UQ__AspNetUs__A9D10534DBD283A3")
                     .IsUnique();
 
                 entity.HasOne(d => d.IdCustomerNavigation)

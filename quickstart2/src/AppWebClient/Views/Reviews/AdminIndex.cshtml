@@ -1,0 +1,57 @@
+﻿@model IEnumerable<AppWebClient.ViewModel.BookReviews>
+
+@{
+    ViewData["Title"] = "AdminIndex";
+}
+
+<h1>Gestion des commentaires</h1>
+<hr />
+@Html.ActionLink("Accueil", "Index", "Home")
+<br />
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Pseudo
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Note
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Validation
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    <a asp-action="AcceptReview" asp-route-id="@item.Id">Accepter</a> |
+                    <a asp-action="DeleteReview" asp-route-id="@item.Id">Supprimer</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />

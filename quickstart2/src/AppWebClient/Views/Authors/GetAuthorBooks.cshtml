@@ -1,23 +1,25 @@
 ﻿@model IEnumerable<AppWebClient.Models.AuthorBooks>
 
 <h1>Liste des livres de l'auteur</h1>
-
+<br />
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                Titre
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EditorName)
+                Maison d'édition
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EditorUrl)
+                Site
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EditorEmail)
+                Email
             </th>
-            <th></th>
+            <th>
+                Détails
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -39,7 +41,7 @@
                         <a href="mailto:@Html.DisplayFor(modelItem => item.EditorEmail)">@Html.DisplayFor(modelItem => item.EditorEmail)</a>
                     </td>
                     <td>
-                        <a asp-action="Details" asp-controller="Books" asp-route-id="@item.BookId">Détail du livre</a>
+                        <a asp-action="Details" asp-controller="Books" asp-route-id="@item.BookId">Détails du livre</a>
                     </td>
                 </tr>
             }
