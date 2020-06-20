@@ -1,0 +1,8 @@
+2020-06-20 16:33:37.5361 FATAL FATAL DETAILS, Exception occured during operation : (API Server) -Try to POST Cowriter 11 (Id)  for book 216(Id) - Controller : BooksController; Actionname: PostCowriter(...); HTTP method : HttpPost; Time: 20.06.2020 16:33:37
+
+2020-06-20 16:33:37.5361 FATAL EXCEPTION DETAILS: An error occurred while updating the entries. See the inner exception for details.
+
+2020-06-20 17:00:57.8177 FATAL FATAL DETAILS, Exception occured during operation : (API Server) -Try to DELETE book 216(Id) - Controller : BooksController; Actionname: Delete(...); HTTP method : HttpDelete; Time: 20.06.2020 17:00:57
+
+2020-06-20 17:00:57.8177 FATAL EXCEPTION DETAILS: An error occurred while updating the entries. See the inner exception for details.
+

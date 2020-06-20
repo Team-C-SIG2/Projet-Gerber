@@ -1,6 +1,4 @@
-﻿
-
-namespace Api.Controllers
+﻿namespace Api.Controllers
 {
     using Api.Models;
     using Api.ViewModel;
@@ -10,8 +8,10 @@ namespace Api.Controllers
     using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
-
-
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.EntityFrameworkCore;
+    using NLog;
+    using System;
 
 
 
@@ -20,6 +20,8 @@ namespace Api.Controllers
     [Authorize]
     public class AspNetUserRolesController : ControllerBase
     {
+        // NLog 
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Initialize the Database Context 
@@ -41,7 +43,9 @@ namespace Api.Controllers
         [Route("GetUserRole")]
         public async Task<ActionResult<string>> GetUserRole()
         {
-            // Return the CONNECTED USER ID 
+            // NLog 
+            string message = $"(API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: " + DateTime.Now + "\n";
+            _logger.Info(message);
 
 
             // Get connected user ROLE by its UserId
@@ -55,47 +59,79 @@ namespace Api.Controllers
                 WHERE usersRoles.UserId = 'c9ec883f-dc10-476f-8d41-a79106fcfde6'
 
             */
+
             string currentUserRole = null;
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userId = null;
 
-            var roles =
-                (from i in _context.AspNetUsers
-                 join f in _context.AspNetUserRoles on i.Id equals f.UserId
-                 join n in _context.AspNetRoles on f.RoleId equals n.Id
-                 where (i.Id == f.UserId) && (n.Id == f.RoleId) || (f.RoleId != n.Id)
-                 select new UserRolesViewModel()
-                 {
-                     UserId = i.Id,
-                     Email = i.Email,
-                     RoleName = n.Name,
-                     NormalizedRoleName = n.NormalizedName,
-                     RoleId = n.Id,
-                     UserName = i.Username
-                 }).ToList();
-
-            if (roles != null)
+            try
             {
-                foreach (var role in roles)
+                userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                var roles =
+                    (from i in _context.AspNetUsers
+                     join f in _context.AspNetUserRoles on i.Id equals f.UserId
+                     join n in _context.AspNetRoles on f.RoleId equals n.Id
+                     where (i.Id == f.UserId) && (n.Id == f.RoleId) || (f.RoleId != n.Id)
+                     select new UserRolesViewModel()
+                     {
+                         UserId = i.Id,
+                         Email = i.Email,
+                         RoleName = n.Name,
+                         NormalizedRoleName = n.NormalizedName,
+                         RoleId = n.Id,
+                         UserName = i.Username
+                     }).ToList();
+
+                if (roles != null)
                 {
-                    if (role.UserId == userId)
+                    foreach (var role in roles)
                     {
-                        currentUserRole = role.RoleName.ToUpper();
+                        if (role.UserId == userId)
+                        {
+                            currentUserRole = role.RoleName.ToUpper();
+                        }
                     }
                 }
+                else
+                {
+                    string user = "Client";
+                    currentUserRole = user.ToUpper();
+                    return NotFound();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                string user = "Client";
-                currentUserRole = user.ToUpper();
-                return NotFound();
+                // NLog Framework Call 
+
+                // LOG INFO 
+                _logger.Info("INFORMATION DETAILS, Exception occured during operation : " + message);
+                _logger.Info("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG WARN
+                _logger.Warn("WARNING DETAILS, Exception occured during operation : " + message);
+                _logger.Warn("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG ERROR
+                _logger.Error("ERROR DETAILS, Exception occured during operation : " + message);
+                _logger.Error("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG TRACE 
+                _logger.Trace("WARNING DETAILS, Exception occured during operation : " + message);
+                _logger.Trace("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG FATAL
+                _logger.Fatal("FATAL DETAILS, Exception occured during operation : " + message);
+                _logger.Fatal("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG DEGUG 
+                _logger.Debug("DEGUG DETAILS, Exception occured during operation : " + message);
+                _logger.Debug("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
 
             return currentUserRole;
-
         }
-
-
-
 
     }// End Class 
 }

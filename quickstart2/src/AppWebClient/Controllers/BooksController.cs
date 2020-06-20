@@ -1,5 +1,4 @@
 ﻿using AppWebClient.Models;
-using AppWebClient.Tools;
 using AppWebClient.ViewModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
@@ -44,10 +43,7 @@ namespace AppWebClient.Controllers
         // COMMON PART 
         // _______________________________________________________________________________________________________
 
-
-
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // READ: Return the User ShoppingCart
         // GET: .../api/ShoppingCarts/5
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -102,25 +98,32 @@ namespace AppWebClient.Controllers
             string accessToken = await HttpContext.GetTokenAsync("access_token");
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            string content = await _client.GetStringAsync(_configuration["URLApi"] + _url+ "GetOneBook/" + id);
+            // GET ACCESS RIGHT 
+            string accessRight = await GetRole();
+            ViewData["ACCESSRIGHT"] = accessRight;
 
+            // GET CURRENT BOOK 
+            string content = await _client.GetStringAsync(_configuration["URLApi"] + _url + "GetOneBook/" + id);
             Book book = JsonConvert.DeserializeObject<Book>(content);
-
             if (book == null)
             {
                 return NotFound();
             }
 
 
-            // GET ACCESS RIGHT 
-            string accessRight = await GetRole();
-            ViewData["ACCESSRIGHT"] = accessRight;
+            // GET CURRENT BOOK'S CATEGOGRIES
+            ICollection<Rank> cRanks;
+            cRanks = book.Ranks;
+
+            List<Category> categories = new List<Category>();
+            foreach (var item in cRanks)
+            {
+                categories.Add(item.IdCategorieNavigation);
+            }
+            ViewData["CATEGORIES"] = categories;
 
             return View(book);
         }// END 
-
-
-
 
 
         // _______________________________________________________________________________________________________
@@ -128,8 +131,7 @@ namespace AppWebClient.Controllers
         // _______________________________________________________________________________________________________
 
 
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Post (send) the new Ressource Book to the API Server 
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////// 
         // POST: Books/AddToShoppingCart/S
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -158,9 +160,7 @@ namespace AppWebClient.Controllers
 
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // ADD: A NEW lineItems to ShoppingCart of A User 
         // POST: .../ api/Books/AddItem/S
-        // https://localhost:44302/Books/AddItem/3
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -479,12 +479,12 @@ namespace AppWebClient.Controllers
 
 
 
+
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         // To Create a new Book 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // ________________________________________________________
-        // Display the "Create" View of Books Controller 
         // GET: Books/Create
         // ________________________________________________________
         public async Task<IActionResult> Create(Book book)
@@ -535,9 +535,9 @@ namespace AppWebClient.Controllers
             HttpResponseMessage response = await _client.PostAsJsonAsync(_configuration["URLApi"] + _url, postBook);
             //  response.EnsureSuccessStatusCode();
 
-             string bookString = await response.Content.ReadAsStringAsync(); 
- 
- 
+            string bookString = await response.Content.ReadAsStringAsync();
+
+
             Book insertedBook = JsonConvert.DeserializeObject<Book>(bookString);
             foreach (var file in Images)
             {
@@ -577,9 +577,10 @@ namespace AppWebClient.Controllers
             TempData["msg"] = "Nouvelle insertion";
 
             // Page de nouveau | liste | Auteurs 
-            return RedirectToAction("Details", "Books", new { id = insertedBook.Id});
+            return RedirectToAction("Details", "Books", new { id = insertedBook.Id });
 
         }
+
 
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -599,7 +600,7 @@ namespace AppWebClient.Controllers
             string accessToken = await HttpContext.GetTokenAsync("access_token");
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            string uri = _url + "GetOneBook/"+ id;
+            string uri = _url + "GetOneBook/" + id;
 
             string content = await _client.GetStringAsync(_configuration["URLApi"] + uri);
             Book _book = JsonConvert.DeserializeObject<Book>(content);
@@ -609,7 +610,7 @@ namespace AppWebClient.Controllers
                 return NotFound();
             }
 
-            // Select List (Liste Déroulante) 
+            // Editors's Select List (Liste Déroulante) 
             List<Editor> editeurs;
             string uriGetEditeurs = _url + "GetEditors";
             HttpResponseMessage responseEditors = await _client.GetAsync(_configuration["URLApi"] + uriGetEditeurs); // HTTP GET
@@ -620,21 +621,34 @@ namespace AppWebClient.Controllers
                 ViewData["EDITEURS"] = new SelectList(editeurs, "Id", "Name", book.IdEditor);// Add To ViewData
             }
 
+
+            // Book's Categories
+            List<Category> categories = new List<Category>();
+            ICollection<Rank> cRanks;
+            cRanks = _book.Ranks;
+
+            // create Categorie list 
+            foreach (var item in cRanks)
+            {
+                categories.Add(item.IdCategorieNavigation);
+            }
+            ViewData["CATEGORIES"] = categories;
+
+
             var stockHistory = new List<StockHistory>();
-            string urlStock = _configuration["URLApi"] + "api/stockHistories/bookstockhistory/" + id;
+            string urlStock = _configuration["URLApi"] + "api/StockHistories/bookstockhistory/" + id;
             HttpResponseMessage responseStock = await _client.GetAsync(urlStock);
             ViewBag.stockHistory = null;
             if (responseStock.IsSuccessStatusCode)
             {
                 ViewBag.stockHistory = await responseStock.Content.ReadAsAsync<List<StockHistory>>();
             }
+
             return View(_book);
         }
 
-
         // ________________________________________________________
-        // UPDATE : Update Books ->  <form asp-action="Put">
-        // PUT (HTTP VERB) : / api/Books/S
+        // PUT (HTTP VERB) : / api/Books/S ->  <form asp-action="Put">
         // ________________________________________________________
 
         public async Task<IActionResult> Put(int id, Book book, ICollection<IFormFile> images)
@@ -707,7 +721,7 @@ namespace AppWebClient.Controllers
 
         public async Task<IActionResult> Delete(int? id)
         {
-            string uri = _url + "GetOneBook/" + id; 
+            string uri = _url + "GetOneBook/" + id;
             Book book = new Book();
 
             string accessToken = await HttpContext.GetTokenAsync("access_token");
@@ -732,8 +746,7 @@ namespace AppWebClient.Controllers
         }// END 
 
         // ________________________________________________________
-        // Delete a resource Book ->  <form asp-action="ConfirmeDelete">
-        // DELETE: / api/Books/s
+        // DELETE: / api/Books/s ->  <form asp-action="ConfirmeDelete">
         // ________________________________________________________
 
         public async Task<IActionResult> ConfirmeDelete(int? id)
@@ -808,7 +821,6 @@ namespace AppWebClient.Controllers
             return View();
         }
 
-
         [HttpPost]
         // POST: Books/find
         public async Task<IActionResult> FindAsync(BookSearch searchedBook)
@@ -837,13 +849,13 @@ namespace AppWebClient.Controllers
 
 
 
+
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         // To Create a new Editor 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
         // ________________________________________________________
-        // Display the "CreateEditor" View for createing new Editor 
         // GET: AdminBooks/CreateEditor
         // ________________________________________________________
         public async Task<IActionResult> CreateEditor(int? id)
@@ -854,10 +866,7 @@ namespace AppWebClient.Controllers
             return View("CreateEditor");
         }
 
-
-
         // ________________________________________________________
-        // Post (send) the new Editor to the API Server 
         // POST: AdminBooks/PostEditor
         // ________________________________________________________
         public async Task<IActionResult> PostEditor(int? id, Editor editor, Book? book)
@@ -913,17 +922,13 @@ namespace AppWebClient.Controllers
 
         }
 
-
-
         // ------------------------------------------------------------------
         // To get View of action AdminAccess() 
         // ------------------------------------------------------------------
-
         public IActionResult AdminAccess()
         {
             return View();
         }
-
 
         // ------------------------------------------------------------------
         // To Manage the Authors of selected book () 
@@ -954,8 +959,6 @@ namespace AppWebClient.Controllers
 
             return View(cowriters);
         }
-
-
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Create a new Cowriter for a book
@@ -994,9 +997,7 @@ namespace AppWebClient.Controllers
             return View("CreateCowriter");
         }
 
-
         // ________________________________________________________
-        // Post (send) the new Cowriter to the API Server 
         // POST: AdminBooks/PostCowriter
         // ________________________________________________________
         public async Task<IActionResult> PostCowriter(int id, Cowriter cowriter)
@@ -1015,25 +1016,15 @@ namespace AppWebClient.Controllers
 
             // HTTP POST Cowriter 
             HttpResponseMessage responsePostCowriter = await _client.PostAsJsonAsync(_configuration["URLApi"] + _url + "PostCowriter", postCowriter);
-
-            // http://localhost:5002/AdminBooks/Edit/208
             return RedirectToAction("Index", "Books");
 
         }
 
-
-
-
-
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Delete a Book
         // DELETE: Books/Delete/5
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
         // ________________________________________________________
-        // HTTP DELETE
-        // Display the "Delete" View of Books Controller 
         // GET: Books/Delete
         // ________________________________________________________
 
@@ -1086,18 +1077,15 @@ namespace AppWebClient.Controllers
 
         }// END 
 
-
-
         // ________________________________________________________
-        // Delete a resource Book ->  <form asp-action="ConfirmeDelete">
-        // DELETE: / api/Books/s
+        // DELETE: / api/Books/s  ->  <form asp-action="ConfirmeDelete">
         // ________________________________________________________
 
         public async Task<IActionResult> ConfirmeDeleteCowriter(int? idAuthor, int? idBook)
         {
             Cowriter cowriter = new Cowriter();
             // HTTP DELETE
-            string uri = _url + "DeleteCowriter/" + idAuthor+"/"+idBook;
+            string uri = _url + "DeleteCowriter/" + idAuthor + "/" + idBook;
 
             string accessToken = await HttpContext.GetTokenAsync("access_token");
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
@@ -1119,9 +1107,6 @@ namespace AppWebClient.Controllers
             ViewData["IdAuthor"] = cowriter.IdAuthor;
             return RedirectToAction("Index", "Books");
         }
-
-
-
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         // CONTROL CONNECTED USER ROLE (ACCES RIGHTS)
@@ -1177,6 +1162,9 @@ namespace AppWebClient.Controllers
             return accessRight;
         }
 
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // BOOK'S REVIEWS
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         public async Task<IActionResult> GetBooksReviews(int? id)
         {
             string accessToken = await HttpContext.GetTokenAsync("access_token");
@@ -1268,6 +1256,202 @@ namespace AppWebClient.Controllers
             }
 
             return RedirectToAction("GetBooksReviews", new { id = bookid });
+        }
+
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // BOOK'S CATEGORIE
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // ------------------------------------------------------------------
+        // To Manage the Categories of selected book () 
+        // ------------------------------------------------------------------
+        public async Task<IActionResult> ManageCategories(int? id, string title) // Id = Book's Id
+        {
+            string isbn = null;
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+
+            string uri = _url + "GetOneBook/" + id;
+
+            string content = await _client.GetStringAsync(_configuration["URLApi"] + uri);
+            Book _book = JsonConvert.DeserializeObject<Book>(content);
+
+
+            // Book's Categories
+            List<Category> categories = new List<Category>();
+            ICollection<Rank> cRanks;
+            cRanks = _book.Ranks;
+
+            // create Categorie list 
+            foreach (var item in cRanks)
+            {
+                categories.Add(item.IdCategorieNavigation);
+            }
+            ViewData["CATEGORIES"] = categories;
+
+
+
+            ViewData["ISBN"] = isbn;
+            ViewData["BOOKID"] = id;
+            ViewData["BOOKTITLE"] = title;
+            ViewData["BOOK"] = _book;
+
+            return View(cRanks);
+        }
+
+
+        // ________________________________________________________
+        // HTTP DELETE
+        // ________________________________________________________
+        public async Task<IActionResult> DeleteCategorie(int? idCategorie, int? idBook)
+        {
+
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            string uri = _url + "GetOneBook/" + idBook;
+
+            string content = await _client.GetStringAsync(_configuration["URLApi"] + uri);
+            Book book = JsonConvert.DeserializeObject<Book>(content);
+
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+
+            // GET Book's Ranks
+
+            Category categorie = new Category();
+            ICollection<Rank> cRanks;
+            cRanks = book.Ranks;
+
+            // GET Categorie  
+            foreach (var item in cRanks)
+            {
+                if (item.IdCategorie == idCategorie)
+                {
+                    categorie = item.IdCategorieNavigation;
+                }
+
+            }
+
+            ViewData["BOOKTITLE"] = book.Title;
+            ViewData["BOOKID"] = book.Id;
+            ViewData["BOOKISBN"] = book.Isbn;
+
+            ViewData["BOOKID"] = book.Id;
+            ViewData["CATEGORIEID"] = categorie.Id;
+
+            return View(categorie);
+
+        }// END 
+
+        // ________________________________________________________
+        // DELETE: / api/Books/s ->  <form asp-action="ConfirmeDelete">
+        // ________________________________________________________
+        public async Task<IActionResult> ConfirmeDeleteCategorie(int? idCategorie, int? idBook) // HTTP DELETE
+        {
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            Rank rank = new Rank();
+
+            string uri = _url + "DeleteCategorie/" + idCategorie + "/" + idBook;
+            HttpResponseMessage response = await _client.DeleteAsync(_configuration["URLApi"] + uri);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var result = response.Content.ReadAsStringAsync().Result;
+                rank = JsonConvert.DeserializeObject<Rank>(result);
+                ViewData["RANK"] = rank;
+            }
+            else
+            {
+                // ERROR
+                return NotFound();
+            }
+
+            // <form asp-action="ConfirmeDeleteCategorie" asp-route-idCategorie="@ViewBag.idCategorie" asp-route-idBook="@ViewBag.IdBook">
+
+            return RedirectToAction("Index", "Books");
+            // return RedirectToAction("ManageCategories/" + idBook, "Books");
+        }
+
+
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Create a new Categorie for a book
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        public async Task<IActionResult> CreateCategorie(int? id)
+        {
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+
+            string uri = _url + "GetOneBook/" + id;
+            string content = await _client.GetStringAsync(_configuration["URLApi"] + uri);
+            Book _book = JsonConvert.DeserializeObject<Book>(content);
+            ViewData["BOOK"] = _book;
+
+
+
+            // Book's Categories
+            List<Category> categories = new List<Category>();
+            ICollection<Rank> cRanks;
+            cRanks = _book.Ranks;
+            ViewData["RANKS"] = cRanks;
+
+
+            // Categories's Select List (Liste Déroulante) 
+            List<Category> listCategories = new List<Category>();
+            string uriGetCategories = "api/categories/";
+            HttpResponseMessage responseGetCategories = await _client.GetAsync(_configuration["URLApi"] + uriGetCategories); // HTTP GET
+
+            if (responseGetCategories.IsSuccessStatusCode)
+            {
+                listCategories = await responseGetCategories.Content.ReadAsAsync<List<Category>>();
+                ViewData["CATEGORIES"] = new SelectList(listCategories, "Id", "Description");// Add To ViewData
+            }
+
+            ViewData["BOOKTITLE"] = _book.Title;
+            ViewData["BOOKID"] = _book.Id;
+
+            return View("CreateCategorie");
+        }
+
+        // ________________________________________________________
+        // POST: AdminBooks/PostCowriter
+        // ________________________________________________________
+        [Route("PostCategorie/{idBook}")]
+        public async Task<IActionResult> PostCategorie(int idBook, Category categorie)
+        {
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+
+            string uri = _url + "GetOneBook/" + idBook;
+            string content = await _client.GetStringAsync(_configuration["URLApi"] + uri);
+            Book _book = JsonConvert.DeserializeObject<Book>(content);
+            ViewData["BOOK"] = _book;
+
+
+            // Create Rank for Selected Book and add a new categorie (new row) 
+            Rank postRank = new Rank
+            {
+                IdCategorie = categorie.Id,
+                IdBook = idBook,
+                IdFormat = 1,
+                IdGenre = 1,
+                IdLanguage = 1
+
+            };
+
+            // HTTP POST Cowriter 
+            HttpResponseMessage responsePostCowriter = await _client.PostAsJsonAsync(_configuration["URLApi"] + _url + "PostCategorie/" + idBook, postRank);
+            return RedirectToAction("Index", "Books");
+
         }
 
 

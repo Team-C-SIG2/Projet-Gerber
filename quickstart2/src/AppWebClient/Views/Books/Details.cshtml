@@ -17,8 +17,8 @@
         @* Titre *@
         <dt class="col-sm-2">
             @*
-            TODO COWRITERS
-            @Html.DisplayNameFor(model => model.Cowriters)
+                TODO COWRITERS
+                @Html.DisplayNameFor(model => model.Cowriters)
             *@
             Titre
         </dt>
@@ -122,8 +122,29 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Stock)
         </dd>
+
+    @* ------------------------------------------------------------------------------------------------------- *@
+    @* Categorie(s) *@
+    @* ------------------------------------------------------------------------------------------------------- *@
+
+
+    <dt class="col-sm-2">
+        Categorie(s)
+    </dt>
+    <dd class="col-sm-10">
+        @if (@ViewBag.CATEGORIES.Count > 0)
+        {
+            @foreach (var rank in @ViewBag.CATEGORIES)
+            {
+                <text> @rank.Description</text><br />}}
+        else
+        {<text>/</text>}
+
+    </dd>
     </dl>
 </div>
+
+@* ------------------------------------------------------------------------------------------------------- *@
 
 @if ((string)@ViewData["ACCESSRIGHT"] == "ADMIN")
 {@* ADMIN *@

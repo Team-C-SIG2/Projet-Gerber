@@ -1,0 +1,1208 @@
+2020-06-20 14:19:00.7874 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 14:19:00
+
+2020-06-20 14:19:00.9113 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 14:19:00
+
+2020-06-20 14:19:10.8345 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 14:19:10
+
+2020-06-20 14:19:11.2629 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 14:19:11
+
+2020-06-20 14:19:11.2782 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 14:19:11
+
+2020-06-20 14:19:16.6345 INFO (API Server) -Try to GET book 208(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 14:19:16
+
+2020-06-20 14:19:16.7264 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 14:19:16
+
+2020-06-20 14:19:16.7879 INFO (API Server) - Try to GET ALL StockHistories - Controller name: StockHistoriesController; Actionname: GetBookStockHistory(); HTTP method : HttpGet; Time: 20.06.2020 14:19:16
+
+2020-06-20 14:20:29.4941 INFO (API Server) -Try to update book 208(Id) - Controller : BooksController; Actionname: Put(...); HTTP method : HttpGet; Time: 20.06.2020 14:20:29
+
+2020-06-20 14:20:29.6424 INFO (API Server) -Try to POST StockHistory 0 (Id) - Controller : StockHistoriesController; Actionname: PostStockHistory(...); HTTP method : HttpPost; Time: 20.06.2020 14:20:29
+
+2020-06-20 14:20:29.7505 INFO (API Server) -Try to GET book 208(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 14:20:29
+
+2020-06-20 14:20:29.7768 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 14:20:29
+
+2020-06-20 14:20:29.7917 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 14:20:29
+
+2020-06-20 14:20:42.0058 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 14:20:42
+
+2020-06-20 14:20:42.0965 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 14:20:42
+
+2020-06-20 14:20:42.1112 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 14:20:42
+
+2020-06-20 14:20:51.1789 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 14:20:51
+
+2020-06-20 14:20:51.2017 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 14:20:51
+
+2020-06-20 14:20:51.2204 INFO (API Server) - Try to GET ALL StockHistories - Controller name: StockHistoriesController; Actionname: GetBookStockHistory(); HTTP method : HttpGet; Time: 20.06.2020 14:20:51
+
+2020-06-20 14:21:00.5804 INFO (API Server) -Try to GET Cowriters 216(Id) - Controller : BooksController; Actionname: ManageCowriters(...); HTTP method : HttpGet; Time: 20.06.2020 14:21:00
+
+2020-06-20 14:21:02.9200 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 14:21:02
+
+2020-06-20 14:21:02.9557 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 14:21:02
+
+2020-06-20 14:21:02.9766 INFO (API Server) - Try to GET ALL StockHistories - Controller name: StockHistoriesController; Actionname: GetBookStockHistory(); HTTP method : HttpGet; Time: 20.06.2020 14:21:02
+
+2020-06-20 14:21:13.2892 INFO (API Server) -Try to update book 216(Id) - Controller : BooksController; Actionname: Put(...); HTTP method : HttpGet; Time: 20.06.2020 14:21:13
+
+2020-06-20 14:21:13.3120 INFO (API Server) -Try to POST StockHistory 0 (Id) - Controller : StockHistoriesController; Actionname: PostStockHistory(...); HTTP method : HttpPost; Time: 20.06.2020 14:21:13
+
+2020-06-20 14:21:13.3462 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 14:21:13
+
+2020-06-20 14:21:13.3639 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 14:21:13
+
+2020-06-20 14:21:13.3639 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 14:21:13
+
+2020-06-20 14:21:24.7396 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 14:21:24
+
+2020-06-20 14:21:24.8255 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 14:21:24
+
+2020-06-20 14:21:24.8407 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 14:21:24
+
+2020-06-20 14:21:28.0721 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 14:21:28
+
+2020-06-20 14:21:28.0941 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 14:21:28
+
+2020-06-20 14:21:28.1128 INFO (API Server) - Try to GET ALL StockHistories - Controller name: StockHistoriesController; Actionname: GetBookStockHistory(); HTTP method : HttpGet; Time: 20.06.2020 14:21:28
+
+2020-06-20 14:21:32.0909 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 14:21:32
+
+2020-06-20 14:21:32.1615 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 14:21:32
+
+2020-06-20 14:21:32.1776 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 14:21:32
+
+2020-06-20 14:21:49.7028 INFO (API Server) -Try to GET book 6(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 14:21:49
+
+2020-06-20 14:21:49.7303 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 14:21:49
+
+2020-06-20 14:21:49.7660 INFO (API Server) - Try to GET ALL StockHistories - Controller name: StockHistoriesController; Actionname: GetBookStockHistory(); HTTP method : HttpGet; Time: 20.06.2020 14:21:49
+
+2020-06-20 14:35:02.6614 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 14:35:02
+
+2020-06-20 14:35:02.7912 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 14:35:02
+
+2020-06-20 14:35:06.9842 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 14:35:06
+
+2020-06-20 14:35:07.4127 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 14:35:07
+
+2020-06-20 14:35:07.4272 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 14:35:07
+
+2020-06-20 14:35:10.7203 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 14:35:10
+
+2020-06-20 14:35:10.8199 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 14:35:10
+
+2020-06-20 14:35:10.8862 INFO (API Server) - Try to GET ALL StockHistories - Controller name: StockHistoriesController; Actionname: GetBookStockHistory(); HTTP method : HttpGet; Time: 20.06.2020 14:35:10
+
+2020-06-20 14:44:39.0226 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 14:44:39
+
+2020-06-20 14:44:39.0656 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 14:44:39
+
+2020-06-20 14:44:39.0863 INFO (API Server) - Try to GET ALL StockHistories - Controller name: StockHistoriesController; Actionname: GetBookStockHistory(); HTTP method : HttpGet; Time: 20.06.2020 14:44:39
+
+2020-06-20 14:50:27.8976 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 14:50:27
+
+2020-06-20 14:50:28.0358 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 14:50:28
+
+2020-06-20 14:50:31.8089 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 14:50:31
+
+2020-06-20 14:50:32.2393 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 14:50:32
+
+2020-06-20 14:50:32.2400 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 14:50:32
+
+2020-06-20 14:50:35.1115 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 14:50:35
+
+2020-06-20 14:50:35.2093 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 14:50:35
+
+2020-06-20 14:50:35.2739 INFO (API Server) - Try to GET ALL StockHistories - Controller name: StockHistoriesController; Actionname: GetBookStockHistory(); HTTP method : HttpGet; Time: 20.06.2020 14:50:35
+
+2020-06-20 14:54:23.9742 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 14:54:23
+
+2020-06-20 14:54:24.1209 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 14:54:24
+
+2020-06-20 14:54:27.4021 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 14:54:27
+
+2020-06-20 14:54:27.8314 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 14:54:27
+
+2020-06-20 14:54:27.8326 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 14:54:27
+
+2020-06-20 14:54:30.5960 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 14:54:30
+
+2020-06-20 14:54:30.6921 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 14:54:30
+
+2020-06-20 14:54:30.7553 INFO (API Server) - Try to GET ALL StockHistories - Controller name: StockHistoriesController; Actionname: GetBookStockHistory(); HTTP method : HttpGet; Time: 20.06.2020 14:54:30
+
+2020-06-20 14:54:42.3830 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 14:54:42
+
+2020-06-20 14:54:42.4919 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 14:54:42
+
+2020-06-20 14:54:42.5064 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 14:54:42
+
+2020-06-20 14:54:52.4448 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 14:54:52
+
+2020-06-20 14:54:52.4645 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 14:54:52
+
+2020-06-20 14:54:52.4814 INFO (API Server) - Try to GET ALL StockHistories - Controller name: StockHistoriesController; Actionname: GetBookStockHistory(); HTTP method : HttpGet; Time: 20.06.2020 14:54:52
+
+2020-06-20 14:58:33.3796 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 14:58:32
+
+2020-06-20 14:58:33.5077 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 14:58:33
+
+2020-06-20 14:58:41.1327 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 14:58:41
+
+2020-06-20 14:58:41.5641 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 14:58:41
+
+2020-06-20 14:58:41.5785 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 14:58:41
+
+2020-06-20 14:59:17.4565 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 14:59:17
+
+2020-06-20 14:59:17.5530 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 14:59:17
+
+2020-06-20 14:59:17.6320 INFO (API Server) - Try to GET ALL StockHistories - Controller name: StockHistoriesController; Actionname: GetBookStockHistory(); HTTP method : HttpGet; Time: 20.06.2020 14:59:17
+
+2020-06-20 15:01:48.3661 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 15:01:48
+
+2020-06-20 15:01:48.4721 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 15:01:48
+
+2020-06-20 15:01:48.4939 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 15:01:48
+
+2020-06-20 15:01:52.9709 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 15:01:52
+
+2020-06-20 15:01:53.0481 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 15:01:53
+
+2020-06-20 15:01:53.0635 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 15:01:53
+
+2020-06-20 15:01:55.2414 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 15:01:55
+
+2020-06-20 15:01:55.2748 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 15:01:55
+
+2020-06-20 15:01:55.2920 INFO (API Server) - Try to GET ALL StockHistories - Controller name: StockHistoriesController; Actionname: GetBookStockHistory(); HTTP method : HttpGet; Time: 20.06.2020 15:01:55
+
+2020-06-20 15:02:27.3507 INFO (API Server) -Try to POST Edidor EditeurAVB - Controller : BooksController; Actionname: PostEditor(...); HTTP method : HttpPost; Time: 20.06.2020 15:02:27
+
+2020-06-20 15:02:27.5260 INFO Log Information(API Server) -Try to get book 216(Id) - Controller name : BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 15:02:27
+
+2020-06-20 15:02:27.5857 INFO (API Server) -Try to update book 216(Id) - Controller : BooksController; Actionname: Put(...); HTTP method : HttpGet; Time: 20.06.2020 15:02:27
+
+2020-06-20 15:02:27.6390 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 15:02:27
+
+2020-06-20 15:02:27.7246 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 15:02:27
+
+2020-06-20 15:02:27.7391 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 15:02:27
+
+2020-06-20 15:02:30.2703 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 15:02:30
+
+2020-06-20 15:02:30.3014 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 15:02:30
+
+2020-06-20 15:02:30.3243 INFO (API Server) - Try to GET ALL StockHistories - Controller name: StockHistoriesController; Actionname: GetBookStockHistory(); HTTP method : HttpGet; Time: 20.06.2020 15:02:30
+
+2020-06-20 15:02:33.2561 INFO (API Server) -Try to GET Cowriters 216(Id) - Controller : BooksController; Actionname: ManageCowriters(...); HTTP method : HttpGet; Time: 20.06.2020 15:02:33
+
+2020-06-20 15:02:35.8320 INFO Log Information(API Server) -Try to get book 216(Id) - Controller name : BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 15:02:35
+
+2020-06-20 15:02:35.8596 INFO (API Server) -Try to GET Authors LIST - Controller : BooksController; Actionname: GetAuthors(...); HTTP method : HttpGet; Time: 20.06.2020 15:02:35
+
+2020-06-20 15:02:39.7393 INFO (API Server) -Try to POST Cowriter 11 (Id)  for book 216(Id) - Controller : BooksController; Actionname: PostCowriter(...); HTTP method : HttpPost; Time: 20.06.2020 15:02:39
+
+2020-06-20 15:02:39.7847 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 15:02:39
+
+2020-06-20 15:02:41.8883 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 15:02:41
+
+2020-06-20 15:02:41.9173 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 15:02:41
+
+2020-06-20 15:03:18.6856 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 15:03:18
+
+2020-06-20 15:03:18.7191 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 15:03:18
+
+2020-06-20 15:03:18.7472 INFO (API Server) - Try to GET ALL StockHistories - Controller name: StockHistoriesController; Actionname: GetBookStockHistory(); HTTP method : HttpGet; Time: 20.06.2020 15:03:18
+
+2020-06-20 15:03:27.0249 INFO (API Server) -Try to update book 216(Id) - Controller : BooksController; Actionname: Put(...); HTTP method : HttpGet; Time: 20.06.2020 15:03:27
+
+2020-06-20 15:03:27.0632 INFO (API Server) -Try to POST StockHistory 0 (Id) - Controller : StockHistoriesController; Actionname: PostStockHistory(...); HTTP method : HttpPost; Time: 20.06.2020 15:03:27
+
+2020-06-20 15:03:27.1436 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 15:03:27
+
+2020-06-20 15:03:27.1449 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 15:03:27
+
+2020-06-20 15:03:27.1796 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 15:03:27
+
+2020-06-20 15:04:52.0465 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 15:04:52
+
+2020-06-20 15:05:01.8071 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 15:05:01
+
+2020-06-20 15:05:01.8217 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 15:05:01
+
+2020-06-20 15:05:04.3890 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 15:05:04
+
+2020-06-20 15:05:04.4272 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 15:05:04
+
+2020-06-20 15:05:04.4468 INFO (API Server) - Try to GET ALL StockHistories - Controller name: StockHistoriesController; Actionname: GetBookStockHistory(); HTTP method : HttpGet; Time: 20.06.2020 15:05:04
+
+2020-06-20 15:05:15.6178 INFO (API Server) -Try to update book 216(Id) - Controller : BooksController; Actionname: Put(...); HTTP method : HttpGet; Time: 20.06.2020 15:05:15
+
+2020-06-20 15:05:15.6423 INFO (API Server) -Try to POST StockHistory 0 (Id) - Controller : StockHistoriesController; Actionname: PostStockHistory(...); HTTP method : HttpPost; Time: 20.06.2020 15:05:15
+
+2020-06-20 15:05:15.6775 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 15:05:15
+
+2020-06-20 15:05:15.6926 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 15:05:15
+
+2020-06-20 15:05:15.7085 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 15:05:15
+
+2020-06-20 15:08:27.1140 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 15:08:26
+
+2020-06-20 15:08:27.2463 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 15:08:27
+
+2020-06-20 15:08:31.7309 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 15:08:31
+
+2020-06-20 15:08:32.1586 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 15:08:32
+
+2020-06-20 15:08:32.1731 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 15:08:32
+
+2020-06-20 15:08:35.2302 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 15:08:35
+
+2020-06-20 15:08:35.3271 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 15:08:35
+
+2020-06-20 15:08:35.3915 INFO (API Server) - Try to GET ALL StockHistories - Controller name: StockHistoriesController; Actionname: GetBookStockHistory(); HTTP method : HttpGet; Time: 20.06.2020 15:08:35
+
+2020-06-20 15:11:23.9360 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 15:11:23
+
+2020-06-20 15:11:31.8942 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 15:11:31
+
+2020-06-20 15:11:31.9228 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 15:11:31
+
+2020-06-20 15:12:39.1308 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 15:12:38
+
+2020-06-20 15:12:39.2639 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 15:12:39
+
+2020-06-20 15:12:42.6924 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 15:12:42
+
+2020-06-20 15:12:43.1187 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 15:12:43
+
+2020-06-20 15:12:43.1329 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 15:12:43
+
+2020-06-20 15:12:46.1898 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 15:12:46
+
+2020-06-20 15:12:46.2903 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 15:12:46
+
+2020-06-20 15:12:46.3543 INFO (API Server) - Try to GET ALL StockHistories - Controller name: StockHistoriesController; Actionname: GetBookStockHistory(); HTTP method : HttpGet; Time: 20.06.2020 15:12:46
+
+2020-06-20 15:15:53.5355 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 15:15:53
+
+2020-06-20 15:15:53.6842 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 15:15:53
+
+2020-06-20 15:15:57.1397 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 15:15:57
+
+2020-06-20 15:15:57.5762 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 15:15:57
+
+2020-06-20 15:15:57.5911 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 15:15:57
+
+2020-06-20 15:18:15.4833 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 15:18:15
+
+2020-06-20 15:18:15.5962 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 15:18:15
+
+2020-06-20 15:18:15.6102 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 15:18:15
+
+2020-06-20 15:18:20.6309 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 15:18:20
+
+2020-06-20 15:18:20.7361 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 15:18:20
+
+2020-06-20 15:18:20.8084 INFO (API Server) - Try to GET ALL StockHistories - Controller name: StockHistoriesController; Actionname: GetBookStockHistory(); HTTP method : HttpGet; Time: 20.06.2020 15:18:20
+
+2020-06-20 15:30:31.5357 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 15:30:31
+
+2020-06-20 15:30:31.6814 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 15:30:31
+
+2020-06-20 15:30:34.9333 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 15:30:34
+
+2020-06-20 15:30:35.3585 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 15:30:35
+
+2020-06-20 15:30:35.3733 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 15:30:35
+
+2020-06-20 15:30:38.5152 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 15:30:38
+
+2020-06-20 15:30:38.6117 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 15:30:38
+
+2020-06-20 15:30:45.9462 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 15:30:45
+
+2020-06-20 15:36:40.6294 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 15:36:40
+
+2020-06-20 15:36:40.7862 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 15:36:40
+
+2020-06-20 15:36:44.0650 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 15:36:44
+
+2020-06-20 15:36:44.4929 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 15:36:44
+
+2020-06-20 15:36:44.5073 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 15:36:44
+
+2020-06-20 15:36:48.8480 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 15:36:48
+
+2020-06-20 15:36:48.9481 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 15:36:48
+
+2020-06-20 15:42:31.2405 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 15:42:31
+
+2020-06-20 15:42:31.2745 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 15:42:31
+
+2020-06-20 15:47:30.7691 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 15:47:30
+
+2020-06-20 15:47:30.8225 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 15:47:30
+
+2020-06-20 15:47:46.5642 INFO (API Server) -Try to update book 216(Id) - Controller : BooksController; Actionname: Put(...); HTTP method : HttpGet; Time: 20.06.2020 15:47:46
+
+2020-06-20 15:47:46.7230 INFO (API Server) -Try to POST StockHistory 0 (Id) - Controller : StockHistoriesController; Actionname: PostStockHistory(...); HTTP method : HttpPost; Time: 20.06.2020 15:47:46
+
+2020-06-20 15:47:46.8276 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 15:47:46
+
+2020-06-20 15:47:46.8417 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 15:47:46
+
+2020-06-20 15:47:46.8591 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 15:47:46
+
+2020-06-20 15:48:09.0247 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 15:48:09
+
+2020-06-20 15:48:09.0610 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 15:48:09
+
+2020-06-20 16:30:07.2080 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 16:30:06
+
+2020-06-20 16:30:07.3550 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 16:30:07
+
+2020-06-20 16:30:20.6380 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 16:30:20
+
+2020-06-20 16:30:33.0205 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 16:30:33
+
+2020-06-20 16:30:33.0214 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 16:30:33
+
+2020-06-20 16:30:37.6089 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:30:37
+
+2020-06-20 16:30:37.7095 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 16:30:37
+
+2020-06-20 16:31:08.7749 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:31:08
+
+2020-06-20 16:31:08.8067 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 16:31:08
+
+2020-06-20 16:31:54.3741 INFO (API Server) -Try to update book 216(Id) - Controller : BooksController; Actionname: Put(...); HTTP method : HttpGet; Time: 20.06.2020 16:31:54
+
+2020-06-20 16:31:54.5235 INFO (API Server) -Try to POST StockHistory 0 (Id) - Controller : StockHistoriesController; Actionname: PostStockHistory(...); HTTP method : HttpPost; Time: 20.06.2020 16:31:54
+
+2020-06-20 16:31:54.6342 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 16:31:54
+
+2020-06-20 16:31:54.6515 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 16:31:54
+
+2020-06-20 16:31:54.6689 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:31:54
+
+2020-06-20 16:32:02.6373 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:32:02
+
+2020-06-20 16:32:02.6769 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 16:32:02
+
+2020-06-20 16:32:05.7780 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 16:32:05
+
+2020-06-20 16:32:05.8559 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 16:32:05
+
+2020-06-20 16:32:05.8703 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 16:32:05
+
+2020-06-20 16:32:11.2969 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:32:11
+
+2020-06-20 16:32:11.3207 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 16:32:11
+
+2020-06-20 16:32:20.0789 INFO (API Server) -Try to POST Edidor TEST1 - Controller : BooksController; Actionname: PostEditor(...); HTTP method : HttpPost; Time: 20.06.2020 16:32:20
+
+2020-06-20 16:32:20.1181 INFO Log Information(API Server) -Try to get book 216(Id) - Controller name : BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:32:20
+
+2020-06-20 16:32:20.1573 INFO (API Server) -Try to update book 216(Id) - Controller : BooksController; Actionname: Put(...); HTTP method : HttpGet; Time: 20.06.2020 16:32:20
+
+2020-06-20 16:32:20.1829 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 16:32:20
+
+2020-06-20 16:32:20.2426 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 16:32:20
+
+2020-06-20 16:32:20.2570 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 16:32:20
+
+2020-06-20 16:32:22.5812 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:32:22
+
+2020-06-20 16:32:22.6012 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 16:32:22
+
+2020-06-20 16:32:39.7988 INFO (API Server) -Try to update book 216(Id) - Controller : BooksController; Actionname: Put(...); HTTP method : HttpGet; Time: 20.06.2020 16:32:39
+
+2020-06-20 16:32:39.8517 INFO (API Server) -Try to POST Image - Controller name: ImageController; Actionname: Post(...); HTTP method : HttpPost; Time: 20.06.2020 16:32:39
+
+2020-06-20 16:32:39.8809 INFO (API Server) -Try to POST StockHistory 0 (Id) - Controller : StockHistoriesController; Actionname: PostStockHistory(...); HTTP method : HttpPost; Time: 20.06.2020 16:32:39
+
+2020-06-20 16:32:39.9119 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 16:32:39
+
+2020-06-20 16:32:39.9348 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 16:32:39
+
+2020-06-20 16:32:39.9522 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:32:39
+
+2020-06-20 16:33:03.8084 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 16:33:03
+
+2020-06-20 16:33:03.8940 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 16:33:03
+
+2020-06-20 16:33:03.9090 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 16:33:03
+
+2020-06-20 16:33:06.0173 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:33:06
+
+2020-06-20 16:33:06.0364 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 16:33:06
+
+2020-06-20 16:33:13.3707 INFO (API Server) -Try to update book 216(Id) - Controller : BooksController; Actionname: Put(...); HTTP method : HttpGet; Time: 20.06.2020 16:33:13
+
+2020-06-20 16:33:13.3973 INFO (API Server) -Try to POST StockHistory 0 (Id) - Controller : StockHistoriesController; Actionname: PostStockHistory(...); HTTP method : HttpPost; Time: 20.06.2020 16:33:13
+
+2020-06-20 16:33:13.4378 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 16:33:13
+
+2020-06-20 16:33:13.4527 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 16:33:13
+
+2020-06-20 16:33:13.4684 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:33:13
+
+2020-06-20 16:33:17.1748 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 16:33:17
+
+2020-06-20 16:33:17.2492 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 16:33:17
+
+2020-06-20 16:33:17.2641 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 16:33:17
+
+2020-06-20 16:33:19.1545 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:33:19
+
+2020-06-20 16:33:19.1731 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 16:33:19
+
+2020-06-20 16:33:31.0413 INFO (API Server) -Try to GET Cowriters 216(Id) - Controller : BooksController; Actionname: ManageCowriters(...); HTTP method : HttpGet; Time: 20.06.2020 16:33:31
+
+2020-06-20 16:33:33.3162 INFO Log Information(API Server) -Try to get book 216(Id) - Controller name : BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:33:33
+
+2020-06-20 16:33:33.3398 INFO (API Server) -Try to GET Authors LIST - Controller : BooksController; Actionname: GetAuthors(...); HTTP method : HttpGet; Time: 20.06.2020 16:33:33
+
+2020-06-20 16:33:37.3061 INFO (API Server) -Try to POST Cowriter 11 (Id)  for book 216(Id) - Controller : BooksController; Actionname: PostCowriter(...); HTTP method : HttpPost; Time: 20.06.2020 16:33:37
+
+2020-06-20 16:33:37.5235 INFO INFORMATION DETAILS, Exception occured during operation : (API Server) -Try to POST Cowriter 11 (Id)  for book 216(Id) - Controller : BooksController; Actionname: PostCowriter(...); HTTP method : HttpPost; Time: 20.06.2020 16:33:37
+
+2020-06-20 16:33:37.5235 INFO EXCEPTION DETAILS: An error occurred while updating the entries. See the inner exception for details.
+
+2020-06-20 16:33:37.5235 WARN WARNING DETAILS, Exception occured during operation : (API Server) -Try to POST Cowriter 11 (Id)  for book 216(Id) - Controller : BooksController; Actionname: PostCowriter(...); HTTP method : HttpPost; Time: 20.06.2020 16:33:37
+
+2020-06-20 16:33:37.5235 WARN EXCEPTION DETAILS: An error occurred while updating the entries. See the inner exception for details.
+
+2020-06-20 16:33:37.5235 ERROR ERROR DETAILS, Exception occured during operation : (API Server) -Try to POST Cowriter 11 (Id)  for book 216(Id) - Controller : BooksController; Actionname: PostCowriter(...); HTTP method : HttpPost; Time: 20.06.2020 16:33:37
+
+2020-06-20 16:33:37.5361 ERROR EXCEPTION DETAILS: An error occurred while updating the entries. See the inner exception for details.
+
+2020-06-20 16:33:37.5361 FATAL FATAL DETAILS, Exception occured during operation : (API Server) -Try to POST Cowriter 11 (Id)  for book 216(Id) - Controller : BooksController; Actionname: PostCowriter(...); HTTP method : HttpPost; Time: 20.06.2020 16:33:37
+
+2020-06-20 16:33:37.5361 FATAL EXCEPTION DETAILS: An error occurred while updating the entries. See the inner exception for details.
+
+2020-06-20 16:33:37.5361 DEBUG DEGUG DETAILS, Exception occured during operation : (API Server) -Try to POST Cowriter 11 (Id)  for book 216(Id) - Controller : BooksController; Actionname: PostCowriter(...); HTTP method : HttpPost; Time: 20.06.2020 16:33:37
+
+2020-06-20 16:33:37.5361 DEBUG EXCEPTION DETAILS: An error occurred while updating the entries. See the inner exception for details.
+
+2020-06-20 16:33:37.5706 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 16:33:37
+
+2020-06-20 16:33:37.6346 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 16:33:37
+
+2020-06-20 16:33:37.6483 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 16:33:37
+
+2020-06-20 16:33:40.6473 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:33:40
+
+2020-06-20 16:33:40.6780 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 16:33:40
+
+2020-06-20 16:35:12.3683 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 16:35:12
+
+2020-06-20 16:35:12.4517 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 16:35:12
+
+2020-06-20 16:35:12.4723 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 16:35:12
+
+2020-06-20 16:35:21.1460 INFO (API Server) -Try to GET book 110(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:35:21
+
+2020-06-20 16:35:21.1812 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 16:35:21
+
+2020-06-20 16:35:25.4683 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 16:35:25
+
+2020-06-20 16:35:25.5334 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 16:35:25
+
+2020-06-20 16:35:25.5479 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 16:35:25
+
+2020-06-20 16:37:40.2798 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 16:37:40
+
+2020-06-20 16:37:40.3004 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 16:37:40
+
+2020-06-20 16:37:40.3177 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:37:40
+
+2020-06-20 16:38:08.6872 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 16:38:08
+
+2020-06-20 16:38:08.7011 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 16:38:08
+
+2020-06-20 16:38:08.7182 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:38:08
+
+2020-06-20 16:39:11.0287 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 16:39:11
+
+2020-06-20 16:39:11.0424 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 16:39:11
+
+2020-06-20 16:39:11.0681 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:39:11
+
+2020-06-20 16:39:15.7550 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:39:15
+
+2020-06-20 16:39:15.7731 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 16:39:15
+
+2020-06-20 16:39:19.9268 INFO (API Server) -Try to GET Cowriters 216(Id) - Controller : BooksController; Actionname: ManageCowriters(...); HTTP method : HttpGet; Time: 20.06.2020 16:39:19
+
+2020-06-20 16:39:21.4511 INFO Log Information(API Server) -Try to get book 216(Id) - Controller name : BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:39:21
+
+2020-06-20 16:39:21.4680 INFO (API Server) -Try to GET Authors LIST - Controller : BooksController; Actionname: GetAuthors(...); HTTP method : HttpGet; Time: 20.06.2020 16:39:21
+
+2020-06-20 16:46:38.1230 INFO Log Information(API Server) -Try to get book 216(Id) - Controller name : BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:46:38
+
+2020-06-20 16:46:38.1450 INFO (API Server) -Try to GET Authors LIST - Controller : BooksController; Actionname: GetAuthors(...); HTTP method : HttpGet; Time: 20.06.2020 16:46:38
+
+2020-06-20 16:46:41.9852 INFO (API Server) -Try to POST Cowriter 14 (Id)  for book 216(Id) - Controller : BooksController; Actionname: PostCowriter(...); HTTP method : HttpPost; Time: 20.06.2020 16:46:41
+
+2020-06-20 16:46:42.0251 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 16:46:42
+
+2020-06-20 16:46:42.1071 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 16:46:42
+
+2020-06-20 16:46:42.1204 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 16:46:42
+
+2020-06-20 16:46:44.1860 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:46:44
+
+2020-06-20 16:46:44.2134 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 16:46:44
+
+2020-06-20 16:46:50.4144 INFO (API Server) -Try to GET Cowriters 216(Id) - Controller : BooksController; Actionname: ManageCowriters(...); HTTP method : HttpGet; Time: 20.06.2020 16:46:50
+
+2020-06-20 16:46:52.4942 INFO Log Information(API Server) -Try to get book 216(Id) - Controller name : BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:46:52
+
+2020-06-20 16:46:52.5122 INFO (API Server) -Try to GET Authors LIST - Controller : BooksController; Actionname: GetAuthors(...); HTTP method : HttpGet; Time: 20.06.2020 16:46:52
+
+2020-06-20 16:46:57.8459 INFO (API Server) -Try to POST Cowriter 17 (Id)  for book 216(Id) - Controller : BooksController; Actionname: PostCowriter(...); HTTP method : HttpPost; Time: 20.06.2020 16:46:57
+
+2020-06-20 16:46:57.8746 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 16:46:57
+
+2020-06-20 16:46:57.9619 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 16:46:57
+
+2020-06-20 16:46:57.9737 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 16:46:57
+
+2020-06-20 16:46:59.9061 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:46:59
+
+2020-06-20 16:46:59.9339 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 16:46:59
+
+2020-06-20 16:47:07.4770 INFO (API Server) -Try to GET Cowriters 216(Id) - Controller : BooksController; Actionname: ManageCowriters(...); HTTP method : HttpGet; Time: 20.06.2020 16:47:07
+
+2020-06-20 16:47:09.4864 INFO (API Server) -Try to get Cowriter 17(Id) - Controller : BooksController; Actionname: GetCowriter(...); HTTP method : HttpGet; Time: 20.06.2020 16:47:09
+
+2020-06-20 16:47:09.5175 INFO Log Information(API Server) -Try to get book 216(Id) - Controller name : BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:47:09
+
+2020-06-20 16:47:11.8880 INFO (API Server) -Try to DELETE Cowriter 17 (Id)  for book 216(Id) - Controller : BooksController; Actionname: DeleteCowriter(...); HTTP method : HttpDelete; Time: 20.06.2020 16:47:11
+
+2020-06-20 16:47:11.9255 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 16:47:11
+
+2020-06-20 16:47:11.9849 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 16:47:11
+
+2020-06-20 16:47:11.9978 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 16:47:11
+
+2020-06-20 16:47:16.5929 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:47:16
+
+2020-06-20 16:47:16.6111 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 16:47:16
+
+2020-06-20 16:47:20.0174 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:47:20
+
+2020-06-20 16:47:22.3611 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:47:22
+
+2020-06-20 16:47:22.3830 INFO (API Server) - Try to GET ALL Categories - Controller: CategoriesController; Actionname: GetCategories(); HTTP method : HttpGet; Time: 20.06.2020 16:47:22
+
+2020-06-20 16:47:26.2837 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:47:26
+
+2020-06-20 16:47:26.3151 INFO (API Server) -Try to POST a Categorie (Rank) for selected book - Controller : BooksController; Actionname: PostCategorie(...); HTTP method : HttpPost; Time: 20.06.2020 16:47:26
+
+2020-06-20 16:47:26.3528 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 16:47:26
+
+2020-06-20 16:47:26.4348 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 16:47:26
+
+2020-06-20 16:47:26.4603 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 16:47:26
+
+2020-06-20 16:47:28.7942 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:47:28
+
+2020-06-20 16:47:28.8107 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 16:47:28
+
+2020-06-20 16:47:46.9428 INFO (API Server) -Try to GET Cowriters 216(Id) - Controller : BooksController; Actionname: ManageCowriters(...); HTTP method : HttpGet; Time: 20.06.2020 16:47:46
+
+2020-06-20 16:47:55.3653 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 16:47:55
+
+2020-06-20 16:47:58.0008 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 16:47:58
+
+2020-06-20 16:47:58.0139 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 16:47:58
+
+2020-06-20 16:48:02.2984 INFO (API Server) - Try to GET ALL Editors - Controller name: EditorsController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 16:48:02
+
+2020-06-20 16:48:02.3204 INFO (API Server) - Try to GET ALL Categories - Controller: CategoriesController; Actionname: GetCategories(); HTTP method : HttpGet; Time: 20.06.2020 16:48:02
+
+2020-06-20 16:48:07.4219 INFO (API Server) -Try to FIND book ; Controller name : BooksController; Actionname: Find(...); HTTP method : HttpGet; Time: 20.06.2020 16:48:07
+
+2020-06-20 16:48:15.4512 INFO (API Server) - Try to GET ALL Editors - Controller name: EditorsController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 16:48:15
+
+2020-06-20 16:48:15.4676 INFO (API Server) - Try to GET ALL Categories - Controller: CategoriesController; Actionname: GetCategories(); HTTP method : HttpGet; Time: 20.06.2020 16:48:15
+
+2020-06-20 16:48:27.0202 INFO (API Server) -Try to FIND book ; Controller name : BooksController; Actionname: Find(...); HTTP method : HttpGet; Time: 20.06.2020 16:48:27
+
+2020-06-20 16:50:05.2706 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 16:50:04
+
+2020-06-20 16:50:05.4200 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 16:50:05
+
+2020-06-20 16:50:17.8332 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 16:50:17
+
+2020-06-20 16:50:18.2984 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 16:50:18
+
+2020-06-20 16:50:18.3134 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 16:50:18
+
+2020-06-20 16:50:21.3663 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:50:21
+
+2020-06-20 16:50:21.4688 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 16:50:21
+
+2020-06-20 16:50:25.7925 INFO (API Server) -Try to GET Cowriters 216(Id) - Controller : BooksController; Actionname: ManageCowriters(...); HTTP method : HttpGet; Time: 20.06.2020 16:50:25
+
+2020-06-20 16:50:27.3709 INFO Log Information(API Server) -Try to get book 216(Id) - Controller name : BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:50:27
+
+2020-06-20 16:50:27.4053 INFO (API Server) -Try to GET Authors LIST - Controller : BooksController; Actionname: GetAuthors(...); HTTP method : HttpGet; Time: 20.06.2020 16:50:27
+
+2020-06-20 16:50:37.3046 INFO (API Server) -Try to POST Cowriter 185 (Id)  for book 216(Id) - Controller : BooksController; Actionname: PostCowriter(...); HTTP method : HttpPost; Time: 20.06.2020 16:50:37
+
+2020-06-20 16:50:37.4530 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 16:50:37
+
+2020-06-20 16:50:37.5242 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 16:50:37
+
+2020-06-20 16:50:37.5379 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 16:50:37
+
+2020-06-20 16:50:39.6902 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:50:39
+
+2020-06-20 16:50:39.7222 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 16:50:39
+
+2020-06-20 16:57:14.5047 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 16:57:14
+
+2020-06-20 16:57:14.6387 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 16:57:14
+
+2020-06-20 16:57:17.7269 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 16:57:17
+
+2020-06-20 16:57:18.1590 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 16:57:18
+
+2020-06-20 16:57:18.1743 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 16:57:18
+
+2020-06-20 16:57:20.7227 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 16:57:20
+
+2020-06-20 16:57:20.8222 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 16:57:20
+
+2020-06-20 16:57:20.8870 INFO (API Server) - Try to GET ALL StockHistories - Controller name: StockHistoriesController; Actionname: GetBookStockHistory(); HTTP method : HttpGet; Time: 20.06.2020 16:57:20
+
+2020-06-20 17:00:49.3330 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 17:00:49
+
+2020-06-20 17:00:57.5320 INFO (API Server) -Try to DELETE book 216(Id) - Controller : BooksController; Actionname: Delete(...); HTTP method : HttpDelete; Time: 20.06.2020 17:00:57
+
+2020-06-20 17:00:57.8059 INFO INFORMATION DETAILS, Exception occured during operation : (API Server) -Try to DELETE book 216(Id) - Controller : BooksController; Actionname: Delete(...); HTTP method : HttpDelete; Time: 20.06.2020 17:00:57
+
+2020-06-20 17:00:57.8059 INFO EXCEPTION DETAILS: An error occurred while updating the entries. See the inner exception for details.
+
+2020-06-20 17:00:57.8059 WARN WARNING DETAILS, Exception occured during operation : (API Server) -Try to DELETE book 216(Id) - Controller : BooksController; Actionname: Delete(...); HTTP method : HttpDelete; Time: 20.06.2020 17:00:57
+
+2020-06-20 17:00:57.8059 WARN EXCEPTION DETAILS: An error occurred while updating the entries. See the inner exception for details.
+
+2020-06-20 17:00:57.8059 ERROR ERROR DETAILS, Exception occured during operation : (API Server) -Try to DELETE book 216(Id) - Controller : BooksController; Actionname: Delete(...); HTTP method : HttpDelete; Time: 20.06.2020 17:00:57
+
+2020-06-20 17:00:57.8177 ERROR EXCEPTION DETAILS: An error occurred while updating the entries. See the inner exception for details.
+
+2020-06-20 17:00:57.8177 FATAL FATAL DETAILS, Exception occured during operation : (API Server) -Try to DELETE book 216(Id) - Controller : BooksController; Actionname: Delete(...); HTTP method : HttpDelete; Time: 20.06.2020 17:00:57
+
+2020-06-20 17:00:57.8177 FATAL EXCEPTION DETAILS: An error occurred while updating the entries. See the inner exception for details.
+
+2020-06-20 17:00:57.8177 DEBUG DEGUG DETAILS, Exception occured during operation : (API Server) -Try to DELETE book 216(Id) - Controller : BooksController; Actionname: Delete(...); HTTP method : HttpDelete; Time: 20.06.2020 17:00:57
+
+2020-06-20 17:00:57.8177 DEBUG EXCEPTION DETAILS: An error occurred while updating the entries. See the inner exception for details.
+
+2020-06-20 17:00:57.8624 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 17:00:57
+
+2020-06-20 17:00:57.9557 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:00:57
+
+2020-06-20 17:00:57.9703 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:00:57
+
+2020-06-20 17:01:09.3069 INFO (API Server) - Try to GET ALL Editors - Controller name: EditorsController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 17:01:09
+
+2020-06-20 17:01:09.3424 INFO (API Server) - Try to GET ALL Categories - Controller: CategoriesController; Actionname: GetCategories(); HTTP method : HttpGet; Time: 20.06.2020 17:01:09
+
+2020-06-20 17:01:16.0927 INFO (API Server) -Try to FIND book ; Controller name : BooksController; Actionname: Find(...); HTTP method : HttpGet; Time: 20.06.2020 17:01:16
+
+2020-06-20 17:01:22.5030 INFO (API Server) - Try to GET ALL Editors - Controller name: EditorsController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 17:01:22
+
+2020-06-20 17:01:22.5259 INFO (API Server) - Try to GET ALL Categories - Controller: CategoriesController; Actionname: GetCategories(); HTTP method : HttpGet; Time: 20.06.2020 17:01:22
+
+2020-06-20 17:01:54.6636 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:01:54
+
+2020-06-20 17:01:54.6799 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:01:54
+
+2020-06-20 17:01:57.7341 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 17:01:57
+
+2020-06-20 17:01:57.8556 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:01:57
+
+2020-06-20 17:01:57.8713 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:01:57
+
+2020-06-20 17:02:03.5021 INFO (API Server) - Try to GET ALL Editors - Controller name: EditorsController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 17:02:03
+
+2020-06-20 17:02:03.5223 INFO (API Server) - Try to GET ALL Categories - Controller: CategoriesController; Actionname: GetCategories(); HTTP method : HttpGet; Time: 20.06.2020 17:02:03
+
+2020-06-20 17:02:08.4592 INFO (API Server) -Try to FIND book ; Controller name : BooksController; Actionname: Find(...); HTTP method : HttpGet; Time: 20.06.2020 17:02:08
+
+2020-06-20 17:02:12.3117 INFO (API Server) - Try to GET ALL Editors - Controller name: EditorsController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 17:02:12
+
+2020-06-20 17:02:12.3304 INFO (API Server) - Try to GET ALL Categories - Controller: CategoriesController; Actionname: GetCategories(); HTTP method : HttpGet; Time: 20.06.2020 17:02:12
+
+2020-06-20 17:06:54.7390 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:06:54
+
+2020-06-20 17:06:54.8955 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:06:54
+
+2020-06-20 17:06:59.8230 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 17:06:59
+
+2020-06-20 17:07:00.2615 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:07:00
+
+2020-06-20 17:07:00.2769 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:07:00
+
+2020-06-20 17:07:03.3375 INFO (API Server) - Try to GET ALL Editors - Controller name: EditorsController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 17:07:03
+
+2020-06-20 17:07:03.3796 INFO (API Server) - Try to GET ALL Categories - Controller: CategoriesController; Actionname: GetCategories(); HTTP method : HttpGet; Time: 20.06.2020 17:07:03
+
+2020-06-20 17:07:06.6234 INFO (API Server) -Try to FIND book ; Controller name : BooksController; Actionname: Find(...); HTTP method : HttpGet; Time: 20.06.2020 17:07:06
+
+
+2020-06-20 17:07:12.2151 INFO (API Server) - Try to GET ALL Editors - Controller name: EditorsController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 17:07:12
+
+2020-06-20 17:07:12.2360 INFO (API Server) - Try to GET ALL Categories - Controller: CategoriesController; Actionname: GetCategories(); HTTP method : HttpGet; Time: 20.06.2020 17:07:12
+
+2020-06-20 17:07:20.4901 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 17:07:20
+
+2020-06-20 17:07:20.5715 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:07:20
+
+2020-06-20 17:07:20.5865 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:07:20
+
+2020-06-20 17:07:32.9167 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:07:32
+
+2020-06-20 17:07:32.9404 INFO (API Server) -Try to GET ShoppingCart 6c2d0a32-4504-428a-b9d6-35831a78ff51(Id) - Controller name: ShoppingCartsController; Actionname: GetOne(id); HTTP method : HttpGet; Route : ShoppingCart/id ; Time: 20.06.2020 17:07:32
+
+2020-06-20 17:07:33.0706 INFO (API Server) - Try to GET ALL Users - Controller name: AspNetUsersController; Actionname: GetAspNetUsers(); HTTP method : HttpGet; Time: 20.06.2020 17:07:33
+
+2020-06-20 17:07:33.1052 INFO (API Server) -Try to GET customer 7 (UserId) - Controller name: CustomersController; Actionname: GetCustomer(id); HTTP method : HttpGet; Time: 20.06.2020 17:07:33
+
+2020-06-20 17:07:34.5105 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:07:34
+
+2020-06-20 17:07:34.5302 INFO (API Server) -Try to GET User 6c2d0a32-4504-428a-b9d6-35831a78ff51(userId) ShoppingCarts - Controller name: ShoppingCartsController; Actionname: GetUserShoppingCarts(id); HTTP method : HttpGet; Route : GetUserShoppingCarts/userId ; Time: 20.06.2020 17:07:34
+
+2020-06-20 17:07:34.5586 INFO (API Server) - Try to GET LineItems List of ShoppingCart 1005 (Id) - Controller: LineItemsController; Actionname: GetCartItemByShoppingCartId(); HTTP method : HttpGet; Route : Items/id? ; Time: 20.06.2020 17:07:34
+
+2020-06-20 17:07:34.6141 INFO (API Server) -Try to GET PublicKey for payment - Controller name: StripePayController; Actionname: GetPublicKey(...); HTTP method : HttpGet; Time: 20.06.2020 17:07:34
+
+
+2020-06-20 17:07:36.8481 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:07:36
+
+2020-06-20 17:07:36.8705 INFO (API Server) -Try to GET User Wishlist - Controller name: WishlistsController; Actionname: GetUserWishlist(id); HTTP method : HttpGet; Route : .../Wishlist/id ; Time: 20.06.2020 17:07:36
+
+2020-06-20 17:07:36.9279 INFO (API Server) - Try to GET User Wishlist 15 (Id) - Controller: LineItemsController; Actionname: GetUserWishList(); HTTP method : HttpGet; Route : Wishlist/id? ; Time: 20.06.2020 17:07:36
+
+2020-06-20 17:07:40.7862 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:07:40
+
+2020-06-20 17:07:40.8031 INFO (API Server) -Try to GET ShoppingCart 6c2d0a32-4504-428a-b9d6-35831a78ff51(Id) - Controller name: ShoppingCartsController; Actionname: GetOne(id); HTTP method : HttpGet; Route : ShoppingCart/id ; Time: 20.06.2020 17:07:40
+
+2020-06-20 17:07:40.8235 INFO (API Server) - Try to GET ALL Users - Controller name: AspNetUsersController; Actionname: GetAspNetUsers(); HTTP method : HttpGet; Time: 20.06.2020 17:07:40
+
+2020-06-20 17:07:40.8404 INFO (API Server) -Try to GET customer 7 (UserId) - Controller name: CustomersController; Actionname: GetCustomer(id); HTTP method : HttpGet; Time: 20.06.2020 17:07:40
+
+2020-06-20 17:07:49.8276 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:07:49
+
+2020-06-20 17:07:49.8459 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:07:49
+
+2020-06-20 17:07:52.9072 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 17:07:52
+
+2020-06-20 17:07:53.0037 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:07:53
+
+2020-06-20 17:07:53.0047 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:07:53
+
+2020-06-20 17:07:55.0988 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:07:55
+
+2020-06-20 17:07:55.1188 INFO (API Server) - Try to GET ALL ShoppingCarts - Controller: ShoppingCartsController; Actionname: GetShoppingCarts(); HTTP method : HttpGet; Time: 20.06.2020 17:07:55
+
+2020-06-20 17:07:55.1188 INFO (API Server) - Try to GET ALL ShoppingCarts - Controller: ShoppingCartsController; Actionname: GetAll(); HTTP method : HttpGet; Route : .../ShoppingCarts/ ; Time: 20.06.2020 17:07:55
+
+2020-06-20 17:07:55.1515 INFO (API Server) -Try to GET User 6c2d0a32-4504-428a-b9d6-35831a78ff51(userId) ShoppingCarts - Controller name: ShoppingCartsController; Actionname: GetUserShoppingCarts(id); HTTP method : HttpGet; Route : GetUserShoppingCarts/userId ; Time: 20.06.2020 17:07:55
+
+2020-06-20 17:07:55.1770 INFO Log Information(API Server) -Try to get book 216(Id) - Controller name : BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 17:07:55
+
+2020-06-20 17:07:55.2056 INFO (API Server) - Try to GET User's Wishlist - Controller: WishlistsController; Actionname: GetWishlistsWithUser(); HTTP method : HttpGet; Route : .../Wishlist ; Time: 20.06.2020 17:07:55
+
+2020-06-20 17:07:55.2316 INFO (API Server) - Try to GET LineItems List of ShoppingCart 1005 (Id) - Controller: LineItemsController; Actionname: GetCartItemByShoppingCartId(); HTTP method : HttpGet; Route : Items/id? ; Time: 20.06.2020 17:07:55
+
+2020-06-20 17:07:55.2526 INFO (API Server) - Try to GET User Wishlist 15 (Id) - Controller: LineItemsController; Actionname: GetUserWishList(); HTTP method : HttpGet; Route : Wishlist/id? ; Time: 20.06.2020 17:07:55
+
+2020-06-20 17:07:55.3200 INFO (API Server) -Try to PUT (update) LineItem 1040(Id) - Controller : LineItemsController; Actionname: PutLineItem(...); HTTP method : HttpPut; Time: 20.06.2020 17:07:55
+
+2020-06-20 17:07:55.4476 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 17:07:55
+
+2020-06-20 17:07:55.5070 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:07:55
+
+2020-06-20 17:07:55.5207 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:07:55
+
+2020-06-20 17:08:05.6186 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:08:05
+
+2020-06-20 17:08:05.6351 INFO (API Server) - Try to GET User's Wishlist - Controller: WishlistsController; Actionname: GetWishlistsWithUser(); HTTP method : HttpGet; Route : .../Wishlist ; Time: 20.06.2020 17:08:05
+
+2020-06-20 17:08:05.6577 INFO (API Server) -Try to GET User Wishlist - Controller name: WishlistsController; Actionname: GetUserWishlist(id); HTTP method : HttpGet; Route : .../Wishlist/id ; Time: 20.06.2020 17:08:05
+
+2020-06-20 17:08:05.6926 INFO Log Information(API Server) -Try to get book 216(Id) - Controller name : BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 17:08:05
+
+2020-06-20 17:08:05.7094 INFO (API Server) - Try to GET ALL ShoppingCarts - Controller: ShoppingCartsController; Actionname: GetShoppingCarts(); HTTP method : HttpGet; Time: 20.06.2020 17:08:05
+
+2020-06-20 17:08:05.7094 INFO (API Server) - Try to GET ALL ShoppingCarts - Controller: ShoppingCartsController; Actionname: GetAll(); HTTP method : HttpGet; Route : .../ShoppingCarts/ ; Time: 20.06.2020 17:08:05
+
+2020-06-20 17:08:05.7305 INFO (API Server) - Try to GET User Wishlist 15 (Id) - Controller: LineItemsController; Actionname: GetUserWishList(); HTTP method : HttpGet; Route : Wishlist/id? ; Time: 20.06.2020 17:08:05
+
+2020-06-20 17:08:05.8181 INFO (API Server) - Try to GET LineItems List of ShoppingCart 1005 (Id) - Controller: LineItemsController; Actionname: GetCartItemByShoppingCartId(); HTTP method : HttpGet; Route : Items/id? ; Time: 20.06.2020 17:08:05
+
+2020-06-20 17:08:05.8387 INFO (API Server) -Try to PUT (update) LineItem 1040(Id) - Controller : LineItemsController; Actionname: PutLineItem(...); HTTP method : HttpPut; Time: 20.06.2020 17:08:05
+
+2020-06-20 17:08:05.8644 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 17:08:05
+
+2020-06-20 17:08:05.9263 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:08:05
+
+2020-06-20 17:08:05.9270 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:08:05
+
+2020-06-20 17:08:08.8140 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:08:08
+
+2020-06-20 17:08:08.8303 INFO (API Server) -Try to GET User Wishlist - Controller name: WishlistsController; Actionname: GetUserWishlist(id); HTTP method : HttpGet; Route : .../Wishlist/id ; Time: 20.06.2020 17:08:08
+
+2020-06-20 17:08:08.8475 INFO (API Server) - Try to GET User Wishlist 15 (Id) - Controller: LineItemsController; Actionname: GetUserWishList(); HTTP method : HttpGet; Route : Wishlist/id? ; Time: 20.06.2020 17:08:08
+
+2020-06-20 17:08:13.2722 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 17:08:13
+
+2020-06-20 17:08:13.3389 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:08:13
+
+2020-06-20 17:08:13.3542 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:08:13
+
+2020-06-20 17:08:16.1827 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:08:16
+
+2020-06-20 17:08:16.1987 INFO (API Server) - Try to GET User's Wishlist - Controller: WishlistsController; Actionname: GetWishlistsWithUser(); HTTP method : HttpGet; Route : .../Wishlist ; Time: 20.06.2020 17:08:16
+
+2020-06-20 17:08:16.2164 INFO (API Server) -Try to GET User Wishlist - Controller name: WishlistsController; Actionname: GetUserWishlist(id); HTTP method : HttpGet; Route : .../Wishlist/id ; Time: 20.06.2020 17:08:16
+
+2020-06-20 17:08:16.2316 INFO Log Information(API Server) -Try to get book 216(Id) - Controller name : BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 17:08:16
+
+2020-06-20 17:08:16.2466 INFO (API Server) - Try to GET ALL ShoppingCarts - Controller: ShoppingCartsController; Actionname: GetShoppingCarts(); HTTP method : HttpGet; Time: 20.06.2020 17:08:16
+
+2020-06-20 17:08:16.2466 INFO (API Server) - Try to GET ALL ShoppingCarts - Controller: ShoppingCartsController; Actionname: GetAll(); HTTP method : HttpGet; Route : .../ShoppingCarts/ ; Time: 20.06.2020 17:08:16
+
+2020-06-20 17:08:16.2641 INFO (API Server) - Try to GET User Wishlist 15 (Id) - Controller: LineItemsController; Actionname: GetUserWishList(); HTTP method : HttpGet; Route : Wishlist/id? ; Time: 20.06.2020 17:08:16
+
+2020-06-20 17:08:16.2807 INFO (API Server) - Try to GET LineItems List of ShoppingCart 1005 (Id) - Controller: LineItemsController; Actionname: GetCartItemByShoppingCartId(); HTTP method : HttpGet; Route : Items/id? ; Time: 20.06.2020 17:08:16
+
+2020-06-20 17:08:16.3072 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 17:08:16
+
+2020-06-20 17:08:16.3777 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:08:16
+
+2020-06-20 17:08:16.4195 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:08:16
+
+2020-06-20 17:08:21.5957 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:08:21
+
+2020-06-20 17:08:21.6105 INFO (API Server) - Try to GET User's Wishlist - Controller: WishlistsController; Actionname: GetWishlistsWithUser(); HTTP method : HttpGet; Route : .../Wishlist ; Time: 20.06.2020 17:08:21
+
+2020-06-20 17:08:21.6272 INFO (API Server) -Try to GET User Wishlist - Controller name: WishlistsController; Actionname: GetUserWishlist(id); HTTP method : HttpGet; Route : .../Wishlist/id ; Time: 20.06.2020 17:08:21
+
+2020-06-20 17:08:21.6424 INFO Log Information(API Server) -Try to get book 21(Id) - Controller name : BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 17:08:21
+
+2020-06-20 17:08:21.6575 INFO (API Server) - Try to GET ALL ShoppingCarts - Controller: ShoppingCartsController; Actionname: GetShoppingCarts(); HTTP method : HttpGet; Time: 20.06.2020 17:08:21
+
+2020-06-20 17:08:21.6575 INFO (API Server) - Try to GET ALL ShoppingCarts - Controller: ShoppingCartsController; Actionname: GetAll(); HTTP method : HttpGet; Route : .../ShoppingCarts/ ; Time: 20.06.2020 17:08:21
+
+2020-06-20 17:08:21.6754 INFO (API Server) - Try to GET User Wishlist 15 (Id) - Controller: LineItemsController; Actionname: GetUserWishList(); HTTP method : HttpGet; Route : Wishlist/id? ; Time: 20.06.2020 17:08:21
+
+2020-06-20 17:08:21.6766 INFO (API Server) - Try to GET LineItems List of ShoppingCart 1005 (Id) - Controller: LineItemsController; Actionname: GetCartItemByShoppingCartId(); HTTP method : HttpGet; Route : Items/id? ; Time: 20.06.2020 17:08:21
+
+2020-06-20 17:08:21.7324 INFO (API Server) -Try to POST LineItem 0(Id) - Controller name : BooksController; Actionname: PostLineItem(...); HTTP method : HttpPost; Time: 20.06.2020 17:08:21
+
+2020-06-20 17:08:21.7982 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 17:08:21
+
+2020-06-20 17:08:21.8570 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:08:21
+
+2020-06-20 17:08:21.8700 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:08:21
+
+2020-06-20 17:08:23.9738 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:08:23
+
+2020-06-20 17:08:23.9900 INFO (API Server) - Try to GET ALL ShoppingCarts - Controller: ShoppingCartsController; Actionname: GetShoppingCarts(); HTTP method : HttpGet; Time: 20.06.2020 17:08:23
+
+2020-06-20 17:08:23.9900 INFO (API Server) - Try to GET ALL ShoppingCarts - Controller: ShoppingCartsController; Actionname: GetAll(); HTTP method : HttpGet; Route : .../ShoppingCarts/ ; Time: 20.06.2020 17:08:23
+
+2020-06-20 17:08:24.0086 INFO (API Server) -Try to GET User 6c2d0a32-4504-428a-b9d6-35831a78ff51(userId) ShoppingCarts - Controller name: ShoppingCartsController; Actionname: GetUserShoppingCarts(id); HTTP method : HttpGet; Route : GetUserShoppingCarts/userId ; Time: 20.06.2020 17:08:24
+
+2020-06-20 17:08:24.0236 INFO Log Information(API Server) -Try to get book 21(Id) - Controller name : BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 17:08:24
+
+2020-06-20 17:08:24.0379 INFO (API Server) - Try to GET User's Wishlist - Controller: WishlistsController; Actionname: GetWishlistsWithUser(); HTTP method : HttpGet; Route : .../Wishlist ; Time: 20.06.2020 17:08:24
+
+2020-06-20 17:08:24.0534 INFO (API Server) - Try to GET LineItems List of ShoppingCart 1005 (Id) - Controller: LineItemsController; Actionname: GetCartItemByShoppingCartId(); HTTP method : HttpGet; Route : Items/id? ; Time: 20.06.2020 17:08:24
+
+2020-06-20 17:08:24.0685 INFO (API Server) - Try to GET User Wishlist 15 (Id) - Controller: LineItemsController; Actionname: GetUserWishList(); HTTP method : HttpGet; Route : Wishlist/id? ; Time: 20.06.2020 17:08:24
+
+2020-06-20 17:08:24.0936 INFO (API Server) -Try to PUT (update) LineItem 1046(Id) - Controller : LineItemsController; Actionname: PutLineItem(...); HTTP method : HttpPut; Time: 20.06.2020 17:08:24
+
+2020-06-20 17:08:24.1197 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 17:08:24
+
+2020-06-20 17:08:24.1848 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:08:24
+
+2020-06-20 17:08:24.1977 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:08:24
+
+2020-06-20 17:08:27.7486 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:08:27
+
+2020-06-20 17:08:27.7643 INFO (API Server) -Try to GET ShoppingCart 6c2d0a32-4504-428a-b9d6-35831a78ff51(Id) - Controller name: ShoppingCartsController; Actionname: GetOne(id); HTTP method : HttpGet; Route : ShoppingCart/id ; Time: 20.06.2020 17:08:27
+
+2020-06-20 17:08:27.7802 INFO (API Server) - Try to GET ALL Users - Controller name: AspNetUsersController; Actionname: GetAspNetUsers(); HTTP method : HttpGet; Time: 20.06.2020 17:08:27
+
+2020-06-20 17:08:27.7971 INFO (API Server) -Try to GET customer 7 (UserId) - Controller name: CustomersController; Actionname: GetCustomer(id); HTTP method : HttpGet; Time: 20.06.2020 17:08:27
+
+2020-06-20 17:08:28.9584 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:08:28
+
+2020-06-20 17:08:28.9584 INFO (API Server) -Try to GET User 6c2d0a32-4504-428a-b9d6-35831a78ff51(userId) ShoppingCarts - Controller name: ShoppingCartsController; Actionname: GetUserShoppingCarts(id); HTTP method : HttpGet; Route : GetUserShoppingCarts/userId ; Time: 20.06.2020 17:08:28
+
+2020-06-20 17:08:28.9853 INFO (API Server) - Try to GET LineItems List of ShoppingCart 1005 (Id) - Controller: LineItemsController; Actionname: GetCartItemByShoppingCartId(); HTTP method : HttpGet; Route : Items/id? ; Time: 20.06.2020 17:08:28
+
+2020-06-20 17:08:29.0020 INFO (API Server) -Try to GET PublicKey for payment - Controller name: StripePayController; Actionname: GetPublicKey(...); HTTP method : HttpGet; Time: 20.06.2020 17:08:29
+
+
+2020-06-20 17:08:32.0495 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:08:32
+
+2020-06-20 17:08:32.0645 INFO (API Server) -Try to GET User Wishlist - Controller name: WishlistsController; Actionname: GetUserWishlist(id); HTTP method : HttpGet; Route : .../Wishlist/id ; Time: 20.06.2020 17:08:32
+
+2020-06-20 17:08:32.0802 INFO (API Server) - Try to GET User Wishlist 15 (Id) - Controller: LineItemsController; Actionname: GetUserWishList(); HTTP method : HttpGet; Route : Wishlist/id? ; Time: 20.06.2020 17:08:32
+
+2020-06-20 17:08:34.8945 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:08:34
+
+2020-06-20 17:08:34.9110 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:08:34
+
+2020-06-20 17:08:38.6362 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 17:08:38
+
+2020-06-20 17:08:38.7121 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:08:38
+
+2020-06-20 17:08:38.7265 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:08:38
+
+2020-06-20 17:08:40.8456 INFO (API Server) - Try to GET ALL Editors - Controller name: EditorsController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 17:08:40
+
+2020-06-20 17:08:40.8622 INFO (API Server) - Try to GET ALL Categories - Controller: CategoriesController; Actionname: GetCategories(); HTTP method : HttpGet; Time: 20.06.2020 17:08:40
+
+2020-06-20 17:10:43.6298 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:10:43
+
+2020-06-20 17:10:43.7621 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:10:43
+
+2020-06-20 17:10:47.8656 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 17:10:47
+
+2020-06-20 17:10:48.2974 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:10:48
+
+2020-06-20 17:10:48.3123 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:10:48
+
+2020-06-20 17:10:53.3707 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 17:10:53
+
+2020-06-20 17:10:53.4751 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:10:53
+
+2020-06-20 17:10:53.4901 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:10:53
+
+2020-06-20 17:10:55.5474 INFO (API Server) - Try to GET ALL Editors - Controller name: EditorsController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 17:10:55
+
+2020-06-20 17:10:55.6078 INFO (API Server) - Try to GET ALL Categories - Controller: CategoriesController; Actionname: GetCategories(); HTTP method : HttpGet; Time: 20.06.2020 17:10:55
+
+2020-06-20 17:11:00.1095 INFO (API Server) -Try to FIND book ; Controller name : BooksController; Actionname: Find(...); HTTP method : HttpGet; Time: 20.06.2020 17:11:00
+
+
+2020-06-20 17:11:03.4174 INFO (API Server) - Try to GET ALL Editors - Controller name: EditorsController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 17:11:03
+
+2020-06-20 17:11:03.4429 INFO (API Server) - Try to GET ALL Categories - Controller: CategoriesController; Actionname: GetCategories(); HTTP method : HttpGet; Time: 20.06.2020 17:11:03
+
+2020-06-20 17:11:11.4620 INFO (API Server) -Try to FIND book ; Controller name : BooksController; Actionname: Find(...); HTTP method : HttpGet; Time: 20.06.2020 17:11:11
+
+
+2020-06-20 17:11:22.4154 INFO (API Server) - Try to GET ALL Editors - Controller name: EditorsController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 17:11:22
+
+2020-06-20 17:11:22.4387 INFO (API Server) - Try to GET ALL Categories - Controller: CategoriesController; Actionname: GetCategories(); HTTP method : HttpGet; Time: 20.06.2020 17:11:22
+
+2020-06-20 17:11:27.1551 INFO (API Server) -Try to FIND book ; Controller name : BooksController; Actionname: Find(...); HTTP method : HttpGet; Time: 20.06.2020 17:11:27
+
+
+2020-06-20 17:11:29.3760 INFO (API Server) - Try to GET ALL Editors - Controller name: EditorsController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 17:11:29
+
+2020-06-20 17:11:29.3969 INFO (API Server) - Try to GET ALL Categories - Controller: CategoriesController; Actionname: GetCategories(); HTTP method : HttpGet; Time: 20.06.2020 17:11:29
+
+2020-06-20 17:11:38.4199 INFO (API Server) -Try to FIND book ; Controller name : BooksController; Actionname: Find(...); HTTP method : HttpGet; Time: 20.06.2020 17:11:38
+
+
+2020-06-20 17:11:41.8226 INFO (API Server) - Try to GET ALL Editors - Controller name: EditorsController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 17:11:41
+
+2020-06-20 17:11:41.8567 INFO (API Server) - Try to GET ALL Categories - Controller: CategoriesController; Actionname: GetCategories(); HTTP method : HttpGet; Time: 20.06.2020 17:11:41
+
+2020-06-20 17:11:47.3147 INFO (API Server) -Try to FIND book ; Controller name : BooksController; Actionname: Find(...); HTTP method : HttpGet; Time: 20.06.2020 17:11:47
+
+
+2020-06-20 17:11:50.1979 INFO (API Server) - Try to GET ALL Editors - Controller name: EditorsController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 17:11:50
+
+2020-06-20 17:11:50.2208 INFO (API Server) - Try to GET ALL Categories - Controller: CategoriesController; Actionname: GetCategories(); HTTP method : HttpGet; Time: 20.06.2020 17:11:50
+
+2020-06-20 17:11:59.3868 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 17:11:59
+
+2020-06-20 17:11:59.4851 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:11:59
+
+2020-06-20 17:11:59.4997 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:11:59
+
+2020-06-20 17:12:05.4287 INFO (API Server) - Try to GET ALL Editors - Controller name: EditorsController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 17:12:05
+
+2020-06-20 17:12:05.4480 INFO (API Server) - Try to GET ALL Categories - Controller: CategoriesController; Actionname: GetCategories(); HTTP method : HttpGet; Time: 20.06.2020 17:12:05
+
+2020-06-20 17:12:08.8005 INFO (API Server) -Try to FIND book ; Controller name : BooksController; Actionname: Find(...); HTTP method : HttpGet; Time: 20.06.2020 17:12:08
+
+
+2020-06-20 17:12:32.0739 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 17:12:32
+
+2020-06-20 17:12:32.1634 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:12:32
+
+2020-06-20 17:12:32.1776 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:12:32
+
+2020-06-20 17:12:33.7895 INFO (API Server) - Try to GET ALL Editors - Controller name: EditorsController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 17:12:33
+
+2020-06-20 17:12:33.8066 INFO (API Server) - Try to GET ALL Categories - Controller: CategoriesController; Actionname: GetCategories(); HTTP method : HttpGet; Time: 20.06.2020 17:12:33
+
+2020-06-20 17:12:40.4553 INFO (API Server) -Try to FIND book ; Controller name : BooksController; Actionname: Find(...); HTTP method : HttpGet; Time: 20.06.2020 17:12:40
+
+
+2020-06-20 17:12:53.1617 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 17:12:53
+
+2020-06-20 17:12:53.2266 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:12:53
+
+2020-06-20 17:12:53.2405 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:12:53
+
+2020-06-20 17:12:55.9057 INFO (API Server) - Try to GET ALL Editors - Controller name: EditorsController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 17:12:55
+
+2020-06-20 17:12:55.9216 INFO (API Server) - Try to GET ALL Categories - Controller: CategoriesController; Actionname: GetCategories(); HTTP method : HttpGet; Time: 20.06.2020 17:12:55
+
+2020-06-20 17:13:02.3137 INFO (API Server) -Try to FIND book ; Controller name : BooksController; Actionname: Find(...); HTTP method : HttpGet; Time: 20.06.2020 17:13:02
+
+
+2020-06-20 17:13:09.2079 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 17:13:09
+
+2020-06-20 17:13:09.2865 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:13:09
+
+2020-06-20 17:13:09.2865 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:13:09
+
+2020-06-20 17:13:11.2333 INFO (API Server) -Try to GET book 216(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 17:13:11
+
+2020-06-20 17:13:11.3250 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 17:13:11
+
+2020-06-20 17:13:11.3489 INFO (API Server) - Try to GET ALL StockHistories - Controller name: StockHistoriesController; Actionname: GetBookStockHistory(); HTTP method : HttpGet; Time: 20.06.2020 17:13:11
+
+2020-06-20 17:13:42.8221 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 17:13:42
+
+2020-06-20 17:13:42.8933 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:13:42
+
+2020-06-20 17:13:42.9159 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:13:42
+
+2020-06-20 17:14:00.8712 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 17:14:00
+
+2020-06-20 17:14:29.3789 INFO Log Information(API Server) -Try to POST book 0(Id) - Controller : BooksController; Actionname: Post(...); HTTP method : HttpPost; Time: 20.06.2020 17:14:29
+
+2020-06-20 17:14:29.5922 INFO (API Server) -Try to POST Image - Controller name: ImageController; Actionname: Post(...); HTTP method : HttpPost; Time: 20.06.2020 17:14:29
+
+2020-06-20 17:14:29.6235 INFO (API Server) -Try to POST StockHistory 0 (Id) - Controller : StockHistoriesController; Actionname: PostStockHistory(...); HTTP method : HttpPost; Time: 20.06.2020 17:14:29
+
+2020-06-20 17:14:29.6694 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:14:29
+
+2020-06-20 17:14:29.6855 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:14:29
+
+2020-06-20 17:14:29.7017 INFO (API Server) -Try to GET book 276(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 17:14:29
+
+2020-06-20 17:14:35.4555 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 17:14:35
+
+2020-06-20 17:14:35.5370 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:14:35
+
+2020-06-20 17:14:35.5370 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:14:35
+
+2020-06-20 17:14:38.9642 INFO (API Server) -Try to GET book 276(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 20.06.2020 17:14:38
+
+2020-06-20 17:14:38.9824 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 17:14:38
+
+2020-06-20 17:14:38.9998 INFO (API Server) - Try to GET ALL StockHistories - Controller name: StockHistoriesController; Actionname: GetBookStockHistory(); HTTP method : HttpGet; Time: 20.06.2020 17:14:38
+
+2020-06-20 17:14:47.5582 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 17:14:47
+
+2020-06-20 17:14:47.6294 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:14:47
+
+2020-06-20 17:14:47.6505 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:14:47
+
+2020-06-20 17:14:49.7272 INFO (API Server) - Try to GET ALL Editors - Controller name: EditorsController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 17:14:49
+
+2020-06-20 17:14:49.7423 INFO (API Server) - Try to GET ALL Categories - Controller: CategoriesController; Actionname: GetCategories(); HTTP method : HttpGet; Time: 20.06.2020 17:14:49
+
+2020-06-20 17:14:53.3664 INFO (API Server) -Try to FIND book ; Controller name : BooksController; Actionname: Find(...); HTTP method : HttpGet; Time: 20.06.2020 17:14:53
+
+
+2020-06-20 17:14:58.0732 INFO (API Server) - Try to GET ALL Editors - Controller name: EditorsController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 20.06.2020 17:14:58
+
+2020-06-20 17:14:58.0881 INFO (API Server) - Try to GET ALL Categories - Controller: CategoriesController; Actionname: GetCategories(); HTTP method : HttpGet; Time: 20.06.2020 17:14:58
+
+2020-06-20 17:15:07.5651 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:15:07
+
+2020-06-20 17:15:07.5886 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:15:07
+
+2020-06-20 17:15:18.5632 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:15:18
+
+2020-06-20 17:15:18.5772 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:15:18
+
+2020-06-20 17:15:21.0788 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 17:15:21
+
+2020-06-20 17:15:24.0880 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:15:24
+
+2020-06-20 17:15:24.1074 INFO (API Server) - Try to GET ALL Users - Controller name: AspNetUsersController; Actionname: GetAspNetUsers(); HTTP method : HttpGet; Time: 20.06.2020 17:15:24
+
+2020-06-20 17:15:28.5183 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:15:28
+
+2020-06-20 17:15:28.5325 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:15:28
+
+2020-06-20 17:15:30.7059 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:15:30
+
+2020-06-20 17:15:30.7252 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:15:30
+
+2020-06-20 17:15:32.4652 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 20.06.2020 17:15:32
+
+2020-06-20 17:15:32.5251 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:15:32
+
+2020-06-20 17:15:32.5378 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:15:32
+
+2020-06-20 17:15:34.4722 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:15:34
+
+2020-06-20 17:15:34.4858 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:15:34
+
+2020-06-20 17:15:35.7866 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:15:35
+
+2020-06-20 17:15:35.7866 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:15:35
+
+2020-06-20 17:16:46.6481 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:16:46
+
+2020-06-20 17:16:46.6777 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:16:46
+
+2020-06-20 17:16:48.4815 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:16:48
+
+2020-06-20 17:16:48.4952 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:16:48
+
+2020-06-20 17:16:51.3100 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:16:51
+
+2020-06-20 17:16:51.3233 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:16:51
+
+2020-06-20 17:16:52.6778 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:16:52
+
+2020-06-20 17:16:52.6778 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:16:52
+
+2020-06-20 17:17:18.5288 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:17:18
+
+2020-06-20 17:17:18.5839 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:17:18
+
+2020-06-20 17:21:14.2545 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:21:13
+
+2020-06-20 17:21:14.3831 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:21:14
+
+2020-06-20 17:21:21.4847 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:21:21
+
+2020-06-20 17:21:21.5245 INFO (API Server) - Try to GET ALL Order of User c9ec883f-dc10-476f-8d41-a79106fcfde6 (Id) - Controller: OrdersController; Actionname: GetOrdersWithUser(id); HTTP method : HttpGet; Route : /Commandes/id ;  Time: 20.06.2020 17:21:21
+
+2020-06-20 17:21:28.0474 INFO (API Server) -Try to GET Payment's Details 20 (Id) - Controller name: PaymentsController; Actionname: GetPaymentDetails(id); HTTP method : HttpGet; Time: 20.06.2020 17:21:28
+
+2020-06-20 17:21:31.8451 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:21:31
+
+2020-06-20 17:21:31.8639 INFO (API Server) - Try to GET ALL Order of User c9ec883f-dc10-476f-8d41-a79106fcfde6 (Id) - Controller: OrdersController; Actionname: GetOrdersWithUser(id); HTTP method : HttpGet; Route : /Commandes/id ;  Time: 20.06.2020 17:21:31
+
+2020-06-20 17:21:41.6523 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 20.06.2020 17:21:41
+
+2020-06-20 17:21:41.6692 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 20.06.2020 17:21:41
+
