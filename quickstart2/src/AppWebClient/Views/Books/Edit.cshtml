@@ -104,9 +104,9 @@
                 <div class="col">
                     @if (@Model.DatePublication != null)
                     {
-                        @Html.TextBoxFor(model => model.DatePublication, "{0:dd.MM.yyyy}", new { @class = "form-control datepicker" }) }
-                    else
-                    { <input type="date" asp-for="DatePublication" class="form-control" value="/" />}
+        @Html.TextBoxFor(model => model.DatePublication, "{0:dd.MM.yyyy}", new { @class = "form-control datepicker" }) }
+    else
+    { <input type="date" asp-for="DatePublication" class="form-control" value="/" />}
                 </div>
                 <div class="col">
                     <span asp-validation-for="DatePublication" class="text-danger"></span>
@@ -121,9 +121,9 @@
                 <div class="col">
                     @if (@Model.Subtitle != null)
                     {
-                        <input asp-for="Subtitle" class="form-control" /> }
-                    else
-                    { <input asp-for="Subtitle" class="form-control" value="/" />}
+        <input asp-for="Subtitle" class="form-control" /> }
+    else
+    { <input asp-for="Subtitle" class="form-control" value="/" />}
                 </div>
                 <div class="col">
                     <span asp-validation-for="Subtitle" class="text-danger"></span>
@@ -137,9 +137,9 @@
                 <div class="col">
                     @if (@Model.Summary != null)
                     {
-                        <textarea asp-for="Summary" class="form-control"></textarea> }
-                    else
-                    { <input asp-for="Summary" class="form-control" value="/" />}
+        <textarea asp-for="Summary" class="form-control"></textarea> }
+    else
+    { <input asp-for="Summary" class="form-control" value="/" />}
                 </div>
                 <div class="col">
                     <span asp-validation-for="Summary" class="text-danger"></span>
@@ -160,11 +160,11 @@
 
                     @if (@Model.Cowriters.Count > 0)
                     {
-                        @foreach (var cowriter in Model.Cowriters)
-                        {
-                            <text> @cowriter.IdAuthorNavigation.Firstname @cowriter.IdAuthorNavigation.Lastname</text><br />} }
-                    else
-                    {<text>/</text>}
+        @foreach (var cowriter in Model.Cowriters)
+        {
+<text> @cowriter.IdAuthorNavigation.Firstname @cowriter.IdAuthorNavigation.Lastname</text><br />} }
+    else
+    {<text>/</text>}
                 </div>
                 <div class="col">
                     <span asp-validation-for="@Model.Cowriters" class="text-danger"></span>
@@ -210,24 +210,20 @@
             <tbody>
                 @if (ViewBag.stockHistory != null)
                 {
-                    @foreach (var elem in ViewBag.stockHistory)
+    @foreach (var elem in ViewBag.stockHistory)
+    {
+<tr>
+    <th scope="row">@elem.TransactionDate</th>
+    <td>@elem.TransactionStock</td>
+    <td>
+        @if (elem.TransactionType == 1)
+        {
+<span>Vente</span> }
+                    else
                     {
-                    <tr>
-                        <th scope="row">@elem.TransactionDate</th>
-                        <td>@elem.TransactionStock</td>
-                        <td>
-                            @if (elem.TransactionType == 1)
-                            {
-                                <span>Vente</span>
-                            }
-                            else
-                            {
-                                <span>Mise à jour du stock</span>
-                            }
-                        </td>
-                    </tr>
-                    }
-                }
+<span>Mise à jour du stock</span>}
+    </td>
+</tr>}}
             </tbody>
         </table>
     </div>
@@ -241,3 +237,7 @@
 </div>
 
 @* JS pour l'historique du stock *@
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
