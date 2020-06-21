@@ -14,9 +14,11 @@ namespace AppWebClient.Models
         [Key]
         public int Id { get; set; }
         [Required]
+        [Display(Name = "Nom de famille")]
         [StringLength(100)]
         public string Lastname { get; set; }
         [Required]
+        [Display(Name = "Prénom")]
         [StringLength(100)]
         public string Firstname { get; set; }
 
