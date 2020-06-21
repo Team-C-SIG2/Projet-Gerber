@@ -1,13 +1,18 @@
-﻿using Api.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
 
 namespace Api.Controllers
 {
+
+using Api.Models;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using NLog;
+    using System;
+    using Microsoft.AspNetCore.Http;
 
     [Route("api/[controller]")]
     [ApiController]
@@ -15,12 +20,14 @@ namespace Api.Controllers
     public class AppreciationsController : ControllerBase
     {
 
+        // NLog 
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
+
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Initialize the Database Context 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         private readonly ESBookshopContext _context;
-
 
         public AppreciationsController(ESBookshopContext context)
         {
@@ -36,41 +43,81 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Appreciation>>> GetAppreciations()
         {
+            // NLog 
+            string message = $"(API Server) - Try to GET ALL Appreciations - Controller: AppreciationsController; " +
+                $"Actionname: GetAppreciations(); HTTP method : HttpGet; Time: " + DateTime.Now + "\n";
+            _logger.Info(message);
 
 
-            var items =
-                (from i in _context.Appreciations
-                 select new Appreciation()
-                 {
-                     Id = i.Id,
-                     Evaluation = i.Evaluation,
-                     IdLineItem = i.IdLineItem,
+            IQueryable<Appreciation> items = null;
+            try
+            {
+                items =
+                    (from i in _context.Appreciations
+                     select new Appreciation()
+                     {
+                         Id = i.Id,
+                         Evaluation = i.Evaluation,
+                         IdLineItem = i.IdLineItem,
 
-                     IdLineItemNavigation = (from a in _context.LineItems
-                                             where a.Id == i.IdLineItem
-                                             select a).FirstOrDefault(),
+                         IdLineItemNavigation = (from a in _context.LineItems
+                                                 where a.Id == i.IdLineItem
+                                                 select a).FirstOrDefault(),
 
-                     IdOrderNavigation = (from o in _context.Orders
-                                          where o.Id == i.IdOrder
-                                          select o).FirstOrDefault(),
+                         IdOrderNavigation = (from o in _context.Orders
+                                              where o.Id == i.IdOrder
+                                              select o).FirstOrDefault(),
 
-                     IdOrder = i.IdOrder,
-                     IdPayment = i.IdPayment,
+                         IdOrder = i.IdOrder,
+                         IdPayment = i.IdPayment,
 
 
-                     IdPaymentNavigation = (from p in _context.Payments
-                                            where p.Id == i.IdPayment
-                                            select (new Payment()
-                                            {
-                                                Id = p.Id
-                                            })
-                                            ).FirstOrDefault()
+                         IdPaymentNavigation = (from p in _context.Payments
+                                                where p.Id == i.IdPayment
+                                                select (new Payment()
+                                                {
+                                                    Id = p.Id
+                                                })
+                                                ).FirstOrDefault()
 
-                 });
+                     });
+            }
+            catch (Exception ex)
+            {
+                // NLog Framework Call 
 
+                // LOG INFO 
+                _logger.Info("INFORMATION DETAILS, Exception occured during operation : " + message);
+                _logger.Info("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG WARN
+                _logger.Warn("WARNING DETAILS, Exception occured during operation : " + message);
+                _logger.Warn("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+
+                // LOG ERROR
+                _logger.Error("ERROR DETAILS, Exception occured during operation : " + message);
+                _logger.Error("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+
+                // LOG TRACE 
+                _logger.Trace("WARNING DETAILS, Exception occured during operation : " + message);
+                _logger.Trace("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+
+                // LOG FATAL
+                _logger.Fatal("FATAL DETAILS, Exception occured during operation : " + message);
+                _logger.Fatal("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+
+                // LOG DEGUG 
+                _logger.Debug("DEGUG DETAILS, Exception occured during operation : " + message);
+                _logger.Debug("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
 
             return await items.ToListAsync();
-
         }
 
 
@@ -82,19 +129,54 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Appreciation>> ReadRessource(int? id) // int ? - supprimé
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            // NLog 
+            string message = $"(API Server) -Try to GET Appreciation " + id + "(Id) - Controller name: AppreciationsController; " +
+                "Actionname: ReadRessource(...); HTTP method : HttpGet; Time: " + DateTime.Now + "\n";
+            _logger.Info(message);
 
-            var appreciation = await _context.Appreciations
-                .Include(a => a.IdLineItemNavigation)
-                .Include(a => a.IdOrderNavigation)
-                .Include(a => a.IdPaymentNavigation)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (appreciation == null)
+
+            Appreciation appreciation = new Appreciation();
+            try
             {
-                return NotFound();
+                appreciation = await _context.Appreciations
+                    .Include(a => a.IdLineItemNavigation)
+                    .Include(a => a.IdOrderNavigation)
+                    .Include(a => a.IdPaymentNavigation)
+                    .FirstOrDefaultAsync(m => m.Id == id);
+            }
+            catch (Exception ex)
+            {
+                // NLog Framework Call 
+
+                // LOG INFO 
+                _logger.Info("INFORMATION DETAILS, Exception occured during operation : " + message);
+                _logger.Info("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG WARN
+                _logger.Warn("WARNING DETAILS, Exception occured during operation : " + message);
+                _logger.Warn("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+
+                // LOG ERROR
+                _logger.Error("ERROR DETAILS, Exception occured during operation : " + message);
+                _logger.Error("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+
+                // LOG TRACE 
+                _logger.Trace("WARNING DETAILS, Exception occured during operation : " + message);
+                _logger.Trace("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+
+                // LOG FATAL
+                _logger.Fatal("FATAL DETAILS, Exception occured during operation : " + message);
+                _logger.Fatal("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+
+                // LOG DEGUG 
+                _logger.Debug("DEGUG DETAILS, Exception occured during operation : " + message);
+                _logger.Debug("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
 
             return appreciation;
@@ -109,32 +191,63 @@ namespace Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAppreciations(int id, Appreciation appreciation)
         {
-            if (id != appreciation.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(appreciation).State = EntityState.Modified;
+            // NLog 
+            string message = $"(API Server) -Try to PUT (update) Appreciation " + id + "(Id) - Controller : AppreciationsController; " +
+                "Actionname: Put(...); HTTP method : HttpPut; Time: " + DateTime.Now + "\n";
+            _logger.Info(message);
 
             try
             {
+                _context.Entry(appreciation).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
+
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException ex)
             {
-                if (!AppreciationExists(id))
+
+                // NLog Framework Call 
+
+                // LOG INFO 
+                _logger.Info("INFORMATION DETAILS, Exception occured during operation : " + message);
+                _logger.Info("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG WARN
+                _logger.Warn("WARNING DETAILS, Exception occured during operation : " + message);
+                _logger.Warn("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+
+                // LOG ERROR
+                _logger.Error("ERROR DETAILS, Exception occured during operation : " + message);
+                _logger.Error("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+
+                // LOG TRACE 
+                _logger.Trace("WARNING DETAILS, Exception occured during operation : " + message);
+                _logger.Trace("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+
+                // LOG FATAL
+                _logger.Fatal("FATAL DETAILS, Exception occured during operation : " + message);
+                _logger.Fatal("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+
+                // LOG DEGUG 
+                _logger.Debug("DEGUG DETAILS, Exception occured during operation : " + message);
+                _logger.Debug("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                if (id != appreciation.Id)
                 {
-                    return NotFound();
+                    return BadRequest();
                 }
                 else
                 {
-                    throw;
+                    return NotFound();
                 }
+
             }
 
             return NoContent();
         }
-
 
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -146,12 +259,58 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<ActionResult<Category>> PostAppreciations(Appreciation appreciation)
         {
-            _context.Appreciations.Add(appreciation);
-            await _context.SaveChangesAsync();
+            // NLog 
+            string message = $"Log Information(API Server) -Try to POST Appreciation " + appreciation.Id + "(Id) - Controller : AppreciationsController; " +
+                "Actionname: Post(...); HTTP method : HttpPost; Time: " + DateTime.Now + "\n";
+            _logger.Info(message);
 
-            return CreatedAtAction("GetAppreciations", new { id = appreciation.Id }, appreciation);
+            try
+            {
+                _context.Appreciations.Add(appreciation);
+                await _context.SaveChangesAsync();
+
+                _context.Entry(appreciation).GetDatabaseValues();
+                return CreatedAtAction("GetAppreciations", new { id = appreciation.Id }, appreciation);
+            }
+            catch (Exception ex)
+            {
+
+                // NLog Framework Call 
+
+                // LOG INFO 
+                _logger.Info("INFORMATION DETAILS, Exception occured during operation : " + message);
+                _logger.Info("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG WARN
+                _logger.Warn("WARNING DETAILS, Exception occured during operation : " + message);
+                _logger.Warn("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG ERROR
+                _logger.Error("ERROR DETAILS, Exception occured during operation : " + message);
+                _logger.Error("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG TRACE 
+                _logger.Trace("WARNING DETAILS, Exception occured during operation : " + message);
+                _logger.Trace("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG FATAL
+                _logger.Fatal("FATAL DETAILS, Exception occured during operation : " + message);
+                _logger.Fatal("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG DEGUG 
+                _logger.Debug("DEGUG DETAILS, Exception occured during operation : " + message);
+                _logger.Debug("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                if (AppreciationExists(appreciation.Id))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                }
+            }
         }
-
 
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -162,14 +321,69 @@ namespace Api.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Appreciation>> DeleteAppreciations(int id)
         {
-            var appreciation = await _context.Appreciations.FindAsync(id);
-            if (appreciation == null)
-            {
-                return NotFound();
-            }
 
-            _context.Appreciations.Remove(appreciation);
-            await _context.SaveChangesAsync();
+            // NLog 
+            string message = $"(API Server) -Try to DELETE an Appreciation " + id + "(Id) - Controller : AppreciationsController; " +
+                "Actionname: DeleteAppreciations(...); HTTP method : HttpDelete; Time: " + DateTime.Now + "\n";
+            _logger.Info(message);
+
+            Appreciation appreciation = null;
+            try
+            {
+                // Find Appreciation 
+                appreciation = await _context.Appreciations.FindAsync(id);
+
+                // Remove Appreciation 
+                _context.Appreciations.Remove(appreciation);
+                await _context.SaveChangesAsync();
+
+                // GET UPDATED DB VALUES 
+                _context.Entry(appreciation).GetDatabaseValues();
+
+            }
+            catch (Exception ex)
+            {
+                // NLog Framework Call 
+
+                // LOG INFO 
+                _logger.Info("INFORMATION DETAILS, Exception occured during operation : " + message);
+                _logger.Info("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG WARN
+                _logger.Warn("WARNING DETAILS, Exception occured during operation : " + message);
+                _logger.Warn("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+
+                // LOG ERROR
+                _logger.Error("ERROR DETAILS, Exception occured during operation : " + message);
+                _logger.Error("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+
+                // LOG TRACE 
+                _logger.Trace("WARNING DETAILS, Exception occured during operation : " + message);
+                _logger.Trace("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+
+                // LOG FATAL
+                _logger.Fatal("FATAL DETAILS, Exception occured during operation : " + message);
+                _logger.Fatal("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+
+                // LOG DEGUG 
+                _logger.Debug("DEGUG DETAILS, Exception occured during operation : " + message);
+                _logger.Debug("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+
+                if (appreciation == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                }
+
+            }
 
             return appreciation;
         }
@@ -181,9 +395,54 @@ namespace Api.Controllers
 
         private bool AppreciationExists(int id)
         {
-            return _context.Appreciations.Any(e => e.Id == id);
-        }
+            // NLog 
+            string message = $"(API Server) - Verify if  Appreciation " + id + "(Id) exists - Controller : AppreciationController; " +
+                "Actionname: AppreciationExists(...); Return: bool; Time: " + DateTime.Now + "\n";
+            _logger.Info(message);
 
+            bool exist = false;
+
+            try
+            {
+                exist = _context.Appreciations.Any(e => e.Id == id);
+            }
+            catch (Exception ex)
+            {
+                // NLog Framework Call 
+
+                // LOG INFO 
+                _logger.Info("INFORMATION DETAILS, Exception occured during operation : " + message);
+                _logger.Info("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG WARN
+                _logger.Warn("WARNING DETAILS, Exception occured during operation : " + message);
+                _logger.Warn("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+
+                // LOG ERROR
+                _logger.Error("ERROR DETAILS, Exception occured during operation : " + message);
+                _logger.Error("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+
+                // LOG TRACE 
+                _logger.Trace("WARNING DETAILS, Exception occured during operation : " + message);
+                _logger.Trace("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+
+                // LOG FATAL
+                _logger.Fatal("FATAL DETAILS, Exception occured during operation : " + message);
+                _logger.Fatal("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+
+                // LOG DEGUG 
+                _logger.Debug("DEGUG DETAILS, Exception occured during operation : " + message);
+                _logger.Debug("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                return exist = false;
+            }
+
+            return exist;
+        }
 
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -194,31 +453,153 @@ namespace Api.Controllers
 
         public async Task<ActionResult<IEnumerable<LineItem>>> GetLineItems()
         {
-            var linesItems = (from a in _context.LineItems select a).ToListAsync();
-            return await linesItems;
+            // NLog 
+            string message = $"(API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; " +
+                $"Actionname: GetLineItems(); HTTP method : HttpGet; Time: " + DateTime.Now + "\n";
+            _logger.Info(message);
+
+
+            IQueryable<LineItem> linesItems = null;
+            try
+            {
+                linesItems = (from a in _context.LineItems select a);
+            }
+            catch (Exception ex)
+            {
+                // NLog Framework Call 
+
+                // LOG INFO 
+                _logger.Info("INFORMATION DETAILS, Exception occured during operation : " + message);
+                _logger.Info("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG WARN
+                _logger.Warn("WARNING DETAILS, Exception occured during operation : " + message);
+                _logger.Warn("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG ERROR
+                _logger.Error("ERROR DETAILS, Exception occured during operation : " + message);
+                _logger.Error("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG TRACE 
+                _logger.Trace("WARNING DETAILS, Exception occured during operation : " + message);
+                _logger.Trace("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG FATAL
+                _logger.Fatal("FATAL DETAILS, Exception occured during operation : " + message);
+                _logger.Fatal("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG DEGUG 
+                _logger.Debug("DEGUG DETAILS, Exception occured during operation : " + message);
+                _logger.Debug("EXCEPTION DETAILS: " + ex.Message + "\n");
+            }
+
+            return await linesItems.ToListAsync();
         }
 
 
-
-
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // GET : GetOrders 
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////	
         [Route("GetOrders")]
 
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
-            var orders = (from a in _context.Orders select a).ToListAsync();
-            return await orders;
+
+            // NLog 
+            string message = $"(API Server) - Try to GET ALL Orders - Controller: AppreciationsController; " +
+                $"Actionname: GetOrders(); HTTP method : HttpGet; Time: " + DateTime.Now + "\n";
+            _logger.Info(message);
+
+            IQueryable<Order> orders = null;
+            try
+            {
+                orders = (from a in _context.Orders select a);
+            }
+            catch (Exception ex)
+            {
+                // NLog Framework Call 
+
+                // LOG INFO 
+                _logger.Info("INFORMATION DETAILS, Exception occured during operation : " + message);
+                _logger.Info("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG WARN
+                _logger.Warn("WARNING DETAILS, Exception occured during operation : " + message);
+                _logger.Warn("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG ERROR
+                _logger.Error("ERROR DETAILS, Exception occured during operation : " + message);
+                _logger.Error("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG TRACE 
+                _logger.Trace("WARNING DETAILS, Exception occured during operation : " + message);
+                _logger.Trace("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG FATAL
+                _logger.Fatal("FATAL DETAILS, Exception occured during operation : " + message);
+                _logger.Fatal("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG DEGUG 
+                _logger.Debug("DEGUG DETAILS, Exception occured during operation : " + message);
+                _logger.Debug("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+
+            }
+
+            return await orders.ToListAsync();
         }
 
 
-
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // GET : GetPayments
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////	
         [Route("GetPayments")]
         public async Task<ActionResult<IEnumerable<Payment>>> GetPayments()
         {
-            var payments = (from a in _context.Payments select a).ToListAsync();
-            return await payments;
+            // NLog 
+            string message = $"(API Server) - Try to GET ALL Payments - Controller: AppreciationsController; " +
+                $"Actionname: GetPayments(); HTTP method : HttpGet; Time: " + DateTime.Now + "\n";
+            _logger.Info(message);
+
+            IQueryable<Payment> payments = null;
+            try
+            {
+                payments = (from a in _context.Payments select a);
+            }
+            catch (Exception ex)
+            {
+                // NLog Framework Call 
+
+                // LOG INFO 
+                _logger.Info("INFORMATION DETAILS, Exception occured during operation : " + message);
+                _logger.Info("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG WARN
+                _logger.Warn("WARNING DETAILS, Exception occured during operation : " + message);
+                _logger.Warn("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG ERROR
+                _logger.Error("ERROR DETAILS, Exception occured during operation : " + message);
+                _logger.Error("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG TRACE 
+                _logger.Trace("WARNING DETAILS, Exception occured during operation : " + message);
+                _logger.Trace("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG FATAL
+                _logger.Fatal("FATAL DETAILS, Exception occured during operation : " + message);
+                _logger.Fatal("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                // LOG DEGUG 
+                _logger.Debug("DEGUG DETAILS, Exception occured during operation : " + message);
+                _logger.Debug("EXCEPTION DETAILS: " + ex.Message + "\n");
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+
+            return await payments.ToListAsync();
         }
-
-
 
 
 

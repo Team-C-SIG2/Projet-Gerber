@@ -1,15 +1,13 @@
-﻿using System;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using AppWebClient.Models;
+﻿using AppWebClient.Models;
 using AppWebClient.ViewModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Rotativa.AspNetCore;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace AppWebClient.Controllers
 {

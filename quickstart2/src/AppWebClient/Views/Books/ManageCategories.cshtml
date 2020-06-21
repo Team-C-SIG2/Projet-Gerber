@@ -1,0 +1,41 @@
+﻿@model IEnumerable<AppWebClient.Models.Rank>
+
+@{
+    ViewData["Title"] = "ManageCategories";
+}
+
+<h1>Categorie(s)</h1>
+<h5> Categorie(s) du livre : @ViewBag.BOOKTITLE | ISBN : @ViewBag.ISBN</h5>
+
+<p>
+    <a asp-action="CreateCategorie" asp-route-id="@ViewBag.BOOKID">Insérer</a>
+
+
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Auteur
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdCategorieNavigation.Description)
+                </td>
+                <td>
+                    <a asp-action="DeleteCategorie" asp-route-IdCategorie="@item.IdCategorie" asp-route-idBook="@item.IdBook">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Index">Retour à la liste</a>
+</div>

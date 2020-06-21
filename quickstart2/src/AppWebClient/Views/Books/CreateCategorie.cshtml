@@ -1,0 +1,47 @@
+﻿@model AppWebClient.Models.Category
+
+@{
+    ViewData["Title"] = "CreateCategorie";
+}
+
+<h1>Catégorie</h1>
+<h4> Ajout de catégorie pour le livre : @ViewBag.BOOK.Title</h4>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+
+        @* FORMULAIRE : Action du Controleur*@
+        <form asp-action="PostCategorie" asp-route-idBook="@ViewBag.BOOK.Id">
+
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+
+            @* NOUVELLE CATEGORIE *@
+            <div class="row">
+                <div class="col">
+                    <label asp-for="Id" class="control-label">Description</label>
+                </div>
+                <div class="col">
+                    <select asp-for="Id" class="form-control" asp-items="ViewBag.CATEGORIES"></select>
+                </div>
+            </div>
+            <br /> <br />
+
+
+
+            @* Bouton de validation *@
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Retour à la liste</a>
+</div>
