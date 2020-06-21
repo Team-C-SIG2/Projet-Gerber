@@ -18,16 +18,22 @@ namespace AppWebClient.Models
         [Required]
         [StringLength(450)]
         public string UserId { get; set; }
+        [Display(Name = "Date de commande")]
         [Column(TypeName = "datetime")]
         public DateTime OrderedDate { get; set; }
+        [Display(Name = "Date d'expédition")]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         [Column(TypeName = "datetime")]
         public DateTime ShippedDate { get; set; }
         [Required]
+        [Display(Name = "Adresse d'expédition")]
         [StringLength(255)]
         public string ShippingAddress { get; set; }
         [Required]
+        [Display(Name = "Statut")]
         [StringLength(25)]
         public string Status { get; set; }
+        [Display(Name = "Prix total")]
         [Column(TypeName = "money")]
         public decimal TotalPrice { get; set; }
 

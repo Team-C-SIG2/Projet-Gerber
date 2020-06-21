@@ -57,22 +57,19 @@
     <br />
     <div>
         @Html.ActionLink("Mon profil", "Index", "UserProfile")<br />
-        @Html.ActionLink("Ma wishlist", "Index", "Wishlists")<br />
         @Html.ActionLink("Mes commandes", "Index", "Orders")<br />
+        @Html.ActionLink("Ma wishlist", "Index", "Wishlists")<br />
+        @Html.ActionLink("Mon panier d'achat", "Index", "UserShoppingCarts")<br />
         <br />
         <hr />
-        @Html.ActionLink("Liste des auteurs ", "UserIndex", "Authors")<br />
         @Html.ActionLink("Liste des ouvrages", "Index", "Books")<br />
+        @Html.ActionLink("Liste des auteurs ", "UserIndex", "Authors")<br />
         @Html.ActionLink("Recherche avancée", "Search", "Books")<br />
-        <br />
-        <hr />
-        @Html.ActionLink("Panier d'achat (Utilisateur)", "Index", "UserShoppingCarts")<br />
-        @Html.ActionLink("Aide Stripe (service de paiement)", "About", "StripePay")<br />
         <br />
         <hr />
         @Html.ActionLink("A propos de nous", "About", "Home")<br />
         @Html.ActionLink("Contact", "Contact", "Home")<br />
-
+        @Html.ActionLink("Aide Stripe (service de paiement)", "About", "StripePay")<br />
         <br />
         <hr />
     </div>

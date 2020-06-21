@@ -20,11 +20,14 @@ namespace AppWebClient.Models
         public int? IdWishlist { get; set; }
         [Column("Id_Book")]
         public int IdBook { get; set; }
+        [Display(Name = "Quantité")]
         public int Quantity { get; set; }
+        [Display(Name = "Prix unitaire")]
         [Column(TypeName = "money")]
         public decimal UnitPrice { get; set; }
         [Column("Id_Order")]
         public int? IdOrder { get; set; }
+        [Display(Name = "Date de sélection")]
         [Column(TypeName = "datetime")]
         public DateTime InsertedDate { get; set; }
 
