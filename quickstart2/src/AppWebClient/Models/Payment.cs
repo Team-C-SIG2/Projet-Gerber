@@ -19,11 +19,15 @@ namespace AppWebClient.Models
         public string UserId { get; set; }
         [Column("Id_Order")]
         public int IdOrder { get; set; }
+        [Display(Name = "Date du paiement")]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         [Column(TypeName = "datetime")]
         public DateTime PaidDate { get; set; }
+        [Display(Name = "Prix total")]
         [Column(TypeName = "money")]
         public decimal PriceTotal { get; set; }
         [Required]
+        [Display(Name = "Détails")]
         public string Details { get; set; }
 
         [ForeignKey(nameof(IdOrder))]
