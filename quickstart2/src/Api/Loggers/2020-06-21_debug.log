@@ -1,0 +1,4 @@
+2020-06-21 13:11:17.2449 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 21.06.2020 13:11:15
+
+2020-06-21 13:11:17.4210 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 21.06.2020 13:11:17
+
