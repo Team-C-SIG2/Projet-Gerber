@@ -1405,7 +1405,7 @@
             string message = $"(API Server) -Try to GET Review's rating for book " + id + " (Id) - Controller : BooksController; " +
                 "Actionname: GetBookReviews(...); HTTP method : HttpGet; Time: " + DateTime.Now + "\n";
             _logger.Info(message);
-
+            int moyenne = 0;
             int somme = 0;
             try
             {
@@ -1414,17 +1414,17 @@
                                        where i.Id == id
                                        select j.Note).ToListAsync();
 
-                if (listNotes.Count == 0)
+                if (listNotes.Count() == 0)
                 {
                     somme = 0;
                 }
                 else
                 {
-                    for (int i = 0; i < listNotes.Count; i++)
+                    for (int i = 0; i < listNotes.Count(); i++)
                     {
                         somme += listNotes[i];
                     }
-                    int moyenne = somme / listNotes.Count;
+                    moyenne = somme / listNotes.Count();
                 }
             }
             catch (Exception ex)
@@ -1455,9 +1455,9 @@
                 _logger.Debug("DEGUG DETAILS, Exception occured during operation : " + message);
                 _logger.Debug("EXCEPTION DETAILS: " + ex.Message + "\n");
 
-                return somme = 0;
+                return moyenne = 0;
             }
-            return somme;
+            return moyenne;
         }
 
     }// End Class  

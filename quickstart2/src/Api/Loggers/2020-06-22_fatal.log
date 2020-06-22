@@ -1,0 +1,4 @@
+2020-06-22 13:52:39.2773 FATAL FATAL DETAILS, Exception occured during operation : (API Server) -Try to GET Reviews for book 110 (Id) - Controller : BooksController; Actionname: GetBookReviews(...); HTTP method : HttpGet; Time: 22.06.2020 13:52:39
+
+2020-06-22 13:52:39.2973 FATAL EXCEPTION DETAILS: Invalid object name 'Reviews'.
+
