@@ -128,9 +128,9 @@
                 <div class="col">
                     @if (@Model.DatePublication != null)
                     {
-        @Html.TextBoxFor(model => model.DatePublication, "{0:dd.MM.yyyy}", new { @class = "form-control datepicker" }) }
-    else
-    { <input type="date" asp-for="DatePublication" class="form-control" value="/" />}
+                        @Html.TextBoxFor(model => model.DatePublication, "{0:dd.MM.yyyy}", new { @class = "form-control datepicker" }) }
+                    else
+                    { <input type="date" asp-for="DatePublication" class="form-control" value="/" />}
                 </div>
                 <div class="col">
                     <span asp-validation-for="DatePublication" class="text-danger"></span>
@@ -148,9 +148,9 @@
                 <div class="col">
                     @if (@Model.Subtitle != null)
                     {
-        <input asp-for="Subtitle" class="form-control" /> }
-    else
-    { <input asp-for="Subtitle" class="form-control" value="/" />}
+                        <input asp-for="Subtitle" class="form-control" /> }
+                    else
+                    { <input asp-for="Subtitle" class="form-control" value="/" />}
                 </div>
                 <div class="col">
                     <span asp-validation-for="Subtitle" class="text-danger"></span>
@@ -167,9 +167,9 @@
                 <div class="col">
                     @if (@Model.Summary != null)
                     {
-        <textarea asp-for="Summary" class="form-control"></textarea> }
-    else
-    { <input asp-for="Summary" class="form-control" value="/" />}
+                        <textarea asp-for="Summary" class="form-control"></textarea> }
+                    else
+                    { <input asp-for="Summary" class="form-control" value="/" />}
                 </div>
                 <div class="col">
                     <span asp-validation-for="Summary" class="text-danger"></span>
@@ -189,11 +189,11 @@
 
                     @if (@Model.Cowriters.Count > 0)
                     {
-        @foreach (var cowriter in Model.Cowriters)
-        {
-<text> @cowriter.IdAuthorNavigation.Firstname @cowriter.IdAuthorNavigation.Lastname</text><br />} }
-    else
-    {<text>/</text>}
+                        @foreach (var cowriter in Model.Cowriters)
+                        {
+                            <text> @cowriter.IdAuthorNavigation.Firstname @cowriter.IdAuthorNavigation.Lastname</text><br />} }
+                    else
+                    {<text>/</text>}
                 </div>
                 <div class="col">
                     <span asp-validation-for="@Model.Cowriters" class="text-danger"></span>
@@ -261,7 +261,7 @@
     @* ------------------------------------------------------------------------------------------------------- *@
     @* ------------------------------------------------------------------------------------------------------- *@
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-        <table class="table">
+        <table id="table" class="compact hover stripe">
             <thead>
                 <tr>
                     <th scope="col">Date</th>
@@ -272,20 +272,21 @@
             <tbody>
                 @if (ViewBag.stockHistory != null)
                 {
-    @foreach (var elem in ViewBag.stockHistory)
-    {
-<tr>
-    <th scope="row">@elem.TransactionDate</th>
-    <td>@elem.TransactionStock</td>
-    <td>
-        @if (elem.TransactionType == 1)
-        {
-<span>Vente</span> }
-                    else
+                    @foreach (var elem in ViewBag.stockHistory)
                     {
-<span>Mise à jour du stock</span>}
-    </td>
-</tr>}}
+                        <tr>
+                            <th scope="row">@elem.TransactionDate</th>
+                            <td>@elem.TransactionStock</td>
+                            <td>
+                                @if (elem.TransactionType == 1)
+                                {
+                                    <span>Vente</span> }
+                                else
+                                {
+                                    <span>Mise à jour du stock</span>}
+                            </td>
+                        </tr>
+}}
             </tbody>
         </table>
     </div>
@@ -304,3 +305,43 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#table').DataTable({
+                dom: '<"wrapper"lipt>',
+                language: {
+                    "sEmptyTable": "Aucune donnée disponible dans le tableau",
+                    "sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+                    "sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+                    "sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ",",
+                    "sLengthMenu": "Afficher _MENU_ éléments",
+                    "sLoadingRecords": "Chargement...",
+                    "sProcessing": "Traitement...",
+                    "sSearch": "Rechercher :",
+                    "sZeroRecords": "Aucun élément correspondant trouvé",
+                    "oPaginate": {
+                        "sFirst": "Premier",
+                        "sLast": "Dernier",
+                        "sNext": "Suivant",
+                        "sPrevious": "Précédent"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                        "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+                    },
+                    "select": {
+                        "rows": {
+                            "_": "%d lignes sélectionnées",
+                            "0": "Aucune ligne sélectionnée",
+                            "1": "1 ligne sélectionnée"
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+}
