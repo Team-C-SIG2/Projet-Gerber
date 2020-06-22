@@ -653,10 +653,20 @@ namespace AppWebClient.Controllers
 
         public async Task<IActionResult> Put(int id, Book book, ICollection<IFormFile> images)
         {
+            int stockValue = 0;
             string uri = _url + id;
 
             string accessToken = await HttpContext.GetTokenAsync("access_token");
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            string uri2 = _url + "GetOneBook/" + id;
+
+            string content = await _client.GetStringAsync(_configuration["URLApi"] + uri2);
+            Book originBook = JsonConvert.DeserializeObject<Book>(content);
+
+            if (book.Stock >= 0) {
+                stockValue = book.Stock;
+            }
 
             Book b = new Book
             {
@@ -668,7 +678,7 @@ namespace AppWebClient.Controllers
                 DatePublication = book.DatePublication,
                 Summary = book.Summary,
                 Isbn = book.Isbn,
-                Stock = book.Stock
+                Stock = stockValue
             };
 
             HttpResponseMessage response = await _client.PutAsJsonAsync(_configuration["URLApi"] + uri, b);
@@ -695,17 +705,17 @@ namespace AppWebClient.Controllers
                     var responseImg = await _client.PostAsync(_configuration["URLApi"] + "api/image/" + id, contentImg);
                 }
             }
+            if (originBook.Stock != stockValue) {
+                StockHistory sh = new StockHistory
+                {
+                    IdBook = book.Id,
+                    TransactionDate = DateTime.Now,
+                    TransactionStock = book.Stock
+                };
 
-            StockHistory sh = new StockHistory
-            {
-                IdBook = book.Id,
-                TransactionDate = DateTime.Now,
-                TransactionStock = book.Stock
-            };
-
-            HttpResponseMessage responseStock = await _client.PostAsJsonAsync(_configuration["URLApi"] + "api/StockHistories", sh);// HTTP GET
-            responseStock.EnsureSuccessStatusCode();
-
+                HttpResponseMessage responseStock = await _client.PostAsJsonAsync(_configuration["URLApi"] + "api/StockHistories", sh);// HTTP GET
+                responseStock.EnsureSuccessStatusCode();
+            }
             return RedirectToAction("Details", "Books", new { id = book.Id });
         }
 

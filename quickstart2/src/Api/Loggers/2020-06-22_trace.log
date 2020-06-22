@@ -597,3 +597,45 @@
 
 2020-06-22 15:43:15.2918 INFO (API Server) -Try to GET Review's rating for book 105 (Id) - Controller : BooksController; Actionname: GetBookReviews(...); HTTP method : HttpGet; Time: 22.06.2020 15:43:15
 
+2020-06-22 18:18:05.7804 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 22.06.2020 18:18:04
+
+2020-06-22 18:18:06.1892 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 22.06.2020 18:18:06
+
+2020-06-22 18:18:13.5797 INFO (API Server) - Try to GET ALL books - Controller name: BooksController; Actionname: GetAll(); HTTP method : HttpGet; Time: 22.06.2020 18:18:13
+
+2020-06-22 18:18:31.5148 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 22.06.2020 18:18:31
+
+2020-06-22 18:18:31.6367 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 22.06.2020 18:18:31
+
+2020-06-22 18:18:36.6818 INFO (API Server) -Try to GET book 110(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 22.06.2020 18:18:36
+
+2020-06-22 18:18:37.3879 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 22.06.2020 18:18:37
+
+2020-06-22 18:18:37.9071 INFO (API Server) - Try to GET ALL StockHistories - Controller name: StockHistoriesController; Actionname: GetBookStockHistory(); HTTP method : HttpGet; Time: 22.06.2020 18:18:37
+
+2020-06-22 18:19:08.0051 INFO (API Server) -Try to GET book 110(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 22.06.2020 18:19:08
+
+2020-06-22 18:19:08.4152 INFO (API Server) -Try to update book 110(Id) - Controller : BooksController; Actionname: Put(...); HTTP method : HttpGet; Time: 22.06.2020 18:19:08
+
+2020-06-22 18:19:09.1883 INFO (API Server) -Try to POST Image - Controller name: ImageController; Actionname: Post(...); HTTP method : HttpPost; Time: 22.06.2020 18:19:09
+
+2020-06-22 18:19:09.3364 INFO (API Server) -Try to POST StockHistory 0 (Id) - Controller : StockHistoriesController; Actionname: PostStockHistory(...); HTTP method : HttpPost; Time: 22.06.2020 18:19:09
+
+2020-06-22 18:19:09.8366 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 22.06.2020 18:19:09
+
+2020-06-22 18:19:09.9168 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 22.06.2020 18:19:09
+
+2020-06-22 18:19:09.9714 INFO (API Server) -Try to GET book 110(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 22.06.2020 18:19:09
+
+2020-06-22 18:19:13.8051 INFO (API Server) - Try to GET ALL LineItems - Controller: AppreciationsController; Actionname: GetLineItems(); HTTP method : HttpGet; Time: 22.06.2020 18:19:13
+
+2020-06-22 18:19:13.9293 INFO (API Server) -Try to GET Connected User's Role  - Controller : AspNetUserRolesController; Actionname: GetUserRole(...); HTTP method : HttpGet; Time: 22.06.2020 18:19:13
+
+2020-06-22 18:19:14.1086 INFO (API Server) -Try to GET book 110(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 22.06.2020 18:19:14
+
+2020-06-22 18:19:19.0311 INFO (API Server) -Try to GET book 110(Id) - Controller name: BooksController; Actionname: GetBook(...); HTTP method : HttpGet; Time: 22.06.2020 18:19:19
+
+2020-06-22 18:19:19.2234 INFO (API Server) -Try to GET Editors LIST - Controller : BooksController; Actionname: GetEditors(); HTTP method : HttpGet; Time: 22.06.2020 18:19:19
+
+2020-06-22 18:19:19.4114 INFO (API Server) - Try to GET ALL StockHistories - Controller name: StockHistoriesController; Actionname: GetBookStockHistory(); HTTP method : HttpGet; Time: 22.06.2020 18:19:19
+
