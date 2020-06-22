@@ -1399,13 +1399,13 @@
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         [Route("ratingReviews/{id}")]
-        public async Task<int> GetRatingReviews(int id)
+        public async Task<float> GetRatingReviews(int id)
         {
             // NLog 
             string message = $"(API Server) -Try to GET Review's rating for book " + id + " (Id) - Controller : BooksController; " +
                 "Actionname: GetBookReviews(...); HTTP method : HttpGet; Time: " + DateTime.Now + "\n";
             _logger.Info(message);
-            int moyenne = 0;
+            float moyenne = 0;
             int somme = 0;
             try
             {
@@ -1424,7 +1424,7 @@
                     {
                         somme += listNotes[i];
                     }
-                    moyenne = somme / listNotes.Count();
+                    moyenne = (float)somme / (float)listNotes.Count();
                 }
             }
             catch (Exception ex)

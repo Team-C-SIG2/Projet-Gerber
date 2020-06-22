@@ -1182,7 +1182,7 @@ namespace AppWebClient.Controllers
             ViewBag.BookId = id;
 
             string content2 = await client.GetStringAsync(_configuration["URLApi"] + _url + "ratingReviews/" + id);
-            int rating = JsonConvert.DeserializeObject<int>(content2);
+            float rating = JsonConvert.DeserializeObject<float>(content2);
             ViewBag.rating = rating;
 
             return View(bookReviews);
