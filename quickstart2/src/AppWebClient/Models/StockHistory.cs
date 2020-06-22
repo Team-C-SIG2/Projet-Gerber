@@ -12,6 +12,7 @@ namespace AppWebClient.Models
         [Column("Id_Book")]
         public int IdBook { get; set; }
         [Column(TypeName = "datetime")]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime TransactionDate { get; set; }
         public int TransactionStock { get; set; }
         public int TransactionType { get; set; }

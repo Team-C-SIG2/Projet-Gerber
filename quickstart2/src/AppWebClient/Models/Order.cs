@@ -19,6 +19,7 @@ namespace AppWebClient.Models
         [StringLength(450)]
         public string UserId { get; set; }
         [Display(Name = "Date de commande")]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         [Column(TypeName = "datetime")]
         public DateTime OrderedDate { get; set; }
         [Display(Name = "Date d'expédition")]
