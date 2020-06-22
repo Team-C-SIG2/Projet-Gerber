@@ -710,7 +710,7 @@ namespace AppWebClient.Controllers
                 {
                     IdBook = book.Id,
                     TransactionDate = DateTime.Now,
-                    TransactionStock = book.Stock
+                    TransactionStock = stockValue
                 };
 
                 HttpResponseMessage responseStock = await _client.PostAsJsonAsync(_configuration["URLApi"] + "api/StockHistories", sh);// HTTP GET
